@@ -50,6 +50,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'dd-calendar-app'
-          slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C1F2D6BB49B642B6835CE1632D0BFB6D }}
-          package: .
+          package: ./dist/calendar-app
