@@ -15,5 +15,4 @@ export class CalendarService {
     return this.http.get<Appointment[]>(`${environment.apiUrl}/search/appointments/nearby?lat=${lat}&lng=${lng}&owner=${owner}`);
   }
 
-
 }

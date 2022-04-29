@@ -9,13 +9,18 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-b
 import {FormsModule} from "@angular/forms";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import { CustomSpinnerComponent } from './custom-spinner/custom-spinner.component';
+import { CustomSpinnerComponent } from './_components/custom-spinner/custom-spinner.component';
 import {MatIconModule} from "@angular/material/icon";
+import {OAuthModule} from "angular-oauth2-oidc";
+import { DashboardComponent } from './_components/dashboard/dashboard.component';
+import { NearbyComponent } from './_components/nearby/nearby.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomSpinnerComponent
+    CustomSpinnerComponent,
+    DashboardComponent,
+    NearbyComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +32,13 @@ import {MatIconModule} from "@angular/material/icon";
     FormsModule,
     NgbModule,
     MatProgressSpinnerModule,
-    MatIconModule
+    MatIconModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['https://api.differentdoors.nl/api'],
+        sendAccessToken: true
+      }
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

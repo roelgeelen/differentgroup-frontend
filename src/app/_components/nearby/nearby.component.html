@@ -1,0 +1,77 @@
+<div class="d-flex">
+  <div class="btn-group w-100 p-3" role="group" ngbRadioGroup name="radioBasic" [(ngModel)]="owner">
+    <label ngbButtonLabel class="btn-primary">
+      <input ngbButton type="radio" class="btn-check" [value]="238951387" (change)="onSearch()"> Sil
+    </label>
+    <label ngbButtonLabel class="btn-primary">
+      <input ngbButton type="radio" class="btn-check" [value]="260463341" (change)="onSearch()"> Harm
+    </label>
+    <label ngbButtonLabel class="btn-primary">
+      <input ngbButton type="radio" class="btn-check" [value]="289996526" (change)="onSearch()"> Sam
+    </label>
+    <label ngbButtonLabel class="btn-primary">
+      <input ngbButton type="radio" class="btn-check" [value]="289992164" (change)="onSearch()"> Patrick
+    </label>
+    <label ngbButtonLabel class="btn-primary">
+      <input ngbButton type="radio" class="btn-check" [value]="253560541" (change)="onSearch()"> Roel
+    </label>
+  </div>
+  <button class="btn btn-primary refresh-btn" (click)="onSearch()">
+    <mat-icon>refresh</mat-icon>
+  </button>
+</div>
+<input #mapSearchField class="google-search-bar" type="text" placeholder="Search" aria-label="Search"
+       aria-describedby="search-addon" [(ngModel)]="address"/>
+<google-map
+  height="500px"
+  width="100%"
+  [zoom]="zoom"
+  [center]="center"
+  [options]="options"
+>
+  <map-marker
+    #somemarker="mapMarker"
+    *ngFor="let marker of markers"
+    [position]="marker.position"
+    [label]="marker.label"
+    [title]="marker.title"
+    [options]="marker.options"
+    (mapClick)="openInfo(somemarker, marker.info)"
+  >
+  </map-marker>
+  <map-circle
+    *ngFor="let rad of radius"
+    [center]="rad.center"
+    [radius]="rad.radius"
+    [options]="rad.options"></map-circle>
+  <map-info-window>{{ infoContent }}</map-info-window>
+</google-map>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Datum</th>
+    <th scope="col">Adres</th>
+    <th scope="col">Afspraak</th>
+    <th scope="col">Afstand in KM</th>
+  </tr>
+  </thead>
+  <tbody *ngIf="!loading">
+  <tr *ngFor="let appointment of appointments; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>{{ appointment.start.dateTime | date: 'dd-MM-yyyy hh:mm' }}</td>
+    <td>{{ appointment.location.displayName }}</td>
+    <td>{{ appointment.subject }}</td>
+    <td>{{ appointment.distance | number:'1.1-2' }}</td>
+  </tr>
+  <tr *ngIf="appointments.length === 0">
+    <td colspan="5" class="text-center">Niks gevonden!</td>
+  </tr>
+  </tbody>
+</table>
+<div class="text-center w-100">
+  <app-custom-spinner *ngIf="loading" class="text-center"></app-custom-spinner>
+</div>
+
+
