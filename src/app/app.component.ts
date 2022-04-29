@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core'
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core'
 import {MapInfoWindow, MapMarker, GoogleMap} from '@angular/google-maps'
 import {CalendarService} from "./_services/calendar.service";
 import {Appointment} from "./_models/appointment/Appointment";
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
   owner = 253560541;
   address: string = '';
 
-  constructor(private calendarService: CalendarService) {
+  constructor(@Inject(CalendarService)private calendarService: CalendarService) {
   }
 
   ngOnInit() {
