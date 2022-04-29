@@ -35,7 +35,7 @@ import { NearbyComponent } from './_components/nearby/nearby.component';
     MatIconModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['https://api.differentdoors.nl/api'],
+        allowedUrls: ['https://api.differentdoors.nl/outlook/api'],
         sendAccessToken: true
       }
     }),
