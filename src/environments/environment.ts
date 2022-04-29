@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl:"https://api.differentdoors.nl/outlook"
+  apiUrl:"https://api.differentdoors.nl/outlook/api"
 };
 
 /*
