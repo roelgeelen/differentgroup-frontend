@@ -28,4 +28,8 @@ export class GraphService {
   getOrderStatus(id: number) {
     return this.http.get<any>(`${environment.apiUrl}/order/status/${id}`)
   }
+
+  getMagazijn() {
+    return this.http.get<any>(`${environment.apiUrl}/stats/magazijn`)
+  }
 }

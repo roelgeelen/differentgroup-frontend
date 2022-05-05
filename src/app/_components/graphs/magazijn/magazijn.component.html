@@ -1,0 +1,16 @@
+<h1>Magazijn</h1>
+<div class="chart-box">
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <google-chart *ngIf="!loading" [type]="type" [data]="myData" [columns]="chartColumns" [options]="myOptions" [dynamicResize]="dynamicResize"></google-chart>
+</div>
+
+<div class="totals">
+  <div class="round">Binnen<br>
+    <mat-spinner diameter="75" *ngIf="loading"></mat-spinner>
+    <span>{{value}}</span>
+  </div>
+  <div class="round">Verwacht<br>
+    <mat-spinner diameter="75" *ngIf="loading"></mat-spinner>
+    <span>{{valueExpected}}</span>
+  </div>
+</div>

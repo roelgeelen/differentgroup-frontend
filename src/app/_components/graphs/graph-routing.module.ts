@@ -4,6 +4,7 @@ import {GraphComponent} from "./graph.component";
 import {ProductionComponent} from "./production/production.component";
 import {InmetenComponent} from "./inmeten/inmeten.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {MagazijnComponent} from "./magazijn/magazijn.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'inmeten',
         component: InmetenComponent
+      },
+      {
+        path: 'magazijn',
+        component: MagazijnComponent
       }
     ]
   }

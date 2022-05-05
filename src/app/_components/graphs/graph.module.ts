@@ -12,6 +12,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {GoogleChartsModule} from "angular-google-charts";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {MatTableModule} from "@angular/material/table";
+import {MagazijnComponent} from "./magazijn/magazijn.component";
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import {MatTableModule} from "@angular/material/table";
   declarations: [
     GraphComponent,
     ProductionComponent,
+    MagazijnComponent,
     InmetenComponent,
     DashboardComponent
   ],
