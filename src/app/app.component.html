@@ -1,24 +1,48 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">
-    <img src="/assets/images/img.png" height="50" alt="">
-  </a>
-  <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="/dashboard">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/nearby">Afspraken dichtbij zoeken</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav user-profile text-white">
-      <li class="nav-item active">
-        <span>Roel Geelen</span>
-      </li>
-    </ul>
+<mat-toolbar color="primary" *ngIf="isUser">
+  <img src="/assets/images/img.png" height="50" alt="">
+  <button mat-button routerLink="/dashboard">Dashboard</button>
+  <button mat-button [matMenuTriggerFor]="graphsMenu">Grafieken</button>
+  <mat-menu class="profile-menu" #graphsMenu="matMenu">
+    <a mat-menu-item routerLink="/graph/production">
+      <mat-icon>bar_chart</mat-icon>
+      Productie
+    </a>
+    <a mat-menu-item routerLink="/graph/inmeten">
+      <mat-icon>table_chart</mat-icon>
+      Inmeten
+    </a>
+  </mat-menu>
+  <button mat-button routerLink="/nearby">Afspraken dichtbij zoeken</button>
+  <span class="nav-spacer"></span>
+  <div class="media align-items-center user-profile" [matMenuTriggerFor]="loginMenu">
+          <span class="avatar avatar-sm rounded-circle">
+            <img [src]="currentUser.image">
+          </span>
+    <span class="mb-0 text-sm  font-weight-bold">{{currentUser.name}}</span>
   </div>
-</nav>
+  <mat-menu class="profile-menu" #loginMenu="matMenu">
+    <a mat-menu-item href="https://myaccount.microsoft.com/" target="_blank">
+      <mat-icon>perm_identity</mat-icon>
+      Mijn account
+    </a>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      logout
+    </button>
+  </mat-menu>
+</mat-toolbar>
 
-<router-outlet></router-outlet>
+<div class="minHeight">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- credits -->
+<div class="footer">
+  <div id="development">
+    <a class="" rel="nofollow">
+      <span>Different group v0.0.1</span><br>
+    </a>
+  </div>
+</div>
 
 

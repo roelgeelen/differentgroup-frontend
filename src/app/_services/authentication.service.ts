@@ -17,12 +17,13 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
+  login() {
+    this.currentUserSubject.next(this.convertTokenToUser());
   }
 
   convertTokenToUser(): User {
     const user: User = new User();
+    console.log(this.oauthService.getAccessToken())
     if (this.oauthService.getAccessToken()) {
       const token: Token = this.getDecodedAccessToken(this.oauthService.getAccessToken());
       user.name = token.name;

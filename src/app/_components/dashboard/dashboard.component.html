@@ -1,1 +1,21 @@
-<h1>Welkom, {{currentUser.name}}</h1>
+<div class="content">
+  <div class="layout-content">
+    <mat-card>
+      <h1 class="card-header">Welkom, {{currentUser.name}}</h1>
+      <div class="card-body">
+
+      </div>
+    </mat-card>
+
+    <div class="card-links">
+      <mat-card class="mat-elevation-z4" *ngFor="let link of links">
+        <div class="img">
+          <img mat-card-image [src]="link.img">
+        </div>
+        <mat-card-actions>
+          <a mat-raised-button color="primary" target="_blank" [href]="link.link">Ga naar {{link.title}}</a>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

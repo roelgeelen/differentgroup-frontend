@@ -5,20 +5,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GoogleMapsModule } from '@angular/google-maps'
 import { HttpClientModule } from '@angular/common/http';
-import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from "@angular/forms";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import { CustomSpinnerComponent } from './_components/custom-spinner/custom-spinner.component';
 import {MatIconModule} from "@angular/material/icon";
 import {OAuthModule} from "angular-oauth2-oidc";
 import { DashboardComponent } from './_components/dashboard/dashboard.component';
 import { NearbyComponent } from './_components/nearby/nearby.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
+import {environment} from "../environments/environment";
+import {MatCardModule} from "@angular/material/card";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomSpinnerComponent,
     DashboardComponent,
     NearbyComponent
   ],
@@ -28,19 +31,24 @@ import { NearbyComponent } from './_components/nearby/nearby.component';
     AppRoutingModule,
     GoogleMapsModule,
     HttpClientModule,
-    NoopAnimationsModule,
     FormsModule,
     NgbModule,
-    MatProgressSpinnerModule,
     MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatCardModule,
+    MatToolbarModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['https://api.differentdoors.nl/outlook/api'],
+        allowedUrls: [environment.apiUrl],
         sendAccessToken: true
       }
     }),
+    MatProgressSpinnerModule,
   ],
   providers: [],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

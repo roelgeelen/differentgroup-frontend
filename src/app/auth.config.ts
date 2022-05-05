@@ -7,5 +7,5 @@ export const authConfig: AuthConfig = {
   clientId: 'de1920f5-5c18-4314-8042-84a6b9f0944a',
   responseType: 'code',
   strictDiscoveryDocumentValidation: false,
-  scope: 'openid api://de1920f5-5c18-4314-8042-84a6b9f0944a/app',
+  scope: 'openid api://de1920f5-5c18-4314-8042-84a6b9f0944a/User.Read',
 }

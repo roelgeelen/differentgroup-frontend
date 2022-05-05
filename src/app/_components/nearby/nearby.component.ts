@@ -2,8 +2,9 @@ import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {GoogleMap, MapInfoWindow, MapMarker} from "@angular/google-maps";
 import {ProgressSpinnerMode} from "@angular/material/progress-spinner";
 import {Appointment} from "../../_models/appointment/Appointment";
-import {CalendarService} from "../../_services/calendar.service";
+import {ApiService} from "../../_services/api.service";
 import {formatDate} from "@angular/common";
+import {Calendar} from "../../_models/calendar/Calendar";
 
 @Component({
   selector: 'app-nearby',
@@ -32,13 +33,20 @@ export class NearbyComponent implements OnInit {
   radius: any[] = []
   infoContent = ''
   appointments: Appointment[] = [];
-  owner = 253560541;
+  calendars: Calendar[] = [];
+  owner: string = '';
   address: string = '';
+  loadingCals = false;
 
-  constructor(@Inject(CalendarService)private calendarService: CalendarService) {
+  constructor(@Inject(ApiService)private apiService: ApiService) {
   }
 
   ngOnInit() {
+    this.loadingCals = true;
+    this.apiService.getUserCalendars().subscribe(c => {
+      this.calendars = c;
+      this.loadingCals = false;
+    })
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = {
         lat: position.coords.latitude,
@@ -108,12 +116,12 @@ export class NearbyComponent implements OnInit {
   }
 
   onSearch() {
-    if (this.address === '') {
+    if (this.address === '' || this.owner === '') {
       return;
     }
     this.loading = true;
     this.markers = [];
-    this.calendarService.getAll(this.center.lat, this.center.lng, this.owner).subscribe(apos => {
+    this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, this.owner).subscribe(apos => {
       this.appointments = apos;
       apos.forEach(apo => {
         this.markers.push({

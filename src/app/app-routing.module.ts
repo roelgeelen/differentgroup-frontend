@@ -4,8 +4,14 @@ import {DashboardComponent} from "./_components/dashboard/dashboard.component";
 import {NearbyComponent} from "./_components/nearby/nearby.component";
 
 const routes: Routes = [
+  { path: '', component: DashboardComponent },
   { path: 'dashboard', component: DashboardComponent },
+  {
+    path: 'graph',
+    loadChildren: () => import('./_components/graphs/graph.module').then(m => m.GraphModule)
+  },
   { path: 'nearby', component: NearbyComponent },
+  {path: '**', redirectTo: ''},
 ];
 
 @NgModule({

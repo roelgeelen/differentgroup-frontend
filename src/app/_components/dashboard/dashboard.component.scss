@@ -1,0 +1,40 @@
+.card-links {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  mat-card {
+    width: 280px;
+    margin: 10px 0 10px 0;
+    .img {
+      height: 100px;
+      img {
+        transform: translateY(-50%);
+        top: 50%;
+        position: relative;
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
+}
+.mat-card {
+  .card-header {
+    background-color: transparent;
+  }
+}
+@media only screen and (max-width: 678px) {
+  .card-links {
+    justify-content: space-around;
+    mat-card {
+      width: 200px;
+    }
+  }
+}
+
+@media only screen and (max-width: 518px) {
+  .card-links {
+    mat-card {
+      width: 100%;
+    }
+  }
+}
