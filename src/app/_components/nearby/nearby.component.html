@@ -1,6 +1,6 @@
 <div class="d-flex">
   <div class="text-center w-100" *ngIf="loadingCals">
-    <mat-spinner></mat-spinner>
+    <mat-spinner diameter="50"></mat-spinner>
   </div>
   <div *ngIf="!loadingCals" class="btn-group w-100 p-3" role="group" ngbRadioGroup name="radioBasic" [(ngModel)]="owner">
     <label ngbButtonLabel class="btn-primary" *ngFor="let calendar of calendars">

@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" *ngIf="isUser">
-  <img src="/assets/images/img.png" height="50" alt="">
-  <button mat-button routerLink="/dashboard">Dashboard</button>
+  <a routerLink="/"><img src="/assets/images/img.png" height="50" alt=""></a>
+  <button mat-button routerLink="/">Dashboard</button>
   <button mat-button [matMenuTriggerFor]="graphsMenu">Grafieken</button>
   <mat-menu class="profile-menu" #graphsMenu="matMenu">
     <a mat-menu-item routerLink="/graph/production">
