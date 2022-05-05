@@ -29,7 +29,9 @@
   display: flex;
   align-items: flex-start;
 }
-
+mat-toolbar {
+  height: 80px;
+}
 .mat-toolbar.mat-primary {
   background: #231e1f;
 }
