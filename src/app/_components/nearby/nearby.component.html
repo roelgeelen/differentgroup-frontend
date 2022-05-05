@@ -14,7 +14,7 @@
 <input #mapSearchField class="google-search-bar" type="text" placeholder="Search" aria-label="Search"
        aria-describedby="search-addon" [(ngModel)]="address"/>
 <google-map
-  height="500px"
+  height="70vh"
   width="100%"
   [zoom]="zoom"
   [center]="center"
@@ -54,7 +54,7 @@
     <td>{{ appointment.start.dateTime | date: 'dd-MM-yyyy hh:mm' }}</td>
     <td>{{ appointment.location.displayName }}</td>
     <td>{{ appointment.subject }}</td>
-    <td>{{ appointment.oDataType | number:'1.1-2' }}</td>
+    <td>{{ appointment.oDataType | number:'1.0-0' }}</td>
   </tr>
   <tr *ngIf="appointments.length === 0">
     <td colspan="5" class="text-center">Niks gevonden!</td>

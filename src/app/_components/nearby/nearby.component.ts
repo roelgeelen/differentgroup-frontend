@@ -106,7 +106,7 @@ export class NearbyComponent implements OnInit {
       }
     });
 
-    this.zoom = 9;
+    this.zoom = 10;
   }
 
   openInfo(marker: MapMarker, content: any) {
