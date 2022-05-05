@@ -20,7 +20,7 @@
   <span class="nav-spacer"></span>
   <div class="media align-items-center user-profile" [matMenuTriggerFor]="loginMenu">
           <span class="avatar avatar-sm rounded-circle">
-            <img [src]="currentUser.image">
+            <img [src]="currentUser.image ? currentUser.image : 'assets/images/user_placeholder.png'">
           </span>
     <span class="mb-0 text-sm  font-weight-bold">{{currentUser.name}}</span>
   </div>
