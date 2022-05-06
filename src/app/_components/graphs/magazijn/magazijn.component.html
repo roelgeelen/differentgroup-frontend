@@ -1,7 +1,12 @@
 <h1>Magazijn</h1>
 <div class="chart-box">
   <mat-spinner *ngIf="loading"></mat-spinner>
-  <google-chart *ngIf="!loading" [type]="type" [data]="myData" [columns]="chartColumns" [options]="myOptions" [dynamicResize]="dynamicResize"></google-chart>
+  <div class="chart-scroll">
+    <div class="chart-width" id="chart-size">
+      <google-chart *ngIf="!loading" [type]="type" [data]="myData" [columns]="chartColumns" [options]="myOptions"
+                    [dynamicResize]="dynamicResize"></google-chart>
+    </div>
+  </div>
 </div>
 
 <div class="totals">

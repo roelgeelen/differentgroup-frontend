@@ -5,6 +5,7 @@ import {Appointment} from "../../_models/appointment/Appointment";
 import {ApiService} from "../../_services/api.service";
 import {formatDate} from "@angular/common";
 import {Calendar} from "../../_models/calendar/Calendar";
+import {MatSliderChange} from "@angular/material/slider";
 
 @Component({
   selector: 'app-nearby',
@@ -37,6 +38,14 @@ export class NearbyComponent implements OnInit {
   owner: string = '';
   address: string = '';
   loadingCals = false;
+  distance: number = 25;
+  formatLabel(value: number) {
+    if (value >= 10) {
+      return value + 'km';
+    }
+
+    return value;
+  }
 
   constructor(@Inject(ApiService)private apiService: ApiService) {
   }
@@ -85,20 +94,17 @@ export class NearbyComponent implements OnInit {
     });
   }
 
+  onInputChange(event: number | null) {
+    if (event != null) {
+      this.distance = event;
+    }
+  }
+
   setRadius() {
     this.radius = [];
     this.radius.push({
       center: this.center,
-      radius: 25000,
-      options: {
-        fillColor: 'orange',
-        fillOpacity: 0.10,
-        strokeColor: 'darkorange'
-      }
-    });
-    this.radius.push({
-      center: this.center,
-      radius: 20000,
+      radius: this.distance * 1000,
       options: {
         fillColor: 'green',
         fillOpacity: 0.15,
@@ -121,7 +127,7 @@ export class NearbyComponent implements OnInit {
     }
     this.loading = true;
     this.markers = [];
-    this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, this.owner).subscribe(apos => {
+    this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, this.owner, this.distance).subscribe(apos => {
       this.appointments = apos;
       apos.forEach(apo => {
         this.markers.push({

@@ -6,6 +6,14 @@
   }
 }
 
+.chart-scroll {
+  overflow: scroll;
+  overflow-y: hidden;
+  .chart-width {
+    min-width: 1000px;
+  }
+}
+
 .totals{
   text-align: center;
   display: flex;

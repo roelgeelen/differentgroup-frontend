@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Table} from "../../../_models/pages/table";
-import {GraphService} from "../../../_services/graph/graph.service";
+import {ApiService} from "../../../_services/api.service";
 
 @Component({
   selector: 'app-inmeten',
@@ -11,11 +11,11 @@ export class InmetenComponent implements OnInit {
   loading = false;
   tableData: Table[] = [];
   displayedColumns: string[] = ['deadline', 'name', 'city', 'description', 'shortDescription'];
-  constructor(private graphService: GraphService) { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.loading = true;
-    this.graphService.getOrderStatus(1).subscribe(data => {
+    this.apiService.getOrderStatus(1).subscribe(data => {
       this.tableData = data;
       this.loading = false;
     })

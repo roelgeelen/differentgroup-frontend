@@ -18,6 +18,9 @@ import {MatMenuModule} from "@angular/material/menu";
 import {environment} from "../environments/environment";
 import {MatCardModule} from "@angular/material/card";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {MatSliderModule} from "@angular/material/slider";
 
 @NgModule({
   declarations: [
@@ -38,6 +41,9 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     MatMenuModule,
     MatCardModule,
     MatToolbarModule,
+    MatSidenavModule,
+    FlexLayoutModule,
+    MatSliderModule,
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: [environment.apiUrl],

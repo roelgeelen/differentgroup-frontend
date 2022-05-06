@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ChartType} from "angular-google-charts";
-import {GraphService} from "../../../_services/graph/graph.service";
+import {ApiService} from "../../../_services/api.service";
 
 @Component({
   selector: 'app-production',
@@ -29,15 +29,14 @@ export class MagazijnComponent implements OnInit {
 
   valueExpected!: number;
   value!: number;
-  constructor(private graphService: GraphService) {
+  constructor(private apiService: ApiService) {
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.graphService.getMagazijn().subscribe(data => {
+    this.apiService.getMagazijn().subscribe(data => {
       this.chartColumns = data[0];
       this.value = data[1][1];
-      console.log(data);
       data.splice(0, 1);
       data.forEach((item: any, index: number) => {
         item[1] = +item[1]

@@ -13,8 +13,8 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  searchNearbyEvents(lat: number, lng: number, owner: string) {
-    return this.http.get<Appointment[]>(`${environment.apiUrl}/search/appointments/nearby?lat=${lat}&lng=${lng}&owner=${owner}`);
+  searchNearbyEvents(lat: number, lng: number, owner: string, distance: number) {
+    return this.http.get<Appointment[]>(`${environment.apiUrl}/search/appointments/nearby?lat=${lat}&lng=${lng}&owner=${owner}&radius=${distance}`);
   }
 
   getUserCalendars() {
@@ -23,5 +23,29 @@ export class ApiService {
 
   getProfilePicture():Observable<HttpResponse<Blob>> {
     return this.http.get(`${environment.apiUrl}/profile/picture`, {observe: 'response', responseType: 'blob'});
+  }
+
+  getProduction() {
+    return this.http.get<any>(`${environment.apiUrl}/stats/graphData`)
+  }
+
+  getTotal() {
+    return this.http.get<any>(`${environment.apiUrl}/stats/total`)
+  }
+
+  getInplan() {
+    return this.http.get<any>(`${environment.apiUrl}/stats/inplannen`)
+  }
+
+  getUB() {
+    return this.http.get<any>(`${environment.apiUrl}/stats/ub`)
+  }
+
+  getOrderStatus(id: number) {
+    return this.http.get<any>(`${environment.apiUrl}/order/status/${id}`)
+  }
+
+  getMagazijn() {
+    return this.http.get<any>(`${environment.apiUrl}/stats/magazijn`)
   }
 }

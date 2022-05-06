@@ -1,28 +1,37 @@
 <mat-toolbar color="primary" *ngIf="isUser">
+  <div fxShow="true" fxHide.gt-sm="true">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
   <a routerLink="/"><img src="/assets/images/img.png" height="50" alt=""></a>
-  <button mat-button routerLink="/">Dashboard</button>
-  <button mat-button [matMenuTriggerFor]="graphsMenu">Grafieken</button>
-  <mat-menu class="profile-menu" #graphsMenu="matMenu">
-    <a mat-menu-item routerLink="/graph/production">
-      <mat-icon>bar_chart</mat-icon>
-      Productie
-    </a>
-    <a mat-menu-item routerLink="/graph/inmeten">
-      <mat-icon>table_chart</mat-icon>
-      Inmeten
-    </a>
-    <a mat-menu-item routerLink="/graph/magazijn">
-      <mat-icon>bar_chart</mat-icon>
-      Magazijn
-    </a>
-  </mat-menu>
-  <button mat-button routerLink="/nearby">Afspraken dichtbij zoeken</button>
+  <div fxShow="true" fxHide.lt-md="true">
+    <button mat-button routerLink="/">Dashboard</button>
+    <button mat-button [matMenuTriggerFor]="graphsMenu">Grafieken</button>
+    <mat-menu class="profile-menu" #graphsMenu="matMenu">
+      <a mat-menu-item routerLink="/graph/production">
+        <mat-icon>bar_chart</mat-icon>
+        Productie</a>
+      <a mat-menu-item routerLink="/graph/inmeten">
+        <mat-icon>table_chart</mat-icon>
+        Inmeten</a>
+      <a mat-menu-item routerLink="/graph/magazijn">
+        <mat-icon>bar_chart</mat-icon>
+        Magazijn</a>
+    </mat-menu>
+    <button mat-button routerLink="/nearby">Afspraken dichtbij zoeken</button>
+  </div>
   <span class="nav-spacer"></span>
-  <div class="media align-items-center user-profile" [matMenuTriggerFor]="loginMenu">
-          <span class="avatar avatar-sm rounded-circle">
-            <img [src]="currentUser.image ? currentUser.image : 'assets/images/user_placeholder.png'">
-          </span>
+  <div fxShow="true" fxHide.lt-md="true" class="media align-items-center user-profile" [matMenuTriggerFor]="loginMenu">
+    <span class="avatar avatar-sm rounded-circle">
+      <img [src]="currentUser.image ? currentUser.image : 'assets/images/user_placeholder.png'">
+    </span>
     <span class="mb-0 text-sm  font-weight-bold">{{currentUser.name}}</span>
+  </div>
+  <div fxShow="true" fxHide.gt-sm="true" class="media align-items-center user-profile small" [matMenuTriggerFor]="loginMenu">
+    <span class="avatar avatar-sm rounded-circle">
+      <img [src]="currentUser.image ? currentUser.image : 'assets/images/user_placeholder.png'">
+    </span>
   </div>
   <mat-menu class="profile-menu" #loginMenu="matMenu">
     <a mat-menu-item href="https://myaccount.microsoft.com/" target="_blank">
@@ -36,17 +45,27 @@
   </mat-menu>
 </mat-toolbar>
 
-<div class="minHeight">
-  <router-outlet></router-outlet>
-</div>
-
-<!-- credits -->
-<div class="footer">
-  <div id="development">
-    <a class="" rel="nofollow">
-      <span>Different group v0.0.1</span><br>
-    </a>
+<mat-sidenav-container fxFlexFill class="container">
+  <mat-sidenav #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
+    <div fxLayout="column">
+      <a mat-button routerLink="/" (click)="sidenav.toggle()"><mat-icon>dashboard</mat-icon> Dashboard</a>
+      <a mat-button routerLink="/graph" (click)="sidenav.toggle()"><mat-icon> insert_chart_outlined</mat-icon> Grafieken</a>
+      <a mat-button routerLink="/nearby" (click)="sidenav.toggle()"><mat-icon> map</mat-icon> Afspraken dichtbij</a>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content fxFlexFill>
+    <div class="minHeight">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+  <!-- credits -->
+  <div class="footer">
+    <div id="development">
+      <a class="" rel="nofollow">
+        <span>Different group v0.0.1</span><br>
+      </a>
+    </div>
   </div>
-</div>
+</mat-sidenav-container>
 
 
