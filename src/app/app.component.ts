@@ -5,10 +5,11 @@ import {AuthenticationService} from "./_services/authentication.service";
 import {User} from "./_models/User";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ApiService} from "./_services/api.service";
+import {Page} from "./_models/pages/Page";
 
 const pages = [
   {url: '/', title: 'Dashboard', icon: 'dashboard'},
-  {url: '/graph', title: 'Grafieken', icon: 'insert_chart_outlined'},
+  {url: '/graph', title: 'Grafieken', icon: 'insert_chart_outlined', menu: 'graphsMenu'},
   {url: '/nearby', title: 'Afspraken dichtbij', icon: 'map'},
   {url: '/logistiek', title: 'Planning logistiek', icon: 'calendar_today'},
   {url: '/bouw', title: 'Bouw', icon: 'linked_camera'}
@@ -22,6 +23,7 @@ const pages = [
 export class AppComponent implements OnInit {
   currentUser: User;
   profilePic: Blob | null;
+  pages: Page[] = pages;
 
   constructor(
     private oauthService: OAuthService,

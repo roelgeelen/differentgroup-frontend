@@ -5,24 +5,20 @@
     </button>
   </div>
   <a routerLink="/"><img src="/assets/images/img.png" height="50" alt=""></a>
-  <div fxShow="true" fxHide.lt-md="true">
-    <button mat-button routerLink="/">Dashboard</button>
-    <button mat-button [matMenuTriggerFor]="graphsMenu">Grafieken</button>
-    <mat-menu class="profile-menu" #graphsMenu="matMenu">
-      <a mat-menu-item routerLink="/graph/production">
-        <mat-icon>bar_chart</mat-icon>
-        Productie</a>
-      <a mat-menu-item routerLink="/graph/inmeten">
-        <mat-icon>table_chart</mat-icon>
-        Inmeten</a>
-      <a mat-menu-item routerLink="/graph/magazijn">
-        <mat-icon>bar_chart</mat-icon>
-        Magazijn</a>
-    </mat-menu>
-    <button mat-button routerLink="/nearby">Afspraken dichtbij zoeken</button>
-    <button mat-button routerLink="/logistiek">Planning logistiek</button>
-    <button mat-button routerLink="/bouw">Bouw</button>
+  <div fxShow="true" fxHide.lt-md="true" *ngFor="let page of pages">
+    <button mat-button [routerLink]="page.url">{{page.title}}</button>
   </div>
+  <mat-menu class="profile-menu" #graphsMenu="matMenu">
+    <a mat-menu-item routerLink="/graph/production">
+      <mat-icon>bar_chart</mat-icon>
+      Productie</a>
+    <a mat-menu-item routerLink="/graph/inmeten">
+      <mat-icon>table_chart</mat-icon>
+      Inmeten</a>
+    <a mat-menu-item routerLink="/graph/magazijn">
+      <mat-icon>bar_chart</mat-icon>
+      Magazijn</a>
+  </mat-menu>
   <span class="nav-spacer"></span>
   <div fxShow="true" fxHide.lt-md="true" class="media align-items-center user-profile" [matMenuTriggerFor]="loginMenu">
     <span class="avatar avatar-sm rounded-circle">
@@ -49,12 +45,8 @@
 
 <mat-sidenav-container fxFlexFill class="container">
   <mat-sidenav #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
-    <div fxLayout="column">
-      <a mat-button routerLink="/" (click)="sidenav.toggle()"><mat-icon>dashboard</mat-icon> Dashboard</a>
-      <a mat-button routerLink="/graph" (click)="sidenav.toggle()"><mat-icon> insert_chart_outlined</mat-icon> Grafieken</a>
-      <a mat-button routerLink="/nearby" (click)="sidenav.toggle()"><mat-icon> map</mat-icon> Afspraken dichtbij</a>
-      <a mat-button routerLink="/logistiek" (click)="sidenav.toggle()"><mat-icon>calendar_today</mat-icon> Planning logistiek</a>
-      <a mat-button routerLink="/bouw" (click)="sidenav.toggle()"><mat-icon>linked_camera</mat-icon> Bouw</a>
+    <div fxLayout="column" *ngFor="let page of pages">
+      <a mat-button [routerLink]="page.url" (click)="sidenav.toggle()"><mat-icon>{{page.icon}}</mat-icon> {{page.title}}</a>
     </div>
   </mat-sidenav>
   <mat-sidenav-content fxFlexFill>

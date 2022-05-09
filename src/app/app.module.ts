@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,11 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatSliderModule} from "@angular/material/slider";
 import { BuildingComponent } from './_components/building/building.component';
 import { LogisticComponent } from './_components/logistic/logistic.component';
+import { WeatherWidgetComponent } from './_components/weather-widget/weather-widget.component';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {registerLocaleData} from "@angular/common";
+import localeNl from '@angular/common/locales/nl';
+registerLocaleData(localeNl);
 
 @NgModule({
   declarations: [
@@ -30,7 +35,8 @@ import { LogisticComponent } from './_components/logistic/logistic.component';
     DashboardComponent,
     NearbyComponent,
     BuildingComponent,
-    LogisticComponent
+    LogisticComponent,
+    WeatherWidgetComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +54,7 @@ import { LogisticComponent } from './_components/logistic/logistic.component';
     MatSidenavModule,
     FlexLayoutModule,
     MatSliderModule,
+    MatProgressBarModule,
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: [environment.apiUrl],
@@ -56,7 +63,9 @@ import { LogisticComponent } from './_components/logistic/logistic.component';
     }),
     MatProgressSpinnerModule,
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: "nl-NL" }
+  ],
   exports: [
   ],
   bootstrap: [AppComponent]

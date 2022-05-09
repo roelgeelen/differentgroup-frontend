@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="weather-side">
+    <div class="weather-gradient"></div>
+    <div class="date-container">
+      <h2 class="date-dayname">{{data.dt * 1000 | date: 'EEEE'}}</h2><span
+      class="date-day">{{data.dt * 1000 | date: 'dd MMM yyyy'}}</span><mat-icon>location_on</mat-icon><span
+      class="location">{{data.name}}, {{data.sys.country}}</span>
+    </div>
+    <div class="weather-container"><img class="weather-icon" [src]="data.image">
+      <h1 class="weather-temp">{{data.main.temp | number:'0.0-0'}}°C</h1>
+      <h3 class="weather-desc">{{data.weather[0].description}}</h3>
+    </div>
+  </div>
+  <div class="info-side">
+    <div class="today-info-container">
+      <div class="today-info">
+        <div class="precipitation"><span class="title">VOELT ALS</span><span class="value">{{data.main.feels_like | number:'0.0-0'}}°C</span>
+          <div class="clear"></div>
+        </div>
+        <div class="humidity"><span class="title">VOCHTIGHEID</span><span class="value">{{data.main.humidity}} %</span>
+          <div class="clear"></div>
+        </div>
+        <div class="wind"><span class="title">WIND</span><span class="value">{{data.wind.speed | number:'0.0-1'}}
+          km/h</span>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+    <div class="week-container">
+      <ul class="week-list">
+        <li *ngFor="let cast of dataForecast"><img
+          src="http://openweathermap.org/img/wn/{{cast.weather[0].icon}}@2x.png" class="day-icon"/><span
+          class="day-name">{{cast.dt * 1000 | date: 'EEE'}}</span><span
+          class="day-temp">{{cast.main.temp | number:'0.0-0'}}°C</span></li>
+        <div class="clear"></div>
+      </ul>
+    </div>
+  </div>
+</div>
