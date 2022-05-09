@@ -21,12 +21,16 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatSliderModule} from "@angular/material/slider";
+import { BuildingComponent } from './_components/building/building.component';
+import { LogisticComponent } from './_components/logistic/logistic.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    NearbyComponent
+    NearbyComponent,
+    BuildingComponent,
+    LogisticComponent
   ],
   imports: [
     BrowserModule,
