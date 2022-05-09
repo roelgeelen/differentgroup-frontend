@@ -6,6 +6,13 @@ import {User} from "./_models/User";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ApiService} from "./_services/api.service";
 
+const pages = [
+  {url: '/', title: 'Dashboard', icon: 'dashboard'},
+  {url: '/graph', title: 'Grafieken', icon: 'insert_chart_outlined'},
+  {url: '/nearby', title: 'Afspraken dichtbij', icon: 'map'},
+  {url: '/logistiek', title: 'Planning logistiek', icon: 'calendar_today'},
+  {url: '/bouw', title: 'Bouw', icon: 'linked_camera'}
+]
 
 @Component({
   selector: 'app-root',
