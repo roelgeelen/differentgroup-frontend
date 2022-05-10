@@ -11,8 +11,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatIconModule} from "@angular/material/icon";
 import {OAuthModule} from "angular-oauth2-oidc";
-import { DashboardComponent } from './_components/dashboard/dashboard.component';
-import { NearbyComponent } from './_components/nearby/nearby.component';
+import { DashboardComponent } from './_pages/dashboard/dashboard.component';
+import { NearbyComponent } from './_pages/nearby/nearby.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import {environment} from "../environments/environment";
@@ -21,12 +21,13 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatSliderModule} from "@angular/material/slider";
-import { BuildingComponent } from './_components/building/building.component';
-import { LogisticComponent } from './_components/logistic/logistic.component';
+import { BuildingComponent } from './_pages/building/building.component';
+import { LogisticComponent } from './_pages/logistic/logistic.component';
 import { WeatherWidgetComponent } from './_components/weather-widget/weather-widget.component';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {registerLocaleData} from "@angular/common";
 import localeNl from '@angular/common/locales/nl';
+import { NavbarComponent } from './_components/navbar/navbar.component';
 registerLocaleData(localeNl);
 
 @NgModule({
@@ -36,7 +37,8 @@ registerLocaleData(localeNl);
     NearbyComponent,
     BuildingComponent,
     LogisticComponent,
-    WeatherWidgetComponent
+    WeatherWidgetComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

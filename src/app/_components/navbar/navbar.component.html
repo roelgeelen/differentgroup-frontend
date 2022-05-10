@@ -1,0 +1,38 @@
+<a routerLink="/"><img src="/assets/images/img.png" height="50" alt=""></a>
+<div fxShow="true" fxHide.lt-md="true" *ngFor="let page of pages">
+  <ng-container *ngIf="page.pages && hasPermission(page.roles)">
+    <button mat-button [matMenuTriggerFor]="menu">{{page.title}}</button>
+    <mat-menu class="profile-menu" #menu="matMenu">
+      <a *ngFor="let sub of page.pages" mat-menu-item [routerLink]="sub.url">
+        <mat-icon>{{sub.icon}}</mat-icon>
+        {{sub.title}}</a>
+    </mat-menu>
+  </ng-container>
+  <ng-container *ngIf="!page.pages && hasPermission(page.roles)">
+    <button mat-button [routerLink]="page.url">{{page.title}}</button>
+  </ng-container>
+</div>
+<span class="nav-spacer"></span>
+<div fxShow="true" fxHide.lt-md="true" class="media align-items-center user-profile" [matMenuTriggerFor]="loginMenu">
+    <span class="avatar avatar-sm rounded-circle">
+      <img [src]="currentUser.image ? currentUser.image : 'assets/images/user_placeholder.png'">
+    </span>
+  <span class="mb-0 text-sm  font-weight-bold">{{currentUser.name}}</span>
+</div>
+<div fxShow="true" fxHide.gt-sm="true" class="media align-items-center user-profile small"
+     [matMenuTriggerFor]="loginMenu">
+    <span class="avatar avatar-sm rounded-circle">
+      <img [src]="currentUser.image ? currentUser.image : 'assets/images/user_placeholder.png'">
+    </span>
+</div>
+<mat-menu class="profile-menu" #loginMenu="matMenu">
+  <a mat-menu-item href="https://myaccount.microsoft.com/" target="_blank">
+    <mat-icon>perm_identity</mat-icon>
+    Mijn account
+  </a>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    logout
+  </button>
+</mat-menu>
+

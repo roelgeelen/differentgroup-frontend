@@ -3,4 +3,6 @@ export class Page {
   url: string;
   icon: string;
   menu?: string;
+  pages?: any;
+  roles: string[];
 }

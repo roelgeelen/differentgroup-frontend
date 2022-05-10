@@ -6,4 +6,5 @@ export class Token {
   name: string;
   family_name: string;
   given_name: string;
+  roles: string[];
 }

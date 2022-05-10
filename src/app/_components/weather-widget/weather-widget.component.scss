@@ -47,6 +47,11 @@ body {
   height: 105px;
   display: flex;
   width: 100%;
+  img {
+    position: absolute;
+    width: 100%;
+    top: -60px;
+  }
 }
 
 .weather-gradient-image {
@@ -66,7 +71,7 @@ body {
   left: 0;
   background-image: $gradient;
   border-radius: 25px;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .date-container {
@@ -170,7 +175,7 @@ body {
     -o-transition: 200ms ease;
     transition: 200ms ease;
     border-radius: 10px;
-    padding: 5px 15px 10px 15px;
+    padding: 5px 15px 10px 14px;
 
     &:hover {
       -webkit-transform: scale(1.1);

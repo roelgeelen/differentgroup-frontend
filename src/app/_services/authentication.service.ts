@@ -21,11 +21,16 @@ export class AuthenticationService {
     this.currentUserSubject.next(this.convertTokenToUser());
   }
 
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
+
   convertTokenToUser(): User {
     const user: User = new User();
     if (this.oauthService.getAccessToken()) {
       const token: Token = this.getDecodedAccessToken(this.oauthService.getAccessToken());
       user.name = token.name;
+      user.roles = token.roles;
       return user;
     }
     // @ts-ignore
@@ -40,5 +45,35 @@ export class AuthenticationService {
       // @ts-ignore
       return null;
     }
+  }
+
+  getTokenExpirationDate(token: string): Date | null {
+    const decoded = jwt_decode(token);
+
+    // @ts-ignore
+    if (decoded.exp === undefined) {
+      return null;
+    }
+
+    const date = new Date(0);
+    // @ts-ignore
+    date.setUTCSeconds(decoded.exp);
+    return date;
+  }
+
+  isTokenExpired(token?: string): boolean {
+    if (!token) {
+      token =this.oauthService.getAccessToken();
+    }
+    if (!token) {
+      return true;
+    }
+
+    const date = this.getTokenExpirationDate(token);
+    if (date === undefined) {
+      return false;
+    }
+    // @ts-ignore
+    return !(date.valueOf() > new Date().valueOf());
   }
 }

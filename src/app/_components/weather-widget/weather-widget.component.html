@@ -1,5 +1,6 @@
-<div class="container overflow-hidden">
+<div class="container overflow-hidden" *ngIf="!loading && !loadingForecast">
   <div class="weather-side overflow-hidden">
+    <img src="./assets/images/wallpapers/{{image}}.jpg">
     <mat-progress-bar *ngIf="loading" mode="indeterminate" class="top-bar position-absolute"></mat-progress-bar>
     <div class="weather-gradient"></div>
     <div class="date-container">

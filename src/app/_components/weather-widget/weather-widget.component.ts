@@ -14,6 +14,7 @@ export class WeatherWidgetComponent implements OnInit {
   loading = false;
   loadingForecast = false;
   id: number;
+  image = Math.floor((Math.random() * 5) + 1);
 
   constructor(private weatherService: WeatherService) { }
 
