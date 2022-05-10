@@ -17,6 +17,13 @@
     }
   }
 }
+mat-card {
+  width: 100%;
+  margin: 0 10px 10px 0;
+}
+app-weather-widget {
+  margin: 0 auto !important;
+}
 .mat-card {
   .card-header {
     background-color: transparent;
@@ -31,6 +38,9 @@ app-weather-widget {
     mat-card {
       width: 200px;
     }
+  }
+  .flex-flow {
+    flex-flow: row wrap;
   }
 }
 
