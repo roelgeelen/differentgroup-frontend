@@ -1,3 +1,6 @@
+mat-spinner {
+  margin: 0 auto;
+}
 .google-search-bar {
   margin-top: 10px;
   width: 40%;
@@ -12,9 +15,8 @@
 }
 .refresh-btn {
   height: 38px;
-  top: 16px;
   position: relative;
-  margin-right: 11px;
+  margin-left: 11px;
 }
 
 .slider, mat-slider {
@@ -26,8 +28,8 @@
   z-index: 1;
   border-radius: 5px;
   box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px -1px;
-  top: 80px;
-  right: 10px;
+  top: 135px;
+  right: 33px;
 }
 ::ng-deep {
   .mat-slider.mat-slider-horizontal .mat-slider-wrapper {

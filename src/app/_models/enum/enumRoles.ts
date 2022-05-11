@@ -6,4 +6,5 @@
   OFFICE = 'Kantoor',
   ADMINISTRATION = 'Administratie',
   ADMIN = 'Admin',
+  PLANNING = 'Planning',
 }

@@ -3,9 +3,11 @@
   <ng-container *ngIf="page.pages && hasPermission(page.roles)">
     <button mat-button [matMenuTriggerFor]="menu">{{page.title}}</button>
     <mat-menu class="profile-menu" #menu="matMenu">
-      <a *ngFor="let sub of page.pages" mat-menu-item [routerLink]="sub.url">
-        <mat-icon>{{sub.icon}}</mat-icon>
-        {{sub.title}}</a>
+      <div *ngFor="let sub of page.pages">
+        <a mat-menu-item *ngIf="hasPermission(sub.roles)" [routerLink]="sub.url">
+          <mat-icon>{{sub.icon}}</mat-icon>
+          {{sub.title}}</a>
+      </div>
     </mat-menu>
   </ng-container>
   <ng-container *ngIf="!page.pages && hasPermission(page.roles)">

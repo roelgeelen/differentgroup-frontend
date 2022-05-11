@@ -5,7 +5,7 @@ import {AuthenticationService} from "./_services/authentication.service";
 import {User} from "./_models/User";
 import {ApiService} from "./_services/api.service";
 import {EnumRoles} from "./_models/enum/enumRoles";
-import {pageConfig} from "./_helpers/nav.config";
+import {navConfig} from "./_helpers/nav.config";
 
 
 
@@ -16,7 +16,7 @@ import {pageConfig} from "./_helpers/nav.config";
 })
 export class AppComponent implements OnInit {
   currentUser: User;
-  pages = pageConfig;
+  pages = navConfig;
 
   constructor(
     private oauthService: OAuthService,

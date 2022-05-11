@@ -5,7 +5,7 @@ import {AuthenticationService} from "../../_services/authentication.service";
 import {ApiService} from "../../_services/api.service";
 import {OAuthService} from "angular-oauth2-oidc";
 import {DomSanitizer} from "@angular/platform-browser";
-import {pageConfig} from "../../_helpers/nav.config";
+import {navConfig} from "../../_helpers/nav.config";
 import {EnumRoles} from "../../_models/enum/enumRoles";
 
 @Component({
@@ -14,7 +14,7 @@ import {EnumRoles} from "../../_models/enum/enumRoles";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  pages = pageConfig;
+  pages = navConfig;
   currentUser: User;
   profilePic: Blob | null;
 

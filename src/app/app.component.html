@@ -1,46 +1,48 @@
-<mat-toolbar color="primary">
-  <div fxShow="true" fxHide.gt-sm="true">
-    <button mat-icon-button (click)="sidenav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </div>
-  <app-navbar></app-navbar>
-</mat-toolbar>
-
-<mat-sidenav-container fxFlexFill class="container">
-  <mat-sidenav #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
-    <div fxLayout="column" *ngFor="let page of pages">
-      <ng-container *ngIf="page.pages">
-        <a mat-button [matMenuTriggerFor]="menu"
-           *ngIf="hasPermission(page.roles)">
-          <mat-icon>{{page.icon}}</mat-icon>
-          {{page.title}}</a>
-        <mat-menu class="profile-menu" #menu="matMenu">
-          <a *ngFor="let sub of page.pages" mat-menu-item [routerLink]="sub.url" (click)="sidenav.toggle()">
-            <mat-icon>{{sub.icon}}</mat-icon>
-            {{sub.title}}</a>
-        </mat-menu>
-      </ng-container>
-      <ng-container *ngIf="!page.pages">
-        <a mat-button [routerLink]="page.url" (click)="sidenav.toggle()" *ngIf="hasPermission(page.roles)">
-          <mat-icon>{{page.icon}}</mat-icon>
-          {{page.title}}</a>
-      </ng-container>
+<div *ngIf="isUser">
+  <mat-toolbar color="primary">
+    <div fxShow="true" fxHide.gt-sm="true">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
     </div>
-  </mat-sidenav>
-  <mat-sidenav-content fxFlexFill>
-    <div class="minHeight">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-  <!-- credits -->
-  <div class="footer">
-    <div id="development">
-      <a class="" rel="nofollow">
-        <span>Different group v0.0.1</span><br>
-      </a>
-    </div>
-  </div>
-</mat-sidenav-container>
+    <app-navbar></app-navbar>
+  </mat-toolbar>
 
-
+  <mat-sidenav-container fxFlexFill class="container">
+    <mat-sidenav #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
+      <div fxLayout="column" *ngFor="let page of pages">
+        <ng-container *ngIf="page.pages">
+          <a mat-button [matMenuTriggerFor]="menu"
+             *ngIf="hasPermission(page.roles)">
+            <mat-icon>{{page.icon}}</mat-icon>
+            {{page.title}}</a>
+          <mat-menu class="profile-menu" #menu="matMenu">
+            <div *ngFor="let sub of page.pages">
+              <a mat-menu-item *ngIf="hasPermission(sub.roles)" [routerLink]="sub.url" (click)="sidenav.toggle()">
+                <mat-icon>{{sub.icon}}</mat-icon>
+                {{sub.title}}</a>
+            </div>
+          </mat-menu>
+        </ng-container>
+        <ng-container *ngIf="!page.pages">
+          <a mat-button [routerLink]="page.url" (click)="sidenav.toggle()" *ngIf="hasPermission(page.roles)">
+            <mat-icon>{{page.icon}}</mat-icon>
+            {{page.title}}</a>
+        </ng-container>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill>
+      <div class="minHeight">
+        <router-outlet></router-outlet>
+      </div>
+      <!-- credits -->
+      <div class="footer">
+        <div id="development">
+          <a class="" rel="nofollow">
+            <span>Different group - v0.1</span><br>
+          </a>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,35 +1,88 @@
 import {Page} from "../_models/pages/Page";
 import {EnumRoles} from "../_models/enum/enumRoles";
 
-export const pageConfig: Page[] = [
-  {url: '/', title: 'Dashboard', icon: 'dashboard', roles: []},
+export const navConfig: Page[] = [
   {
-    url: '/graph',
-    title: 'Grafieken',
-    icon: 'insert_chart_outlined',
+    url: '/verkoop',
+    title: 'Verkoop',
+    icon: 'dashboard',
     pages: [
-      {url: '/graph/production', title: 'Productie', icon: 'bar_chart'},
-      {url: '/graph/inmeten', title: 'Inmeten', icon: 'table_chart'},
-      {url: '/graph/magazijn', title: 'Magazijn', icon: 'bar_chart'}
+      {
+        url:'/verkoop/afspraken',
+        title: 'Afspraken',
+        icon: 'map',
+        roles: [
+          EnumRoles.OFFICE
+        ]
+      },
+      {
+        url:'/verkoop/inmeten',
+        title: 'Inmeten',
+        icon: 'table_chart',
+        roles: [
+          EnumRoles.OFFICE
+        ]
+      },
     ],
     roles: [
-      EnumRoles.OFFICE
+      EnumRoles.OFFICE,
+      EnumRoles.ICT,
+      EnumRoles.ENGINEERING,
+      EnumRoles.ADMINISTRATION,
     ]
   },
   {
-    url: '/nearby',
-    title: 'Afspraken dichtbij',
-    icon: 'map',
+    url: '/planning',
+    title: 'Planning',
+    icon: 'insert_chart_outlined',
+    pages: [
+      {
+        url:'/planning/logistiek',
+        title: 'Logistiek',
+        icon: 'calendar_today',
+        roles: [
+          EnumRoles.ENGINEERING,
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.PLANNING,
+          EnumRoles.ICT
+        ]},
+      {
+        url:'/planning/productie',
+        title: 'Productie',
+        icon: 'bar_chart',
+        roles: [
+          EnumRoles.ENGINEERING,
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.PRODUCTION,
+          EnumRoles.PLANNING,
+          EnumRoles.ICT
+        ]},
+      {
+        url:'/planning/magazijn',
+        title: 'Magazijn',
+        icon: 'bar_chart',
+        roles: [
+          EnumRoles.ENGINEERING,
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.PLANNING,
+          EnumRoles.ICT
+        ]},
+    ],
     roles: [
-      EnumRoles.OFFICE
+      EnumRoles.ENGINEERING,
+      EnumRoles.ADMINISTRATION,
+      EnumRoles.PRODUCTION,
+      EnumRoles.PLANNING,
+      EnumRoles.ICT
     ]
   },
   {
-    url: '/logistiek',
-    title: 'Planning logistiek',
-    icon: 'calendar_today',
+    url: '/administratie',
+    title: 'Administratie',
+    icon: 'dashboard',
     roles: [
-      EnumRoles.OFFICE
+      EnumRoles.ADMINISTRATION,
+      EnumRoles.ICT
     ]
   },
   {

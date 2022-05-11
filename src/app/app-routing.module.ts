@@ -1,44 +1,58 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {DashboardComponent} from "./_pages/dashboard/dashboard.component";
-import {NearbyComponent} from "./_pages/nearby/nearby.component";
-import {LogisticComponent} from "./_pages/logistic/logistic.component";
-import {BuildingComponent} from "./_pages/building/building.component";
+import {HomeComponent} from "./_pages/home/home.component";
+import {BouwComponent} from "./_pages/bouw/bouw.component";
 import {AuthGuard} from "./_helpers/auth.guard";
 import {EnumRoles} from "./_models/enum/enumRoles";
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
+    component: HomeComponent,
   },
   {
-    path: 'dashboard',
-    component: DashboardComponent,
-  },
-  {
-    path: 'graph',
-    loadChildren: () => import('./_pages/graphs/graph.module').then(m => m.GraphModule),
+    path: 'verkoop',
+    loadChildren: () => import('./_pages/verkoop/verkoop.module').then(m => m.VerkoopModule),
     canActivate: [AuthGuard],
-    data:  { roles: [EnumRoles.OFFICE] },
+    data: {
+      roles: [
+        EnumRoles.OFFICE,
+        EnumRoles.ICT,
+        EnumRoles.ENGINEERING,
+        EnumRoles.ADMINISTRATION,
+      ]
+    },
   },
   {
-    path: 'nearby',
-    component: NearbyComponent,
+    path: 'planning',
+    loadChildren: () => import('./_pages/planning/planning.module').then(m => m.PlanningModule),
     canActivate: [AuthGuard],
-    data:  { roles: [EnumRoles.OFFICE] },
+    data: {
+      roles: [
+        EnumRoles.ENGINEERING,
+        EnumRoles.ADMINISTRATION,
+        EnumRoles.PRODUCTION,
+        EnumRoles.PLANNING,
+        EnumRoles.ICT
+      ]
+    },
   },
   {
-    path: 'logistiek',
-    component: LogisticComponent,
+    path: 'administratie',
+    loadChildren: () => import('./_pages/administratie/administratie.module').then(m => m.AdministratieModule),
     canActivate: [AuthGuard],
-    data:  { roles: [EnumRoles.OFFICE] },
+    data: {
+      roles: [
+        EnumRoles.ADMINISTRATION,
+        EnumRoles.ICT
+      ]
+    },
   },
   {
     path: 'bouw',
-    component: BuildingComponent,
+    component: BouwComponent,
     canActivate: [AuthGuard],
-    data:  { roles: [EnumRoles.OFFICE] },
+    data: {roles: [EnumRoles.OFFICE]},
   },
   {path: '**', redirectTo: ''},
 ];

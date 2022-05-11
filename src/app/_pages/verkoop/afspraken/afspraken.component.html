@@ -2,11 +2,9 @@
   <div class="text-center w-100" *ngIf="loadingCals">
     <mat-spinner diameter="50"></mat-spinner>
   </div>
-  <div *ngIf="!loadingCals" class="btn-group w-100 p-3" role="group" ngbRadioGroup name="radioBasic" [(ngModel)]="owner">
-    <label ngbButtonLabel class="btn-primary" *ngFor="let calendar of calendars">
-      <input ngbButton type="radio" class="btn-check" [value]="calendar.id" (change)="onSearch()">{{calendar.name}}
-    </label>
-  </div>
+  <mat-button-toggle-group class="w-100" *ngIf="!loadingCals" name="fontStyle" aria-label="Font Style" [(ngModel)]="owner">
+    <mat-button-toggle  class="flex-grow-1" *ngFor="let calendar of calendars" [value]="calendar.id" (change)="onSearch()">{{calendar.name}}</mat-button-toggle>
+  </mat-button-toggle-group>
   <button class="btn btn-primary refresh-btn" (click)="onSearch()">
     <mat-icon>refresh</mat-icon>
   </button>

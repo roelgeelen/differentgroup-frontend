@@ -16,7 +16,9 @@ app-navbar {
 .mat-button {
   text-align: left;
 }
-
+.minHeight {
+  min-height: calc(100vh - 132px);
+}
 mat-toolbar {
   height: 80px;
 
@@ -30,7 +32,7 @@ mat-toolbar {
   bottom: 0;
   width: 100%;
   padding: 1rem 0;
-  background-color: #f1f1f1;
+  background-color: #fafafa;
   text-align: center;
   font-size: 14px;
 

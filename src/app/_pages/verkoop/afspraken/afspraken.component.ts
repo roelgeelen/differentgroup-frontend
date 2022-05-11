@@ -1,18 +1,18 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {GoogleMap, MapInfoWindow, MapMarker} from "@angular/google-maps";
 import {ProgressSpinnerMode} from "@angular/material/progress-spinner";
-import {Appointment} from "../../_models/appointment/Appointment";
-import {ApiService} from "../../_services/api.service";
+import {Appointment} from "../../../_models/appointment/Appointment";
+import {ApiService} from "../../../_services/api.service";
 import {formatDate} from "@angular/common";
-import {Calendar} from "../../_models/calendar/Calendar";
+import {Calendar} from "../../../_models/calendar/Calendar";
 import {MatSliderChange} from "@angular/material/slider";
 
 @Component({
-  selector: 'app-nearby',
-  templateUrl: './nearby.component.html',
-  styleUrls: ['./nearby.component.scss']
+  selector: 'app-afspraken',
+  templateUrl: './afspraken.component.html',
+  styleUrls: ['./afspraken.component.scss']
 })
-export class NearbyComponent implements OnInit {
+export class AfsprakenComponent implements OnInit {
   @ViewChild('mapSearchField') searchField: ElementRef;
   @ViewChild('radiusCircle') circle: ElementRef;
   @ViewChild(GoogleMap) map: GoogleMap
@@ -97,6 +97,7 @@ export class NearbyComponent implements OnInit {
   onInputChange(event: number | null) {
     if (event != null) {
       this.distance = event;
+      this.onSearch();
     }
   }
 
@@ -125,6 +126,7 @@ export class NearbyComponent implements OnInit {
     if (this.address === '' || this.owner === '') {
       return;
     }
+
     this.loading = true;
     this.markers = [];
     this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, this.owner, this.distance).subscribe(apos => {

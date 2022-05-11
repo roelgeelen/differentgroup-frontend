@@ -8,7 +8,7 @@ const graphs = [
 ]
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-home',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
