@@ -52,7 +52,14 @@ const routes: Routes = [
     path: 'bouw',
     component: BouwComponent,
     canActivate: [AuthGuard],
-    data: {roles: [EnumRoles.OFFICE]},
+    data: {
+      roles: [
+        EnumRoles.OFFICE,
+        EnumRoles.ICT,
+        EnumRoles.ENGINEERING,
+        EnumRoles.ADMINISTRATION,
+      ]
+    },
   },
   {path: '**', redirectTo: ''},
 ];

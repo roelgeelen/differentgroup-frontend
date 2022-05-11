@@ -24,6 +24,9 @@ const routes: Routes = [
         data: {
           roles: [
             EnumRoles.OFFICE,
+            EnumRoles.ICT,
+            EnumRoles.ENGINEERING,
+            EnumRoles.ADMINISTRATION,
           ]
         },
       },
@@ -34,6 +37,9 @@ const routes: Routes = [
         data: {
           roles: [
             EnumRoles.OFFICE,
+            EnumRoles.ICT,
+            EnumRoles.ENGINEERING,
+            EnumRoles.ADMINISTRATION,
           ]
         },
       }

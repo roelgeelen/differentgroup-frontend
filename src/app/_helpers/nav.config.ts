@@ -12,7 +12,10 @@ export const navConfig: Page[] = [
         title: 'Afspraken',
         icon: 'map',
         roles: [
-          EnumRoles.OFFICE
+          EnumRoles.OFFICE,
+          EnumRoles.ICT,
+          EnumRoles.ENGINEERING,
+          EnumRoles.ADMINISTRATION,
         ]
       },
       {
@@ -20,7 +23,10 @@ export const navConfig: Page[] = [
         title: 'Inmeten',
         icon: 'table_chart',
         roles: [
-          EnumRoles.OFFICE
+          EnumRoles.OFFICE,
+          EnumRoles.ICT,
+          EnumRoles.ENGINEERING,
+          EnumRoles.ADMINISTRATION,
         ]
       },
     ],
@@ -90,7 +96,10 @@ export const navConfig: Page[] = [
     title: 'Bouw',
     icon: 'linked_camera',
     roles: [
-      EnumRoles.OFFICE
+      EnumRoles.OFFICE,
+      EnumRoles.ICT,
+      EnumRoles.ENGINEERING,
+      EnumRoles.ADMINISTRATION,
     ]
   }
 ]
