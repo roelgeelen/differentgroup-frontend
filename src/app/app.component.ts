@@ -6,6 +6,9 @@ import {User} from "./_models/User";
 import {ApiService} from "./_services/api.service";
 import {EnumRoles} from "./_models/enum/enumRoles";
 import {navConfig} from "./_helpers/nav.config";
+import {MatTreeNestedDataSource} from "@angular/material/tree";
+import {Page} from "./_models/pages/Page";
+import {NestedTreeControl} from "@angular/cdk/tree";
 
 
 
@@ -17,12 +20,15 @@ import {navConfig} from "./_helpers/nav.config";
 export class AppComponent implements OnInit {
   currentUser: User;
   pages = navConfig;
+  dataSource = new MatTreeNestedDataSource<Page>();
+  treeControl = new NestedTreeControl<Page>(page => page.pages);
 
   constructor(
     private oauthService: OAuthService,
     private apiService: ApiService,
     private authService: AuthenticationService
   ) {
+    this.dataSource.data = navConfig;
     this.oauthService.configure(authConfig);
     this.oauthService.loadDiscoveryDocumentAndLogin().then(() => {
       if (this.oauthService.hasValidIdToken()) {
@@ -33,6 +39,8 @@ export class AppComponent implements OnInit {
 
     this.authService.currentUser.subscribe(x => this.currentUser = x);
   }
+
+  hasChild = (_: number, node: Page) => !!node.pages && node.pages.length > 0;
 
   ngOnInit(): void {
   }

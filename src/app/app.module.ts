@@ -22,6 +22,7 @@ import localeNl from '@angular/common/locales/nl';
 import { NavbarComponent } from './_components/navbar/navbar.component';
 import { BirthdayWidgetComponent } from './_components/birthday-widget/birthday-widget.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {MatTreeModule} from "@angular/material/tree";
 registerLocaleData(localeNl);
 
 @NgModule({
@@ -48,6 +49,7 @@ registerLocaleData(localeNl);
     MatMenuModule,
     MatIconModule,
     MatProgressBarModule,
+    MatTreeModule,
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: [environment.apiUrl],

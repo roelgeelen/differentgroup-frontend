@@ -1,13 +1,30 @@
 <a routerLink="/"><img src="/assets/images/img.png" height="50" alt=""></a>
 <div fxShow="true" fxHide.lt-md="true" *ngFor="let page of pages">
   <ng-container *ngIf="page.pages && hasPermission(page.roles)">
-    <button mat-button [matMenuTriggerFor]="menu">{{page.title}}</button>
+    <button mat-button [matMenuTriggerFor]="menu" #menuPages="matMenuTrigger">{{page.title}}</button>
     <mat-menu class="profile-menu" #menu="matMenu">
-      <div *ngFor="let sub of page.pages">
-        <a mat-menu-item *ngIf="hasPermission(sub.roles)" [routerLink]="sub.url">
-          <mat-icon>{{sub.icon}}</mat-icon>
-          {{sub.title}}</a>
-      </div>
+      <mat-tree [dataSource]="page.pages" [treeControl]="treeControl" class="example-tree">
+        <ng-container *matTreeNodeDef="let node" >
+          <mat-tree-node *ngIf="hasPermission(node.roles)" matTreeNodeToggle>
+            <a mat-menu-item [routerLink]="node.url" (click)="closeMe(menuPages)">
+              <mat-icon>{{node.icon}}</mat-icon>
+              {{node.title}}</a>
+          </mat-tree-node>
+        </ng-container>
+        <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+          <div class="mat-tree-node" *ngIf="hasPermission(node.roles)">
+            <button mat-menu-item matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.title">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+              {{node.title}}
+            </button>
+          </div>
+          <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" *ngIf="hasPermission(node.roles)" role="group">
+            <ng-container matTreeNodeOutlet></ng-container>
+          </div>
+        </mat-nested-tree-node>
+      </mat-tree>
     </mat-menu>
   </ng-container>
   <ng-container *ngIf="!page.pages && hasPermission(page.roles)">

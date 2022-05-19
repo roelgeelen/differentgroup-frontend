@@ -29,6 +29,30 @@ export const navConfig: Page[] = [
           EnumRoles.ADMINISTRATION,
         ]
       },
+      {
+        url: '/verkoop/formulier',
+        title: 'Formulieren',
+        icon: 'dashboard',
+        pages: [
+          {
+            url:'/verkoop/formulier/odo',
+            title: 'ODO',
+            icon: 'description',
+            roles: [
+              EnumRoles.OFFICE,
+              EnumRoles.ICT,
+              EnumRoles.ENGINEERING,
+              EnumRoles.ADMINISTRATION,
+            ]
+          }
+        ],
+        roles: [
+          EnumRoles.OFFICE,
+          EnumRoles.ICT,
+          EnumRoles.ENGINEERING,
+          EnumRoles.ADMINISTRATION,
+        ]
+      }
     ],
     roles: [
       EnumRoles.OFFICE,

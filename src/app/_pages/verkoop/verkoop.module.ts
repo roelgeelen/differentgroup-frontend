@@ -15,6 +15,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {GoogleMapsModule} from "@angular/google-maps";
 import {FormsModule} from "@angular/forms";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {FormOdoComponent} from "./form-odo/form-odo.component";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   imports: [
@@ -29,13 +31,15 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     MatTableModule,
     MatToolbarModule,
     MatButtonModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatMenuModule
   ],
   declarations: [
     VerkoopComponent,
     DashboardComponent,
     InmetenComponent,
-    AfsprakenComponent
+    AfsprakenComponent,
+    FormOdoComponent
   ],
   exports: [
     VerkoopComponent

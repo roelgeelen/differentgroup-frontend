@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Page} from "../../_models/pages/Page";
 import {User} from "../../_models/User";
 import {AuthenticationService} from "../../_services/authentication.service";
@@ -7,6 +7,9 @@ import {OAuthService} from "angular-oauth2-oidc";
 import {DomSanitizer} from "@angular/platform-browser";
 import {navConfig} from "../../_helpers/nav.config";
 import {EnumRoles} from "../../_models/enum/enumRoles";
+import {NestedTreeControl} from "@angular/cdk/tree";
+import {MatTreeNestedDataSource} from "@angular/material/tree";
+import {MatMenuTrigger} from "@angular/material/menu";
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +18,8 @@ import {EnumRoles} from "../../_models/enum/enumRoles";
 })
 export class NavbarComponent implements OnInit {
   pages = navConfig;
+  dataSource = new MatTreeNestedDataSource<Page>();
+  treeControl = new NestedTreeControl<Page>(page => page.pages);
   currentUser: User;
   profilePic: Blob | null;
 
@@ -24,6 +29,7 @@ export class NavbarComponent implements OnInit {
     private apiService: ApiService,
     private sanitizer: DomSanitizer
   ) {
+    this.dataSource.data = navConfig;
     this.authService.currentUser.subscribe(x => {
       this.currentUser = x
       this.loadProfile();
@@ -31,6 +37,12 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  hasChild = (_: number, node: Page) => !!node.pages && node.pages.length > 0;
+
+  closeMe(menuTrigger: MatMenuTrigger) {
+    menuTrigger.closeMenu();
   }
 
   loadProfile() {
