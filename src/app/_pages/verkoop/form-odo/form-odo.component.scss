@@ -1,0 +1,20 @@
+.fullscreen-btn {
+  position: absolute;
+  right: 40px;
+  z-index: 1;
+  padding: 0 !important;
+  margin: 10px;
+  &.fullscreen{
+    position: fixed;
+    top: 10px;
+    right: 20px;
+  }
+}
+
+iframe.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}

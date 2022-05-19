@@ -14,21 +14,21 @@ mat-spinner {
   position: absolute;
 }
 .refresh-btn {
-  height: 38px;
-  position: relative;
   margin-left: 11px;
 }
 
 .slider, mat-slider {
   width: 150px;
   height: 33px;
+  background-color: white !important;
 }
 .slider {
   position: absolute;
   z-index: 1;
   border-radius: 5px;
+  overflow: hidden;
   box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px -1px;
-  top: 135px;
+  top: 155px;
   right: 33px;
 }
 ::ng-deep {

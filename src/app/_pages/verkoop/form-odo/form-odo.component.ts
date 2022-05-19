@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./form-odo.component.scss']
 })
 export class FormOdoComponent implements OnInit {
+  fullscreen = false;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleFullscreen() {
+    this.fullscreen = !this.fullscreen;
   }
 
 }

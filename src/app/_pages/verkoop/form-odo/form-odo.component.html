@@ -1,1 +1,2 @@
-<iframe width="100%" height="825px" src= "https://forms.microsoft.com/Pages/ResponsePage.aspx?id=Yut6QzEyREOB2zM151v-4GqN-4XrmGBIiKEKXUPkyhZUN1dPUUkxSVFMWU5CT0dQMks1MFNTRlQ3Ry4u&embed=true"> </iframe>
+<button mat-raised-button color="accent" class="fullscreen-btn {{fullscreen ? 'fullscreen' : ''}}" (click)="toggleFullscreen()"><mat-icon>fullscreen</mat-icon></button>
+<iframe [ngClass]="fullscreen ? 'fullscreen' : ''" width="100%" height="825px" src="https://forms.microsoft.com/Pages/ResponsePage.aspx?id=Yut6QzEyREOB2zM151v-4GqN-4XrmGBIiKEKXUPkyhZUN1dPUUkxSVFMWU5CT0dQMks1MFNTRlQ3Ry4u&embed=true" frameborder="0" allowfullscreen> </iframe>

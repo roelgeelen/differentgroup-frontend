@@ -1,11 +1,11 @@
-<div class="d-flex">
+<div class="d-flex mb-3">
   <div class="text-center w-100" *ngIf="loadingCals">
     <mat-spinner diameter="50"></mat-spinner>
   </div>
   <mat-button-toggle-group class="w-100" *ngIf="!loadingCals" name="fontStyle" aria-label="Font Style" [(ngModel)]="owner">
-    <mat-button-toggle  class="flex-grow-1" *ngFor="let calendar of calendars" [value]="calendar.id" (change)="onSearch()">{{calendar.name}}</mat-button-toggle>
+    <mat-button-toggle class="flex-grow-1 mat-accent" *ngFor="let calendar of calendars" [value]="calendar.id" (change)="onSearch()">{{calendar.name}}</mat-button-toggle>
   </mat-button-toggle-group>
-  <button class="btn btn-primary refresh-btn" (click)="onSearch()">
+  <button mat-flat-button color="accent" class="refresh-btn" (click)="onSearch()">
     <mat-icon>refresh</mat-icon>
   </button>
 </div>
