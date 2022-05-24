@@ -17,6 +17,7 @@ mat-card-title {
       font-weight: 700;
       text-transform: uppercase;
       border-radius: 5px;
+      height: 24px;
     }
 
     .day {
@@ -29,6 +30,27 @@ mat-card-title {
   .bday-user {
     h2 {
       margin: 0;
+    }
+  }
+  &.today {
+    background-color: #ffc1051a;
+    .date {
+      border: 0.5px solid #ffc107;
+      .month {
+        background-color: #ffc107 !important;
+        z-index: 1;
+        &::after {
+          content: '';
+          width: 43px;
+          height: 43px;
+          background: url("../../../assets/images/party-hat.png") no-repeat;
+          top: -44px;
+          left: 33px;
+          background-size: 43px;
+          position: relative;
+          display: inline-block;
+        }
+      }
     }
   }
 }

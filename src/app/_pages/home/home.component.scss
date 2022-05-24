@@ -32,7 +32,13 @@ app-weather-widget {
 app-weather-widget {
   margin-left: 10px;
 }
+.widgets {
+  margin: 0 auto;
+}
 @media only screen and (max-width: 678px) {
+  mat-card {
+    margin: 0 0 10px 0;
+  }
   .card-links {
     justify-content: space-around;
     mat-card {

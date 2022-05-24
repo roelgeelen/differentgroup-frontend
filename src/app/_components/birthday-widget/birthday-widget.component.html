@@ -1,4 +1,4 @@
-<mat-card class="mt-2">
+<mat-card #bdayElem class="mt-2">
   <mat-card-title><mat-icon>cake</mat-icon> Verjaardagen</mat-card-title>
   <mat-card-content>
     <div class="text-center w-100" *ngIf="loading">
@@ -6,7 +6,7 @@
     </div>
     <mat-error *ngIf="error">{{error}}</mat-error>
     <div class="bday-list">
-      <div *ngFor="let bday of bdays" class="bday-item d-flex">
+      <div *ngFor="let bday of bdays" class="bday-item d-flex {{isToday(bday.start.dateTime)? 'today' : ''}}">
         <div class="text-center date">
           <div class="month mat-accent strong">
             {{bday.start.dateTime | date: 'MMM'}}
