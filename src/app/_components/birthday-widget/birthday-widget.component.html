@@ -1,53 +1,25 @@
 <mat-card class="mt-2">
   <mat-card-title><mat-icon>cake</mat-icon> Verjaardagen</mat-card-title>
   <mat-card-content>
+    <div class="text-center w-100" *ngIf="loading">
+      <mat-spinner></mat-spinner>
+    </div>
+    <mat-error *ngIf="error">{{error}}</mat-error>
     <div class="bday-list">
-      <div class="bday-item d-flex">
+      <div *ngFor="let bday of bdays" class="bday-item d-flex">
         <div class="text-center date">
           <div class="month mat-accent strong">
-            Nov
+            {{bday.start.dateTime | date: 'MMM'}}
           </div>
           <div class="day">
-            23
+            {{bday.start.dateTime | date: 'd'}}
           </div>
         </div>
         <div class="bday-user">
           <h2>
-            Roel Geelen
+            {{bday.subject}}
           </h2>
-          24 jaar
-        </div>
-      </div>
-      <div class="bday-item d-flex">
-        <div class="text-center date">
-          <div class="month mat-accent strong">
-            Nov
-          </div>
-          <div class="day">
-            23
-          </div>
-        </div>
-        <div class="bday-user">
-          <h2>
-            Roel Geelen
-          </h2>
-          24 jaar
-        </div>
-      </div>
-      <div class="bday-item d-flex">
-        <div class="text-center date">
-          <div class="month mat-accent strong">
-            Nov
-          </div>
-          <div class="day">
-            23
-          </div>
-        </div>
-        <div class="bday-user">
-          <h2>
-            Roel Geelen
-          </h2>
-          24 jaar
+          {{2022 - bday.bodyPreview}} jaar
         </div>
       </div>
     </div>

@@ -23,6 +23,8 @@ import { NavbarComponent } from './_components/navbar/navbar.component';
 import { BirthdayWidgetComponent } from './_components/birthday-widget/birthday-widget.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatTreeModule} from "@angular/material/tree";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatFormFieldModule} from "@angular/material/form-field";
 registerLocaleData(localeNl);
 
 @NgModule({
@@ -50,6 +52,8 @@ registerLocaleData(localeNl);
     MatIconModule,
     MatProgressBarModule,
     MatTreeModule,
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: [environment.apiUrl],

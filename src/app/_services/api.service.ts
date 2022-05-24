@@ -3,6 +3,7 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Appointment} from "../_models/appointment/Appointment";
 import {Calendar} from "../_models/calendar/Calendar";
+import {Event} from "../_models/calendar/Event";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -19,6 +20,10 @@ export class ApiService {
 
   getUserCalendars() {
     return this.http.get<Calendar[]>(`${environment.apiUrl}/user/calendars`);
+  }
+
+  getBirthdays() {
+    return this.http.get<Event[]>(`${environment.apiUrl}/birthdays`);
   }
 
   getProfilePicture():Observable<HttpResponse<Blob>> {

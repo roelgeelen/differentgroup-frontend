@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from "../../_services/authentication.service";
 import {User} from "../../_models/User";
 import {Card} from "../../_models/pages/card";
+import {EnumRoles} from "../../_models/enum/enumRoles";
 
 const links = [
   {title: "Outsmart", img: "assets/images/outsamrt.svg", content: "", link: "https://office.out-smart.com/dashboard.php"},
@@ -26,6 +27,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  get isKANTOOR() {
+    return this.currentUser && this.currentUser.roles.indexOf(EnumRoles.OFFICE) !== -1;
   }
 
 }
