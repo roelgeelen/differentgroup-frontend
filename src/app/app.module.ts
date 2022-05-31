@@ -59,7 +59,7 @@ registerLocaleData(localeNl);
     MatFormFieldModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: [environment.apiUrl, environment.apiUrlTest],
+        allowedUrls: [environment.apiUrl],
         sendAccessToken: true
       }
     }),
