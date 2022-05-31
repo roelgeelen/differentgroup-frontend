@@ -8,7 +8,7 @@ export const navConfig: Page[] = [
     icon: 'dashboard',
     pages: [
       {
-        url:'/verkoop/afspraken',
+        url: '/verkoop/afspraken',
         title: 'Afspraken',
         icon: 'map',
         roles: [
@@ -19,7 +19,7 @@ export const navConfig: Page[] = [
         ]
       },
       {
-        url:'/verkoop/inmeten',
+        url: '/verkoop/inmeten',
         title: 'Inmeten',
         icon: 'table_chart',
         roles: [
@@ -35,7 +35,7 @@ export const navConfig: Page[] = [
         icon: 'dashboard',
         pages: [
           {
-            url:'/verkoop/formulier/odo',
+            url: '/verkoop/formulier/odo',
             title: 'ODO',
             icon: 'description',
             roles: [
@@ -67,7 +67,7 @@ export const navConfig: Page[] = [
     icon: 'insert_chart_outlined',
     pages: [
       {
-        url:'/planning/logistiek',
+        url: '/planning/logistiek',
         title: 'Logistiek',
         icon: 'calendar_today',
         roles: [
@@ -75,9 +75,10 @@ export const navConfig: Page[] = [
           EnumRoles.ADMINISTRATION,
           EnumRoles.PLANNING,
           EnumRoles.ICT
-        ]},
+        ]
+      },
       {
-        url:'/planning/productie',
+        url: '/planning/productie',
         title: 'Productie',
         icon: 'bar_chart',
         roles: [
@@ -86,9 +87,10 @@ export const navConfig: Page[] = [
           EnumRoles.PRODUCTION,
           EnumRoles.PLANNING,
           EnumRoles.ICT
-        ]},
+        ]
+      },
       {
-        url:'/planning/magazijn',
+        url: '/planning/magazijn',
         title: 'Magazijn',
         icon: 'bar_chart',
         roles: [
@@ -96,7 +98,8 @@ export const navConfig: Page[] = [
           EnumRoles.ADMINISTRATION,
           EnumRoles.PLANNING,
           EnumRoles.ICT
-        ]},
+        ]
+      },
     ],
     roles: [
       EnumRoles.ENGINEERING,
@@ -124,6 +127,35 @@ export const navConfig: Page[] = [
       EnumRoles.ICT,
       EnumRoles.ENGINEERING,
       EnumRoles.ADMINISTRATION,
+    ]
+  },
+  {
+    url: '/admin',
+    title: 'Beheer',
+    icon: 'supervised_user_circle',
+    roles: [
+      EnumRoles.ADMIN,
+      EnumRoles.ICT
+    ],
+    pages: [
+      {
+        url: '/admin/nieuws',
+        title: 'Berichten',
+        icon: 'message',
+        roles: [
+          EnumRoles.ADMIN,
+          EnumRoles.ICT
+        ]
+      },
+      {
+        url: '/admin/nieuws/create',
+        title: 'Nieuw bericht',
+        icon: 'add',
+        roles: [
+          EnumRoles.ADMIN,
+          EnumRoles.ICT
+        ]
+      }
     ]
   }
 ]

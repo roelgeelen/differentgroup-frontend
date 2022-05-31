@@ -61,6 +61,16 @@ const routes: Routes = [
       ]
     },
   },
+  {
+    path: 'admin',
+    loadChildren: () => import('./_pages/admin/admin.module').then(m => m.AdminModule),
+    canActivate: [AuthGuard],
+    data: {
+      roles: [
+        EnumRoles.ADMIN
+      ]
+    },
+  },
   {path: '**', redirectTo: ''},
 ];
 

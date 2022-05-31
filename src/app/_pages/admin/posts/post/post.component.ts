@@ -1,0 +1,105 @@
+import { Component, OnInit } from '@angular/core';
+import {ApiService} from "../../../../_services/api.service";
+import {Post} from "../../../../_models/pages/Post";
+import {HttpEventType, HttpResponse} from "@angular/common/http";
+import {ActivatedRoute} from "@angular/router";
+import {DomSanitizer} from "@angular/platform-browser";
+
+@Component({
+  selector: 'app-post',
+  templateUrl: './post.component.html',
+  styleUrls: ['./post.component.scss']
+})
+export class PostComponent implements OnInit {
+  selectedFiles: FileList | null;
+  isImageInvalid = false;
+  imageSrc: string;
+  post: Post = new Post();
+  progress: { percentage: number } = { percentage: 0 };
+  uploading = false;
+  queryParam: string | null;
+  loading = false;
+
+  constructor(private apiService: ApiService, private route: ActivatedRoute, private sanitizer: DomSanitizer) { }
+
+  ngOnInit(): void {
+    this.loading = true;
+    this.route.paramMap.subscribe(queryParams => {
+      if (queryParams.get('id') !== null) {
+        this.queryParam = queryParams.get('id');
+        this.apiService.getPost(queryParams.get('id')).subscribe(p => {
+          // @ts-ignore
+          this.post = p;
+          if (this.post.image != null) {
+            this.apiService.getPostPicture(this.post.image).subscribe(pic => {
+              if (pic.body?.size !== 0) {
+                var picture: Blob | null = pic.body;
+                // @ts-ignore
+                this.imageSrc = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(picture));
+              }
+            });
+          }
+          this.loading = false;
+        })
+      } else {
+        this.loading = false;
+      }
+    });
+  }
+
+  selectFile(event: any) {
+    this.selectedFiles = event.target.files;
+    this.isImageInvalid = false;
+    // @ts-ignore
+    if (this.selectedFiles.item(0).size > 500000) {
+      this.isImageInvalid = true;
+      this.selectedFiles = null;
+      this.imageSrc = '';
+    } else {
+      const reader = new FileReader();
+
+      if (event.target.files && event.target.files.length) {
+        const [file] = event.target.files;
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          this.imageSrc = reader.result as string;
+        };
+      }
+    }
+  }
+
+  removeImage() {
+    this.post.image = '';
+    this.selectedFiles = null;
+    this.imageSrc = '';
+  }
+
+  save() {
+    this.uploading = true;
+    this.progress.percentage = 0;
+    var file = this.selectedFiles?.item(0) ? this.selectedFiles?.item(0) : null;
+    if (this.queryParam) {
+      // @ts-ignore
+      this.apiService.updatePost(this.post, file).subscribe(r => {
+        if (r.type === HttpEventType.UploadProgress) {
+          // @ts-ignore
+          this.progress.percentage = Math.round(100 * r.loaded / r.total);
+        } else if (r instanceof HttpResponse) {
+          this.uploading = false
+        }
+      })
+    } else {
+      // @ts-ignore
+      this.apiService.savePost(this.post, file).subscribe(r => {
+        if (r.type === HttpEventType.UploadProgress) {
+          // @ts-ignore
+          this.progress.percentage = Math.round(100 * r.loaded / r.total);
+        } else if (r instanceof HttpResponse) {
+          this.post = new Post();
+          this.imageSrc = '';
+          this.uploading = false
+        }
+      })
+    }
+  }
+}

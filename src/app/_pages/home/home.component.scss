@@ -1,3 +1,9 @@
+h1 {
+  font-size: 1.7rem;
+  border-bottom: 1px solid darkgray;
+  padding-bottom: 15px;
+}
+
 .card-links {
   display: flex;
   justify-content: space-between;
@@ -33,9 +39,12 @@ app-weather-widget {
   margin-left: 10px;
 }
 .widgets {
-  margin: 0 auto;
+  margin-left: 20px;
 }
 @media only screen and (max-width: 678px) {
+  h1{
+    margin-right: 0;
+  }
   mat-card {
     margin: 0 0 10px 0;
   }
@@ -47,6 +56,9 @@ app-weather-widget {
   }
   .flex-flow {
     flex-flow: row wrap;
+  }
+  .widgets {
+    margin: 1rem auto 0 auto;
   }
 }
 

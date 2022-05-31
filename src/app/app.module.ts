@@ -25,6 +25,8 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatTreeModule} from "@angular/material/tree";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import { BlogPostComponent } from './_components/blog-post/blog-post.component';
+import { PostsComponent } from './_pages/admin/posts/posts.component';
 registerLocaleData(localeNl);
 
 @NgModule({
@@ -34,7 +36,8 @@ registerLocaleData(localeNl);
     BouwComponent,
     WeatherWidgetComponent,
     NavbarComponent,
-    BirthdayWidgetComponent
+    BirthdayWidgetComponent,
+    BlogPostComponent
   ],
   imports: [
     AppRoutingModule,
@@ -56,7 +59,7 @@ registerLocaleData(localeNl);
     MatFormFieldModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: [environment.apiUrl],
+        allowedUrls: [environment.apiUrl, environment.apiUrlTest],
         sendAccessToken: true
       }
     }),

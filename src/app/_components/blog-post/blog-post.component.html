@@ -1,0 +1,21 @@
+<div class="text-center w-100" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="!loading">
+  <div class="blog-card w-100" *ngFor="let post of posts">
+    <div *ngIf="post.loadedImage" class="meta">
+      <div class="photo"><img [src]="post.loadedImage"></div>
+    </div>
+    <div class="description">
+      <h1>{{post.title}}</h1>
+      <small>{{post.date | date: "dd-MM-yyyy"}}</small>
+      <p>{{post.message}}</p>
+      <p class="read-more">
+        <a *ngIf="post.url" target="_blank" [href]="post.url">Meer info</a>
+      </p>
+    </div>
+  </div>
+  <div *ngIf="posts.length === 0" class="text-center w-100">
+    Nog geen berichten.
+  </div>
+</div>

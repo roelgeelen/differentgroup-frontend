@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-card-title>
+    {{queryParam ? 'Update' : 'Nieuw'}} bericht
+  </mat-card-title>
+  <hr>
+  <div class="text-center w-100" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <mat-card-content *ngIf="!loading">
+    <div class="d-flex">
+      <div class="w-75">
+        <mat-form-field appearance="fill">
+          <mat-label>Titel</mat-label>
+          <input matInput [(ngModel)]="post.title">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Bericht</mat-label>
+          <textarea matInput [(ngModel)]="post.message"></textarea>
+        </mat-form-field>
+        <div *ngIf="progress.percentage !== 100 && uploading">
+          {{progress.percentage}}% <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div class="text-success p-2" *ngIf="progress.percentage === 100">
+          <mat-icon>check_circle_outline</mat-icon><span>Geplubiceert!</span>
+        </div>
+
+        <button mat-flat-button color="accent"  (click)="save()">
+          Publiceer
+        </button>
+      </div>
+      <div class="w-25 side">
+        <h3><b>Afbeelding</b></h3>
+        <button mat-flat-button color="accent" (click)="removeImage()"><mat-icon>delete</mat-icon></button>
+        <img [src]="imageSrc ? imageSrc : 'assets/images/placeholder.jpg'" style="width:100%">
+        <br>
+        <input type="file" (change)="selectFile($event)" accept="image/*" class="mb-4">
+        <mat-error *ngIf="isImageInvalid">Afbeelding is te groot. Max grote is 500kb</mat-error>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>
+

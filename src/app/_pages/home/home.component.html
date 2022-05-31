@@ -1,11 +1,10 @@
 <div class="content">
   <div class="layout-content">
     <div class="d-flex flex-flow">
-      <mat-card>
-        <h1 class="card-header">Welkom, {{currentUser.name}}</h1>
-        <div class="card-body">
-        </div>
-      </mat-card>
+      <div class="w-100">
+        <h1>Welkom, {{currentUser.name}}</h1>
+        <app-blog-post></app-blog-post>
+      </div>
       <div class="widgets">
         <app-weather-widget></app-weather-widget>
         <app-birthday-widget class="mt-2"></app-birthday-widget>
@@ -18,7 +17,7 @@
           <img mat-card-image [src]="link.img">
         </div>
         <mat-card-actions>
-          <a mat-raised-button color="primary" target="_blank" [href]="link.link">Ga naar {{link.title}}</a>
+          <a mat-raised-button color="accent" target="_blank" [href]="link.link">Ga naar {{link.title}}</a>
         </mat-card-actions>
       </mat-card>
     </div>
