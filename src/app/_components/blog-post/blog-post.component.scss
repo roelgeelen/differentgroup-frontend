@@ -90,13 +90,16 @@ $color_grey_dark: #a2a2a2;
     }
     h1 {
       line-height: 1;
-      margin: 0 0 5px 0;
+      margin: 0;
       font-size: 1.7rem;
     }
     small {
       font-weight: 300;
       text-transform: uppercase;
       color: $color_grey_dark;
+    }
+    .message {
+      margin-top: 10px;
     }
     .read-more {
       text-align: right;
