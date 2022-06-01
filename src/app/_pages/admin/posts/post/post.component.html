@@ -14,10 +14,15 @@
           <input matInput [(ngModel)]="post.title">
         </mat-form-field>
         <br>
-        <mat-form-field appearance="fill">
-          <mat-label>Bericht</mat-label>
-          <textarea matInput [(ngModel)]="post.message"></textarea>
-        </mat-form-field>
+        <div class="NgxEditor__Wrapper">
+          <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+          <ngx-editor
+            [editor]="editor"
+            [(ngModel)]="post.message"
+            [disabled]="false"
+            [placeholder]="'Type here...'"
+          ></ngx-editor>
+        </div>
         <div *ngIf="progress.percentage !== 100 && uploading">
           {{progress.percentage}}% <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>

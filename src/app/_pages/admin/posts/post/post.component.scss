@@ -27,3 +27,13 @@ textarea {
 mat-progress-bar {
   margin-bottom: 20px;
 }
+
+.NgxEditor__Wrapper {
+  height: 300px;
+  margin-bottom: 20px;
+}
+
+::ng-deep .NgxEditor__Content {
+  height: 260px;
+  overflow: auto;
+}

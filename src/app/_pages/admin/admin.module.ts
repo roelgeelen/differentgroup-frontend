@@ -16,6 +16,7 @@ import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {NgxEditorModule} from "ngx-editor";
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatInputModule,
     FormsModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NgxEditorModule
   ],
   declarations: [
     AdminComponent,

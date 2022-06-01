@@ -26,7 +26,7 @@ import {MatTreeModule} from "@angular/material/tree";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { BlogPostComponent } from './_components/blog-post/blog-post.component';
-import { PostsComponent } from './_pages/admin/posts/posts.component';
+import { SafeHtmlPipe } from './_helpers/safe-html.pipe';
 registerLocaleData(localeNl);
 
 @NgModule({
@@ -37,7 +37,8 @@ registerLocaleData(localeNl);
     WeatherWidgetComponent,
     NavbarComponent,
     BirthdayWidgetComponent,
-    BlogPostComponent
+    BlogPostComponent,
+    SafeHtmlPipe
   ],
   imports: [
     AppRoutingModule,

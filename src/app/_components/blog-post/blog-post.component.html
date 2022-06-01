@@ -9,7 +9,7 @@
     <div class="description">
       <h1>{{post.title}}</h1>
       <small>{{post.date | date: "dd-MM-yyyy"}}</small>
-      <p>{{post.message}}</p>
+      <div [innerHTML]="post.message | safeHtml">
       <p class="read-more">
         <a *ngIf="post.url" target="_blank" [href]="post.url">Meer info</a>
       </p>

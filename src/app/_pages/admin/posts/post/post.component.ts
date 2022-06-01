@@ -4,6 +4,7 @@ import {Post} from "../../../../_models/pages/Post";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {DomSanitizer} from "@angular/platform-browser";
+import {Editor, Toolbar} from "ngx-editor";
 
 @Component({
   selector: 'app-post',
@@ -19,10 +20,22 @@ export class PostComponent implements OnInit {
   uploading = false;
   queryParam: string | null;
   loading = false;
+  editor: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
 
   constructor(private apiService: ApiService, private route: ActivatedRoute, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
+    this.editor = new Editor();
     this.loading = true;
     this.route.paramMap.subscribe(queryParams => {
       if (queryParams.get('id') !== null) {
@@ -45,6 +58,11 @@ export class PostComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  // make sure to destory the editor
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 
   selectFile(event: any) {
