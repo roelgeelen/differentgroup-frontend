@@ -22,3 +22,42 @@ mat-spinner {
   background: #334d9c !important;
   color: white !important;
 }
+
+//loading
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #fafafa;
+}
+
+.loading {
+  position: absolute;
+  top: calc(50% - 20px);
+  left: calc(50% - 20px);
+  margin: -15px 0 0 -15px;
+  width: 40px;
+  height: 40px;
+
+  animation: loading 2s infinite ease-in-out;
+}
+
+@keyframes loading {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    background-color: #189383;
+  }
+
+  50% {
+    transform: perspective(120px) rotateX(180deg) rotateY(0deg);
+    background-color: #233588;
+  }
+
+  100% {
+    transform: perspective(120px) rotateX(180deg) rotateY(-180deg);
+    background-color: #189383;
+  }
+}

@@ -15,12 +15,8 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  searchNearbyEvents(lat: number, lng: number, owner: string, distance: number) {
-    return this.http.get<Appointment[]>(`${environment.apiUrl}/search/appointments/nearby?lat=${lat}&lng=${lng}&owner=${owner}&radius=${distance}`);
-  }
-
-  getUserCalendars() {
-    return this.http.get<Calendar[]>(`${environment.apiUrl}/user/calendars`);
+  searchNearbyEvents(lat: number, lng: number, owners: string[], distance: number) {
+    return this.http.get<Appointment[]>(`${environment.apiUrl}/search/appointments/nearby?lat=${lat}&lng=${lng}&owners=${owners}&radius=${distance}`);
   }
 
   getBirthdays() {

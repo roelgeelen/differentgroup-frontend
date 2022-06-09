@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   currentUser: User;
   loading = false;
   user: User;
+  welkom: string;
   links: Card[] = links;
 
   constructor(private authService: AuthenticationService) {
@@ -27,6 +28,16 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    var now = new Date().getHours();
+    if (now >= 6 && now < 12) {
+      this.welkom = "Goeiemorgen";
+    } if(now >= 12 && now < 18) {
+      this.welkom = "Goedemiddag";
+    } if(now >= 18 && now < 24) {
+      this.welkom = "Goeienavond";
+    } if(now >= 0 && now < 6) {
+      this.welkom = "Nachtwerk?";
+    }
   }
 
   get isKANTOOR() {

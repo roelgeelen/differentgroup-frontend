@@ -2,8 +2,8 @@
   <div class="text-center w-100" *ngIf="loadingCals">
     <mat-spinner diameter="50"></mat-spinner>
   </div>
-  <mat-button-toggle-group class="w-100" *ngIf="!loadingCals" name="fontStyle" aria-label="Font Style" [(ngModel)]="owner">
-    <mat-button-toggle class="flex-grow-1 mat-accent" *ngFor="let calendar of calendars" [value]="calendar.id" (change)="onSearch()">{{calendar.name}}</mat-button-toggle>
+  <mat-button-toggle-group class="w-100" *ngIf="!loadingCals" name="fontStyle" aria-label="Font Style" [(ngModel)]="owners" multiple>
+    <mat-button-toggle class="flex-grow-1 mat-accent" *ngFor="let calendar of calendars" [value]="calendar.id" (change)="onSearch()"><img [src]="calendar.color" height="20px">{{calendar.name}}</mat-button-toggle>
   </mat-button-toggle-group>
   <button mat-flat-button color="accent" class="refresh-btn" (click)="onSearch()">
     <mat-icon>refresh</mat-icon>
@@ -22,51 +22,57 @@
 </div>
 <input #mapSearchField class="google-search-bar" type="text" placeholder="Search" aria-label="Search"
        aria-describedby="search-addon" [(ngModel)]="address"/>
-<google-map
-  height="70vh"
-  width="100%"
-  [zoom]="zoom"
-  [center]="center"
-  [options]="options"
->
-  <map-marker
-    #somemarker="mapMarker"
-    *ngFor="let marker of markers"
-    [position]="marker.position"
-    [label]="marker.label"
-    [title]="marker.title"
-    [options]="marker.options"
-    (mapClick)="openInfo(somemarker, marker.info)"
+<div>
+  <div class="loading-overlay" *ngIf="loading"><div class="loading"></div></div>
+  <google-map
+    height="70vh"
+    width="100%"
+    [zoom]="zoom"
+    [center]="center"
+    [options]="options"
   >
-  </map-marker>
-  <map-circle
-    *ngFor="let rad of radius"
-    [center]="rad.center"
-    [radius]="rad.radius"
-    [options]="rad.options"></map-circle>
-  <map-info-window>{{ infoContent }}</map-info-window>
-</google-map>
+    <map-marker
+      #somemarker="mapMarker"
+      *ngFor="let marker of markers"
+      [position]="marker.position"
+      [label]="marker.label"
+      [title]="marker.title"
+      [options]="marker.options"
+      (mapClick)="openInfo(somemarker, marker.info)"
+    >
+    </map-marker>
+    <map-circle
+      *ngFor="let rad of radius"
+      [center]="rad.center"
+      [radius]="rad.radius"
+      [options]="rad.options"></map-circle>
+    <map-info-window>{{ infoContent }}</map-info-window>
+  </google-map>
+</div>
+
 
 <table class="table table-striped">
   <thead>
   <tr>
     <th scope="col">#</th>
     <th scope="col">Datum</th>
+    <th scope="col">Adviseur</th>
     <th scope="col">Adres</th>
     <th scope="col">Afspraak</th>
-    <th scope="col">Afstand in KM</th>
+    <th scope="col">Afstand</th>
   </tr>
   </thead>
   <tbody *ngIf="!loading">
   <tr *ngFor="let appointment of appointments; index as i">
     <th scope="row">{{ i + 1 }}</th>
-    <td>{{ appointment.start.dateTime | date: 'dd-MM-yyyy hh:mm' }}</td>
+    <td>{{ appointment.start.dateTime | date: 'dd-MM-yyyy HH:mm' }}</td>
+    <td>{{ appointment.organizer.emailAddress.name }}</td>
     <td>{{ appointment.location.displayName }}</td>
     <td>{{ appointment.subject }}</td>
-    <td>{{ appointment.oDataType | number:'1.0-0' }}</td>
+    <td>{{ appointment.distance | number:'1.0-0' }}km (~{{60 * (appointment.distance / 50) | number:'1.0-0' }} min)</td>
   </tr>
   <tr *ngIf="appointments.length === 0">
-    <td colspan="5" class="text-center">Niks gevonden!</td>
+    <td colspan="6" class="text-center">Niks gevonden!</td>
   </tr>
   </tbody>
 </table>

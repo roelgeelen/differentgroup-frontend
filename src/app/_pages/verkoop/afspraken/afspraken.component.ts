@@ -5,7 +5,29 @@ import {Appointment} from "../../../_models/appointment/Appointment";
 import {ApiService} from "../../../_services/api.service";
 import {formatDate} from "@angular/common";
 import {Calendar} from "../../../_models/calendar/Calendar";
-import {MatSliderChange} from "@angular/material/slider";
+
+const calendars: Calendar[] = [
+  {
+    name: 'Sil Kuppens',
+    id: '238951387',
+    color: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+  },
+  {
+    name: 'Harm Verstappen',
+    id: '260463341',
+    color: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+  },
+  {
+    name: 'Sam Cummins',
+    id: '289996526',
+    color: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+  },
+  {
+    name: 'Patrick Smolders',
+    id: '289992164',
+    color: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+  }
+]
 
 @Component({
   selector: 'app-afspraken',
@@ -34,8 +56,8 @@ export class AfsprakenComponent implements OnInit {
   radius: any[] = []
   infoContent = ''
   appointments: Appointment[] = [];
-  calendars: Calendar[] = [];
-  owner: string = '';
+  calendars: Calendar[] = calendars;
+  owners: string[] = [];
   address: string = '';
   loadingCals = false;
   distance: number = 25;
@@ -51,11 +73,6 @@ export class AfsprakenComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadingCals = true;
-    this.apiService.getUserCalendars().subscribe(c => {
-      this.calendars = c;
-      this.loadingCals = false;
-    })
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = {
         lat: position.coords.latitude,
@@ -123,15 +140,17 @@ export class AfsprakenComponent implements OnInit {
   }
 
   onSearch() {
-    if (this.address === '' || this.owner === '') {
+    if (this.address === '' || this.owners.length === 0) {
       return;
     }
 
     this.loading = true;
-    this.markers = [];
-    this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, this.owner, this.distance).subscribe(apos => {
+    this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, this.owners, this.distance).subscribe(apos => {
+      this.markers = [];
       this.appointments = apos;
       apos.forEach(apo => {
+        // @ts-ignore
+        const pointer: Calendar = calendars.find( ({ name }) => name === apo.organizer.emailAddress.name.split(' | ')[0] );
         this.markers.push({
           position: {
             lat: +apo.location.coordinates.latitude,
@@ -142,11 +161,9 @@ export class AfsprakenComponent implements OnInit {
             text: apo.subject,
           },
           title: apo.location.displayName,
-          info: formatDate(apo.start.dateTime, 'dd-MM-yyyy hh:mm', 'en-US'),
-          icon: {
-            fillColor: "blue",
-          },
+          info: formatDate(apo.start.dateTime, 'dd-MM-yyyy HH:mm', 'en-US'),
           options: {
+            icon: pointer.color,
             animation: google.maps.Animation.DROP,
           },
         })
