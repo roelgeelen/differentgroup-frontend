@@ -26,6 +26,11 @@ const calendars: Calendar[] = [
     name: 'Patrick Smolders',
     id: '289992164',
     color: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+  },
+  {
+    name: 'Danny Rutjes',
+    id: '364617441',
+    color: 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png'
   }
 ]
 
