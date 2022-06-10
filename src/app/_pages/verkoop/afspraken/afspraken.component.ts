@@ -153,7 +153,6 @@ export class AfsprakenComponent implements OnInit {
     this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, this.owners, this.distance).subscribe(apos => {
       this.markers = [];
       this.appointments = apos;
-      console.log(apos);
       apos.forEach(apo => {
         // @ts-ignore
         const pointer: Calendar = calendars.find( ({ name }) => name === apo.organizer.emailAddress.name.split(' | ')[0] );
