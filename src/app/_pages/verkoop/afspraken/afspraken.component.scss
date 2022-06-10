@@ -34,6 +34,10 @@ mat-spinner {
   right: 33px;
 }
 
+.mat-button-toggle-group {
+  flex-wrap: wrap;
+}
+
 .mat-button-toggle-checked {
   background-color: #049693 !important;
 }
@@ -76,5 +80,18 @@ mat-spinner {
   .loading {
     height: 40px;
     width: 40px;
+  }
+}
+
+.table tr {
+  &:hover {
+    cursor: pointer;
+  }
+  &.selected {
+    background-color: #049693 !important;
+
+    td {
+      color: white;
+    }
   }
 }

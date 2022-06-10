@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {GoogleMap, MapInfoWindow, MapMarker} from "@angular/google-maps";
 import {ProgressSpinnerMode} from "@angular/material/progress-spinner";
 import {Appointment} from "../../../_models/appointment/Appointment";
@@ -37,6 +37,7 @@ const calendars: Calendar[] = [
 export class AfsprakenComponent implements OnInit {
   @ViewChild('mapSearchField') searchField: ElementRef;
   @ViewChild('radiusCircle') circle: ElementRef;
+  @ViewChildren('somemarker') components:QueryList<MapMarker>;
   @ViewChild(GoogleMap) map: GoogleMap
   @ViewChild(MapInfoWindow) info: MapInfoWindow
   loading = false;
@@ -44,10 +45,6 @@ export class AfsprakenComponent implements OnInit {
   zoom = 9
   center: google.maps.LatLngLiteral
   options: google.maps.MapOptions = {
-    disableDefaultUI: true,
-    fullscreenControl: true,
-    zoomControl: false,
-    scrollwheel: true,
     mapTypeId: 'roadmap',
     maxZoom: 15,
     minZoom: 6,
@@ -133,10 +130,13 @@ export class AfsprakenComponent implements OnInit {
     this.zoom = 10;
   }
 
-  openInfo(marker: MapMarker, content: any) {
+  openInfo(marker: MapMarker | undefined, content: any) {
     this.infoContent = content
     // @ts-ignore
     this.info.open(marker)
+    for (let apo of this.appointments) {
+      apo.location.displayName === marker?.getTitle() ? apo.selected = true : apo.selected = false;
+    }
   }
 
   onSearch() {
@@ -161,7 +161,7 @@ export class AfsprakenComponent implements OnInit {
             text: apo.subject,
           },
           title: apo.location.displayName,
-          info: formatDate(apo.start.dateTime, 'dd-MM-yyyy HH:mm', 'en-US'),
+          info: formatDate(apo.start.dateTime, 'EEEE, dd MMMM, HH:mm', 'nl-NL'),
           options: {
             icon: pointer.color,
             animation: google.maps.Animation.DROP,
@@ -174,5 +174,11 @@ export class AfsprakenComponent implements OnInit {
       },0);
       this.loading = false;
     })
+  }
+
+  selectPoint(apo: Appointment) {
+    const markerinfo = this.markers.find(({ title }) => title === apo.location.displayName ).info;
+    const marker = this.components.find(m => m.getTitle() == apo.location.displayName);
+    this.openInfo(marker, markerinfo);
   }
 }

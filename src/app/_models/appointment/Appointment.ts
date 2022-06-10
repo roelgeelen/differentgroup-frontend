@@ -8,5 +8,6 @@ export class Appointment {
   end: any;
   location: Location = new Location();
   distance: number = 0;
-  organizer: {emailAddress: {name: string, address: string}}
+  organizer: {emailAddress: {name: string, address: string}};
+  selected = false;
 }
