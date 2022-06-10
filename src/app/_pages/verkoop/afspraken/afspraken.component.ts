@@ -153,6 +153,7 @@ export class AfsprakenComponent implements OnInit {
     this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, this.owners, this.distance).subscribe(apos => {
       this.markers = [];
       this.appointments = apos;
+      console.log(apos);
       apos.forEach(apo => {
         // @ts-ignore
         const pointer: Calendar = calendars.find( ({ name }) => name === apo.organizer.emailAddress.name.split(' | ')[0] );
@@ -166,7 +167,7 @@ export class AfsprakenComponent implements OnInit {
             text: apo.subject,
           },
           title: apo.location.displayName,
-          info: formatDate(apo.start.dateTime, 'EEEE, dd MMMM, HH:mm', 'nl-NL'),
+          info: formatDate(apo.start.dateTime+'Z', 'EEEE, dd MMMM, HH:mm', 'nl-NL'),
           options: {
             icon: pointer.color,
             animation: google.maps.Animation.DROP,

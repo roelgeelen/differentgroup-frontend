@@ -64,7 +64,7 @@
   <tbody *ngIf="!loading">
   <tr *ngFor="let appointment of appointments; index as i" (click)="selectPoint(appointment)" [class]="appointment.selected ? 'selected' : ''">
     <th scope="row">{{ i + 1 }}</th>
-    <td>{{ appointment.start.dateTime | date: 'EEEE, dd MMMM, HH:mm' }}</td>
+    <td>{{ appointment.start.dateTime+'Z' | date: 'EEEE, dd MMMM, HH:mm' }}</td>
     <td>{{ appointment.organizer.emailAddress.name }}</td>
     <td>{{ appointment.location.displayName }}</td>
     <td>{{ appointment.subject }}</td>
