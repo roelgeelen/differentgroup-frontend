@@ -12,10 +12,10 @@
 <div class="totals">
   <div class="round">Binnen<br>
     <mat-spinner diameter="75" *ngIf="loading"></mat-spinner>
-    <span>{{value}}</span>
+    <span *ngIf="!loading">{{value}}</span>
   </div>
   <div class="round">Verwacht<br>
     <mat-spinner diameter="75" *ngIf="loading"></mat-spinner>
-    <span>{{valueExpected}}</span>
+    <span *ngIf="!loading">{{valueExpected}}</span>
   </div>
 </div>

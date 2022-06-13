@@ -27,7 +27,7 @@ export class MagazijnComponent implements OnInit {
   };
   dynamicResize = true;
 
-  valueExpected!: number;
+  valueExpected: number = 0;
   value!: number;
   constructor(private apiService: ApiService) {
   }
