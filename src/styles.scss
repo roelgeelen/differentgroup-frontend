@@ -1,5 +1,25 @@
+
+@use '@angular/material' as mat;
+@use "assets/theme/theme.scss" as theme;
+
+@include mat.core();
+
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(theme.$different-palette, A400, A100, A200);
+
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+  )
+));
+
+// Emit theme-dependent styles for common features used across multiple components.
+@include mat.all-component-themes($my-theme);
+
 /* You can post global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
+
 html, body { margin: 0; height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 

@@ -17,7 +17,12 @@ import {FormsModule} from "@angular/forms";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {FormOdoComponent} from "./form-odo/form-odo.component";
 import {MatMenuModule} from "@angular/material/menu";
-
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatRadioModule} from '@angular/material/radio';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatListModule} from "@angular/material/list";
 @NgModule({
   imports: [
     FormsModule,
@@ -32,7 +37,13 @@ import {MatMenuModule} from "@angular/material/menu";
     MatToolbarModule,
     MatButtonModule,
     MatButtonToggleModule,
-    MatMenuModule
+    MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule,
+    MatRadioModule,
+    MatTabsModule,
+    MatCheckboxModule,
+    MatListModule,
   ],
   declarations: [
     VerkoopComponent,
@@ -42,7 +53,8 @@ import {MatMenuModule} from "@angular/material/menu";
     FormOdoComponent
   ],
   exports: [
-    VerkoopComponent
+    VerkoopComponent,
+    MatTabsModule,
   ]
 })
 export class VerkoopModule {}
