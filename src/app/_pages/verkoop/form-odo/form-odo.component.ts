@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {DealConfig} from "../../../_models/hubspot/DealConfig";
 import {HubspotService} from "../../../_services/hubspot.service";
 import {Values} from "../../../_models/hubspot/Values";
+import {AuthenticationService} from "../../../_services/authentication.service";
+import {User} from "../../../_models/User";
 
 const cilinders: string[] = [
   "Cilinder leveren (incl. drie sleutels)",
@@ -17,6 +19,7 @@ const cilinders: string[] = [
   styleUrls: ['./form-odo.component.scss']
 })
 export class FormOdoComponent implements OnInit {
+  currentUser: User;
   dealConfig: DealConfig;
   fullscreen = false;
   tabIndex = 0;
@@ -39,9 +42,12 @@ export class FormOdoComponent implements OnInit {
   private _montage: string;
   private _customMontage: string;
 
-  constructor(private hubService: HubspotService) {
+  constructor(private hubService: HubspotService, private authService: AuthenticationService) {
     this.dealConfig = new DealConfig()
     this.dealConfig.values = new Values();
+    this.authService.currentUser.subscribe(x => {
+      this.currentUser = x
+    });
   }
 
   ngOnInit(): void {
@@ -51,6 +57,7 @@ export class FormOdoComponent implements OnInit {
     if (this.dealConfig.values.deal_id != null) {
       this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
         this.dealConfig = deal;
+        this.dealConfig.values.adviseur = this.currentUser.name;
         if (this.dealConfig.values.verdeling_symmetrisch != null) {
           if (this.dealConfig.values.verdeling_symmetrisch != 'Ja') {
             this.customVerdelingSymetrisch = this.dealConfig.values.verdeling_symmetrisch;

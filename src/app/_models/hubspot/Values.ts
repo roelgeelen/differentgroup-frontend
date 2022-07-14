@@ -1,6 +1,7 @@
 export class Values {
   deal_id: number;
   dealname: string = '';
+  adviseur: string = '';
   definitieve_bestelmaat: string;
   actieve_deur: string;
   draairichting: string;

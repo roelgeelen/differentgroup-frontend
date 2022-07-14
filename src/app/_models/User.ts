@@ -1,5 +1,5 @@
 export class User {
-  name: String;
+  name: string;
   image: any;
   roles: string[]
 
