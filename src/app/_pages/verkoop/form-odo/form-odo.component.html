@@ -8,32 +8,32 @@
       <img src="../../../../assets/images/cropped-logo-differentdoors-diap.png">
       <h1>ODO openslaande deur</h1>
     </div>
-    <ng-container *ngIf="dealConfig.properties.dealname === ''" class="w-100">
+    <ng-container *ngIf="dealConfig.values.dealname === ''" class="w-100">
       <div class="search">
         <mat-error *ngIf="error">{{error}}</mat-error>
         <mat-form-field appearance="fill" class="w-75">
           <mat-label>Deal nummer</mat-label>
-          <input matInput type="number" [(ngModel)]="dealConfig.id">
+          <input matInput type="number" [(ngModel)]="dealConfig.values.deal_id">
         </mat-form-field>
         <button mat-raised-button color="accent" (click)="findDeal()">
           <mat-icon>search</mat-icon>
         </button>
       </div>
     </ng-container>
-    <ng-container *ngIf="dealConfig.properties.dealname !== ''">
+    <ng-container *ngIf="dealConfig.values.dealname !== ''">
       <mat-tab-group preserveContent [(selectedIndex)]="tabIndex">
         <mat-tab label="Algemeen">
           <div class="form-content">
             <div class="row">
-              <h2 class="w-50">{{dealConfig.properties.dealname}}</h2>
+              <h2 class="w-50">{{dealConfig.values.dealname}}</h2>
               <button mat-button color="accent" class="clear" (click)="clear()">
                 <mat-icon>clear</mat-icon>
               </button>
             </div>
             <div class="row">
               <mat-label class="label">Definitieve bestelmaat</mat-label>
-              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.properties.definitieve_bestelmaat"
-                               (ngModelChange)="updateDealProp('definitieve_bestelmaat', $event)">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.values.definitieve_bestelmaat"
+                               (ngModelChange)="updateDealConfig()">
                 <mat-radio-button value="Ja">Ja</mat-radio-button>
                 <mat-radio-button value="Nee">Nee</mat-radio-button>
               </mat-radio-group>
@@ -42,12 +42,12 @@
             <div class="row">
               <mat-label class="label">Afmetingen</mat-label>
               <mat-form-field class="w-50">
-                <input matInput placeholder="Hoogte" [(ngModel)]="dealConfig.properties.hoogte"
-                       (ngModelChange)="updateDealProp('hoogte', $event)">
+                <input matInput placeholder="Hoogte" [(ngModel)]="dealConfig.values.hoogte"
+                       (focusout)="updateDealConfig()">
               </mat-form-field>
               <mat-form-field class="w-50">
-                <input matInput placeholder="Breedte" [(ngModel)]="dealConfig.properties.breedte"
-                       (ngModelChange)="updateDealProp('breedte', $event)">
+                <input matInput placeholder="Breedte" [(ngModel)]="dealConfig.values.breedte"
+                       (focusout)="updateDealConfig()">
               </mat-form-field>
             </div>
             <div class="row">
@@ -57,7 +57,7 @@
                 <mat-radio-button value="other">
                   <mat-form-field>
                     <input matInput placeholder="Anders" [(ngModel)]="customVerdelingSymetrisch"
-                           (ngModelChange)="verdelingSymetrisch = 'other'">
+                           (focusout)="verdelingSymetrisch = 'other'">
                   </mat-form-field>
                 </mat-radio-button>
               </mat-radio-group>
@@ -73,8 +73,8 @@
             <div class="row">
               <mat-label class="label">Model</mat-label>
               <img src="assets/forms/odo/69c3bd73-a00d-48cf-a637-51b1efd1aa9a.png">
-              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.properties.model"
-                               (ngModelChange)="updateDealProp('model', $event)">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.values.model"
+                               (ngModelChange)="updateDealConfig()">
                 <mat-radio-button value="Verticaal">Verticaal</mat-radio-button>
                 <mat-radio-button value="Horizontaal">Horizontaal</mat-radio-button>
                 <mat-radio-button value="Volledig vlakke plaat - ODO300">Volledig vlakke plaat - ODO300
@@ -84,8 +84,8 @@
             <div class="row">
               <mat-label class="label">Profilering</mat-label>
               <img src="assets/forms/odo/0740c7ed-e7d1-404d-8d12-984b5e8cc979.png">
-              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.properties.profilering"
-                               (ngModelChange)="updateDealProp('profilering', $event)">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.values.profilering"
+                               (ngModelChange)="updateDealConfig()">
                 <mat-radio-button value="Smal (plancha) ">Smal (plancha)</mat-radio-button>
                 <mat-radio-button value="Midden (ligna)">Midden (ligna)</mat-radio-button>
                 <mat-radio-button value="Vlak (plano) ">Vlak (plano)</mat-radio-button>
@@ -94,8 +94,8 @@
             <div class="row">
               <mat-label class="label">Uitstraling</mat-label>
               <img src="assets/forms/odo/92adc622-e173-4baf-8dba-38acdd8816fd.png">
-              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.properties.uitstraling"
-                               (ngModelChange)="updateDealProp('uitstraling', $event)">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.values.uitstraling"
+                               (ngModelChange)="updateDealConfig()">
                 <mat-radio-button value="Houtnerf (woodgrain)">Houtnerf (woodgrain)</mat-radio-button>
                 <mat-radio-button value="Glad (satin)">Glad (satin)</mat-radio-button>
               </mat-radio-group>
@@ -104,16 +104,16 @@
               <mat-label class="label">Kleuren</mat-label>
               <img src="assets/forms/odo/2022-05-17 16_23_28-.png">
               <mat-form-field class="w-30">
-                <input matInput placeholder="Deur RAL in structuurlak" [(ngModel)]="dealConfig.properties.deur_ral"
-                       (ngModelChange)="updateDealProp('deur_ral', $event)">
+                <input matInput placeholder="Deur RAL in structuurlak" [(ngModel)]="dealConfig.values.deur_ral"
+                       (focusout)="updateDealConfig()">
               </mat-form-field>
               <mat-form-field class="w-30">
-                <input matInput placeholder="Kozijn RAL" [(ngModel)]="dealConfig.properties.kozijn_ral"
-                       (ngModelChange)="updateDealProp('kozijn_ral', $event)">
+                <input matInput placeholder="Kozijn RAL" [(ngModel)]="dealConfig.values.kozijn_ral"
+                       (focusout)="updateDealConfig()">
               </mat-form-field>
               <mat-form-field class="w-30">
-                <input matInput placeholder="Scharnieren RAL" [(ngModel)]="dealConfig.properties.scharnier_ral"
-                       (ngModelChange)="updateDealProp('scharnier_ral', $event)">
+                <input matInput placeholder="Scharnieren RAL" [(ngModel)]="dealConfig.values.scharnier_ral"
+                       (focusout)="updateDealConfig()">
               </mat-form-field>
             </div>
             <div class="d-flex justify-content-between mt-3">
@@ -127,8 +127,8 @@
             <div class="row">
               <mat-label class="label">Paneel</mat-label>
               <img src="assets/forms/odo/56020ab6-c695-4125-b0ba-bd97f79e4204.png">
-              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.properties.paneel"
-                               (ngModelChange)="updateDealProp('paneel', $event)">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.values.paneel"
+                               (ngModelChange)="updateDealConfig()">
                 <mat-radio-button value="Standaard stucco">Standaard stucco</mat-radio-button>
                 <mat-radio-button value="Volledig vlakke plaat - ODO301">Volledig vlakke plaat - ODO301
                 </mat-radio-button>
@@ -144,7 +144,7 @@
                 <mat-radio-button value="other">
                   <mat-form-field>
                     <input matInput placeholder="Anders" [(ngModel)]="customKleuroptie"
-                           (ngModelChange)="kleuroptie = 'other'">
+                           (focusout)="kleuroptie = 'other'">
                   </mat-form-field>
                 </mat-radio-button>
               </mat-radio-group>
@@ -159,24 +159,24 @@
           <div class="form-content">
             <div class="row">
               <mat-label class="label">Draairichting (van buiten gezien)</mat-label>
-              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.properties.draairichting"
-                               (ngModelChange)="updateDealProp('draairichting', $event)">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.values.draairichting"
+                               (ngModelChange)="updateDealConfig()">
                 <mat-radio-button value="Naar buiten">Naar buiten</mat-radio-button>
                 <mat-radio-button value="Naar binnen">Naar binnen</mat-radio-button>
               </mat-radio-group>
             </div>
             <div class="row">
               <mat-label class="label">Actieve deur (van buiten gezien)</mat-label>
-              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.properties.actieve_deur"
-                               (ngModelChange)="updateDealProp('actieve_deur', $event)">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.values.actieve_deur"
+                               (ngModelChange)="updateDealConfig()">
                 <mat-radio-button value="Rechts">Rechts</mat-radio-button>
                 <mat-radio-button value="Links">Links</mat-radio-button>
               </mat-radio-group>
             </div>
             <div class="row">
               <mat-label class="label">Krukset deurbeslag</mat-label>
-              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.properties.krukset_deurbeslag"
-                               (ngModelChange)="updateDealProp('krukset_deurbeslag', $event)">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.values.krukset_deurbeslag"
+                               (ngModelChange)="updateDealConfig()">
                 <mat-radio-button value="Klink aluminium (standaard)">Klink aluminium (standaard)</mat-radio-button>
                 <mat-radio-button value="Knop aluminium (standaard)">Knop aluminium (standaard)</mat-radio-button>
                 <mat-radio-button value="Klink zwart - ODO304">Klink zwart - ODO304</mat-radio-button>
@@ -218,8 +218,8 @@
             </div>
             <div class="row">
               <mat-label class="label">Glassectie</mat-label>
-              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.properties.glassectie"
-                               (ngModelChange)="updateDealProp('glassectie', $event)">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.values.glassectie"
+                               (ngModelChange)="updateDealConfig()">
                 <mat-radio-button value="N.v.t.">N.v.t.</mat-radio-button>
                 <mat-radio-button value="Horizontaal - HR++ helder glas - ODO200">Horizontaal - HR++ helder glas -
                   ODO200
@@ -235,14 +235,14 @@
             <div class="row">
               <mat-label class="label">Netto glasmaat</mat-label>
               <mat-form-field>
-                <input matInput placeholder="Maat" [(ngModel)]="dealConfig.properties.netto_glasmaat"
-                       (ngModelChange)="updateDealProp('netto_glasmaat', $event)">
+                <input matInput placeholder="Maat" [(ngModel)]="dealConfig.values.netto_glasmaat"
+                       (focusout)="updateDealConfig()">
               </mat-form-field>
             </div>
             <div class="row">
               <mat-label class="label">Glassectie in vleugel</mat-label>
-              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.properties.glassectie_in_vleugel"
-                               (ngModelChange)="updateDealProp('glassectie_in_vleugel', $event)">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.values.glassectie_in_vleugel"
+                               (ngModelChange)="updateDealConfig()">
                 <mat-radio-button value="Beide">Beide</mat-radio-button>
                 <mat-radio-button value="Actieve deur">Actieve deur</mat-radio-button>
                 <mat-radio-button value="Passieve deur">Passieve deur</mat-radio-button>
@@ -264,7 +264,7 @@
                 <mat-radio-button value="other">
                   <mat-form-field>
                     <input matInput placeholder="Anders" [(ngModel)]="customMontage"
-                           (ngModelChange)="montage = 'other'">
+                           (focusout)="montage = 'other'">
                   </mat-form-field>
                 </mat-radio-button>
               </mat-radio-group>
@@ -280,8 +280,8 @@
             </div>
             <div class="row">
               <mat-label class="label">Type deur</mat-label>
-              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.properties.type_deur"
-                               (ngModelChange)="updateDealProp('type_deur', $event)">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.values.type_deur"
+                               (ngModelChange)="updateDealConfig()">
                 <mat-radio-button value="N.v.t.">N.v.t.</mat-radio-button>
                 <mat-radio-button value="Sectionaaldeur">Sectionaaldeur</mat-radio-button>
                 <mat-radio-button value="Kanteldeur">Kanteldeur</mat-radio-button>
@@ -309,8 +309,8 @@
             <div class="row">
               <mat-label class="label">Aftimmering binnenzijde</mat-label>
               <img src="assets/forms/odo/79cc52f6-13ec-4fc4-bd46-1d63942001c1.png">
-              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.properties.aftimmering_binnenzijde"
-                               (ngModelChange)="updateDealProp('aftimmering_binnenzijde', $event)">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.values.aftimmering_binnenzijde"
+                               (ngModelChange)="updateDealConfig()">
                 <mat-radio-button value="Klant kiest voor geen binnenaftimmering">Klant kiest voor geen
                   binnenaftimmering
                 </mat-radio-button>
@@ -327,8 +327,8 @@
             </div>
             <div class="row">
               <mat-label class="label">Bouwkundig aanpassingen</mat-label>
-              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.properties.bouwkundig_aanpassingen"
-                               (ngModelChange)="updateDealProp('bouwkundig_aanpassingen', $event)">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="dealConfig.values.bouwkundig_aanpassingen"
+                               (ngModelChange)="updateDealConfig()">
                 <mat-radio-button value="N.v.t.">N.v.t.</mat-radio-button>
                 <mat-radio-button value="Door klant volgens details DD">Door klant volgens details DD</mat-radio-button>
               </mat-radio-group>
@@ -363,16 +363,16 @@
             <div class="row">
               <mat-label class="label">Overige opmerkingen (klant)</mat-label>
               <mat-form-field class="textarea">
-              <textarea matInput placeholder="Opmerking" [(ngModel)]="dealConfig.properties.overige_opmerkingen_klant"
-                        (ngModelChange)="updateDealProp('overige_opmerkingen_klant', $event)">
+              <textarea matInput placeholder="Opmerking" [(ngModel)]="dealConfig.values.overige_opmerkingen_klant"
+                        (focusout)="updateDealConfig()">
               </textarea>
               </mat-form-field>
             </div>
             <div class="row">
               <mat-label class="label">Overige opmerkingen (intern)</mat-label>
               <mat-form-field class="textarea">
-              <textarea matInput placeholder="Opmerking" [(ngModel)]="dealConfig.properties.overige_opmerkingen_intern"
-                        (ngModelChange)="updateDealProp('overige_opmerkingen_intern', $event)">
+              <textarea matInput placeholder="Opmerking" [(ngModel)]="dealConfig.values.overige_opmerkingen_intern"
+                        (focusout)="updateDealConfig()">
               </textarea>
               </mat-form-field>
             </div>
@@ -380,8 +380,8 @@
               <mat-label class="label">Materiaal te bestellen door werkvoorbereiding</mat-label>
               <mat-form-field class="textarea">
               <textarea matInput placeholder="Opmerking"
-                        [(ngModel)]="dealConfig.properties.materiaal_te_bestellen_door_werkvoorbereiding"
-                        (ngModelChange)="updateDealProp('materiaal_te_bestellen_door_werkvoorbereiding', $event)">
+                        [(ngModel)]="dealConfig.values.materiaal_te_bestellen_door_werkvoorbereiding"
+                        (focusout)="updateDealConfig()">
               </textarea>
               </mat-form-field>
             </div>
@@ -407,7 +407,7 @@
             </div>
             <div class="d-flex justify-content-between mt-3">
               <button mat-raised-button color="accent" (click)="prev()">Vorige</button>
-              <button mat-raised-button color="accent" (click)="next()">Versturen</button>
+              <button mat-raised-button color="accent" (click)="next()">Offerte maken</button>
             </div>
           </div>
         </mat-tab>

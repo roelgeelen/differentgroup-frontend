@@ -81,6 +81,7 @@ div.fullscreen {
         background-color: #ebf2f4;
         padding: 10px;
         margin-top: 10px;
+        font-weight: 500;
       }
       .textarea {
         margin-top: 20px;
@@ -100,6 +101,9 @@ div.fullscreen {
     mat-radio-button, mat-checkbox {
       margin-right: 30px;
       margin-top: 20px;
+    }
+    mat-form-field {
+      margin-top: 10px;
     }
   }
 }

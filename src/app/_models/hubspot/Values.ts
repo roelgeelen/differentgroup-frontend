@@ -1,4 +1,5 @@
-export class Properties {
+export class Values {
+  deal_id: number;
   dealname: string = '';
   definitieve_bestelmaat: string;
   actieve_deur: string;

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Deal} from "../../../_models/hubspot/Deal";
+import {DealConfig} from "../../../_models/hubspot/DealConfig";
 import {HubspotService} from "../../../_services/hubspot.service";
-import {Properties} from "../../../_models/hubspot/Properties";
-import {DealV1} from "../../../_models/hubspot/v1/DealV1";
+import {Values} from "../../../_models/hubspot/Values";
 
 const cilinders: string[] = [
   "Cilinder leveren (incl. drie sleutels)",
@@ -18,10 +17,10 @@ const cilinders: string[] = [
   styleUrls: ['./form-odo.component.scss']
 })
 export class FormOdoComponent implements OnInit {
-  dealConfig: Deal;
+  dealConfig: DealConfig;
   fullscreen = false;
   tabIndex = 0;
-  tabCount = 8;
+  tabCount = 9;
   error: string = '';
 
   private _verdelingSymetrisch: string;
@@ -41,59 +40,59 @@ export class FormOdoComponent implements OnInit {
   private _customMontage: string;
 
   constructor(private hubService: HubspotService) {
-    this.dealConfig = new Deal()
-    this.dealConfig.properties = new Properties();
+    this.dealConfig = new DealConfig()
+    this.dealConfig.values = new Values();
   }
 
   ngOnInit(): void {
   }
 
   findDeal() {
-    if (this.dealConfig.id != null) {
-      this.hubService.getDeal(this.dealConfig.id).subscribe(deal => {
+    if (this.dealConfig.values.deal_id != null) {
+      this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
         this.dealConfig = deal;
-        if (this.dealConfig.properties.verdeling_symmetrisch != null) {
-          if (this.dealConfig.properties.verdeling_symmetrisch != 'Ja') {
-            this.customVerdelingSymetrisch = this.dealConfig.properties.verdeling_symmetrisch;
+        if (this.dealConfig.values.verdeling_symmetrisch != null) {
+          if (this.dealConfig.values.verdeling_symmetrisch != 'Ja') {
+            this.customVerdelingSymetrisch = this.dealConfig.values.verdeling_symmetrisch;
             this.verdelingSymetrisch = 'other';
           } else {
             this.verdelingSymetrisch = 'Ja';
           }
         }
-        if (this.dealConfig.properties.kleuropties != null) {
-          if (this.dealConfig.properties.kleuropties != '9016 (standaard)') {
-            this.customKleuroptie = this.dealConfig.properties.kleuropties;
+        if (this.dealConfig.values.kleuropties != null) {
+          if (this.dealConfig.values.kleuropties != '9016 (standaard)') {
+            this.customKleuroptie = this.dealConfig.values.kleuropties;
             this.kleuroptie = 'other';
           } else {
             this.kleuroptie = '9016 (standaard)';
           }
         }
-        if (this.dealConfig.properties.cilinder != null) {
-          this.cilinder = this.dealConfig.properties.cilinder.split(';');
+        if (this.dealConfig.values.cilinder != null) {
+          this.cilinder = this.dealConfig.values.cilinder.split(',');
           const cil = this.cilinder.filter(item => cilinders.indexOf(item) < 0);
           if (cil.length > 0) {
             this.customCilinder = cil[0];
-            let index = this.dealConfig.properties.cilinder.split(';').indexOf(this.customCilinder);
+            let index = this.dealConfig.values.cilinder.split(',').indexOf(this.customCilinder);
             this.cilinder.splice(index);
             this.cilinder.push('other');
           }
         }
-        if (this.dealConfig.properties.montage != null) {
-          if (this.dealConfig.properties.montage != 'Binnenzijde gelijk met binnenmuur') {
-            this.customMontage = this.dealConfig.properties.montage;
+        if (this.dealConfig.values.montage != null) {
+          if (this.dealConfig.values.montage != 'Binnenzijde gelijk met binnenmuur') {
+            this.customMontage = this.dealConfig.values.montage;
             this.montage = 'other';
           } else {
             this.montage = 'Binnenzijde gelijk met binnenmuur';
           }
         }
-        if (this.dealConfig.properties.bestaande_deur != null){
-          this._bestaandeDeur = this.dealConfig.properties.bestaande_deur.split(';');
+        if (this.dealConfig.values.bestaande_deur != null){
+          this._bestaandeDeur = this.dealConfig.values.bestaande_deur.split(',');
         }
-        if (this.dealConfig.properties.vloeraanpassing != null){
-          this._vloeraanpassing = this.dealConfig.properties.vloeraanpassing.split(';');
+        if (this.dealConfig.values.vloeraanpassing != null){
+          this._vloeraanpassing = this.dealConfig.values.vloeraanpassing.split(',');
         }
-        if (this.dealConfig.properties.indicatie_van_montage_uren != null){
-          this._indicatioMontageUren = this.dealConfig.properties.indicatie_van_montage_uren.split(';');
+        if (this.dealConfig.values.indicatie_van_montage_uren != null){
+          this._indicatioMontageUren = this.dealConfig.values.indicatie_van_montage_uren.split(',');
         }
       }, error => {
         this.error = 'Kon deal niet vinden.';
@@ -103,15 +102,12 @@ export class FormOdoComponent implements OnInit {
     }
   }
 
-  updateDealProp(name: string, $event: string) {
-    if ($event != null && $event != '') {
-      console.log($event);
-      this.hubService.updateDealProp(new DealV1(name, $event), this.dealConfig.id).subscribe();
-    }
+  updateDealConfig() {
+      this.hubService.updateDealConfig(this.dealConfig, this.dealConfig.id).subscribe();
   }
 
   clear() {
-    this.dealConfig.properties = new Properties();
+    this.dealConfig.values = new Values();
   }
 
   toggleFullscreen() {
@@ -143,8 +139,8 @@ export class FormOdoComponent implements OnInit {
   }
 
   private updateVerdelingSymetrisch(): void {
-    this.dealConfig.properties.verdeling_symmetrisch = this._verdelingSymetrisch === "other" ? this._customVerdelingSymetrisch : this._verdelingSymetrisch;
-    this.updateDealProp('verdeling_symmetrisch', this.dealConfig.properties.verdeling_symmetrisch);
+    this.dealConfig.values.verdeling_symmetrisch = this._verdelingSymetrisch === "other" ? this._customVerdelingSymetrisch : this._verdelingSymetrisch;
+    this.updateDealConfig();
   }
 
 
@@ -167,8 +163,8 @@ export class FormOdoComponent implements OnInit {
   }
 
   private updateKleuroptie(): void {
-    this.dealConfig.properties.kleuropties = this._kleuroptie === "other" ? this._customKleuroptie : this._kleuroptie;
-    this.updateDealProp('kleuropties', this.dealConfig.properties.kleuropties);
+    this.dealConfig.values.kleuropties = this._kleuroptie === "other" ? this._customKleuroptie : this._kleuroptie;
+    this.updateDealConfig();
   }
 
 
@@ -190,8 +186,8 @@ export class FormOdoComponent implements OnInit {
   }
 
   updateCilinder(): void {
-    this.dealConfig.properties.cilinder = this.cilinder.toString().replace('other', this.customCilinder).replaceAll(',', ';');
-    this.updateDealProp('cilinder', this.dealConfig.properties.cilinder);
+    this.dealConfig.values.cilinder = this.cilinder.toString().replace('other', this.customCilinder);
+    this.updateDealConfig();
   }
 
 
@@ -213,22 +209,22 @@ export class FormOdoComponent implements OnInit {
     this.updateMonatge();
   }
   private updateMonatge(): void {
-    this.dealConfig.properties.montage = this._montage === "other" ? this._customMontage : this._montage;
-    this.updateDealProp('montage', this.dealConfig.properties.montage);
+    this.dealConfig.values.montage = this._montage === "other" ? this._customMontage : this._montage;
+    this.updateDealConfig();
   }
 
   updateBestaandeDeur() {
-    this.dealConfig.properties.bestaande_deur = this._bestaandeDeur.toString().replaceAll(',', ';');
-    this.updateDealProp('bestaande_deur', this.dealConfig.properties.bestaande_deur);
+    this.dealConfig.values.bestaande_deur = this._bestaandeDeur.toString();
+    this.updateDealConfig();
   }
 
   updateVloeraanpassing() {
-    this.dealConfig.properties.vloeraanpassing = this._vloeraanpassing.toString().replaceAll(',', ';');
-    this.updateDealProp('vloeraanpassing', this.dealConfig.properties.vloeraanpassing);
+    this.dealConfig.values.vloeraanpassing = this._vloeraanpassing.toString();
+    this.updateDealConfig();
   }
 
   updateIndicatieMontageuren() {
-    this.dealConfig.properties.indicatie_van_montage_uren = this._indicatioMontageUren.toString().replaceAll(',', ';');
-    this.updateDealProp('indicatie_van_montage_uren', this.dealConfig.properties.indicatie_van_montage_uren);
+    this.dealConfig.values.indicatie_van_montage_uren = this._indicatioMontageUren.toString();
+    this.updateDealConfig();
   }
 }

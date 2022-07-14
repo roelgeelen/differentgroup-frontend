@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpRequest, HttpResponse} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {Deal} from "../_models/hubspot/Deal";
+import {DealConfig} from "../_models/hubspot/DealConfig";
 import {DealV1} from "../_models/hubspot/v1/DealV1";
 
 @Injectable({
@@ -13,11 +13,10 @@ export class HubspotService {
   }
 
   getDeal(id: number) {
-    return this.http.get<Deal>(`${environment.apiUrl}/deals/${id}`);
+    return this.http.get<DealConfig>(`${environment.apiUrl}/deals/${id}/config`);
   }
 
-  updateDealProp(deal: DealV1, id: number) {
-    console.log(JSON.stringify(deal));
-    return this.http.post(`${environment.apiUrl}/deals/${id}/update`, deal);
+  updateDealConfig(deal: DealConfig, id: number) {
+    return this.http.post(`${environment.apiUrl}/deals/${id}/config/update`, deal);
   }
 }
