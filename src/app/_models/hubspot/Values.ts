@@ -1,7 +1,7 @@
 export class Values {
   deal_id: number;
-  dealname: string = '';
-  adviseur: string = '';
+  dealname?: string;
+  adviseur?: string;
   definitieve_bestelmaat: string;
   actieve_deur: string;
   draairichting: string;
@@ -12,7 +12,7 @@ export class Values {
   breedte: number;
   hoogte: number;
   verdeling_symmetrisch: string;
-  cilinder: string;
+  cilinder: any;
   glassectie: string;
   montage: string;
   bestaande_deur: string;
@@ -31,4 +31,13 @@ export class Values {
   scharnier_ral: string;
   netto_glasmaat: string;
   glassectie_in_vleugel: string;
+  links: number;
+  rechts: number;
+  schets: string;
+  foto_buitenzijde: string;
+  foto_binnenzijde: string;
+
+  public constructor(init?: Partial<Values>) {
+    Object.assign(this, init);
+  }
 }

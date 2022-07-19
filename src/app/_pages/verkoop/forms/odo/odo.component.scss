@@ -19,14 +19,6 @@ div.fullscreen {
   height: 100vh;
 }
 
-::ng-deep .mat-list-item-content-reverse {
-  flex-direction: row !important;
-  padding: 0 !important;
-  .mat-list-text {
-    margin-left: 10px;
-  }
-}
-
 .form {
   overflow-y: scroll;
   background-color: #E8F2F4;
@@ -44,15 +36,26 @@ div.fullscreen {
     border-bottom: 1px solid black;
     img {
       width: 150px;
-      position: absolute;
     }
     h1 {
       font-weight: 500;
       margin: auto 20px;
-      width: 100%;
       text-align: center;
       height: 50px;
       padding: 9px;
+      span{
+        font-size: 12px;
+        top: -16px;
+        position: relative;
+        font-weight: 400;
+      }
+    }
+    .reset-btn {
+      width: 150px;
+      text-align: right;
+      button {
+        height: 100%;
+      }
     }
   }
   .search {
@@ -68,43 +71,6 @@ div.fullscreen {
   .form-content{
     min-height: 100%;
     padding: 20px;
-    .w-30{
-      width: 30%;
-    }
-    .clear {
-      width: 50px;
-      height: 40px;
-    }
-    .row{
-      margin-top: 10px;
-      mat-label.label {
-        background-color: #ebf2f4;
-        padding: 10px;
-        margin-top: 10px;
-        font-weight: 500;
-      }
-      .textarea {
-        margin-top: 20px;
-        textarea {
-          min-height: 100px;
-        }
-      }
-      .file {
-        margin: 20px 0;
-      }
-    }
-    mat-radio-button.mat-accent,
-    mat-checkbox.mat-accent {
-      background: none !important;
-      color: black !important;
-    }
-    mat-radio-button, mat-checkbox {
-      margin-right: 30px;
-      margin-top: 20px;
-    }
-    mat-form-field {
-      margin-top: 10px;
-    }
   }
 }
 

@@ -6,7 +6,7 @@ import {AuthGuard} from "../../_helpers/auth.guard";
 import {InmetenComponent} from "./inmeten/inmeten.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {EnumRoles} from "../../_models/enum/enumRoles";
-import {FormOdoComponent} from "./form-odo/form-odo.component";
+import {OdoComponent} from "./forms/odo/odo.component";
 
 const routes: Routes = [
   {
@@ -49,7 +49,7 @@ const routes: Routes = [
         children: [
           {
             path: 'odo',
-            component: FormOdoComponent,
+            component: OdoComponent,
             canActivate: [AuthGuard],
             data: {
               roles: [
@@ -59,7 +59,7 @@ const routes: Routes = [
                 EnumRoles.ADMINISTRATION,
               ]
             },
-          },
+          }
         ]
       }
 

@@ -1,0 +1,46 @@
+<button mat-raised-button color="accent" class="fullscreen-btn {{fullscreen ? 'fullscreen' : ''}}"
+        (click)="toggleFullscreen()">
+  <mat-icon>{{fullscreen ? 'fullscreen_exit' : 'fullscreen'}}</mat-icon>
+</button>
+<div [ngClass]="fullscreen ? 'fullscreen' : ''" class="form">
+  <div class="page">
+    <div class="form-header d-flex justify-content-between">
+      <img src="../../../../../assets/images/cropped-logo-differentdoors-diap.png">
+      <h1>ODO openslaande deur<br><span>{{dealConfig.values.dealname}}</span></h1>
+      <div class="reset-btn">
+        <button mat-button color="accent" class="clear" *ngIf="dealConfig.values.dealname !== undefined" (click)="clear()">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+    </div>
+    <ng-container *ngIf="dealConfig.values.dealname === undefined" class="w-100">
+      <div class="search">
+        <mat-error *ngIf="error">{{error}}</mat-error>
+        <mat-form-field appearance="fill" class="w-75">
+          <mat-label>Deal nummer</mat-label>
+          <input matInput type="number" [(ngModel)]="dealConfig.values.deal_id">
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="findDeal()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" *ngIf="dealConfig.values.dealname !== undefined">
+      <mat-tab-group [(selectedIndex)]="tabIndex">
+        <mat-tab *ngFor="let tab of tabs" [label]="tab.label">
+          <div class="form-content">
+            <app-question *ngFor="let question of tab.questions" [question]="question" [form]="form" [dealConfig]="dealConfig"></app-question>
+            <div class="d-flex justify-content-between mt-3">
+              <button mat-raised-button [color]="tabIndex==0 ?'primary': 'accent'" (click)="prev()"
+                      [disabled]="tabIndex==0">Vorige
+              </button>
+              <button mat-raised-button color="accent" (click)="next()" *ngIf="tabIndex!= 8">Volgende</button>
+              <button mat-raised-button color="accent" type="submit" *ngIf="tabIndex== 8">Offerte maken</button>
+            </div>
+          </div>
+
+        </mat-tab>
+      </mat-tab-group>
+    </form>
+  </div>
+</div>

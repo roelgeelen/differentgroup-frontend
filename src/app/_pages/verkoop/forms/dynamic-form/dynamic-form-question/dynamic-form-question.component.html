@@ -1,0 +1,38 @@
+<div class="row" [formGroup]="form" *ngIf="isShow">
+  <mat-label class="label">{{question.label}} <span *ngIf="question.required">*</span></mat-label>
+  <img [src]="question.image">
+
+  <div [ngSwitch]="question.controlType">
+    <div *ngSwitchCase="'text'" class="row justify-content-between">
+      <mat-form-field *ngFor="let field of question.fields" class="multi">
+        <input matInput [placeholder]="field.label" [formControlName]="field.key" [id]="field.key" [type]="field.type" (focusout)="save()">
+      </mat-form-field>
+    </div>
+
+    <mat-radio-group *ngSwitchCase="'radio'" [id]="question.key" [formControlName]="question.key" (focusout)="save()">
+      <mat-radio-button *ngFor="let opt of question.options" [value]="opt.value">{{opt.value}}</mat-radio-button>
+      <mat-radio-button [value]="question.custom" *ngIf="question.other">
+        <mat-form-field>
+          <input matInput placeholder="Anders" [formControlName]="question.key" [(ngModel)]="question.custom">
+        </mat-form-field>
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <mat-selection-list *ngSwitchCase="'checkbox'" color="primary" [id]="question.key" [formControlName]="question.key" (focusout)="save()">
+      <mat-list-option *ngFor="let opt of question.options" [value]="opt.value">{{opt.value}}</mat-list-option>
+      <mat-list-option [value]="question.custom" *ngIf="question.other">
+        <mat-form-field>
+          <input matInput placeholder="Anders" [formControlName]="question.key" [(ngModel)]="question.custom"
+                 (keydown)="$event.stopPropagation()">
+        </mat-form-field>
+      </mat-list-option>
+    </mat-selection-list>
+
+    <mat-form-field *ngSwitchCase="'textarea'" class="textarea w-100">
+      <textarea matInput [placeholder]="question.label" [formControlName]="question.key" [id]="question.key" (focusout)="save()"></textarea>
+    </mat-form-field>
+
+    <input *ngSwitchCase="'upload'" type="file" accept="image/*" class="file">
+  </div>
+  <!--  <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>-->
+</div>

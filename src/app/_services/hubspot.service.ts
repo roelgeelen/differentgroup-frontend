@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpEvent, HttpRequest, HttpResponse} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {DealConfig} from "../_models/hubspot/DealConfig";
-import {DealV1} from "../_models/hubspot/v1/DealV1";
 
 @Injectable({
   providedIn: 'root'

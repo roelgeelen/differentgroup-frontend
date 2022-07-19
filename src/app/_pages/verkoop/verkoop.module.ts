@@ -13,9 +13,9 @@ import {AfsprakenComponent} from "./afspraken/afspraken.component";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatIconModule} from "@angular/material/icon";
 import {GoogleMapsModule} from "@angular/google-maps";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {FormOdoComponent} from "./form-odo/form-odo.component";
+import {OdoComponent} from "./forms/odo/odo.component";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
@@ -23,9 +23,11 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatListModule} from "@angular/material/list";
+import {DynamicFormQuestionComponent} from "./forms/dynamic-form/dynamic-form-question/dynamic-form-question.component";
 @NgModule({
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     GoogleMapsModule,
     MatProgressSpinnerModule,
     MatIconModule,
@@ -50,7 +52,8 @@ import {MatListModule} from "@angular/material/list";
     DashboardComponent,
     InmetenComponent,
     AfsprakenComponent,
-    FormOdoComponent
+    OdoComponent,
+    DynamicFormQuestionComponent
   ],
   exports: [
     VerkoopComponent,
