@@ -28,9 +28,18 @@
       </mat-list-option>
     </mat-selection-list>
 
-    <mat-form-field *ngSwitchCase="'textarea'" class="textarea w-100">
-      <textarea matInput [placeholder]="question.label" [formControlName]="question.key" [id]="question.key" (focusout)="save()"></textarea>
-    </mat-form-field>
+    <div *ngSwitchCase="'textarea'" class="textarea">
+      <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+      <ngx-editor
+        [editor]="editor"
+        [placeholder]="question.label"
+        [formControlName]="question.key" [id]="question.key" (focusout)="save()"
+      ></ngx-editor>
+    </div>
+
+<!--    <mat-form-field *ngSwitchCase="'textarea'" class="textarea w-100">-->
+<!--      <textarea matInput [placeholder]="question.label" ></textarea>-->
+<!--    </mat-form-field>-->
 
     <input *ngSwitchCase="'upload'" type="file" accept="image/*" class="file">
   </div>

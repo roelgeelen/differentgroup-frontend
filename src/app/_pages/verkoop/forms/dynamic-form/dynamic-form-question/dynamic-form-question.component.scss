@@ -14,10 +14,7 @@
     font-weight: 500;
   }
   .textarea {
-    margin-top: 20px;
-    textarea {
-      min-height: 100px;
-    }
+    margin: 0 -12px;
   }
   .multi {
     flex: 1;
@@ -36,10 +33,20 @@ mat-radio-button, mat-checkbox {
   margin-top: 20px;
 }
 
-::ng-deep .mat-list-item-content-reverse {
-  flex-direction: row !important;
-  padding: 0 !important;
-  .mat-list-text {
-    margin-left: 10px;
+::ng-deep {
+  .mat-list-item-content-reverse {
+    flex-direction: row !important;
+    padding: 0 !important;
+    .mat-list-text {
+      margin-left: 10px;
+    }
+  }
+  .NgxEditor__MenuBar {
+    background-color: #ebf2f4 !important;
+    border-top: 1px solid black;
+    margin-bottom: 10px;
+  }
+  .NgxEditor {
+    min-height: 100px;
   }
 }

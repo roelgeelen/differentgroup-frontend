@@ -24,6 +24,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatListModule} from "@angular/material/list";
 import {DynamicFormQuestionComponent} from "./forms/dynamic-form/dynamic-form-question/dynamic-form-question.component";
+import {NgxEditorModule} from "ngx-editor";
+
 @NgModule({
   imports: [
     FormsModule,
@@ -46,6 +48,7 @@ import {DynamicFormQuestionComponent} from "./forms/dynamic-form/dynamic-form-qu
     MatTabsModule,
     MatCheckboxModule,
     MatListModule,
+    NgxEditorModule
   ],
   declarations: [
     VerkoopComponent,

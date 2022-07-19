@@ -4,6 +4,7 @@ import {QuestionBase} from '../model/question-base';
 import {HubspotService} from "../../../../../_services/hubspot.service";
 import {DealConfig} from "../../../../../_models/hubspot/DealConfig";
 import {Values} from "../../../../../_models/hubspot/Values";
+import {Editor, Toolbar} from "ngx-editor";
 
 @Component({
   selector: 'app-question',
@@ -14,8 +15,21 @@ export class DynamicFormQuestionComponent {
   @Input() question!: QuestionBase<string>;
   @Input() form!: FormGroup;
   @Input() dealConfig: DealConfig;
+  editor: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
 
-  constructor(private hubService: HubspotService) {}
+  constructor(private hubService: HubspotService) {
+    this.editor = new Editor();
+  }
 
   get isValid() {
     return this.form.controls[this.question.key].valid;
@@ -34,5 +48,8 @@ export class DynamicFormQuestionComponent {
       }
     }
     this.hubService.updateDealConfig(this.dealConfig, this.dealConfig.id).subscribe();
+  }
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 }
