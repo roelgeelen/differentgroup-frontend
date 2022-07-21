@@ -40,16 +40,17 @@
     </div>
 
     <div *ngSwitchCase="'upload'" class="row justify-content-between">
-      <input (change)="selectFile($event)" type="file" accept="image/*" class="file">
-      <img
-        [src]="getProperty(question.key)?.url ? getProperty(question.key).url : 'assets/images/placeholder.jpg'"
-        style="width:150px">
-      <mat-error *ngIf="isImageInvalid">Afbeelding is te groot. Max grote is 500kb</mat-error>
+      <input (change)="selectFile($event)" type="file" accept="image/*" class="file" style="flex: 1; min-width: 200px;">
+      <div class="img-container">
+        <img [src]="getProperty(question.key)?.url ? getProperty(question.key).url+'?timeStamp='+timestamp : 'assets/images/placeholder.jpg'">
+      </div>
+      <mat-error *ngIf="isImageInvalid">Afbeelding is te groot. Max grote is 5mb</mat-error>
       <div *ngIf="progress.percentage !== 100 && uploading">
-        {{progress.percentage}}% <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        {{progress.percentage}}%
+        <mat-progress-bar mode="determinate" [value]="progress.percentage"></mat-progress-bar>
       </div>
     </div>
 
   </div>
-<!--    <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>-->
+  <!--    <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>-->
 </div>

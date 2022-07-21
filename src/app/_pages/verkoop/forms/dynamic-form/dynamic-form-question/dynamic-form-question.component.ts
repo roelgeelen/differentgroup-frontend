@@ -18,6 +18,7 @@ export class DynamicFormQuestionComponent {
   @Input() dealConfig: DealConfig;
   progress: { percentage: number } = { percentage: 0 };
   uploading = false;
+  timestamp = Date.now();
   selectedFiles: FileList | null;
   isImageInvalid = false;
   editor: Editor;
@@ -63,7 +64,7 @@ export class DynamicFormQuestionComponent {
     this.selectedFiles = event.target.files;
     this.isImageInvalid = false;
     // @ts-ignore
-    if (this.selectedFiles.item(0).size > 500000) {
+    if (this.selectedFiles.item(0).size > 5000000) {
       this.isImageInvalid = true;
       this.selectedFiles = null;
     } else {
@@ -77,10 +78,11 @@ export class DynamicFormQuestionComponent {
             // @ts-ignore
             this.progress.percentage = Math.round(100 * r.loaded / r.total);
           } else if (r instanceof HttpResponse) {
-            this.uploading = false;
             // @ts-ignore
             this.getProperty(this.question.key).url = r.body;
+            this.timestamp = Date.now();
             this.save();
+            this.uploading = false;
           }
         });
       }
