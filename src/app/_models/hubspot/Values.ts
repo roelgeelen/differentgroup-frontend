@@ -12,7 +12,7 @@ export class Values {
   breedte: number;
   hoogte: number;
   verdeling_symmetrisch: string;
-  cilinder: any;
+  cilinder: string;
   glassectie: string;
   montage: string;
   bestaande_deur: string;
@@ -33,9 +33,9 @@ export class Values {
   glassectie_in_vleugel: string;
   links: number;
   rechts: number;
-  schets: string;
-  foto_buitenzijde: string;
-  foto_binnenzijde: string;
+  schets: any;
+  foto_buitenzijde: { url: string; type: string; };
+  foto_binnenzijde: { url: string; type: string; };
 
   public constructor(init?: Partial<Values>) {
     Object.assign(this, init);

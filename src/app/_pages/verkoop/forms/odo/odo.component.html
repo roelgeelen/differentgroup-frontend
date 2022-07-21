@@ -5,7 +5,7 @@
 <div [ngClass]="fullscreen ? 'fullscreen' : ''" class="form">
   <div class="page">
     <div class="form-header d-flex justify-content-between">
-      <img src="../../../../../assets/images/cropped-logo-differentdoors-diap.png">
+      <div class="logo"><img src="../../../../../assets/images/cropped-logo-differentdoors-diap.png"></div>
       <h1>ODO openslaande deur<br><span>{{dealConfig.values.dealname}}</span></h1>
       <div class="reset-btn">
         <button mat-button color="accent" class="clear" *ngIf="dealConfig.values.dealname !== undefined" (click)="clear()">
@@ -35,7 +35,7 @@
                       [disabled]="tabIndex==0">Vorige
               </button>
               <button mat-raised-button color="accent" (click)="next()" *ngIf="tabIndex!= 8">Volgende</button>
-              <button mat-raised-button color="accent" type="submit" *ngIf="tabIndex== 8">Offerte maken</button>
+              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!form.valid" *ngIf="tabIndex== 8">Offerte maken</button>
             </div>
           </div>
 

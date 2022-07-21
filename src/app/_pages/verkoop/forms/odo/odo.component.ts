@@ -25,7 +25,6 @@ export class OdoComponent implements OnInit {
   error: string = '';
   tabIndex = 0;
   tabCount = 9;
-  payLoad = '';
 
   constructor(private qcs: QuestionControlService, private hubService: HubspotService, private authService: AuthenticationService) {
     this.dealConfig = new DealConfig()
@@ -44,11 +43,14 @@ export class OdoComponent implements OnInit {
       this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
         this.dealConfig = deal;
         this.dealConfig.values.adviseur = this.currentUser.name;
-        this.dealConfig.values.schets = '';
-        this.dealConfig.values.foto_binnenzijde = '';
-        this.dealConfig.values.foto_buitenzijde = '';
         this.setCustomValues();
         this.setStringToArrays();
+        for (const key in this.dealConfig.values) {
+          if (this.dealConfig.values[key as keyof Values] === null || this.dealConfig.values[key as  keyof Values].length == 0 ) {
+            // @ts-ignore
+            this.dealConfig.values[key] = this.form.get(key)?.value;
+          }
+        }
         this.form.setValue(this.dealConfig.values);
       }, error => {
         this.error = 'Kon deal niet vinden.';
@@ -63,7 +65,11 @@ export class OdoComponent implements OnInit {
   }
 
   onSubmit() {
-    this.payLoad = JSON.stringify(this.form.getRawValue());
+
+  }
+
+  submit() {
+    this.hubService.createInvoice(new Values(this.form.getRawValue()), this.dealConfig.values.deal_id).subscribe();
   }
 
   toggleFullscreen() {
@@ -84,8 +90,7 @@ export class OdoComponent implements OnInit {
       customQuestions.push(...element.questions.filter(q => q.other));
     });
     customQuestions.forEach(q => {
-      // @ts-ignore
-      let val = this.dealConfig.values[q.key];
+      let val = this.dealConfig.values[q.key as keyof Values];
       if (val != null && val != '') {
         if (q.controlType == 'checkbox') {
           val.split(',').forEach((v: string) => {
@@ -109,7 +114,7 @@ export class OdoComponent implements OnInit {
     });
     questions.forEach(q => {
       // @ts-ignore
-      this.dealConfig.values[q.key] = this.dealConfig.values[q.key] != null ? this.dealConfig.values[q.key].split(',') : [];
+      this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values] != null ? this.dealConfig.values[q.key as keyof Values].split(',') : [];
     })
   }
 }

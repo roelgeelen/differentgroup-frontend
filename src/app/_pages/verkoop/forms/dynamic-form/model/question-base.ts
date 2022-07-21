@@ -1,5 +1,5 @@
 export class QuestionBase<T> {
-  value: T | undefined;
+  value: any;
   key: string;
   image: string;
   label: string;
@@ -13,7 +13,7 @@ export class QuestionBase<T> {
   custom: string;
 
   constructor(options: {
-    value?: T;
+    value?: any;
     key?: string;
     image?: string;
     label?: string;
@@ -23,7 +23,7 @@ export class QuestionBase<T> {
     type?: string;
     options?: { value: string }[];
     dependent?: { field: string; values: string[] };
-    fields?: { key: string; label: string; value?: T | undefined; required?: boolean; type: string }[];
+    fields?: { key: string; label: string; value?: any | undefined; required?: boolean; type: string }[];
     other?: boolean;
     custom? : string;
   } = {}) {

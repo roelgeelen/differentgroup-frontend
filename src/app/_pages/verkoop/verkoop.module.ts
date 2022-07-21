@@ -25,6 +25,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatListModule} from "@angular/material/list";
 import {DynamicFormQuestionComponent} from "./forms/dynamic-form/dynamic-form-question/dynamic-form-question.component";
 import {NgxEditorModule} from "ngx-editor";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
   imports: [
@@ -48,7 +49,8 @@ import {NgxEditorModule} from "ngx-editor";
     MatTabsModule,
     MatCheckboxModule,
     MatListModule,
-    NgxEditorModule
+    NgxEditorModule,
+    MatProgressBarModule
   ],
   declarations: [
     VerkoopComponent,

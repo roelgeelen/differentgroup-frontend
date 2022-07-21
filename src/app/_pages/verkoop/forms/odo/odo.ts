@@ -13,10 +13,11 @@ export const algemeen: QuestionBase<string>[] = [
     options: [
       {value: 'Ja'},
       {value: 'Nee'}
-    ]
+    ],
+    required: true
   }),
   new TextQuestion({
-    label: 'Afmetingen',
+    label: 'Afmetingen (in mm)',
     fields: [
       {
         key: 'hoogte',
@@ -36,7 +37,8 @@ export const algemeen: QuestionBase<string>[] = [
     options: [
       {value: 'Ja'},
       {value: 'Nee'}
-    ]
+    ],
+    value: 'Ja'
   }),
   new TextQuestion({
     label: 'Verdeling (van buiten gezien)',
@@ -100,10 +102,6 @@ export const buitenzijde: QuestionBase<string>[] = [
   new TextQuestion({
     label: 'Kleuren',
     image: 'assets/forms/odo/2022-05-17%2016_23_28-.png',
-    dependent: {
-      field: 'model',
-      values: ['Verticaal', 'Horizontaal']
-    },
     fields: [
       {
         key: 'deur_ral',
@@ -133,7 +131,8 @@ export const binnenzijde: QuestionBase<string>[] = [
       {value: 'Standaard stucco'},
       {value: 'Volledig vlakke plaat - ODO301'},
       {value: 'Standaard volledig vlak (enkel indien model volledig vlak)'}
-    ]
+    ],
+    value: 'Standaard stucco'
   }),
   new RadioQuestion({
     key: 'kleuropties',
@@ -142,7 +141,8 @@ export const binnenzijde: QuestionBase<string>[] = [
       {value: '9016 (standaard)'}
     ],
     other: true,
-    custom: ''
+    custom: '',
+    value: '9016 (standaard)'
   })
 ]
 
@@ -153,7 +153,8 @@ export const deur: QuestionBase<string>[] = [
     options: [
       {value: 'Naar buiten'},
       {value: 'Naar binnen'},
-    ]
+    ],
+    required: true
   }),
   new RadioQuestion({
     key: 'actieve_deur',
@@ -161,7 +162,8 @@ export const deur: QuestionBase<string>[] = [
     options: [
       {value: 'Rechts'},
       {value: 'Links'},
-    ]
+    ],
+    required: true
   }),
   new RadioQuestion({
     key: 'krukset_deurbeslag',
@@ -173,7 +175,8 @@ export const deur: QuestionBase<string>[] = [
       {value: 'Knop zwart - ODO306'},
       {value: 'Klink RVS - ODO303'},
       {value: 'Knop RVS - ODO305'}
-    ]
+    ],
+    value: 'Klink aluminium (standaard)'
   }),
   new CheckboxQuestion({
     key: 'cilinder',
@@ -185,7 +188,9 @@ export const deur: QuestionBase<string>[] = [
       {value: 'Draaiknopcilinder'},
       {value: 'Aangeleverd door klant (cilindermaat 40/45 binnen/buitenzijde)'}
     ],
-    other: true
+    other: true,
+    custom: '',
+    value: ['Cilinder leveren (incl. drie sleutels)']
   })
 ]
 export const glas: QuestionBase<string>[] = [
@@ -199,10 +204,11 @@ export const glas: QuestionBase<string>[] = [
       {value: 'Horizontaal - HR++ melk glas - ODO201'},
       {value: 'Verticaal - HR++ helder glas - ODO202'},
       {value: 'Verticaal - HR++ melk glas - ODO203'},
-    ]
+    ],
+    value: 'N.v.t.'
   }),
   new TextQuestion({
-    label: 'Horizontaal - Netto glasmaat hoogte',
+    label: 'Horizontaal - Netto glasmaat hoogte (in mm)',
     fields: [
       {
         key: 'netto_glasmaat',
@@ -216,7 +222,7 @@ export const glas: QuestionBase<string>[] = [
     }
   }),
   new TextQuestion({
-    label: 'Verticaal - Netto glasmaat breedte',
+    label: 'Verticaal - Netto glasmaat breedte (in mm)',
     fields: [
       {
         key: 'netto_glasmaat',
@@ -251,7 +257,8 @@ export const montage: QuestionBase<string>[] = [
       {value: 'Binnenzijde gelijk met binnenmuur'}
     ],
     other: true,
-    custom: ''
+    custom: '',
+    value: 'Binnenzijde gelijk met binnenmuur'
   }),
   new CheckboxQuestion({
     key: 'bestaande_deur',
@@ -261,7 +268,8 @@ export const montage: QuestionBase<string>[] = [
       {value: 'Afvoer DD - ODO402'},
       {value: 'Demontage door klant'},
       {value: 'Afvoer door klant'}
-    ]
+    ],
+    value: ['Demontage DD - ODO401', 'Afvoer DD - ODO402']
   }),
   new RadioQuestion({
     key: 'type_deur',
@@ -270,7 +278,7 @@ export const montage: QuestionBase<string>[] = [
       {value: 'N.v.t.'},
       {value: 'Sectionaaldeur'},
       {value: 'Kanteldeur'},
-      {value: 'Houten kozijn en deuren\n'},
+      {value: 'Houten kozijn en deuren'},
       {value: 'Rolluik'}
     ]
   })
@@ -283,18 +291,20 @@ export const afwerking: QuestionBase<string>[] = [
       {value: 'N.v.t.'},
       {value: 'Uithakken vloer - ODO403'},
       {value: 'Aansmeren vloer - ODO404'}
-    ]
+    ],
+    value: ['N.v.t.']
   }),
   new RadioQuestion({
     key: 'aftimmering_binnenzijde',
     label: 'Aftimmering binnenzijde',
     image: 'assets/forms/odo/79cc52f6-13ec-4fc4-bd46-1d63942001c1.png',
     options: [
-      {value: 'Klant kiest voor geen binnenaftimmering\n'},
+      {value: 'Klant kiest voor geen binnenaftimmering'},
       {value: 'Enkel tussen kozijn en muur afpurren'},
       {value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed) - ODO405'},
       {value: 'Multipaint volledig (exclusief schilderen) - ODO406'},
-    ]
+    ],
+    value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed) - ODO405'
   }),
   new RadioQuestion({
     key: 'bouwkundig_aanpassingen',
@@ -302,7 +312,8 @@ export const afwerking: QuestionBase<string>[] = [
     options: [
       {value: 'N.v.t.'},
       {value: 'Door klant volgens details DD'}
-    ]
+    ],
+    value: 'N.v.t.'
   })
 ]
 export const overige: QuestionBase<string>[] = [
@@ -317,7 +328,8 @@ export const overige: QuestionBase<string>[] = [
       {value: 'Aftimmeren binnenzijde lijstje rondom - 0.5 uur'},
       {value: 'Aftimmeren binnenzijde compleet - 2 uur'},
       {value: 'Aftimmeren buitenzijde - 1 uur'}
-    ]
+    ],
+    value: ['Plaatsen nieuwe deur - 2 uur']
   }),
   new TextareaQuestion({
     key: 'overige_opmerkingen_klant',

@@ -5,6 +5,7 @@ import {HubspotService} from "../../../../../_services/hubspot.service";
 import {DealConfig} from "../../../../../_models/hubspot/DealConfig";
 import {Values} from "../../../../../_models/hubspot/Values";
 import {Editor, Toolbar} from "ngx-editor";
+import {HttpEventType, HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-question',
@@ -15,6 +16,10 @@ export class DynamicFormQuestionComponent {
   @Input() question!: QuestionBase<string>;
   @Input() form!: FormGroup;
   @Input() dealConfig: DealConfig;
+  progress: { percentage: number } = { percentage: 0 };
+  uploading = false;
+  selectedFiles: FileList | null;
+  isImageInvalid = false;
   editor: Editor;
   toolbar: Toolbar = [
     ['bold', 'italic'],
@@ -51,5 +56,39 @@ export class DynamicFormQuestionComponent {
   }
   ngOnDestroy(): void {
     this.editor.destroy();
+  }
+
+  selectFile(event: any) {
+    this.uploading = true;
+    this.selectedFiles = event.target.files;
+    this.isImageInvalid = false;
+    // @ts-ignore
+    if (this.selectedFiles.item(0).size > 500000) {
+      this.isImageInvalid = true;
+      this.selectedFiles = null;
+    } else {
+      const reader = new FileReader();
+
+      if (event.target.files && event.target.files.length) {
+        const [file] = event.target.files;
+        reader.readAsDataURL(file);
+        this.hubService.saveImage(file, this.question.key+'-'+this.dealConfig.values.deal_id).subscribe(r => {
+          if (r.type === HttpEventType.UploadProgress) {
+            // @ts-ignore
+            this.progress.percentage = Math.round(100 * r.loaded / r.total);
+          } else if (r instanceof HttpResponse) {
+            this.uploading = false;
+            // @ts-ignore
+            this.getProperty(this.question.key).url = r.body;
+            this.save();
+          }
+        });
+      }
+    }
+  }
+
+  getProperty(name: string)
+  {
+    return this.dealConfig.values[name as keyof Values];
   }
 }

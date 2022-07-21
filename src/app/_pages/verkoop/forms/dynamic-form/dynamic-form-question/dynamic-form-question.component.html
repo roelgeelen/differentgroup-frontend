@@ -1,11 +1,12 @@
-<div class="row" [formGroup]="form" *ngIf="isShow">
+<div class="row justify-content-between" [formGroup]="form" *ngIf="isShow">
   <mat-label class="label">{{question.label}} <span *ngIf="question.required">*</span></mat-label>
   <img [src]="question.image">
 
   <div [ngSwitch]="question.controlType">
     <div *ngSwitchCase="'text'" class="row justify-content-between">
       <mat-form-field *ngFor="let field of question.fields" class="multi">
-        <input matInput [placeholder]="field.label" [formControlName]="field.key" [id]="field.key" [type]="field.type" (focusout)="save()">
+        <input matInput [placeholder]="field.label" [formControlName]="field.key" [id]="field.key" [type]="field.type"
+               (focusout)="save()">
       </mat-form-field>
     </div>
 
@@ -13,23 +14,24 @@
       <mat-radio-button *ngFor="let opt of question.options" [value]="opt.value">{{opt.value}}</mat-radio-button>
       <mat-radio-button [value]="question.custom" *ngIf="question.other">
         <mat-form-field>
-          <input matInput placeholder="Anders" [formControlName]="question.key" [(ngModel)]="question.custom">
+          <input matInput placeholder="Anders" [(ngModel)]="question.custom" [ngModelOptions]="{standalone: true}">
         </mat-form-field>
       </mat-radio-button>
     </mat-radio-group>
 
-    <mat-selection-list *ngSwitchCase="'checkbox'" color="primary" [id]="question.key" [formControlName]="question.key" (focusout)="save()">
+    <mat-selection-list *ngSwitchCase="'checkbox'" color="primary" [id]="question.key" [formControlName]="question.key"
+                        (focusout)="save()">
       <mat-list-option *ngFor="let opt of question.options" [value]="opt.value">{{opt.value}}</mat-list-option>
       <mat-list-option [value]="question.custom" *ngIf="question.other">
         <mat-form-field>
-          <input matInput placeholder="Anders" [formControlName]="question.key" [(ngModel)]="question.custom"
+          <input matInput placeholder="Anders" [(ngModel)]="question.custom" [ngModelOptions]="{standalone: true}"
                  (keydown)="$event.stopPropagation()">
         </mat-form-field>
       </mat-list-option>
     </mat-selection-list>
 
     <div *ngSwitchCase="'textarea'" class="textarea">
-      <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+      <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
       <ngx-editor
         [editor]="editor"
         [placeholder]="question.label"
@@ -37,11 +39,17 @@
       ></ngx-editor>
     </div>
 
-<!--    <mat-form-field *ngSwitchCase="'textarea'" class="textarea w-100">-->
-<!--      <textarea matInput [placeholder]="question.label" ></textarea>-->
-<!--    </mat-form-field>-->
+    <div *ngSwitchCase="'upload'" class="row justify-content-between">
+      <input (change)="selectFile($event)" type="file" accept="image/*" class="file">
+      <img
+        [src]="getProperty(question.key)?.url ? getProperty(question.key).url : 'assets/images/placeholder.jpg'"
+        style="width:150px">
+      <mat-error *ngIf="isImageInvalid">Afbeelding is te groot. Max grote is 500kb</mat-error>
+      <div *ngIf="progress.percentage !== 100 && uploading">
+        {{progress.percentage}}% <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+    </div>
 
-    <input *ngSwitchCase="'upload'" type="file" accept="image/*" class="file">
   </div>
-  <!--  <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>-->
+<!--    <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>-->
 </div>
