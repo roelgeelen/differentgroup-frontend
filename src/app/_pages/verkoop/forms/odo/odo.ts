@@ -350,11 +350,11 @@ export const media: QuestionBase<string>[] = [
     label: 'Foto / schets (voor klant)'
   }),
   new UploadQuestion({
-    key: 'foto_buitenzijde',
+    key: 'buiten',
     label: 'Foto buitenzijde deur'
   }),
   new UploadQuestion({
-    key: 'foto_binnenzijde',
+    key: 'binnen',
     label: 'Foto binnenzijde deur'
   })
 ]

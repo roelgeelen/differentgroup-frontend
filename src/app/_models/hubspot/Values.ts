@@ -34,8 +34,8 @@ export class Values {
   links: number;
   rechts: number;
   schets: any;
-  foto_buitenzijde: { url: string; type: string; };
-  foto_binnenzijde: { url: string; type: string; };
+  buiten: { url: string; type: string; };
+  binnen: { url: string; type: string; };
 
   public constructor(init?: Partial<Values>) {
     Object.assign(this, init);
