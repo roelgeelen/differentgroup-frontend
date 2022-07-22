@@ -25,11 +25,13 @@
         </button>
       </div>
     </ng-container>
+    <div class="loading-overlay" *ngIf="loading"><div class="loading"></div></div>
     <form (ngSubmit)="onSubmit()" [formGroup]="form" *ngIf="dealConfig.values.dealname !== undefined">
       <mat-tab-group [(selectedIndex)]="tabIndex">
         <mat-tab *ngFor="let tab of tabs" [label]="tab.label">
           <div class="form-content">
             <app-question *ngFor="let question of tab.questions" [question]="question" [form]="form" [dealConfig]="dealConfig"></app-question>
+            <mat-error *ngIf="tabIndex == 8 && getFormValidationErrors().length != 0">Controleer de velden: {{getFormValidationErrors()}}</mat-error>
             <div class="d-flex justify-content-between mt-3">
               <button mat-raised-button [color]="tabIndex==0 ?'primary': 'accent'" (click)="prev()"
                       [disabled]="tabIndex==0">Vorige
@@ -38,9 +40,11 @@
               <button mat-raised-button color="accent" (click)="submit()" [disabled]="!form.valid" *ngIf="tabIndex== 8">Offerte maken</button>
             </div>
           </div>
-
         </mat-tab>
       </mat-tab-group>
     </form>
+    <div>
+
+    </div>
   </div>
 </div>

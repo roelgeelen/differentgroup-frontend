@@ -1,5 +1,5 @@
 <div class="row justify-content-between" [formGroup]="form" *ngIf="isShow">
-  <mat-label class="label">{{question.label}} <span *ngIf="question.required">*</span></mat-label>
+  <mat-label class="label">{{question.label}} <span *ngIf="isRequired">*</span></mat-label>
   <img [src]="question.image">
 
   <div [ngSwitch]="question.controlType">
@@ -42,7 +42,8 @@
     <div *ngSwitchCase="'upload'" class="row justify-content-between">
       <input (change)="selectFile($event)" type="file" accept="image/*" class="file" style="flex: 1; min-width: 200px;">
       <div class="img-container">
-        <img [src]="getProperty(question.key)?.url ? getProperty(question.key).url+'?timeStamp='+timestamp : 'assets/images/placeholder.jpg'">
+        <img
+          [src]="getProperty(question.key)?.url ? getProperty(question.key).url+'?timeStamp='+timestamp : 'assets/images/placeholder.jpg'">
       </div>
       <mat-error *ngIf="isImageInvalid">Afbeelding is te groot. Max grote is 5mb</mat-error>
       <div *ngIf="progress.percentage !== 100 && uploading">
@@ -50,7 +51,5 @@
         <mat-progress-bar mode="determinate" [value]="progress.percentage"></mat-progress-bar>
       </div>
     </div>
-
   </div>
-  <!--    <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>-->
 </div>

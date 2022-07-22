@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormGroup, ValidationErrors} from '@angular/forms';
 import {QuestionControlService} from "../dynamic-form/question-control.service";
 import {TabBase} from "../dynamic-form/model/tab-base";
 import {tabs} from "./odo";
@@ -8,6 +8,7 @@ import {Values} from "../../../../_models/hubspot/Values";
 import {HubspotService} from "../../../../_services/hubspot.service";
 import {AuthenticationService} from "../../../../_services/authentication.service";
 import {User} from "../../../../_models/User";
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -23,6 +24,7 @@ export class OdoComponent implements OnInit {
   fullscreen = false;
   form!: FormGroup;
   error: string = '';
+  loading = false;
   tabIndex = 0;
   tabCount = 9;
 
@@ -36,9 +38,11 @@ export class OdoComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.qcs.toFormGroup(this.tabs);
+    this.calcArticle();
   }
 
   findDeal() {
+    this.loading = true;
     if (this.dealConfig.values.deal_id != null) {
       this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
         this.dealConfig = deal;
@@ -46,12 +50,13 @@ export class OdoComponent implements OnInit {
         this.setCustomValues();
         this.setStringToArrays();
         for (const key in this.dealConfig.values) {
-          if (this.dealConfig.values[key as keyof Values] === null || this.dealConfig.values[key as  keyof Values].length == 0 ) {
+          if (this.dealConfig.values[key as keyof Values] === null || this.dealConfig.values[key as keyof Values].length == 0) {
             // @ts-ignore
             this.dealConfig.values[key] = this.form.get(key)?.value;
           }
         }
         this.form.setValue(this.dealConfig.values);
+        this.loading = false;
       }, error => {
         this.error = 'Kon deal niet vinden.';
       });
@@ -68,8 +73,57 @@ export class OdoComponent implements OnInit {
 
   }
 
+  getFormValidationErrors(): string[] {
+    let formError: string[] = [];
+    Object.keys(this.form.controls).forEach(key => {
+      // @ts-ignore
+      const controlErrors: ValidationErrors = this.form.get(key).errors;
+      if (controlErrors != null) {
+        Object.keys(controlErrors).forEach(keyError => {
+          formError.push(key)
+        });
+      }
+    });
+    return formError;
+  }
+
+
   submit() {
-    this.hubService.createInvoice(new Values(this.form.getRawValue()), this.dealConfig.values.deal_id).subscribe();
+    let articles = this.calcArticle();
+    tabs.map(t => {
+      return t.questions;
+    }).flat().forEach(q => {
+      if (q.options.length != 0) {
+        const option = q.options.find(o => {
+          return o.value == this.dealConfig.values[q.key as keyof Values]
+        })
+        if (option?.article !== undefined) {
+            articles.push(option.article)
+        }
+      }
+    })
+    this.hubService.createInvoice(articles, this.dealConfig.values.deal_id).subscribe(t => {
+      Swal.fire({
+        title: 'Gelukt!',
+        html: `<a href="https://info.differentdoors.nl/montage-configuratie/${this.dealConfig.values.deal_id}" target="_blank">Bekijk hier de configuratie</a>`,
+        icon: 'success',
+        confirmButtonText: 'sluiten'
+      });
+    }, error => {
+      Swal.fire({
+        title: 'Error',
+        text: 'Er is iets fout gegaan, probeer het later nog eens',
+        icon: 'error',
+        confirmButtonText: 'sluiten'
+      });
+    });
+
+
+  }
+
+  calcArticle() : string[] {
+    const maat = Math.ceil((((this.dealConfig.values.breedte < 2000 ? 2000 : this.dealConfig.values.breedte) - 2000) / 100) + 1) + (Math.ceil(((this.dealConfig.values.hoogte < 2000 ? 2000 : this.dealConfig.values.hoogte) - 2000) / 100) * 11)
+    return ['ODO0'+maat, 'ODO'+(maat+99)];
   }
 
   toggleFullscreen() {

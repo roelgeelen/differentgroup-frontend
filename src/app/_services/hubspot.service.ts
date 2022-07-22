@@ -3,7 +3,6 @@ import {HttpClient, HttpEvent, HttpRequest} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {DealConfig} from "../_models/hubspot/DealConfig";
 import {Observable} from "rxjs";
-import {Values} from "../_models/hubspot/Values";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +20,7 @@ export class HubspotService {
     return this.http.post(`${environment.apiUrl}/deals/${id}/config/update`, deal);
   }
 
-  createInvoice(values: Values, id: number) {
+  createInvoice(values: string[], id: number) {
     return this.http.post(`${environment.apiUrl}/deals/${id}/invoice/create`, values);
   }
 

@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormGroup, Validators} from '@angular/forms';
 import {QuestionBase} from '../model/question-base';
 import {HubspotService} from "../../../../../_services/hubspot.service";
 import {DealConfig} from "../../../../../_models/hubspot/DealConfig";
@@ -37,8 +37,8 @@ export class DynamicFormQuestionComponent {
     this.editor = new Editor();
   }
 
-  get isValid() {
-    return this.form.controls[this.question.key].valid;
+  get isRequired() {
+    return this.question.validators.indexOf(Validators.required) !== -1
   }
 
   get isShow() {

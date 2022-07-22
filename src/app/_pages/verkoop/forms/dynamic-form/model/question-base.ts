@@ -1,15 +1,18 @@
+import {ValidatorFn} from "@angular/forms";
+
 export class QuestionBase<T> {
   value: any;
   key: string;
   image: string;
   label: string;
-  required: boolean;
+  validators: ValidatorFn[];
   controlType: string;
   type: string;
-  options: { value: string }[];
+  options: { value: string, article?: string }[];
   dependent: { field: string; values: string[]; }|undefined;
-  fields: { value?: T | undefined; key: string; label: string; required?: boolean; type: string }[];
+  fields: { value?: T | undefined; key: string; label: string; validators?: ValidatorFn[]; required?: boolean; type: string }[];
   other: boolean;
+  required: boolean;
   custom: string;
 
   constructor(options: {
@@ -17,27 +20,29 @@ export class QuestionBase<T> {
     key?: string;
     image?: string;
     label?: string;
-    required?: boolean;
+    validators?: ValidatorFn[];
     order?: number;
     controlType?: string;
     type?: string;
-    options?: { value: string }[];
+    options?: { value: string, article?: string }[];
     dependent?: { field: string; values: string[] };
-    fields?: { key: string; label: string; value?: any | undefined; required?: boolean; type: string }[];
+    fields?: { key: string; label: string; value?: any | undefined; validators?: ValidatorFn[]; required?: boolean; type: string }[];
     other?: boolean;
+    required?: boolean;
     custom? : string;
   } = {}) {
     this.value = options.value;
     this.key = options.key || '';
     this.image = options.image || '';
     this.label = options.label || '';
-    this.required = !!options.required;
+    this.validators = options.validators || [];
     this.controlType = options.controlType || '';
     this.type = options.type || '';
     this.options = options.options || [];
     this.dependent = options.dependent || undefined;
     this.fields = options.fields || [];
     this.other = !!options.other;
+    this.required = !!options.required;
     this.custom = options.custom || '';
   }
 }
