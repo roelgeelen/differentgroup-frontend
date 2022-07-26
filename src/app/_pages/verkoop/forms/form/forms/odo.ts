@@ -1,10 +1,10 @@
-import {QuestionBase} from "../dynamic-form/model/question-base";
-import {RadioQuestion} from "../dynamic-form/controls/question-radio";
-import {TabBase} from "../dynamic-form/model/tab-base";
-import {TextQuestion} from "../dynamic-form/controls/question-textbox";
-import {CheckboxQuestion} from "../dynamic-form/controls/question-checkbox";
-import {TextareaQuestion} from "../dynamic-form/controls/question-textarea";
-import {UploadQuestion} from "../dynamic-form/controls/question-upload";
+import {QuestionBase} from "../../dynamic-form/model/question-base";
+import {RadioQuestion} from "../../dynamic-form/controls/question-radio";
+import {TabBase} from "../../dynamic-form/model/tab-base";
+import {TextQuestion} from "../../dynamic-form/controls/question-textbox";
+import {CheckboxQuestion} from "../../dynamic-form/controls/question-checkbox";
+import {TextareaQuestion} from "../../dynamic-form/controls/question-textarea";
+import {UploadQuestion} from "../../dynamic-form/controls/question-upload";
 import {Validators} from "@angular/forms";
 
 export const algemeen: QuestionBase<string>[] = [
@@ -15,23 +15,22 @@ export const algemeen: QuestionBase<string>[] = [
       {value: 'Ja'},
       {value: 'Nee'}
     ],
-    required: true,
     validators: [Validators.required]
   }),
   new TextQuestion({
     label: 'Afmetingen (in mm)',
     fields: [
       {
-        key: 'hoogte',
-        label: 'Hoogte',
-        type: 'number',
-        validators: [Validators.required, Validators.max(2500)]
-      },
-      {
         key: 'breedte',
         label: 'Breedte',
         type: 'number',
         validators: [Validators.required, Validators.max(3000)]
+      },
+      {
+        key: 'hoogte',
+        label: 'Hoogte',
+        type: 'number',
+        validators: [Validators.required, Validators.max(2500)]
       }
     ]
   }),
@@ -46,10 +45,10 @@ export const algemeen: QuestionBase<string>[] = [
   }),
   new TextQuestion({
     label: 'Verdeling (van buiten gezien)',
-    dependent: {
+    dependent: [{
       field: 'verdeling_symmetrisch',
       values: ['Nee']
-    },
+    }],
     fields: [
       {
         key: 'links',
@@ -80,10 +79,10 @@ export const buitenzijde: QuestionBase<string>[] = [
     key: 'profilering',
     label: 'Profilering',
     image: 'assets/forms/odo/0740c7ed-e7d1-404d-8d12-984b5e8cc979.png',
-    dependent: {
+    dependent: [{
       field: 'model',
       values: ['Verticaal', 'Horizontaal']
-    },
+    }],
     options: [
       {value: 'Smal (plancha)'},
       {value: 'Midden (ligna)'},
@@ -94,10 +93,10 @@ export const buitenzijde: QuestionBase<string>[] = [
     key: 'uitstraling',
     label: 'Uitstraling',
     image: 'assets/forms/odo/92adc622-e173-4baf-8dba-38acdd8816fd.png',
-    dependent: {
+    dependent: [{
       field: 'model',
       values: ['Verticaal', 'Horizontaal']
-    },
+    }],
     options: [
       {value: 'Houtnerf (woodgrain)'},
       {value: 'Glad (satin)'}
@@ -220,10 +219,10 @@ export const glas: QuestionBase<string>[] = [
         type: 'number'
       }
     ],
-    dependent: {
+    dependent: [{
       field: 'glassectie',
       values: ['Horizontaal - HR++ helder glas', 'Horizontaal - HR++ melk glas']
-    }
+    }]
   }),
   new TextQuestion({
     label: 'Verticaal - Netto glasmaat breedte (in mm)',
@@ -234,10 +233,10 @@ export const glas: QuestionBase<string>[] = [
         type: 'number'
       }
     ],
-    dependent: {
+    dependent: [{
       field: 'glassectie',
       values: ['Verticaal - HR++ helder glas', 'Verticaal - HR++ melk glas']
-    }
+    }]
   }),
   new RadioQuestion({
     key: 'glassectie_in_vleugel',
@@ -247,10 +246,10 @@ export const glas: QuestionBase<string>[] = [
       {value: 'Actieve deur'},
       {value: 'Passieve deur'}
     ],
-    dependent: {
+    dependent: [{
       field: 'glassectie',
       values: ['Horizontaal - HR++ helder glas', 'Horizontaal - HR++ melk glas', 'Verticaal - HR++ helder glas', 'Verticaal - HR++ melk glas']
-    }
+    }]
   })
 ]
 export const montage: QuestionBase<string>[] = [
@@ -319,7 +318,7 @@ export const afwerking: QuestionBase<string>[] = [
     ],
     value: 'N.v.t.'
   })
-]
+];
 export const overige: QuestionBase<string>[] = [
   new CheckboxQuestion({
     key: 'indicatie_van_montage_uren',
@@ -347,7 +346,7 @@ export const overige: QuestionBase<string>[] = [
     key: 'materiaal_te_bestellen_door_werkvoorbereiding',
     label: 'Materiaal te bestellen door werkvoorbereiding'
   })
-]
+];
 export const media: QuestionBase<string>[] = [
   new UploadQuestion({
     key: 'schets',
@@ -361,8 +360,8 @@ export const media: QuestionBase<string>[] = [
     key: 'binnen',
     label: 'Foto binnenzijde deur'
   })
-]
-export const tabs: TabBase[] = [
+];
+export const odo: TabBase[] = [
   {
     label: "Algemeen",
     questions: algemeen

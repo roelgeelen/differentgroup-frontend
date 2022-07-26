@@ -1,24 +1,26 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, ValidationErrors} from '@angular/forms';
 import {QuestionControlService} from "../dynamic-form/question-control.service";
-import {TabBase} from "../dynamic-form/model/tab-base";
-import {tabs} from "./odo";
 import {DealConfig} from "../../../../_models/hubspot/DealConfig";
 import {Values} from "../../../../_models/hubspot/Values";
 import {HubspotService} from "../../../../_services/hubspot.service";
 import {AuthenticationService} from "../../../../_services/authentication.service";
 import {User} from "../../../../_models/User";
 import Swal from 'sweetalert2'
+import {ActivatedRoute} from "@angular/router";
+import {forms} from "./forms";
+import {FormPage} from "../dynamic-form/model/formPage";
+import {FormsEnum} from "../dynamic-form/model/formsEnum";
 
 
 @Component({
-  selector: 'app-odo',
-  templateUrl: './odo.component.html',
-  styleUrls: ['./odo.component.scss'],
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.scss'],
   providers: [QuestionControlService]
 })
-export class OdoComponent implements OnInit {
-  tabs: TabBase[] = tabs;
+export class FormComponent implements OnInit {
+  page: FormPage;
   currentUser: User;
   dealConfig: DealConfig;
   fullscreen = false;
@@ -26,19 +28,28 @@ export class OdoComponent implements OnInit {
   error: string = '';
   loading = false;
   tabIndex = 0;
-  tabCount = 9;
+  tabCount: number;
 
-  constructor(private qcs: QuestionControlService, private hubService: HubspotService, private authService: AuthenticationService) {
-    this.dealConfig = new DealConfig()
-    this.dealConfig.values = new Values();
+  constructor(
+    private qcs: QuestionControlService,
+    private hubService: HubspotService,
+    private authService: AuthenticationService,
+    private route: ActivatedRoute
+  ) {
     this.authService.currentUser.subscribe(x => {
       this.currentUser = x
     });
   }
 
   ngOnInit() {
-    this.form = this.qcs.toFormGroup(this.tabs);
-    this.calcArticle();
+    this.route.paramMap.subscribe(queryParams => {
+      this.dealConfig = new DealConfig()
+      this.dealConfig.values = new Values();
+      // @ts-ignore
+      this.page = forms[queryParams.get('form')];
+      this.tabCount = this.page.form.length;
+      this.form = this.qcs.toFormGroup(this.page.form);
+    });
   }
 
   findDeal() {
@@ -54,10 +65,14 @@ export class OdoComponent implements OnInit {
             // @ts-ignore
             this.dealConfig.values[key] = this.form.get(key)?.value;
           }
+          if (this.form.get(key) == null) {
+            delete this.dealConfig.values[key as keyof Values];
+          }
         }
-        this.form.setValue(this.dealConfig.values);
         this.loading = false;
+        this.form.setValue(this.dealConfig.values);
       }, error => {
+        this.loading = false;
         this.error = 'Kon deal niet vinden.';
       });
     } else {
@@ -67,10 +82,6 @@ export class OdoComponent implements OnInit {
 
   clear() {
     this.dealConfig.values = new Values();
-  }
-
-  onSubmit() {
-
   }
 
   getFormValidationErrors(): string[] {
@@ -89,8 +100,9 @@ export class OdoComponent implements OnInit {
 
 
   submit() {
+    this.loading = true;
     let articles = this.calcArticle();
-    tabs.map(t => {
+    this.page.form.map(t => {
       return t.questions;
     }).flat().forEach(q => {
       if (q.options.length != 0) {
@@ -98,7 +110,7 @@ export class OdoComponent implements OnInit {
           return o.value == this.dealConfig.values[q.key as keyof Values]
         })
         if (option?.article !== undefined) {
-            articles.push(option.article)
+          articles.push(option.article)
         }
       }
     })
@@ -109,6 +121,7 @@ export class OdoComponent implements OnInit {
         icon: 'success',
         confirmButtonText: 'sluiten'
       });
+      this.loading = false;
     }, error => {
       Swal.fire({
         title: 'Error',
@@ -116,14 +129,19 @@ export class OdoComponent implements OnInit {
         icon: 'error',
         confirmButtonText: 'sluiten'
       });
+      this.loading = false;
     });
 
 
   }
 
-  calcArticle() : string[] {
+  calcArticle(): string[] {
+    if (this.page.type != FormsEnum.odo) {
+      return this.page.articles;
+    }
+
     const maat = Math.ceil((((this.dealConfig.values.breedte < 2000 ? 2000 : this.dealConfig.values.breedte) - 2000) / 100) + 1) + (Math.ceil(((this.dealConfig.values.hoogte < 2000 ? 2000 : this.dealConfig.values.hoogte) - 2000) / 100) * 11)
-    return ['ODO0'+maat, 'ODO'+(maat+99)];
+    return [...this.page.articles, 'ODO0' + maat, 'ODO' + (maat + 99)];
   }
 
   toggleFullscreen() {
@@ -140,7 +158,7 @@ export class OdoComponent implements OnInit {
 
   private setCustomValues() {
     let customQuestions: any[] = [];
-    this.tabs.forEach(element => {
+    this.page.form.forEach(element => {
       customQuestions.push(...element.questions.filter(q => q.other));
     });
     customQuestions.forEach(q => {
@@ -163,12 +181,16 @@ export class OdoComponent implements OnInit {
 
   private setStringToArrays() {
     let questions: any[] = [];
-    this.tabs.forEach(element => {
+    this.page.form.forEach(element => {
       questions.push(...element.questions.filter(q => q.controlType == 'checkbox'));
     });
     questions.forEach(q => {
       // @ts-ignore
       this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values] != null ? this.dealConfig.values[q.key as keyof Values].split(',') : [];
     })
+  }
+
+  onSubmit() {
+
   }
 }

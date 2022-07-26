@@ -36,6 +36,19 @@ export class Values {
   schets: any;
   buiten: { url: string; type: string; };
   binnen: { url: string; type: string; };
+  deur_reeds_ingemeten: string;
+  maat_tussen_metselwerk: string;
+  maat_tussen_latei: string;
+  type_profilering: string;
+  afstand_belijning: string;
+  aflakken_op_locatie: string;
+  uitstraling_binnenzijde: string;
+  deur_ral_binnen: string;
+  kozijn_ral_binnen: string;
+  isolatie: string;
+  omklapvoetjes: string;
+  aantal_roedes: string;
+  glasverdeling: string;
 
   public constructor(init?: Partial<Values>) {
     Object.assign(this, init);

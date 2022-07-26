@@ -6,7 +6,7 @@
   <div class="page">
     <div class="form-header d-flex justify-content-between">
       <div class="logo"><img src="../../../../../assets/images/cropped-logo-differentdoors-diap.png"></div>
-      <h1>ODO openslaande deur<br><span>{{dealConfig.values.dealname}}</span></h1>
+      <h1>{{page.title}}<br><span>{{dealConfig.values.dealname}}</span></h1>
       <div class="reset-btn">
         <button mat-button color="accent" class="clear" *ngIf="dealConfig.values.dealname !== undefined" (click)="clear()">
           <mat-icon>clear</mat-icon>
@@ -28,7 +28,7 @@
     <div class="loading-overlay" *ngIf="loading"><div class="loading"></div></div>
     <form (ngSubmit)="onSubmit()" [formGroup]="form" *ngIf="dealConfig.values.dealname !== undefined">
       <mat-tab-group [(selectedIndex)]="tabIndex">
-        <mat-tab *ngFor="let tab of tabs" [label]="tab.label">
+        <mat-tab *ngFor="let tab of page.form" [label]="tab.label">
           <div class="form-content">
             <app-question *ngFor="let question of tab.questions" [question]="question" [form]="form" [dealConfig]="dealConfig"></app-question>
             <mat-error *ngIf="tabIndex == 8 && getFormValidationErrors().length != 0">Controleer de velden: {{getFormValidationErrors()}}</mat-error>
@@ -36,8 +36,8 @@
               <button mat-raised-button [color]="tabIndex==0 ?'primary': 'accent'" (click)="prev()"
                       [disabled]="tabIndex==0">Vorige
               </button>
-              <button mat-raised-button color="accent" (click)="next()" *ngIf="tabIndex!= 8">Volgende</button>
-              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!form.valid" *ngIf="tabIndex== 8">Offerte maken</button>
+              <button mat-raised-button color="accent" (click)="next()" *ngIf="tabIndex!= (tabCount -1)">Volgende</button>
+              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!form.valid" *ngIf="tabIndex == (tabCount -1)">Offerte maken</button>
             </div>
           </div>
         </mat-tab>

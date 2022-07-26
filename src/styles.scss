@@ -57,6 +57,10 @@ body {
   animation: loading 2s infinite ease-in-out;
 }
 
+.swal2-styled.swal2-confirm {
+  background-color: #2e3785 !important;
+}
+
 @keyframes loading {
   0% {
     transform: perspective(120px) rotateX(0deg) rotateY(0deg);

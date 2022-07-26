@@ -42,7 +42,17 @@ export class DynamicFormQuestionComponent {
   }
 
   get isShow() {
-    return this.question.dependent ? this.question.dependent?.values.includes(this.form.controls[this.question.dependent?.field].value) : true;
+    return this.question.dependent.length != 0 ? this.isDependent() : true;
+  }
+
+  isDependent() {
+    var found = true;
+    this.question.dependent.forEach(dep => {
+      if (!dep.values.includes(this.form.controls[dep.field].value)) {
+        found = false;
+      }
+    });
+    return found;
   }
 
   save() {

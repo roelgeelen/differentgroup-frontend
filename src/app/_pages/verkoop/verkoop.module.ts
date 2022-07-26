@@ -15,7 +15,6 @@ import {MatIconModule} from "@angular/material/icon";
 import {GoogleMapsModule} from "@angular/google-maps";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {OdoComponent} from "./forms/odo/odo.component";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
@@ -26,6 +25,7 @@ import {MatListModule} from "@angular/material/list";
 import {DynamicFormQuestionComponent} from "./forms/dynamic-form/dynamic-form-question/dynamic-form-question.component";
 import {NgxEditorModule} from "ngx-editor";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {FormComponent} from "./forms/form/form.component";
 
 @NgModule({
   imports: [
@@ -57,7 +57,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     DashboardComponent,
     InmetenComponent,
     AfsprakenComponent,
-    OdoComponent,
+    FormComponent,
     DynamicFormQuestionComponent
   ],
   exports: [
