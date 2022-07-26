@@ -58,6 +58,7 @@ export class FormComponent implements OnInit {
       this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
         this.dealConfig = deal;
         this.dealConfig.values.adviseur = this.currentUser.name;
+        this.dealConfig.values.title = this.page.title;
         this.setCustomValues();
         this.setStringToArrays();
         for (const key in this.dealConfig.values) {

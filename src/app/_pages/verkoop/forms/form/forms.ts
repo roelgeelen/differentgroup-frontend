@@ -5,7 +5,7 @@ import {FormPage} from "../dynamic-form/model/formPage";
 
 export const forms: {[key in FormsEnum]: FormPage} = {
   odo: {
-    title: 'ODO openslaande deur',
+    title: 'Onderhoudsarme openslaande garagedeur',
     type: FormsEnum.odo,
     articles: ['ODO400'],
     form: odo

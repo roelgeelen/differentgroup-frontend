@@ -287,10 +287,16 @@ export const glas: QuestionBase<string>[] = [
         type: 'number'
       },
     ],
-    dependent: [{
+    dependent: [
+      {
+        field: 'glassectie',
+        values: ['HR++ helder glas', 'HR++ melk glas']
+      },
+      {
       field: 'glasverdeling',
       values: ['Aantal roedes']
-    }]
+    }
+    ]
   })
 ];
 export const montage: QuestionBase<string>[] = [
