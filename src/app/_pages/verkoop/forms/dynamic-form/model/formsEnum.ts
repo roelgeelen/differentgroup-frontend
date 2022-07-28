@@ -1,4 +1,5 @@
 export enum FormsEnum {
   odo = 'odo',
-  odhd = 'odhd'
+  odhd = 'odhd',
+  sdh = 'sdh'
 }

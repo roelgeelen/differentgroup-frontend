@@ -102,7 +102,7 @@ export class FormComponent implements OnInit {
 
   submit() {
     this.loading = true;
-    let articles = this.calcArticle();
+    let articles = this.getArticles();
     this.page.form.map(t => {
       return t.questions;
     }).flat().forEach(q => {
@@ -115,6 +115,7 @@ export class FormComponent implements OnInit {
         }
       }
     })
+    console.log(articles);
     this.hubService.createInvoice(articles, this.dealConfig.values.deal_id).subscribe(t => {
       Swal.fire({
         title: 'Gelukt!',
@@ -136,13 +137,20 @@ export class FormComponent implements OnInit {
 
   }
 
-  calcArticle(): string[] {
-    if (this.page.type != FormsEnum.odo) {
-      return this.page.articles;
+  getArticles(): string[] {
+    if (this.page.type == FormsEnum.odo) {
+      const maat = Math.ceil((((this.dealConfig.values.breedte < 2000 ? 2000 : this.dealConfig.values.breedte) - 2000) / 100) + 1) + (Math.ceil(((this.dealConfig.values.hoogte < 2000 ? 2000 : this.dealConfig.values.hoogte) - 2000) / 100) * 11)
+      return [...this.page.articles, 'ODO0' + maat, 'ODO' + (maat + 99)];
     }
-
-    const maat = Math.ceil((((this.dealConfig.values.breedte < 2000 ? 2000 : this.dealConfig.values.breedte) - 2000) / 100) + 1) + (Math.ceil(((this.dealConfig.values.hoogte < 2000 ? 2000 : this.dealConfig.values.hoogte) - 2000) / 100) * 11)
-    return [...this.page.articles, 'ODO0' + maat, 'ODO' + (maat + 99)];
+    if (this.page.type == FormsEnum.sdh) {
+      let maat = (Math.ceil(this.dealConfig.values.breedte / 500) * 500 - 2500) / 500 * 2 + 1;
+      maat = maat < 1 ? 1 : maat;
+      if (this.dealConfig.values.hoogte > 2500){
+        maat++;
+      }
+      return [...this.page.articles, 'SDH0'+ ('0' + maat).slice(-2), 'SDH'+ (maat+100)]
+    }
+    return this.page.articles;
   }
 
   toggleFullscreen() {

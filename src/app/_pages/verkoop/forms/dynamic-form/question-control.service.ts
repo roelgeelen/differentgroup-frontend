@@ -16,7 +16,9 @@ export class QuestionControlService {
             group[field.key] = new FormControl(field.value || '', field.validators);
           })
         } else {
-          group[question.key] = new FormControl(question.value || '', question.validators);
+          if (question.key) {
+            group[question.key] = new FormControl(question.value || '', question.validators);
+          }
         }
       });
     })

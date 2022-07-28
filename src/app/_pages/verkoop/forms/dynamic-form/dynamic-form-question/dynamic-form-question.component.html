@@ -1,5 +1,5 @@
 <div class="row justify-content-between" [formGroup]="form" *ngIf="isShow">
-  <mat-label class="label">{{question.label}} <span *ngIf="isRequired">*</span></mat-label>
+  <mat-label class="label" *ngIf="question.controlType != 'calc'">{{question.label}} <span *ngIf="isRequired">*</span></mat-label>
   <img [src]="question.image">
 
   <div [ngSwitch]="question.controlType">
@@ -50,6 +50,10 @@
         {{progress.percentage}}%
         <mat-progress-bar mode="determinate" [value]="progress.percentage"></mat-progress-bar>
       </div>
+    </div>
+
+    <div *ngSwitchCase="'calc'" class="calculation">
+      <strong>{{question.label}}</strong> {{eval(question.value)}}
     </div>
   </div>
 </div>

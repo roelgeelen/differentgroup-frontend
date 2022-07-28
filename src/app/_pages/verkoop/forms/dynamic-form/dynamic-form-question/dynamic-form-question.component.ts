@@ -103,4 +103,8 @@ export class DynamicFormQuestionComponent {
   {
     return this.dealConfig.values[name as keyof Values];
   }
+
+  eval(calc: string) {
+    return eval(calc)
+  }
 }

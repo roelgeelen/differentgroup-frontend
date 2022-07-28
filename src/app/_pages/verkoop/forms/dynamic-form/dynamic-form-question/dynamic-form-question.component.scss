@@ -30,6 +30,15 @@
       width: 100%;
     }
   }
+  .calculation {
+    color: #383d41;
+    background-color: #f2f2f3;
+    border: 1px solid #d6d8db;
+    position: relative;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+  }
 }
 mat-radio-button.mat-accent,
 mat-checkbox.mat-accent {

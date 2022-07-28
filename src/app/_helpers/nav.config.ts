@@ -55,6 +55,17 @@ export const navConfig: Page[] = [
               EnumRoles.ENGINEERING,
               EnumRoles.ADMINISTRATION,
             ]
+          },
+          {
+            url: '/verkoop/formulier/sdh',
+            title: 'SDH',
+            icon: 'description',
+            roles: [
+              EnumRoles.OFFICE,
+              EnumRoles.ICT,
+              EnumRoles.ENGINEERING,
+              EnumRoles.ADMINISTRATION,
+            ]
           }
         ],
         roles: [
