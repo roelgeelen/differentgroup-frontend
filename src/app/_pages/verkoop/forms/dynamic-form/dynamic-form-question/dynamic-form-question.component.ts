@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {FormGroup, Validators} from '@angular/forms';
 import {QuestionBase} from '../model/question-base';
 import {HubspotService} from "../../../../../_services/hubspot.service";
@@ -6,6 +6,7 @@ import {DealConfig} from "../../../../../_models/hubspot/DealConfig";
 import {Values} from "../../../../../_models/hubspot/Values";
 import {Editor, Toolbar} from "ngx-editor";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
+import {editable} from "ngx-editor/lib/plugins";
 
 @Component({
   selector: 'app-question',
@@ -13,10 +14,11 @@ import {HttpEventType, HttpResponse} from "@angular/common/http";
   styleUrls: ['./dynamic-form-question.component.scss']
 })
 export class DynamicFormQuestionComponent {
+  @ViewChild('img', {static: false}) img: ElementRef;
   @Input() question!: QuestionBase<string>;
   @Input() form!: FormGroup;
   @Input() dealConfig: DealConfig;
-  progress: { percentage: number } = { percentage: 0 };
+  progress: { percentage: number } = {percentage: 0};
   uploading = false;
   timestamp = Date.now();
   selectedFiles: FileList | null;
@@ -27,11 +29,15 @@ export class DynamicFormQuestionComponent {
     ['underline', 'strike'],
     ['code', 'blockquote'],
     ['ordered_list', 'bullet_list'],
-    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    [{heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']}],
     ['link', 'image'],
     ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
+  editing = false;
+  editorWidth = 900;
+  editorHeight = 300;
+  error: string;
 
   constructor(private hubService: HubspotService) {
     this.editor = new Editor();
@@ -65,8 +71,15 @@ export class DynamicFormQuestionComponent {
     }
     this.hubService.updateDealConfig(this.dealConfig, this.dealConfig.id).subscribe();
   }
+
   ngOnDestroy(): void {
     this.editor.destroy();
+  }
+
+  editImage() {
+    this.editorWidth = (this.img.nativeElement as HTMLImageElement).width;
+    this.editorHeight = (this.img.nativeElement as HTMLImageElement).height;
+    this.editing = true;
   }
 
   selectFile(event: any) {
@@ -83,28 +96,39 @@ export class DynamicFormQuestionComponent {
       if (event.target.files && event.target.files.length) {
         const [file] = event.target.files;
         reader.readAsDataURL(file);
-        this.hubService.saveImage(file, this.question.key+'-'+this.dealConfig.values.deal_id).subscribe(r => {
-          if (r.type === HttpEventType.UploadProgress) {
-            // @ts-ignore
-            this.progress.percentage = Math.round(100 * r.loaded / r.total);
-          } else if (r instanceof HttpResponse) {
-            // @ts-ignore
-            this.getProperty(this.question.key).url = r.body;
-            this.timestamp = Date.now();
-            this.save();
-            this.uploading = false;
-          }
-        });
+        this.sendFile(file);
       }
     }
   }
 
-  getProperty(name: string)
-  {
+  sendFile(file: any) {
+    this.uploading = true;
+    this.hubService.saveImage(file, this.question.key + '-' + this.dealConfig.values.deal_id).subscribe(r => {
+      if (r.type === HttpEventType.UploadProgress) {
+        // @ts-ignore
+        this.progress.percentage = Math.round(100 * r.loaded / r.total);
+      } else if (r instanceof HttpResponse) {
+        this.getProperty(this.question.key).url = r.body;
+        this.timestamp = Date.now();
+        this.save();
+        this.uploading = false;
+        this.editing = false;
+      }
+    }, error => {
+      this.error = 'Kon afbeelding niet opslaan.'
+      this.uploading = false;
+    });
+  }
+
+  getProperty(name: string) {
     return this.dealConfig.values[name as keyof Values];
   }
 
   eval(calc: string) {
     return eval(calc)
+  }
+
+  cancel() {
+    this.editing = false;
   }
 }

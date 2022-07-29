@@ -49,6 +49,8 @@ export class FormComponent implements OnInit {
       this.page = forms[queryParams.get('form')];
       this.tabCount = this.page.form.length;
       this.form = this.qcs.toFormGroup(this.page.form);
+      // this.dealConfig.values.deal_id = 5132614621;
+      // this.findDeal();
     });
   }
 

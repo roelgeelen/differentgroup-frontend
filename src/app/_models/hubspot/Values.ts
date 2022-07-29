@@ -10,6 +10,10 @@ export class Values {
   krukset_deurbeslag: string;
   model: string;
   paneel: string;
+  analoog_breedte: string;
+  analoog_hoogte: string;
+  digitaal_breedte: string;
+  digitaal_hoogte: string;
   breedte: number;
   hoogte: number;
   verdeling_symmetrisch: string;
@@ -27,6 +31,7 @@ export class Values {
   materiaal_te_bestellen_door_werkvoorbereiding: string;
   profilering: string;
   uitstraling: string;
+  deur_in_een_kleur: string;
   deur_ral: string;
   kozijn_ral: string;
   scharnier_ral: string;
@@ -35,6 +40,7 @@ export class Values {
   links: number;
   rechts: number;
   schets: any;
+  schets_2: any;
   buiten: { url: string; type: string; };
   binnen: { url: string; type: string; };
   //odhd

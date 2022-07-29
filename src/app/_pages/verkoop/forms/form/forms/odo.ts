@@ -18,7 +18,41 @@ export const algemeen: QuestionBase<string>[] = [
     validators: [Validators.required]
   }),
   new TextQuestion({
-    label: 'Afmetingen (in mm)',
+    label: 'Analoog afmetingen (in mm)',
+    fields: [
+      {
+        key: 'analoog_breedte',
+        label: 'Breedte',
+        type: 'number',
+        validators: [Validators.required, Validators.max(3000)]
+      },
+      {
+        key: 'analoog_hoogte',
+        label: 'Hoogte',
+        type: 'number',
+        validators: [Validators.required, Validators.max(2500)]
+      }
+    ]
+  }),
+  new TextQuestion({
+    label: 'Digitaal afmetingen (in mm)',
+    fields: [
+      {
+        key: 'digitaal_breedte',
+        label: 'Breedte',
+        type: 'number',
+        validators: [Validators.required, Validators.max(3000)]
+      },
+      {
+        key: 'digitaal_hoogte',
+        label: 'Hoogte',
+        type: 'number',
+        validators: [Validators.required, Validators.max(2500)]
+      }
+    ]
+  }),
+  new TextQuestion({
+    label: 'Bestel afmetingen (in mm)',
     fields: [
       {
         key: 'breedte',
@@ -102,6 +136,30 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: 'Glad (satin)'}
     ]
   }),
+  new RadioQuestion({
+    key: 'deur_in_een_kleur',
+    label: 'Gehele buitenzijde deur in één kleur',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee'}
+    ]
+  }),
+  new TextQuestion({
+    label: 'Kleur',
+    fields: [
+      {
+        key: 'deur_ral',
+        label: 'Deur RAL in structuurlak',
+        type: 'text'
+      },
+    ],
+    dependent: [
+      {
+        field: 'deur_in_een_kleur',
+        values: ['Ja']
+      }
+    ]
+  }),
   new TextQuestion({
     label: 'Kleuren',
     image: 'assets/forms/odo/2022-05-17%2016_23_28-.png',
@@ -120,6 +178,12 @@ export const buitenzijde: QuestionBase<string>[] = [
         key: 'scharnier_ral',
         label: 'Scharnieren RAL',
         type: 'text'
+      }
+    ],
+    dependent: [
+      {
+        field: 'deur_in_een_kleur',
+        values: ['Nee']
       }
     ]
   })
@@ -350,7 +414,11 @@ export const overige: QuestionBase<string>[] = [
 export const media: QuestionBase<string>[] = [
   new UploadQuestion({
     key: 'schets',
-    label: 'Foto / schets (voor klant)'
+    label: 'Foto / schets 1 (voor klant)'
+  }),
+  new UploadQuestion({
+    key: 'schets_2',
+    label: 'Foto / schets 2 (voor klant)'
   }),
   new UploadQuestion({
     key: 'buiten',

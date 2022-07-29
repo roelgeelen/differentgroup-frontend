@@ -26,6 +26,7 @@ import {DynamicFormQuestionComponent} from "./forms/dynamic-form/dynamic-form-qu
 import {NgxEditorModule} from "ngx-editor";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {FormComponent} from "./forms/form/form.component";
+import {ImageDrawingModule} from "ngx-image-drawing";
 
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import {FormComponent} from "./forms/form/form.component";
     MatCheckboxModule,
     MatListModule,
     NgxEditorModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    ImageDrawingModule,
   ],
   declarations: [
     VerkoopComponent,

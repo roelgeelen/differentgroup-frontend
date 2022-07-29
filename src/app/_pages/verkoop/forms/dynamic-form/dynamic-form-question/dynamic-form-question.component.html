@@ -1,5 +1,6 @@
 <div class="row justify-content-between" [formGroup]="form" *ngIf="isShow">
-  <mat-label class="label" *ngIf="question.controlType != 'calc'">{{question.label}} <span *ngIf="isRequired">*</span></mat-label>
+  <mat-label class="label" *ngIf="question.controlType != 'calc'">{{question.label}} <span *ngIf="isRequired">*</span>
+  </mat-label>
   <img [src]="question.image">
 
   <div [ngSwitch]="question.controlType">
@@ -40,12 +41,31 @@
     </div>
 
     <div *ngSwitchCase="'upload'" class="row justify-content-between">
-      <input (change)="selectFile($event)" type="file" accept="image/*" class="file" style="flex: 1; min-width: 200px;">
-      <div class="img-container">
-        <img
-          [src]="getProperty(question.key)?.url ? getProperty(question.key).url+'?timeStamp='+timestamp : 'assets/images/placeholder.jpg'">
-      </div>
-      <mat-error *ngIf="isImageInvalid">Afbeelding is te groot. Max grote is 5mb</mat-error>
+      <ng-container *ngIf="!editing">
+        <input (change)="selectFile($event)" type="file" accept="image/*" class="file"
+               style="flex: 1; min-width: 200px;" capture="environment">
+        <div class="img-container">
+          <button *ngIf="getProperty(question.key)?.url" mat-mini-fab color="primary" class="edit-image" (click)="editImage()">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <img #img [src]="getProperty(question.key)?.url ? getProperty(question.key).url+'?timeStamp='+timestamp : 'assets/images/placeholder.jpg'">
+        </div>
+        <mat-error *ngIf="isImageInvalid">Afbeelding is te groot. Max grote is 5mb</mat-error>
+      </ng-container>
+      <ng-container *ngIf="editing">
+        <image-drawing
+          [src]="getProperty(question.key)?.url+'?timeStamp='+timestamp"
+          [width]="editorWidth"
+          [height]="editorHeight"
+          [forceSizeExport]="true"
+          outputMimeType="'image/jpeg'"
+          [outputQuality]="0"
+          [drawingSizes]="{ small: 3, medium: 8, large: 25 }"
+          (save)="sendFile($event)"
+          (cancel)="cancel()">
+        </image-drawing>
+      </ng-container>
+      <mat-error *ngIf="error">{{error}}</mat-error>
       <div *ngIf="progress.percentage !== 100 && uploading">
         {{progress.percentage}}%
         <mat-progress-bar mode="determinate" [value]="progress.percentage"></mat-progress-bar>
