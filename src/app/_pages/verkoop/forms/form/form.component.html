@@ -14,19 +14,19 @@
       </div>
     </div>
     <ng-container *ngIf="dealConfig.values.dealname === undefined" class="w-100">
-      <div class="search">
+      <form (ngSubmit)="findDeal()" class="search">
         <mat-error *ngIf="error">{{error}}</mat-error>
         <mat-form-field appearance="fill" class="w-75">
           <mat-label>Deal nummer</mat-label>
-          <input matInput type="number" [(ngModel)]="dealConfig.values.deal_id">
+          <input matInput type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="dealConfig.values.deal_id">
         </mat-form-field>
-        <button mat-raised-button color="accent" (click)="findDeal()">
+        <button mat-raised-button color="accent">
           <mat-icon>search</mat-icon>
         </button>
-      </div>
+      </form>
     </ng-container>
     <div class="loading-overlay" *ngIf="loading"><div class="loading"></div></div>
-    <form (ngSubmit)="onSubmit()" [formGroup]="form" *ngIf="dealConfig.values.dealname !== undefined">
+    <form [formGroup]="form" *ngIf="dealConfig.values.dealname !== undefined">
       <mat-tab-group [(selectedIndex)]="tabIndex">
         <mat-tab *ngFor="let tab of page.form" [label]="tab.label">
           <div class="form-content">

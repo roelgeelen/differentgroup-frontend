@@ -78,7 +78,7 @@ export const algemeen: QuestionBase<string>[] = [
     value: 'Ja'
   }),
   new TextQuestion({
-    label: 'Verdeling (van buiten gezien)',
+    label: 'Verdeling (van buiten gezien inclusief kozijn)',
     dependent: [{
       field: 'verdeling_symmetrisch',
       values: ['Nee']
@@ -115,7 +115,21 @@ export const buitenzijde: QuestionBase<string>[] = [
     image: 'assets/forms/odo/0740c7ed-e7d1-404d-8d12-984b5e8cc979.png',
     dependent: [{
       field: 'model',
-      values: ['Verticaal', 'Horizontaal']
+      values: ['Horizontaal']
+    }],
+    options: [
+      {value: 'Smal (plancha)'},
+      {value: 'Midden (ligna)'},
+      {value: 'Vlak (plano)'}
+    ]
+  }),
+  new RadioQuestion({
+    key: 'profilering',
+    label: 'Profilering',
+    image: 'assets/forms/odo/0740c7ed-e7d1-404d-8d12-984b5e8cc979-vert.png',
+    dependent: [{
+      field: 'model',
+      values: ['Verticaal']
     }],
     options: [
       {value: 'Smal (plancha)'},
@@ -197,9 +211,28 @@ export const binnenzijde: QuestionBase<string>[] = [
     options: [
       {value: 'Standaard stucco'},
       {value: 'Volledig vlakke plaat', article: 'ODO301'},
+    ],
+    value: 'Standaard stucco',
+    dependent: [
+      {
+        field: 'model',
+        values: ['Verticaal', 'Horizontaal']
+      }
+    ]
+  }),
+  new RadioQuestion({
+    key: 'paneel',
+    label: 'Paneel',
+    options: [
       {value: 'Standaard volledig vlak (enkel indien model volledig vlak)'}
     ],
-    value: 'Standaard stucco'
+    value: 'Standaard volledig vlak (enkel indien model volledig vlak)',
+    dependent: [
+      {
+        field: 'model',
+        values: ['Volledig vlakke plaat']
+      }
+    ]
   }),
   new RadioQuestion({
     key: 'kleuropties',
@@ -227,8 +260,8 @@ export const deur: QuestionBase<string>[] = [
     key: 'actieve_deur',
     label: 'Actieve deur (van buiten gezien)',
     options: [
-      {value: 'Rechts'},
       {value: 'Links'},
+      {value: 'Rechts'},
     ],
     validators: [Validators.required]
   }),
@@ -247,16 +280,16 @@ export const deur: QuestionBase<string>[] = [
   }),
   new CheckboxQuestion({
     key: 'cilinder',
-    label: 'Cilinder',
+    label: 'Cilinder (cilindermaat 40/45 binnen/buitenzijde)',
     options: [
       {value: 'Cilinder leveren (incl. drie sleutels)'},
       {value: 'Extra sleutel', article: 'ODO308'},
       {value: 'Gelijksluitend (bij meedere deuren)', article: 'ODO307'},
       {value: 'Draaiknopcilinder'},
-      {value: 'Aangeleverd door klant (cilindermaat 40/45 binnen/buitenzijde)'}
+      {value: 'Aangeleverd door klant'}
     ],
     other: true,
-    custom: '',
+    custom: ' ',
     value: ['Cilinder leveren (incl. drie sleutels)']
   })
 ]
@@ -276,6 +309,7 @@ export const glas: QuestionBase<string>[] = [
   }),
   new TextQuestion({
     label: 'Horizontaal - Netto glasmaat hoogte (in mm)',
+    image: 'assets/forms/odo/glas-horizontaal.png',
     fields: [
       {
         key: 'netto_glasmaat',
@@ -290,6 +324,7 @@ export const glas: QuestionBase<string>[] = [
   }),
   new TextQuestion({
     label: 'Verticaal - Netto glasmaat breedte (in mm)',
+    image: 'assets/forms/odo/glas-verticaal.png',
     fields: [
       {
         key: 'netto_glasmaat',
@@ -404,7 +439,7 @@ export const overige: QuestionBase<string>[] = [
   }),
   new TextareaQuestion({
     key: 'overige_opmerkingen_intern',
-    label: 'Overige opmerkingen (intern)'
+    label: 'Overige opmerkingen (monteurs)'
   }),
   new TextareaQuestion({
     key: 'materiaal_te_bestellen_door_werkvoorbereiding',
@@ -422,11 +457,11 @@ export const media: QuestionBase<string>[] = [
   }),
   new UploadQuestion({
     key: 'buiten',
-    label: 'Foto buitenzijde deur'
+    label: 'Foto buitenzijde deur (monteurs)'
   }),
   new UploadQuestion({
     key: 'binnen',
-    label: 'Foto binnenzijde deur'
+    label: 'Foto binnenzijde deur (monteurs)'
   })
 ];
 export const odo: TabBase[] = [

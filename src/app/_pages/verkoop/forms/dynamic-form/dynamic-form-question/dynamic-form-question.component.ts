@@ -7,6 +7,7 @@ import {Values} from "../../../../../_models/hubspot/Values";
 import {Editor, Toolbar} from "ngx-editor";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
 import {editable} from "ngx-editor/lib/plugins";
+import {timeout} from "rxjs";
 
 @Component({
   selector: 'app-question',
@@ -102,7 +103,9 @@ export class DynamicFormQuestionComponent {
   }
 
   sendFile(file: any) {
+    this.editing = false;
     this.uploading = true;
+    this.progress.percentage = 0;
     this.hubService.saveImage(file, this.question.key + '-' + this.dealConfig.values.deal_id).subscribe(r => {
       if (r.type === HttpEventType.UploadProgress) {
         // @ts-ignore
@@ -112,7 +115,6 @@ export class DynamicFormQuestionComponent {
         this.timestamp = Date.now();
         this.save();
         this.uploading = false;
-        this.editing = false;
       }
     }, error => {
       this.error = 'Kon afbeelding niet opslaan.'

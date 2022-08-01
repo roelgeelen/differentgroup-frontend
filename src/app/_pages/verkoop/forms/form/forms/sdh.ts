@@ -54,7 +54,7 @@ export const algemeen: QuestionBase<string>[] = [
     key: 'type_sectionaaldeur',
     label: 'Type sectionaaldeur',
     options: [
-      {value: 'Verticale sectionaaldeur'},
+      {value: 'Sectionaaldeur'},
       {value: 'Zijwaartse sectionaaldeur'}
     ]
   }),
@@ -115,7 +115,7 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: 'Aangeleverde delen'}
     ],
     other: true,
-    custom: ''
+    custom: ' '
   }),
   new RadioQuestion({
     key: 'model',
@@ -125,7 +125,7 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: 'Horizontaal'}
     ],
     other: true,
-    custom: ''
+    custom: ' '
   }),
   new CheckboxQuestion({
     key: 'model_bekleding',
@@ -142,7 +142,7 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: 'Sierlijsten'},
     ],
     other: true,
-    custom: ''
+    custom: ' '
   }),
   new RadioQuestion({
     key: 'behandeling',//
@@ -639,7 +639,7 @@ export const montage: QuestionBase<string>[] = [
       {value: 'N.v.t.'},
       {value: 'Door klant volgens details DD'}
     ],
-    value: 'N.v.t.'
+    value: 'Door klant volgens details DD'
   }),
   new TextareaQuestion({
     key: 'indicatie_montage_uren',

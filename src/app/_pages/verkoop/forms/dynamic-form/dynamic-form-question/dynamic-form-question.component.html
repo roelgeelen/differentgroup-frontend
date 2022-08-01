@@ -43,7 +43,7 @@
     <div *ngSwitchCase="'upload'" class="row justify-content-between">
       <ng-container *ngIf="!editing">
         <input (change)="selectFile($event)" type="file" accept="image/*" class="file"
-               style="flex: 1; min-width: 200px;" capture="environment">
+               style="flex: 1; min-width: 200px;">
         <div class="img-container">
           <button *ngIf="getProperty(question.key)?.url" mat-mini-fab color="primary" class="edit-image" (click)="editImage()">
             <mat-icon>edit</mat-icon>
@@ -55,6 +55,8 @@
       <ng-container *ngIf="editing">
         <image-drawing
           [src]="getProperty(question.key)?.url+'?timeStamp='+timestamp"
+          cancelBtnText="Annuleren"
+          saveBtnText="Opslaan"
           [width]="editorWidth"
           [height]="editorHeight"
           [forceSizeExport]="true"

@@ -49,14 +49,14 @@ export class FormComponent implements OnInit {
       this.page = forms[queryParams.get('form')];
       this.tabCount = this.page.form.length;
       this.form = this.qcs.toFormGroup(this.page.form);
-      // this.dealConfig.values.deal_id = 5132614621;
+      // this.dealConfig.values.deal_id = 5180622068;
       // this.findDeal();
     });
   }
 
   findDeal() {
-    this.loading = true;
     if (this.dealConfig.values.deal_id != null) {
+      this.loading = true;
       this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
         this.dealConfig = deal;
         this.dealConfig.values.adviseur = this.currentUser.name;
@@ -199,9 +199,5 @@ export class FormComponent implements OnInit {
       // @ts-ignore
       this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values] != null ? this.dealConfig.values[q.key as keyof Values].split(',') : [];
     })
-  }
-
-  onSubmit() {
-
   }
 }

@@ -51,6 +51,34 @@ export const algemeen: QuestionBase<string>[] = [
       {value: 'Overig'},
     ],
     validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'verdeling_symmetrisch',
+    label: 'Verdeling symmetrisch',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee'}
+    ],
+    value: 'Ja'
+  }),
+  new TextQuestion({
+    label: 'Verdeling (van buiten gezien inclusief kozijn)',
+    dependent: [{
+      field: 'verdeling_symmetrisch',
+      values: ['Nee']
+    }],
+    fields: [
+      {
+        key: 'links',
+        label: 'Links',
+        type: 'number'
+      },
+      {
+        key: 'rechts',
+        label: 'Rechts',
+        type: 'number'
+      }
+    ]
   })
 ];
 export const buitenzijde: QuestionBase<string>[] = [
