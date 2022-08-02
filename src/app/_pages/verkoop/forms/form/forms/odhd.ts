@@ -32,7 +32,7 @@ export const algemeen: QuestionBase<string>[] = [
   }),
   new CalculationQuestion({
     label: 'Berekening breedte: strakke maat tussen metselwerk - 5mm speling links - 5 mm rechts = ',
-    value:'this.form.controls[\'maat_tussen_metselwerk\'].value - 10'
+    value: 'this.form.controls[\'maat_tussen_metselwerk\'].value - 10'
   }),
   new TextQuestion({
     label: 'Strakke maat tussen latei en afgewerkte binnenvloer',
@@ -48,7 +48,7 @@ export const algemeen: QuestionBase<string>[] = [
   }),
   new CalculationQuestion({
     label: 'Berekening hoogte: strakke maat tussen latei en binnenvloer - 10mm speling boven - 10mm dorpel boven pijl + 52mm dikte onderdorpel = ',
-    value:'parseInt(this.form.controls[\'maat_tussen_latei\'].value) + 32'
+    value: 'parseInt(this.form.controls[\'maat_tussen_latei\'].value) + 32'
   }),
   new RadioQuestion({
     key: 'model',
@@ -250,10 +250,30 @@ export const glas: QuestionBase<string>[] = [
     label: 'Glassectie',
     options: [
       {value: 'N.v.t.'},
+    ],
+    value: 'N.v.t.',
+    dependent: [
+      {
+        field: 'model',
+        values: ['B', 'C', 'F', 'H']
+      }
+    ]
+  }),
+  new RadioQuestion({
+    key: 'glassectie',
+    label: 'Glassectie',
+    options: [
+      {value: 'N.v.t.'},
       {value: 'HR++ helder glas'},
       {value: 'HR++ melk glas'},
     ],
-    value: 'N.v.t.'
+    value: 'N.v.t.',
+    dependent: [
+      {
+        field: 'model',
+        values: ['A', 'D', 'E', 'G', 'I', 'Overig']
+      }
+    ]
   }),
   new RadioQuestion({
     key: 'glassectie_in_vleugel',
@@ -263,10 +283,16 @@ export const glas: QuestionBase<string>[] = [
       {value: 'Actieve deur'},
       {value: 'Passieve deur'}
     ],
-    dependent: [{
-      field: 'glassectie',
-      values: ['HR++ helder glas', 'HR++ melk glas']
-    }]
+    dependent: [
+      {
+        field: 'glassectie',
+        values: ['HR++ helder glas', 'HR++ melk glas']
+      },
+      {
+        field: 'model',
+        values: ['A', 'D', 'E', 'G', 'I', 'Overig']
+      }
+    ]
   }),
   new TextQuestion({
     label: 'Horizontaal - Netto glasmaat breedte (in mm)',
@@ -315,10 +341,16 @@ export const glas: QuestionBase<string>[] = [
       {value: 'N.v.t.'},
       {value: 'Aantal roedes'},
     ],
-    dependent: [{
-      field: 'glassectie',
-      values: ['HR++ helder glas', 'HR++ melk glas']
-    }],
+    dependent: [
+      {
+        field: 'glassectie',
+        values: ['HR++ helder glas', 'HR++ melk glas']
+      },
+      {
+        field: 'model',
+        values: ['A', 'D', 'E', 'G', 'I', 'Overig']
+      }
+    ],
     other: true,
     custom: ''
   }),
@@ -337,9 +369,13 @@ export const glas: QuestionBase<string>[] = [
         values: ['HR++ helder glas', 'HR++ melk glas']
       },
       {
-      field: 'glasverdeling',
-      values: ['Aantal roedes']
-    }
+        field: 'glasverdeling',
+        values: ['Aantal roedes']
+      },
+      {
+        field: 'model',
+        values: ['A', 'D', 'E', 'G', 'I', 'Overig']
+      }
     ]
   })
 ];
