@@ -213,7 +213,7 @@ export const binnenzijde: QuestionBase<string>[] = [
     ]
   }),
   new RadioQuestion({
-    key: 'rails',//
+    key: 'rails',
     label: 'Rails',
     options: [
       {value: 'Standaard gegalvaniseerd'},
@@ -353,7 +353,16 @@ export const deur: QuestionBase<string>[] = [
   }),
 ];
 export const glas: QuestionBase<string>[] = [
-
+  new RadioQuestion({
+    key: 'glassectie',
+    label: 'Glassectie',
+    options: [
+      {value: 'N.v.t.'},
+      {value: 'HR++ helder glas'},
+      {value: 'HR++ melk glas'},
+    ],
+    value: 'N.v.t.'
+  })
 ];
 export const gevelbekleding: QuestionBase<string>[] = [
   new RadioQuestion({
@@ -601,7 +610,23 @@ export const loopdeur: QuestionBase<string>[] = [
         values: ['Ja']
       }
     ]
-  })
+  }),
+  new RadioQuestion({
+    key: 'loopdeur_voordeur_glassectie',
+    label: 'Glassectie',
+    options: [
+      {value: 'N.v.t.'},
+      {value: 'HR++ helder glas'},
+      {value: 'HR++ melk glas'},
+    ],
+    value: 'N.v.t.',
+    dependent: [
+      {
+        field: 'loopdeur_voordeur',
+        values: ['Geïntegreerd in de gevel', 'Met kozijn', 'Blind kozijn', 'Bestaand kozijn', 'Pivoterende deur']
+      }
+    ]
+  }),
 ]
 export const montage: QuestionBase<string>[] = [
   new CheckboxQuestion({
@@ -620,21 +645,16 @@ export const montage: QuestionBase<string>[] = [
     key: 'type_deur',
     label: 'Type deur',
     options: [
+      {value: 'N.v.t.'},
       {value: 'Sectionaaldeur'},
       {value: 'Kanteldeur'},
       {value: 'Houten kozijn en deuren'},
       {value: 'Rolluik'}
-    ],
-    dependent: [
-      {
-        field: 'bestaande_deur',
-        values: ['Demontage DD', 'Afvoer DD', 'Demontage door klant', 'Afvoer door klant']
-      }
     ]
   }),
   new RadioQuestion({
     key: 'bouwkundig_aanpassingen',
-    label: 'Bouwkundig aanpassingen',
+    label: 'Bouwkundige aanpassingen',
     options: [
       {value: 'N.v.t.'},
       {value: 'Door klant volgens details DD'}
@@ -660,6 +680,10 @@ export const media: QuestionBase<string>[] = [
   new UploadQuestion({
     key: 'schets',
     label: 'Foto / schets (voor klant)'
+  }),
+  new UploadQuestion({
+    key: 'schets_2',
+    label: 'Foto / schets 2 (voor klant)'
   }),
   new UploadQuestion({
     key: 'buiten',

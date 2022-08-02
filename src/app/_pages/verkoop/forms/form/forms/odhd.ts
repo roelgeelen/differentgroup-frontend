@@ -6,6 +6,7 @@ import {Validators} from "@angular/forms";
 import {CheckboxQuestion} from "../../dynamic-form/controls/question-checkbox";
 import {TextareaQuestion} from "../../dynamic-form/controls/question-textarea";
 import {UploadQuestion} from "../../dynamic-form/controls/question-upload";
+import {CalculationQuestion} from "../../dynamic-form/controls/question-calc";
 
 export const algemeen: QuestionBase<string>[] = [
   new RadioQuestion({
@@ -18,14 +19,25 @@ export const algemeen: QuestionBase<string>[] = [
     validators: [Validators.required]
   }),
   new TextQuestion({
-    label: 'Strakke maat',
+    label: 'Strakke maat tussen metselwerk',
+    image: 'assets/forms/odhd/Strakke-maat-tussen-metselwerk.png',
     fields: [
       {
         key: 'maat_tussen_metselwerk',
         label: 'tussen metselwerk',
         type: 'number',
         validators: [Validators.required]
-      },
+      }
+    ]
+  }),
+  new CalculationQuestion({
+    label: 'Berekening breedte: strakke maat tussen metselwerk - 5mm speling links - 5 mm rechts = ',
+    value:'this.form.controls[\'maat_tussen_metselwerk\'].value - 10'
+  }),
+  new TextQuestion({
+    label: 'Strakke maat tussen latei en afgewerkte binnenvloer',
+    image: 'assets/forms/odhd/Strakke-maat-tussen-latei.png',
+    fields: [
       {
         key: 'maat_tussen_latei',
         label: 'tussen latei en afgewerkte binnenvloer',
@@ -33,6 +45,10 @@ export const algemeen: QuestionBase<string>[] = [
         validators: [Validators.required]
       }
     ]
+  }),
+  new CalculationQuestion({
+    label: 'Berekening hoogte: strakke maat tussen latei en binnenvloer - 10mm speling boven - 10mm dorpel boven pijl + 52mm dikte onderdorpel = ',
+    value:'parseInt(this.form.controls[\'maat_tussen_latei\'].value) + 32'
   }),
   new RadioQuestion({
     key: 'model',
@@ -234,8 +250,8 @@ export const glas: QuestionBase<string>[] = [
     label: 'Glassectie',
     options: [
       {value: 'N.v.t.'},
-      {value: 'HR++ helder glas', article: ''},
-      {value: 'HR++ melk glas', article: ''},
+      {value: 'HR++ helder glas'},
+      {value: 'HR++ melk glas'},
     ],
     value: 'N.v.t.'
   }),
@@ -420,6 +436,10 @@ export const media: QuestionBase<string>[] = [
   new UploadQuestion({
     key: 'schets',
     label: 'Foto / schets (voor klant)'
+  }),
+  new UploadQuestion({
+    key: 'schets_2',
+    label: 'Foto / schets 2 (voor klant)'
   }),
   new UploadQuestion({
     key: 'buiten',
