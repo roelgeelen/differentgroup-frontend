@@ -2,7 +2,7 @@ import {LOCALE_ID, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
@@ -27,6 +27,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { BlogPostComponent } from './_components/blog-post/blog-post.component';
 import { SafeHtmlPipe } from './_helpers/safe-html.pipe';
+import {ErrorInterceptor} from "./_helpers/error.interceptor";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 registerLocaleData(localeNl);
 
 @NgModule({
@@ -58,6 +60,7 @@ registerLocaleData(localeNl);
     MatTreeModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: [environment.apiUrl],
@@ -66,7 +69,8 @@ registerLocaleData(localeNl);
     }),
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: "nl-NL" }
+    { provide: LOCALE_ID, useValue: "nl-NL" },
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   exports: [
   ],

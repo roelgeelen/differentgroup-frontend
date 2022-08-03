@@ -55,7 +55,7 @@ export const algemeen: QuestionBase<string>[] = [
     label: 'Type sectionaaldeur',
     options: [
       {value: 'Sectionaaldeur'},
-      {value: 'Zijwaartse sectionaaldeur'}
+      {value: 'Zijwaartse sectionaaldeur', article: 'SDH300'}
     ]
   }),
   new RadioQuestion({
@@ -64,7 +64,7 @@ export const algemeen: QuestionBase<string>[] = [
     options: [
       {value:'Links'},
       {value:'Rechts'},
-      {value:'Beide'},
+      {value:'Beide', article: 'SDH300'},
     ],
     dependent: [
       {
@@ -105,13 +105,13 @@ export const buitenzijde: QuestionBase<string>[] = [
     key: 'houtsoort',
     label: 'Houtsoort',
     options: [
-      {value: 'Red cedar'},
-      {value: 'Eiken'},
-      {value: 'Afrormosia'},
-      {value: 'Mahonie'},
-      {value: 'Accoya'},
-      {value: 'Meranti'},
-      {value: 'Fraké'},
+      {value: 'Red cedar', article: 'SDH400'},
+      {value: 'Eiken', article: 'SDH400'},
+      {value: 'Afrormosia', article: 'SDH400'},
+      {value: 'Mahonie', article: 'SDH400'},
+      {value: 'Accoya', article: 'SDH400'},
+      {value: 'Meranti', article: 'SDH400'},
+      {value: 'Fraké', article: 'SDH400'},
       {value: 'Aangeleverde delen'}
     ],
     other: true,
@@ -217,7 +217,7 @@ export const binnenzijde: QuestionBase<string>[] = [
     label: 'Rails',
     options: [
       {value: 'Standaard gegalvaniseerd'},
-      {value: 'Op kleur'},
+      {value: 'Op kleur', article: 'SDH100'},
     ],
     value: 'Standaard gegalvaniseerd'
   }),
@@ -242,10 +242,10 @@ export const binnenzijde: QuestionBase<string>[] = [
     label: 'Motor',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Plafond motor 230 V'},
-      {value: 'Freq. gestuurde plafond motor 230 V (Blauwe CE stekker)'},
-      {value: 'As motor 380 V'},
-      {value: 'Freq. gestuurde as motor 230 V (Blauwe CE stekker)'},
+      {value: 'Plafond motor 230 V', article: 'SDH200'},
+      {value: 'Freq. gestuurde plafond motor 230 V (Blauwe CE stekker)', article: 'SDH201'},
+      {value: 'As motor 380 V', article: 'SDH201'},
+      {value: 'Freq. gestuurde as motor 230 V (Blauwe CE stekker)', article: 'SDH201'},
     ]
   }),
   new RadioQuestion({
@@ -292,9 +292,9 @@ export const deur: QuestionBase<string>[] = [
     label: 'Buiten bediening',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Handzender'},
-      {value: 'Draadloos codeklavier'},
-      {value: 'Losse ontvanger'},
+      {value: 'Handzender', article: 'SDH202'},
+      {value: 'Draadloos codeklavier', article: 'SDH205'},
+      {value: 'Losse ontvanger', article: 'SDH204'},
     ]
   }),
   new TextQuestion({
@@ -312,7 +312,7 @@ export const deur: QuestionBase<string>[] = [
     label: 'Binnen bediening',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Draadloze drukknop'},
+      {value: 'Draadloze drukknop', article: 'SDH203'},
       {value: 'Op / Stop / Neer'},
       {value: 'Domotica of puls voorziening door de klant'},
     ]
@@ -370,8 +370,8 @@ export const gevelbekleding: QuestionBase<string>[] = [
     label: 'Aanbrengen gevelbekleding',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Door Different Doors (Zie arcering)', article: 'SDH***'},
-      {value: 'Door de klant'},
+      {value: 'Door Different Doors (Zie arcering)', article: 'SDH402'},
+      {value: 'Door de klant', article: 'SDH401'},
     ]
   }),
   new TextQuestion({
@@ -416,7 +416,7 @@ export const loopdeur: QuestionBase<string>[] = [
       {value: 'Met kozijn'},
       {value: 'Blind kozijn'},
       {value: 'Bestaand kozijn'},
-      {value: 'Pivoterende deur'},
+      {value: 'Pivoterende deur', article: 'HPT001'},
     ],
     value: 'N.v.t.'
   }),
@@ -435,6 +435,20 @@ export const loopdeur: QuestionBase<string>[] = [
         type: 'number',
         validators: [Validators.max(2500)]
       }
+    ],
+    dependent: [
+      {
+        field: 'loopdeur_voordeur',
+        values: ['Geïntegreerd in de gevel', 'Met kozijn', 'Blind kozijn', 'Bestaand kozijn', 'Pivoterende deur']
+      }
+    ]
+  }),
+  new RadioQuestion({
+    key: 'electrisch_motorslot',
+    label: 'Electrisch motorslot',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee'},
     ],
     dependent: [
       {

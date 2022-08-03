@@ -102,6 +102,7 @@ export class Values {
   deur_beslag_loopdeur: string;
   deurgreep_loopdeur: string;
   indicatie_montage_uren: string;
+  electrisch_motorslot: string;
 
   public constructor(init?: Partial<Values>) {
     Object.assign(this, init);

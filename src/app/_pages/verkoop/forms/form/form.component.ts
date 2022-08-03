@@ -45,12 +45,15 @@ export class FormComponent implements OnInit {
     this.route.paramMap.subscribe(queryParams => {
       this.dealConfig = new DealConfig()
       this.dealConfig.values = new Values();
-      // @ts-ignore
-      this.page = forms[queryParams.get('form')];
+      this.page = forms[queryParams.get('form') as FormsEnum];
       this.tabCount = this.page.form.length;
       this.form = this.qcs.toFormGroup(this.page.form);
-      // this.dealConfig.values.deal_id = 5180622068;
-      // this.findDeal();
+      this.route.queryParams.subscribe(params => {
+        if (params['deal']) {
+          this.dealConfig.values.deal_id = params['deal'];
+          this.findDeal();
+        }
+      })
     });
   }
 
@@ -109,11 +112,23 @@ export class FormComponent implements OnInit {
       return t.questions;
     }).flat().forEach(q => {
       if (q.options.length != 0) {
-        const option = q.options.find(o => {
-          return o.value == this.dealConfig.values[q.key as keyof Values]
-        })
-        if (option?.article !== undefined) {
-          articles.push(option.article)
+        if (Array.isArray(this.dealConfig.values[q.key as keyof Values])){
+          this.dealConfig.values[q.key as keyof Values].forEach((v: string) => {
+            console.log(v)
+            const option = q.options.find(o => {
+              return o.value == v
+            });
+            if (option?.article !== undefined) {
+              articles.push(option.article);
+            }
+          })
+        } else {
+          const option = q.options.find(o => {
+            return o.value == this.dealConfig.values[q.key as keyof Values]
+          });
+          if (option?.article !== undefined) {
+            articles.push(option.article);
+          }
         }
       }
     })
@@ -140,19 +155,27 @@ export class FormComponent implements OnInit {
   }
 
   getArticles(): string[] {
+    let articles = this.page.articles;
+
+    // ODO
     if (this.page.type == FormsEnum.odo) {
       const maat = Math.ceil((((this.dealConfig.values.breedte < 2000 ? 2000 : this.dealConfig.values.breedte) - 2000) / 100) + 1) + (Math.ceil(((this.dealConfig.values.hoogte < 2000 ? 2000 : this.dealConfig.values.hoogte) - 2000) / 100) * 11)
-      return [...this.page.articles, 'ODO0' + maat, 'ODO' + (maat + 99)];
+      return [...articles, 'ODO0' + maat, 'ODO' + (maat + 99)];
     }
+
+    //SDH
     if (this.page.type == FormsEnum.sdh) {
       let maat = (Math.ceil(this.dealConfig.values.breedte / 500) * 500 - 2500) / 500 * 2 + 1;
       maat = maat < 1 ? 1 : maat;
       if (this.dealConfig.values.hoogte > 2500){
         maat++;
       }
-      return [...this.page.articles, 'SDH0'+ ('0' + maat).slice(-2), 'SDH'+ (maat+100)]
+      if (this.form.controls['type_sectionaaldeur'].value != 'type_sectionaaldeur'){
+        articles.push('SDH'+ (maat+100))
+      }
+      return [...articles, 'SDH0'+ ('0' + maat).slice(-2)]
     }
-    return this.page.articles;
+    return articles;
   }
 
   toggleFullscreen() {

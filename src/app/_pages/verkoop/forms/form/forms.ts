@@ -20,7 +20,7 @@ export const forms: {[key in FormsEnum]: FormPage} = {
   sdh: {
     title: 'Houten sectionaaldeur',
     type: FormsEnum.sdh,
-    articles: [],
+    articles: ['SDH600'],
     form: sdh
   }
 }

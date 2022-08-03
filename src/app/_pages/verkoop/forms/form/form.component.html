@@ -25,7 +25,7 @@
         </button>
       </form>
     </ng-container>
-    <div class="loading-overlay" *ngIf="loading"><div class="loading"></div></div>
+    <div class="loading-overlay fixed" *ngIf="loading"><div class="loading"></div></div>
     <form [formGroup]="form" *ngIf="dealConfig.values.dealname !== undefined">
       <mat-tab-group [(selectedIndex)]="tabIndex">
         <mat-tab *ngFor="let tab of page.form" [label]="tab.label">
