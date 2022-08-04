@@ -75,7 +75,6 @@ export class FormComponent implements OnInit {
             delete this.dealConfig.values[key as keyof Values];
           }
         }
-        console.log(this.dealConfig)
         this.loading = false;
         this.form.setValue(this.dealConfig.values);
       }, error => {

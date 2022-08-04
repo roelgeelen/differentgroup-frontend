@@ -282,15 +282,15 @@ export const deur: QuestionBase<string>[] = [
     key: 'cilinder',
     label: 'Cilinder (cilindermaat 40/45 binnen/buitenzijde)',
     options: [
-      {value: 'Cilinder leveren (incl. drie sleutels)'},
+      {value: 'Cilinder leveren door DD (incl. drie sleutels)'},
       {value: 'Extra sleutel', article: 'ODO308'},
       {value: 'Gelijksluitend (bij meedere deuren)', article: 'ODO307'},
       {value: 'Draaiknopcilinder'},
-      {value: 'Aangeleverd door klant'}
+      {value: 'Aangeleverd door klant (40/45 binnen/buitenzijde)'}
     ],
     other: true,
     custom: ' ',
-    value: ['Cilinder leveren (incl. drie sleutels)']
+    value: ['Cilinder leveren door DD (incl. drie sleutels)']
   })
 ]
 export const glas: QuestionBase<string>[] = [
