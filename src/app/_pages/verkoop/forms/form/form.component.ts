@@ -75,6 +75,7 @@ export class FormComponent implements OnInit {
             delete this.dealConfig.values[key as keyof Values];
           }
         }
+        console.log(this.dealConfig)
         this.loading = false;
         this.form.setValue(this.dealConfig.values);
       }, error => {
@@ -112,9 +113,14 @@ export class FormComponent implements OnInit {
       return t.questions;
     }).flat().forEach(q => {
       if (q.options.length != 0) {
-        if (Array.isArray(this.dealConfig.values[q.key as keyof Values])){
+        // @ts-ignore
+        this.dealConfig.values[q.key as keyof Values] =
+          q.controlType == 'checkbox' && !Array.isArray(this.dealConfig.values[q.key as keyof Values]) ?
+            this.dealConfig.values[q.key as keyof Values].split(',') :
+            this.dealConfig.values[q.key as keyof Values];
+
+        if (Array.isArray(this.dealConfig.values[q.key as keyof Values])) {
           this.dealConfig.values[q.key as keyof Values].forEach((v: string) => {
-            console.log(v)
             const option = q.options.find(o => {
               return o.value == v
             });
@@ -167,13 +173,13 @@ export class FormComponent implements OnInit {
     if (this.page.type == FormsEnum.sdh) {
       let maat = (Math.ceil(this.dealConfig.values.breedte / 500) * 500 - 2500) / 500 * 2 + 1;
       maat = maat < 1 ? 1 : maat;
-      if (this.dealConfig.values.hoogte > 2500){
+      if (this.dealConfig.values.hoogte > 2500) {
         maat++;
       }
-      if (this.form.controls['type_sectionaaldeur'].value != 'type_sectionaaldeur'){
-        articles.push('SDH'+ (maat+100))
+      if (this.form.controls['type_sectionaaldeur'].value != 'type_sectionaaldeur') {
+        articles.push('SDH' + (maat + 100))
       }
-      return [...articles, 'SDH0'+ ('0' + maat).slice(-2)]
+      return [...articles, 'SDH0' + ('0' + maat).slice(-2)]
     }
     return articles;
   }
@@ -220,7 +226,7 @@ export class FormComponent implements OnInit {
     });
     questions.forEach(q => {
       // @ts-ignore
-      this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values] != null ? this.dealConfig.values[q.key as keyof Values].split(',') : [];
+      this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values] != '' ? this.dealConfig.values[q.key as keyof Values].split(',') : [];
     })
   }
 }

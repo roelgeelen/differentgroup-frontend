@@ -317,6 +317,7 @@ export const glas: QuestionBase<string>[] = [
         type: 'number'
       }
     ],
+    validators: [Validators.min(200)],
     dependent: [{
       field: 'glassectie',
       values: ['Horizontaal - HR++ helder glas', 'Horizontaal - HR++ melk glas']
@@ -332,6 +333,7 @@ export const glas: QuestionBase<string>[] = [
         type: 'number'
       }
     ],
+    validators: [Validators.min(200)],
     dependent: [{
       field: 'glassectie',
       values: ['Verticaal - HR++ helder glas', 'Verticaal - HR++ melk glas']
