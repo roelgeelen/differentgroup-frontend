@@ -104,8 +104,8 @@ export const buitenzijde: QuestionBase<string>[] = [
     label: 'Model',
     image: 'assets/forms/odo/69c3bd73-a00d-48cf-a637-51b1efd1aa9a.png',
     options: [
-      {value: 'Verticaal'},
       {value: 'Horizontaal'},
+      {value: 'Verticaal'},
       {value: 'Volledig vlakke plaat', article: 'ODO300'}
     ]
   }),

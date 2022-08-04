@@ -64,6 +64,7 @@ export class FormComponent implements OnInit {
         this.dealConfig = deal;
         this.dealConfig.values.adviseur = this.currentUser.name;
         this.dealConfig.values.title = this.page.title;
+        this.loading = false;
         this.setCustomValues();
         this.setStringToArrays();
         for (const key in this.dealConfig.values) {
@@ -75,7 +76,7 @@ export class FormComponent implements OnInit {
             delete this.dealConfig.values[key as keyof Values];
           }
         }
-        this.loading = false;
+
         this.form.setValue(this.dealConfig.values);
       }, error => {
         this.loading = false;
@@ -141,7 +142,7 @@ export class FormComponent implements OnInit {
     this.hubService.createInvoice(articles, this.dealConfig.values.deal_id).subscribe(t => {
       Swal.fire({
         title: 'Gelukt!',
-        html: `<a href="https://info.differentdoors.nl/montage-configuratie/${this.dealConfig.values.deal_id}" target="_blank">Bekijk hier de configuratie</a>`,
+        html: `<a href="https://info.differentdoors.nl/deal-configuratie/${this.dealConfig.values.deal_id}" target="_blank">Bekijk hier de configuratie</a>`,
         icon: 'success',
         confirmButtonText: 'sluiten'
       });
