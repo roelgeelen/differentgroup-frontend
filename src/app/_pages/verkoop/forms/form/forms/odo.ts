@@ -242,7 +242,29 @@ export const binnenzijde: QuestionBase<string>[] = [
     ],
     other: true,
     custom: '',
-    value: '9016 (standaard)'
+    value: '9016 (standaard)',
+    dependent: [
+      {
+        field: 'model',
+        values: ['Verticaal', 'Horizontaal']
+      }
+    ]
+  }),
+  new RadioQuestion({
+    key: 'kleuropties',
+    label: 'Kleuropties (RAL)',
+    options: [
+      {value: 'Zelfde als buitenzijde (standaard)'}
+    ],
+    other: true,
+    custom: '',
+    value: 'Zelfde als buitenzijde (standaard)',
+    dependent: [
+      {
+        field: 'model',
+        values: ['Volledig vlakke plaat']
+      }
+    ]
   })
 ]
 
@@ -407,8 +429,7 @@ export const afwerking: QuestionBase<string>[] = [
       {value: 'Enkel tussen kozijn en muur afpurren'},
       {value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)', article: 'ODO405'},
       {value: 'Multipaint volledig (exclusief schilderen)', article: 'ODO406'},
-    ],
-    value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)'
+    ]
   }),
   new RadioQuestion({
     key: 'bouwkundig_aanpassingen',
