@@ -88,8 +88,7 @@ export class Values {
   nooduitgang_aanwezig: string;
   nooduitgang_oplossing: string;
   aanbrengen_gevelbekleding: string;
-  gevel_breedte: string;
-  gevel_hoogte: string;
+  gevel_afmetingen: string;
   loopdeur_voordeur: string;
   loopdeur_voordeur_breedte: string;
   loopdeur_voordeur_hoogte: string;
@@ -103,6 +102,14 @@ export class Values {
   deurgreep_loopdeur: string;
   indicatie_montage_uren: string;
   electrisch_motorslot: string;
+  deur_afmetingen: any;
+  montage_straat: string;
+  montage_postcode: string;
+  montage_plaats: string;
+  transparant_kleurcode: string;
+  gelijk_met_de_wand: string;
+  aantal_draadloos_codeklavier: string;
+  aantal_losse_ontvanger: string;
 
   public constructor(init?: Partial<Values>) {
     Object.assign(this, init);

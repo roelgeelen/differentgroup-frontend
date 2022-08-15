@@ -11,6 +11,31 @@
       </mat-form-field>
     </div>
 
+    <div *ngSwitchCase="'table'" class="row m-1">
+      <div></div>
+      <table mat-table [dataSource]="form.controls[question.key].value">
+        <ng-container [matColumnDef]="col.key" *ngFor="let col of question.fields">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ col.label }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <div [ngSwitch]="col.type" *ngIf="!element.isEdit">
+              <button mat-icon-button  color="primary" *ngSwitchCase="'isEdit'" (click)="removeRow(element.id)">
+                  <mat-icon>delete</mat-icon>
+              </button>
+              <mat-form-field class="form-input" *ngSwitchDefault>
+                <input matInput [(ngModel)]="element[col.key]" [placeholder]="col.label" [type]="col.type" [ngModelOptions]="{standalone: true}" (focusout)="save()"/>
+              </mat-form-field>
+            </div>
+
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <button mat-stroked-button color="primary" (click)="addRow()"><mat-icon>add</mat-icon></button>
+    </div>
+
     <mat-radio-group *ngSwitchCase="'radio'" [id]="question.key" [formControlName]="question.key" (focusout)="save()">
       <mat-radio-button *ngFor="let opt of question.options" [value]="opt.value">{{opt.value}}</mat-radio-button>
       <mat-radio-button [value]="question.custom" *ngIf="question.other">
@@ -45,10 +70,12 @@
         <input (change)="selectFile($event)" type="file" accept="image/*" class="file"
                style="flex: 1; min-width: 200px;">
         <div class="img-container">
-          <button *ngIf="getProperty(question.key)?.url" mat-mini-fab color="primary" class="edit-image" (click)="editImage()">
+          <button *ngIf="getProperty(question.key)?.url" mat-mini-fab color="primary" class="edit-image"
+                  (click)="editImage()">
             <mat-icon>edit</mat-icon>
           </button>
-          <img #img [src]="getProperty(question.key)?.url ? getProperty(question.key).url+'?timeStamp='+timestamp : 'assets/images/placeholder.jpg'">
+          <img #img
+               [src]="getProperty(question.key)?.url ? getProperty(question.key).url+'?timeStamp='+timestamp : 'assets/images/placeholder.jpg'">
         </div>
         <mat-error *ngIf="isImageInvalid">Afbeelding is te groot. Max grote is 5mb</mat-error>
       </ng-container>

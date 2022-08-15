@@ -1,38 +1,57 @@
-.w-30{
+.w-30 {
   width: 30%;
 }
+
 .clear {
   width: 50px;
   height: 40px;
 }
+
 .row {
   margin-top: 10px;
+
   mat-label.label {
     background-color: #ebf2f4;
     padding: 10px;
     margin-top: 10px;
     font-weight: 500;
   }
+
   .textarea {
     margin: 0 -12px;
   }
+
   .multi {
     flex: 1;
   }
+
   .file {
     margin: 20px 0;
     flex: 1;
   }
+
+  .mat-table {
+    margin-top: 10px;
+    .mat-row {
+      td {
+        padding: 5px;
+      }
+    }
+  }
+
   .img-container {
     min-width: 150px;
+
     .edit-image {
       z-index: 1;
       position: absolute;
     }
-    img{
+
+    img {
       width: 100%;
     }
   }
+
   .calculation {
     color: #383d41;
     background-color: #f2f2f3;
@@ -43,51 +62,68 @@
     border-radius: 0.25rem;
   }
 }
+
 mat-radio-button.mat-accent,
 mat-checkbox.mat-accent {
   background: none !important;
   color: black !important;
 }
+
 mat-radio-button, mat-checkbox {
   margin-right: 30px;
   margin-top: 20px;
 }
 
 ::ng-deep {
+  table {
+    thead {
+      display: none;
+    }
+  }
+
   .mat-list-item-content-reverse {
     flex-direction: row !important;
     padding: 0 !important;
+
     .mat-list-text {
       margin-left: 10px;
     }
   }
+
   .NgxEditor__MenuBar {
     background-color: #ebf2f4 !important;
     border-top: 1px solid black;
     margin-bottom: 10px;
   }
+
   .NgxEditor {
     min-height: 100px;
   }
+
   image-drawing {
     .tools {
       .row {
         flex-wrap: nowrap;
+
         :first-child {
           display: none;
         }
+
         * {
           width: auto;
           padding: 0;
         }
       }
     }
+
     .buttons {
       .btn-primary {
         background-color: #334d9c !important;
       }
+
       .btn-light {
         color: #334d9c !important;
+
         &:hover {
           background-color: #dbdeec !important;
         }

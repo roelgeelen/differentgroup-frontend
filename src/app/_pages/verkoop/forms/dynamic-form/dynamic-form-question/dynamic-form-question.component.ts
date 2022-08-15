@@ -44,6 +44,10 @@ export class DynamicFormQuestionComponent {
     this.editor = new Editor();
   }
 
+  get displayedColumns() {
+    return this.question.fields.map(col => col.key);
+  }
+
   get isRequired() {
     return this.question.validators.indexOf(Validators.required) !== -1
   }
@@ -55,8 +59,12 @@ export class DynamicFormQuestionComponent {
   isDependent() {
     var found = true;
     this.question.dependent.forEach(dep => {
-      if (!dep.values.includes(this.form.controls[dep.field].value)) {
-        found = false;
+      if (Array.isArray(this.form.controls[dep.field].value)) {
+        found = this.form.controls[dep.field].value.filter((element: string) => dep.values.includes(element)).length > 0;
+      } else {
+        if (!dep.values.includes(this.form.controls[dep.field].value)) {
+          found = false;
+        }
       }
     });
     return found;
@@ -67,7 +75,7 @@ export class DynamicFormQuestionComponent {
     for (const [k, v] of Object.entries(this.dealConfig.values)) {
       if (Array.isArray(v)) {
         // @ts-ignore
-        this.dealConfig.values[k] = v.toString();
+        this.dealConfig.values[k] = JSON.stringify(v);
       }
     }
     this.hubService.updateDealConfig(this.dealConfig, this.dealConfig.id).subscribe();
@@ -93,7 +101,6 @@ export class DynamicFormQuestionComponent {
       this.selectedFiles = null;
     } else {
       const reader = new FileReader();
-
       if (event.target.files && event.target.files.length) {
         const [file] = event.target.files;
         reader.readAsDataURL(file);
@@ -132,5 +139,23 @@ export class DynamicFormQuestionComponent {
 
   cancel() {
     this.editing = false;
+  }
+
+  addRow() {
+    const newRow = {
+      id: (this.form.controls[this.question.key].value.length + 1),
+      title: this.question.fields[0].label + " " + (this.form.controls[this.question.key].value.length + 1),
+      breedte: "",
+      hoogte: ""
+    }
+    // @ts-ignore
+    this.form.controls[this.question.key].value = [...this.form.controls[this.question.key].value, newRow];
+
+  }
+
+  removeRow(id: number) {
+    // @ts-ignore
+    this.form.controls[this.question.key].value = this.form.controls[this.question.key].value.filter((u: { id: number; }) => u.id !== id);
+    this.save();
   }
 }

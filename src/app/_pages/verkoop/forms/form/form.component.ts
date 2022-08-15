@@ -76,7 +76,6 @@ export class FormComponent implements OnInit {
             delete this.dealConfig.values[key as keyof Values];
           }
         }
-
         this.form.setValue(this.dealConfig.values);
       }, error => {
         this.loading = false;
@@ -161,8 +160,7 @@ export class FormComponent implements OnInit {
   }
 
   getArticles(): string[] {
-    let articles = this.page.articles;
-
+    let articles =[...this.page.articles];
     // ODO
     if (this.page.type == FormsEnum.odo) {
       const maat = Math.ceil((((this.dealConfig.values.breedte < 2000 ? 2000 : this.dealConfig.values.breedte) - 2000) / 100) + 1) + (Math.ceil(((this.dealConfig.values.hoogte < 2000 ? 2000 : this.dealConfig.values.hoogte) - 2000) / 100) * 11)
@@ -171,15 +169,17 @@ export class FormComponent implements OnInit {
 
     //SDH
     if (this.page.type == FormsEnum.sdh) {
-      let maat = (Math.ceil(this.dealConfig.values.breedte / 500) * 500 - 2500) / 500 * 2 + 1;
-      maat = maat < 1 ? 1 : maat;
-      if (this.dealConfig.values.hoogte > 2500) {
-        maat++;
+      for (var afm of Array.isArray(this.dealConfig.values.deur_afmetingen) ? this.dealConfig.values.deur_afmetingen : JSON.parse(this.dealConfig.values.deur_afmetingen)) {
+        let maat = (Math.ceil(afm.breedte / 500) * 500 - 2500) / 500 * 2 + 1;
+        maat = maat < 1 ? 1 : maat;
+        if (afm.hoogte > 2500) {
+          maat++;
+        }
+        if (this.form.controls['type_sectionaaldeur'].value != 'type_sectionaaldeur') {
+          articles.push('SDH' + (maat + 100))
+        }
+        articles.push('SDH0' + ('0' + maat).slice(-2));
       }
-      if (this.form.controls['type_sectionaaldeur'].value != 'type_sectionaaldeur') {
-        articles.push('SDH' + (maat + 100))
-      }
-      return [...articles, 'SDH0' + ('0' + maat).slice(-2)]
     }
     return articles;
   }
@@ -222,11 +222,11 @@ export class FormComponent implements OnInit {
   private setStringToArrays() {
     let questions: any[] = [];
     this.page.form.forEach(element => {
-      questions.push(...element.questions.filter(q => q.controlType == 'checkbox'));
+      questions.push(...element.questions.filter(q => q.controlType == 'checkbox' || q.controlType == 'table'));
     });
     questions.forEach(q => {
       // @ts-ignore
-      this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values] != '' ? this.dealConfig.values[q.key as keyof Values].split(',') : [];
+      this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values] != '' ? JSON.parse(this.dealConfig.values[q.key as keyof Values]) : [];
     })
   }
 }

@@ -7,8 +7,29 @@ import {TextareaQuestion} from "../../dynamic-form/controls/question-textarea";
 import {UploadQuestion} from "../../dynamic-form/controls/question-upload";
 import {Validators} from "@angular/forms";
 import {CalculationQuestion} from "../../dynamic-form/controls/question-calc";
+import {TableQuestion} from "../../dynamic-form/controls/question-table";
 
 export const algemeen: QuestionBase<string>[] = [
+  new TextQuestion({
+    label: 'Montage adres',
+    fields: [
+      {
+        key: 'montage_straat',
+        label: 'Straat + huisnummer',
+        type: 'text'
+      },
+      {
+        key: 'montage_postcode',
+        label: 'Postcode',
+        type: 'text',
+      },
+      {
+        key: 'montage_plaats',
+        label: 'Plaats',
+        type: 'text'
+      }
+    ]
+  }),
   new TextQuestion({
     label: 'Uitvoerder',
     fields: [
@@ -73,22 +94,16 @@ export const algemeen: QuestionBase<string>[] = [
       }
     ]
   }),
-  new TextQuestion({
+  new TableQuestion({
+    key: 'deur_afmetingen',
     label: 'Afmetingen (in mm)',
     fields: [
-      {
-        key: 'breedte',
-        label: 'Breedte',
-        type: 'number',
-        validators: [Validators.required, Validators.max(6500)]
-      },
-      {
-        key: 'hoogte',
-        label: 'Hoogte',
-        type: 'number',
-        validators: [Validators.required, Validators.max(3000)]
-      }
-    ]
+      {key: 'title', label: 'Deur', type: 'text'},
+      {key: 'breedte', label: 'Breedte', type: 'number'},
+      {key: 'hoogte', label: 'Hoogte', type: 'number'},
+      {key: 'isEdit', label: '', type: 'isEdit'},
+    ],
+    value: [{title: 'Deur 1', breedte: '', hoogte: ''}]
   }),
   new RadioQuestion({
     key: 'garagedeur',
@@ -115,7 +130,7 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: 'Aangeleverde delen'}
     ],
     other: true,
-    custom: ' '
+    custom: ''
   }),
   new RadioQuestion({
     key: 'model',
@@ -125,7 +140,7 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: 'Horizontaal'}
     ],
     other: true,
-    custom: ' '
+    custom: ''
   }),
   new CheckboxQuestion({
     key: 'model_bekleding',
@@ -142,16 +157,36 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: 'Sierlijsten'},
     ],
     other: true,
-    custom: ' '
+    custom: ''
   }),
   new RadioQuestion({
-    key: 'behandeling',//
+    key: 'behandeling',
     label: 'Behandeling',
     options: [
       {value: 'Onbehandeld'},
       {value: 'Transparant (Tweemaal gegrond)'},
       {value: 'Aangeleverde delen behandeld door klant'},
-      {value: 'Dekkend'},
+      {value: 'Dekkend (Tweemaal gegrond)'},
+    ]
+  }),
+  new RadioQuestion({
+    key: 'transparant_kleurcode',
+    label: 'Kleurcode DD',
+    options: [
+      {value: 'VBH001'},
+      {value: 'VBH002'},
+      {value: 'VBH003'},
+      {value: 'VBH004'},
+      {value: 'VBH005'},
+      {value: 'VBH006'},
+      {value: 'VBH007'},
+      {value: 'VBH008'},
+    ],
+    dependent: [
+      {
+        field: 'behandeling',
+        values: ['Transparant (Tweemaal gegrond)']
+      }
     ]
   }),
   new TextQuestion({
@@ -166,7 +201,7 @@ export const buitenzijde: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'behandeling',
-        values: ['Dekkend']
+        values: ['Dekkend (Tweemaal gegrond)']
       }
     ]
   }),
@@ -181,7 +216,7 @@ export const buitenzijde: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'behandeling',
-        values: ['Dekkend']
+        values: ['Dekkend (Tweemaal gegrond)']
       }
     ]
   })
@@ -190,7 +225,7 @@ export const buitenzijde: QuestionBase<string>[] = [
 export const binnenzijde: QuestionBase<string>[] = [
   new RadioQuestion({
     key: 'deurblad',//
-    label: 'Deurblad (Tweemaal gegrond)',
+    label: 'Binnenzijde deurblad (Tweemaal gegrond)',
     options: [
       {value: 'Transparant'},
       {value: 'Op kleur'},
@@ -268,6 +303,21 @@ export const deur: QuestionBase<string>[] = [
       {value: 'Gelijk met de wand'},
     ]
   }),
+  new CheckboxQuestion({
+    key: 'gelijk_met_de_wand',
+    label: 'Gelijk met de wand (van binnenuit gezien)',
+    options: [
+      {value: 'Links'},
+      {value: 'Boven'},
+      {value: 'Rechts'},
+    ],
+    dependent: [
+      {
+        field: 'positie',
+        values: ['Gelijk met de wand']
+      }
+    ]
+  }),
   new RadioQuestion({
     key: 'isolatie_in_de_deur',
     label: 'Isolatie in de deur',
@@ -304,6 +354,44 @@ export const deur: QuestionBase<string>[] = [
         key: 'aantal_handzenders',
         label: 'Aantal',
         type: 'number'
+      }
+    ],
+    dependent: [
+      {
+        field: 'buiten_bediening',
+        values: ['Handzender']
+      }
+    ]
+  }),
+  new TextQuestion({
+    label: 'Aantal draadloos codeklavier',
+    fields: [
+      {
+        key: 'aantal_draadloos_codeklavier',
+        label: 'Aantal',
+        type: 'number'
+      }
+    ],
+    dependent: [
+      {
+        field: 'buiten_bediening',
+        values: ['Draadloos codeklavier']
+      }
+    ]
+  }),
+  new TextQuestion({
+    label: 'Aantal losse ontvanger',
+    fields: [
+      {
+        key: 'aantal_losse_ontvanger',
+        label: 'Aantal',
+        type: 'number'
+      }
+    ],
+    dependent: [
+      {
+        field: 'buiten_bediening',
+        values: ['Losse ontvanger']
       }
     ]
   }),
@@ -360,8 +448,19 @@ export const glas: QuestionBase<string>[] = [
       {value: 'N.v.t.'},
       {value: 'HR++ helder glas'},
       {value: 'HR++ melk glas'},
+      {value: 'Overig'},
     ],
     value: 'N.v.t.'
+  }),
+  new UploadQuestion({
+    key: 'schets_g',
+    label: 'Schets glas',
+    dependent: [
+      {
+        field: 'glassectie',
+        values: ['HR++ helder glas', 'HR++ melk glas', 'Overig']
+      }
+    ]
   })
 ];
 export const gevelbekleding: QuestionBase<string>[] = [
@@ -374,20 +473,16 @@ export const gevelbekleding: QuestionBase<string>[] = [
       {value: 'Door de klant', article: 'SDH401'},
     ]
   }),
-  new TextQuestion({
-    label: 'Afmetingen (in mm)', //berekening breede * hoogte m2
+  new TableQuestion({
+    key: 'gevel_afmetingen',
+    label: 'Afmetingen (in mm)',
     fields: [
-      {
-        key: 'gevel_breedte',
-        label: 'Breedte',
-        type: 'number'
-      },
-      {
-        key: 'gevel_hoogte',
-        label: 'Hoogte',
-        type: 'number'
-      }
+      {key: 'title', label: 'Gevel', type: 'text'},
+      {key: 'breedte', label: 'Breedte', type: 'number'},
+      {key: 'hoogte', label: 'Hoogte', type: 'number'},
+      {key: 'isEdit', label: '', type: 'isEdit'},
     ],
+    value: [{title: 'Gevel 1', breedte: '', hoogte: ''}],
     dependent: [
       {
         field: 'aanbrengen_gevelbekleding',
@@ -397,7 +492,7 @@ export const gevelbekleding: QuestionBase<string>[] = [
   }),
   new CalculationQuestion({
     label: 'Aantal m2:',
-    value: '(this.form.controls[\'gevel_hoogte\'].value / 1000) * (this.form.controls[\'gevel_breedte\'].value / 1000)',
+    value: '(this.form.controls[\'gevel_afmetingen\'].value.reduce((sum, current) => sum + parseInt(current.breedte), 0) / 1000) * (this.form.controls[\'gevel_afmetingen\'].value.reduce((sum, current) => sum + parseInt(current.hoogte), 0) / 1000)',
     dependent: [
       {
         field: 'aanbrengen_gevelbekleding',
@@ -408,8 +503,8 @@ export const gevelbekleding: QuestionBase<string>[] = [
 ];
 export const loopdeur: QuestionBase<string>[] = [
   new RadioQuestion({
-    key: 'loopdeur_voordeur',
-    label: 'Loopdeur / voordeur',
+    key: 'loopdeur_voordeur',//3 loopdeuren en 1 voordeur
+    label: 'Loopdeur of voordeur',
     options: [
       {value: 'N.v.t.'},
       {value: 'Geïntegreerd in de gevel'},
@@ -586,7 +681,7 @@ export const loopdeur: QuestionBase<string>[] = [
     ]
   }),
   new RadioQuestion({
-    key: 'deur_beslag_loopdeur',//
+    key: 'deur_beslag_loopdeur',
     label: 'Deur beslag (loopdeur)',
     options: [
       {value: 'N.v.t.'},
@@ -641,6 +736,16 @@ export const loopdeur: QuestionBase<string>[] = [
       }
     ]
   }),
+  new UploadQuestion({
+    key: 'schets_lg',
+    label: 'Schets glas',
+    dependent: [
+      {
+        field: 'loopdeur_voordeur',
+        values: ['Geïntegreerd in de gevel', 'Met kozijn', 'Blind kozijn', 'Bestaand kozijn', 'Pivoterende deur']
+      }
+    ]
+  })
 ]
 export const montage: QuestionBase<string>[] = [
   new CheckboxQuestion({
@@ -648,8 +753,8 @@ export const montage: QuestionBase<string>[] = [
     label: 'Bestaande deur',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Demontage DD'},
-      {value: 'Afvoer DD'},
+      {value: 'Demontage DD', article: 'SDH601'},
+      {value: 'Afvoer DD', article: 'SDH602'},
       {value: 'Demontage door klant'},
       {value: 'Afvoer door klant'}
     ],
@@ -657,7 +762,7 @@ export const montage: QuestionBase<string>[] = [
   }),
   new RadioQuestion({
     key: 'type_deur',
-    label: 'Type deur',
+    label: 'Type bestaande deur',
     options: [
       {value: 'N.v.t.'},
       {value: 'Sectionaaldeur'},
