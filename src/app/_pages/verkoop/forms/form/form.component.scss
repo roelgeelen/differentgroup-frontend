@@ -1,3 +1,22 @@
+.form-list {
+  mat-list-item{
+    margin: 5px 0;
+  }
+  .middle-btn {
+    border-radius: 0;
+  }
+
+  .end-btn {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+
+  button {
+    height: 100%;
+  }
+}
+
+
 .fullscreen-btn {
   position: absolute;
   right: 40px;
@@ -115,3 +134,5 @@ div.fullscreen {
     }
   }
 }
+
+

@@ -46,6 +46,19 @@ const routes: Routes = [
         },
       },
       {
+        path: 'formulier',
+        component: FormComponent,
+        canActivate: [AuthGuard],
+        data: {
+          roles: [
+            EnumRoles.OFFICE,
+            EnumRoles.ICT,
+            EnumRoles.ENGINEERING,
+            EnumRoles.ADMINISTRATION,
+          ]
+        },
+      },
+      {
         path: 'formulier/:form',
         component: FormComponent,
         canActivate: [AuthGuard, EnumRouteGuard],

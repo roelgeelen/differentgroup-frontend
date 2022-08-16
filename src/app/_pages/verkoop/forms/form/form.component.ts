@@ -29,6 +29,9 @@ export class FormComponent implements OnInit {
   loading = false;
   tabIndex = 0;
   tabCount: number;
+  forms() : Array<string> {
+    return Object.keys(forms);
+  }
 
   constructor(
     private qcs: QuestionControlService,
@@ -45,9 +48,11 @@ export class FormComponent implements OnInit {
     this.route.paramMap.subscribe(queryParams => {
       this.dealConfig = new DealConfig()
       this.dealConfig.values = new Values();
-      this.page = forms[queryParams.get('form') as FormsEnum];
-      this.tabCount = this.page.form.length;
-      this.form = this.qcs.toFormGroup(this.page.form);
+      if (queryParams.get('form')) {
+        this.page = forms[queryParams.get('form') as FormsEnum];
+        this.tabCount = this.page.form.length;
+        this.form = this.qcs.toFormGroup(this.page.form);
+      }
       this.route.queryParams.subscribe(params => {
         if (params['deal']) {
           this.dealConfig.values.deal_id = params['deal'];
@@ -63,20 +68,20 @@ export class FormComponent implements OnInit {
       this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
         this.dealConfig = deal;
         this.dealConfig.values.adviseur = this.currentUser.name;
-        this.dealConfig.values.title = this.page.title;
+        //this.dealConfig.values.title = this.page.title;
         this.loading = false;
-        this.setCustomValues();
-        this.setStringToArrays();
-        for (const key in this.dealConfig.values) {
-          if (this.dealConfig.values[key as keyof Values] === null || this.dealConfig.values[key as keyof Values].length == 0) {
-            // @ts-ignore
-            this.dealConfig.values[key] = this.form.get(key)?.value;
-          }
-          if (this.form.get(key) == null) {
-            delete this.dealConfig.values[key as keyof Values];
-          }
-        }
-        this.form.setValue(this.dealConfig.values);
+        // this.setCustomValues();
+        // this.setStringToArrays();
+        // for (const key in this.dealConfig.values) {
+        //   if (this.dealConfig.values[key as keyof Values] === null || this.dealConfig.values[key as keyof Values].length == 0) {
+        //     // @ts-ignore
+        //     this.dealConfig.values[key] = this.form.get(key)?.value;
+        //   }
+        //   if (this.form.get(key) == null) {
+        //     delete this.dealConfig.values[key as keyof Values];
+        //   }
+        // }
+        // this.form.setValue(this.dealConfig.values);
       }, error => {
         this.loading = false;
         this.error = 'Kon deal niet vinden.';
@@ -160,7 +165,7 @@ export class FormComponent implements OnInit {
   }
 
   getArticles(): string[] {
-    let articles =[...this.page.articles];
+    let articles = [...this.page.articles];
     // ODO
     if (this.page.type == FormsEnum.odo) {
       const maat = Math.ceil((((this.dealConfig.values.breedte < 2000 ? 2000 : this.dealConfig.values.breedte) - 2000) / 100) + 1) + (Math.ceil(((this.dealConfig.values.hoogte < 2000 ? 2000 : this.dealConfig.values.hoogte) - 2000) / 100) * 11)
