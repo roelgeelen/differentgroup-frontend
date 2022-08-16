@@ -453,7 +453,7 @@ export const glas: QuestionBase<string>[] = [
     value: 'N.v.t.'
   }),
   new UploadQuestion({
-    key: 'schets_g',
+    key: 'foto_sg',
     label: 'Schets glas',
     dependent: [
       {
@@ -737,9 +737,13 @@ export const loopdeur: QuestionBase<string>[] = [
     ]
   }),
   new UploadQuestion({
-    key: 'schets_lg',
+    key: 'foto_slg',
     label: 'Schets glas',
     dependent: [
+      {
+        field: 'loopdeur_voordeur_glassectie',
+        values: ['HR++ helder glas', 'HR++ melk glas']
+      },
       {
         field: 'loopdeur_voordeur',
         values: ['Geïntegreerd in de gevel', 'Met kozijn', 'Blind kozijn', 'Bestaand kozijn', 'Pivoterende deur']
