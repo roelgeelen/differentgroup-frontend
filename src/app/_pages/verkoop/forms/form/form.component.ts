@@ -67,6 +67,7 @@ export class FormComponent implements OnInit {
         this.loading = false;
         this.setCustomValues();
         this.setStringToArrays();
+        this.setEmptyImages();
         for (const key in this.dealConfig.values) {
           if (this.dealConfig.values[key as keyof Values] === null || this.dealConfig.values[key as keyof Values].length == 0) {
             // @ts-ignore
@@ -76,6 +77,7 @@ export class FormComponent implements OnInit {
             delete this.dealConfig.values[key as keyof Values];
           }
         }
+        console.log(this.dealConfig)
         this.form.setValue(this.dealConfig.values);
       }, error => {
         this.loading = false;
@@ -189,10 +191,12 @@ export class FormComponent implements OnInit {
   }
 
   public next() {
+    window.scroll(0,0);
     this.tabIndex = (this.tabIndex + 1) % this.tabCount;
   }
 
   public prev() {
+    window.scroll(0,0);
     this.tabIndex = (this.tabIndex - 1) % this.tabCount;
   }
 
@@ -227,6 +231,17 @@ export class FormComponent implements OnInit {
     questions.forEach(q => {
       // @ts-ignore
       this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values] != '' ? JSON.parse(this.dealConfig.values[q.key as keyof Values]) : [];
+    })
+  }
+
+  private setEmptyImages() {
+    let questions: any[] = [];
+    this.page.form.forEach(element => {
+      questions.push(...element.questions.filter(q => q.controlType == 'upload'));
+    });
+    questions.forEach(q => {
+      // @ts-ignore
+      this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values]?.url ? this.dealConfig.values[q.key as keyof Values] : { url: '', type: 'image' };
     })
   }
 }

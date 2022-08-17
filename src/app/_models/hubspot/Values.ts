@@ -43,6 +43,7 @@ export class Values {
   schets_2: any;
   buiten: { url: string; type: string; };
   binnen: { url: string; type: string; };
+  foto_ld: { url: string; type: string; };
   //odhd
   deur_reeds_ingemeten: string;
   maat_tussen_metselwerk: string;
@@ -110,6 +111,8 @@ export class Values {
   gelijk_met_de_wand: string;
   aantal_draadloos_codeklavier: string;
   aantal_losse_ontvanger: string;
+  loopdeur_of_voordeur: string;
+  type_glas: string;
 
   public constructor(init?: Partial<Values>) {
     Object.assign(this, init);

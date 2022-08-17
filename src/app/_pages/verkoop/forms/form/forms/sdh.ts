@@ -98,12 +98,12 @@ export const algemeen: QuestionBase<string>[] = [
     key: 'deur_afmetingen',
     label: 'Afmetingen (in mm)',
     fields: [
-      {key: 'title', label: 'Deur', type: 'text'},
+      {key: 'title', label: 'Sectionaaldeur', type: 'text'},
       {key: 'breedte', label: 'Breedte', type: 'number'},
       {key: 'hoogte', label: 'Hoogte', type: 'number'},
       {key: 'isEdit', label: '', type: 'isEdit'},
     ],
-    value: [{title: 'Deur 1', breedte: '', hoogte: ''}]
+    value: [{title: 'Sectionaaldeur 1', breedte: '', hoogte: ''}]
   }),
   new RadioQuestion({
     key: 'garagedeur',
@@ -470,6 +470,7 @@ export const gevelbekleding: QuestionBase<string>[] = [
     options: [
       {value: 'N.v.t.'},
       {value: 'Door Different Doors (Zie arcering)', article: 'SDH402'},
+      {value: 'Door klant maar productie door Different Doors', article: 'SDH402'},
       {value: 'Door de klant', article: 'SDH401'},
     ]
   }),
@@ -486,7 +487,7 @@ export const gevelbekleding: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'aanbrengen_gevelbekleding',
-        values: ['Door Different Doors (Zie arcering)', 'Door de klant']
+        values: ['Door Different Doors (Zie arcering)', 'Door klant maar productie door Different Doors']
       }
     ]
   }),
@@ -496,7 +497,7 @@ export const gevelbekleding: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'aanbrengen_gevelbekleding',
-        values: ['Door Different Doors (Zie arcering)', 'Door de klant']
+        values: ['Door Different Doors (Zie arcering)', 'Door klant maar productie door Different Doors']
       }
     ]
   })
@@ -515,6 +516,20 @@ export const loopdeur: QuestionBase<string>[] = [
     ],
     value: 'N.v.t.'
   }),
+  new RadioQuestion({
+    key: 'loopdeur_of_voordeur',
+    label: 'Loopdeur of voordeur',
+    options: [
+      {value: 'Loopdeur'},
+      {value: 'Voordeur'},
+    ],
+    dependent: [
+      {
+        field: 'loopdeur_voordeur',
+        values: ['Geïntegreerd in de gevel', 'Met kozijn', 'Blind kozijn', 'Bestaand kozijn', 'Pivoterende deur']
+      }
+    ]
+  }),
   new TextQuestion({
     label: 'Afmetingen (in mm)',
     fields: [
@@ -531,6 +546,16 @@ export const loopdeur: QuestionBase<string>[] = [
         validators: [Validators.max(2500)]
       }
     ],
+    dependent: [
+      {
+        field: 'loopdeur_voordeur',
+        values: ['Geïntegreerd in de gevel', 'Met kozijn', 'Blind kozijn', 'Bestaand kozijn', 'Pivoterende deur']
+      }
+    ]
+  }),
+  new UploadQuestion({
+    key: 'foto_ld',
+    label: 'Schets loopdeur',
     dependent: [
       {
         field: 'loopdeur_voordeur',
@@ -722,14 +747,36 @@ export const loopdeur: QuestionBase<string>[] = [
   }),
   new RadioQuestion({
     key: 'loopdeur_voordeur_glassectie',
-    label: 'Glassectie',
+    label: 'Glassectie (van binnenuit gezien)',
     options: [
       {value: 'N.v.t.'},
-      {value: 'HR++ helder glas'},
-      {value: 'HR++ melk glas'},
+      {value: 'Glas links naast de deur'},
+      {value: 'Glas rechts naast de deur'},
+      {value: 'Glas in de deur'},
     ],
     value: 'N.v.t.',
     dependent: [
+      {
+        field: 'loopdeur_voordeur',
+        values: ['Geïntegreerd in de gevel', 'Met kozijn', 'Blind kozijn', 'Bestaand kozijn', 'Pivoterende deur']
+      }
+    ]
+  }),
+  new RadioQuestion({
+    key: 'type_glas',
+    label: 'Type glas',
+    options: [
+      {value: 'HR++ helder glas'},
+      {value: 'HR++ melk glas'},
+      {value: 'Glas door klant'},
+    ],
+    other: true,
+    custom: '',
+    dependent: [
+      {
+        field: 'loopdeur_voordeur_glassectie',
+        values: ['Glas links naast de deur', 'Glas rechts naast de deur', 'Glas in de deur']
+      },
       {
         field: 'loopdeur_voordeur',
         values: ['Geïntegreerd in de gevel', 'Met kozijn', 'Blind kozijn', 'Bestaand kozijn', 'Pivoterende deur']
@@ -742,7 +789,7 @@ export const loopdeur: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'loopdeur_voordeur_glassectie',
-        values: ['HR++ helder glas', 'HR++ melk glas']
+        values: ['Glas links naast de deur', 'Glas rechts naast de deur', 'Glas in de deur']
       },
       {
         field: 'loopdeur_voordeur',
