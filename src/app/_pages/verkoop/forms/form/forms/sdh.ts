@@ -146,15 +146,15 @@ export const buitenzijde: QuestionBase<string>[] = [
     key: 'model_bekleding',
     label: 'Model bekleding',
     options: [
+      {value: 'Delen (planken)'},
+      {value: 'Latten'},
+      {value: 'Aangeleverde delen of latten'},//
+      {value: 'Trespa'},
+      {value: 'Bossing'},
+      {value: 'Sierlijsten'},
       {value: 'Slaglat'},
       {value: 'Weldorpel'},
       {value: 'Neutje'},
-      {value: 'Delen (planken)'},
-      {value: 'Latten'},
-      {value: 'Trespa'},
-      {value: 'Bossing'},
-      {value: 'Aangeleverde delen'},
-      {value: 'Sierlijsten'},
     ],
     other: true,
     custom: ''
