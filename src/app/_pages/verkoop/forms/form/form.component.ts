@@ -8,7 +8,7 @@ import {AuthenticationService} from "../../../../_services/authentication.servic
 import {User} from "../../../../_models/User";
 import Swal from 'sweetalert2'
 import {ActivatedRoute} from "@angular/router";
-import {forms} from "./forms";
+import {forms} from "../dynamic-form/forms";
 import {FormPage} from "../dynamic-form/model/formPage";
 import {FormsEnum} from "../dynamic-form/model/formsEnum";
 
@@ -29,9 +29,6 @@ export class FormComponent implements OnInit {
   loading = false;
   tabIndex = 0;
   tabCount: number;
-  forms() : Array<string> {
-    return Object.keys(forms);
-  }
 
   constructor(
     private qcs: QuestionControlService,
@@ -209,10 +206,6 @@ export class FormComponent implements OnInit {
   public prev() {
     window.scroll(0,0);
     this.tabIndex = (this.tabIndex - 1) % this.tabCount;
-  }
-
-  getForm(formEnum: string): FormPage {
-    return forms[formEnum as FormsEnum]
   }
 
   private setCustomValues() {

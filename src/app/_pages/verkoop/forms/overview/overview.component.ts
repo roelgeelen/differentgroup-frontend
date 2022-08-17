@@ -10,6 +10,7 @@ import Swal from 'sweetalert2'
 import {ActivatedRoute} from "@angular/router";
 import {FormPage} from "../dynamic-form/model/formPage";
 import {FormsEnum} from "../dynamic-form/model/formsEnum";
+import {forms} from "../dynamic-form/forms";
 
 
 @Component({
@@ -28,6 +29,9 @@ export class OverviewComponent implements OnInit {
   loading = false;
   tabIndex = 0;
   tabCount: number;
+  forms() : Array<string> {
+    return Object.keys(forms);
+  }
 
 
   constructor(
@@ -45,7 +49,6 @@ export class OverviewComponent implements OnInit {
     this.route.paramMap.subscribe(queryParams => {
       this.dealConfig = new DealConfig()
       this.dealConfig.values = new Values();
-
       this.route.queryParams.subscribe(params => {
         if (params['deal']) {
           this.dealConfig.values.deal_id = params['deal'];
@@ -61,21 +64,7 @@ export class OverviewComponent implements OnInit {
       this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
         this.dealConfig = deal;
         this.dealConfig.values.adviseur = this.currentUser.name;
-        //this.dealConfig.values.title = this.page.title;
         this.loading = false;
-        // this.setCustomValues();
-        // this.setStringToArrays();
-        // this.setCustomValues();
-        // for (const key in this.dealConfig.values) {
-        //   if (this.dealConfig.values[key as keyof Values] === null || this.dealConfig.values[key as keyof Values].length == 0) {
-        //     // @ts-ignore
-        //     this.dealConfig.values[key] = this.form.get(key)?.value;
-        //   }
-        //   if (this.form.get(key) == null) {
-        //     delete this.dealConfig.values[key as keyof Values];
-        //   }
-        // }
-        // this.form.setValue(this.dealConfig.values);
       }, error => {
         this.loading = false;
         this.error = 'Kon deal niet vinden.';
@@ -89,157 +78,12 @@ export class OverviewComponent implements OnInit {
     this.dealConfig.values = new Values();
   }
 
-  getFormValidationErrors(): string[] {
-    let formError: string[] = [];
-    Object.keys(this.form.controls).forEach(key => {
-      // @ts-ignore
-      const controlErrors: ValidationErrors = this.form.get(key).errors;
-      if (controlErrors != null) {
-        Object.keys(controlErrors).forEach(keyError => {
-          formError.push(key)
-        });
-      }
-    });
-    return formError;
-  }
-
-
-  submit() {
-    this.loading = true;
-    let articles = this.getArticles();
-    this.page.form.map(t => {
-      return t.questions;
-    }).flat().forEach(q => {
-      if (q.options.length != 0) {
-        // @ts-ignore
-        this.dealConfig.values[q.key as keyof Values] =
-          q.controlType == 'checkbox' && !Array.isArray(this.dealConfig.values[q.key as keyof Values]) ?
-            this.dealConfig.values[q.key as keyof Values].split(',') :
-            this.dealConfig.values[q.key as keyof Values];
-
-        if (Array.isArray(this.dealConfig.values[q.key as keyof Values])) {
-          this.dealConfig.values[q.key as keyof Values].forEach((v: string) => {
-            const option = q.options.find(o => {
-              return o.value == v
-            });
-            if (option?.article !== undefined) {
-              articles.push(option.article);
-            }
-          })
-        } else {
-          const option = q.options.find(o => {
-            return o.value == this.dealConfig.values[q.key as keyof Values]
-          });
-          if (option?.article !== undefined) {
-            articles.push(option.article);
-          }
-        }
-      }
-    })
-    console.log(articles);
-    this.hubService.createInvoice(articles, this.dealConfig.values.deal_id).subscribe(t => {
-      Swal.fire({
-        title: 'Gelukt!',
-        html: `<a href="https://info.differentdoors.nl/deal-configuratie/${this.dealConfig.values.deal_id}" target="_blank">Bekijk hier de configuratie</a>`,
-        icon: 'success',
-        confirmButtonText: 'sluiten'
-      });
-      this.loading = false;
-    }, error => {
-      Swal.fire({
-        title: 'Error',
-        text: 'Er is iets fout gegaan, probeer het later nog eens',
-        icon: 'error',
-        confirmButtonText: 'sluiten'
-      });
-      this.loading = false;
-    });
-
-
-  }
-
-  getArticles(): string[] {
-    let articles = [...this.page.articles];
-    // ODO
-    if (this.page.type == FormsEnum.odo) {
-      const maat = Math.ceil((((this.dealConfig.values.breedte < 2000 ? 2000 : this.dealConfig.values.breedte) - 2000) / 100) + 1) + (Math.ceil(((this.dealConfig.values.hoogte < 2000 ? 2000 : this.dealConfig.values.hoogte) - 2000) / 100) * 11)
-      return [...articles, 'ODO0' + maat, 'ODO' + (maat + 99)];
-    }
-
-    //SDH
-    if (this.page.type == FormsEnum.sdh) {
-      for (var afm of Array.isArray(this.dealConfig.values.deur_afmetingen) ? this.dealConfig.values.deur_afmetingen : JSON.parse(this.dealConfig.values.deur_afmetingen)) {
-        let maat = (Math.ceil(afm.breedte / 500) * 500 - 2500) / 500 * 2 + 1;
-        maat = maat < 1 ? 1 : maat;
-        if (afm.hoogte > 2500) {
-          maat++;
-        }
-        if (this.form.controls['type_sectionaaldeur'].value != 'type_sectionaaldeur') {
-          articles.push('SDH' + (maat + 100))
-        }
-        articles.push('SDH0' + ('0' + maat).slice(-2));
-      }
-    }
-    return articles;
-  }
-
   toggleFullscreen() {
     this.fullscreen = !this.fullscreen;
   }
 
-  public next() {
-    window.scroll(0,0);
-    this.tabIndex = (this.tabIndex + 1) % this.tabCount;
+  getForm(formEnum: string): FormPage {
+    return forms[formEnum as FormsEnum]
   }
 
-  public prev() {
-    window.scroll(0,0);
-    this.tabIndex = (this.tabIndex - 1) % this.tabCount;
-  }
-
-
-  private setCustomValues() {
-    let customQuestions: any[] = [];
-    this.page.form.forEach(element => {
-      customQuestions.push(...element.questions.filter(q => q.other));
-    });
-    customQuestions.forEach(q => {
-      let val = this.dealConfig.values[q.key as keyof Values];
-      if (val != null && val != '') {
-        if (q.controlType == 'checkbox') {
-          val.split(',').forEach((v: string) => {
-            if (q.options.filter((o: { value: string; }) => o.value == v).length == 0) {
-              q.custom = v;
-            }
-          })
-        } else {
-          if (q.options.filter((o: { value: string; }) => o.value == val).length == 0) {
-            q.custom = val;
-          }
-        }
-      }
-    });
-  }
-
-  private setStringToArrays() {
-    let questions: any[] = [];
-    this.page.form.forEach(element => {
-      questions.push(...element.questions.filter(q => q.controlType == 'checkbox' || q.controlType == 'table'));
-    });
-    questions.forEach(q => {
-      // @ts-ignore
-      this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values] != '' ? JSON.parse(this.dealConfig.values[q.key as keyof Values]) : [];
-    })
-  }
-
-  private setEmptyImages() {
-    let questions: any[] = [];
-    this.page.form.forEach(element => {
-      questions.push(...element.questions.filter(q => q.controlType == 'upload'));
-    });
-    questions.forEach(q => {
-      // @ts-ignore
-      this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values]?.url ? this.dealConfig.values[q.key as keyof Values] : { url: '', type: 'image' };
-    })
-  }
 }

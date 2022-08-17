@@ -30,52 +30,6 @@
       <div class="loading"></div>
     </div>
 
-    <ng-container *ngIf="dealConfig.values.dealname !== undefined && !form">
-      <div class="form-list">
-        <h2 class="m-3">Nieuw formulier invullen</h2>
-        <div class="search">
-          <mat-form-field appearance="fill" class="w-75">
-            <mat-label>Formulier</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let frm of forms()" [value]="frm">
-                {{getForm(frm).title}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <button mat-flat-button color="primary">Aanmaken
-            <mat-icon>add</mat-icon>
-          </button>
-        </div>
-        <hr>
-        <h2 class="m-3">Ingevulde formulieren</h2>
-        <mat-list>
-          <mat-list-item>
-            <mat-card class="w-100 h-100">
-              <span>Onderhoudsarme Openslaande deur / <small class="text-muted">2022-08-16 13:25</small></span>
-            </mat-card>
-            <button mat-flat-button color="accent" class="middle-btn"
-                    routerLink="/verkoop/formulier/odo?deal=5204097735">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-flat-button color="accent" class="end-btn">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-card class="w-100 h-100">
-              <span>Onderhoudsarme Openslaande deur / <small class="text-muted">2022-08-16 13:25</small></span>
-            </mat-card>
-            <button mat-flat-button color="accent" class="middle-btn" routerLink="/formulier/odo?deal=">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-flat-button color="accent" class="end-btn">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </mat-list-item>
-        </mat-list>
-      </div>
-    </ng-container>
-
     <form [formGroup]="form" *ngIf="dealConfig.values.dealname !== undefined && form">
       <mat-tab-group [(selectedIndex)]="tabIndex">
         <mat-tab *ngFor="let tab of page.form" [label]="tab.label">
