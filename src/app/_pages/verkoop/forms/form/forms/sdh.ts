@@ -300,7 +300,7 @@ export const deur: QuestionBase<string>[] = [
     label: 'Positie',
     options: [
       {value: 'Achter de dag'},
-      {value: 'Gelijk met de wand'},
+      {value: 'Gelijk met de wand', article: 'SDH301'},
     ]
   }),
   new CheckboxQuestion({
@@ -808,8 +808,7 @@ export const montage: QuestionBase<string>[] = [
       {value: 'Afvoer DD', article: 'SDH602'},
       {value: 'Demontage door klant'},
       {value: 'Afvoer door klant'}
-    ],
-    value: ['Demontage DD', 'Afvoer DD']
+    ]
   }),
   new RadioQuestion({
     key: 'type_deur',
