@@ -8,18 +8,17 @@ import {AuthenticationService} from "../../../../_services/authentication.servic
 import {User} from "../../../../_models/User";
 import Swal from 'sweetalert2'
 import {ActivatedRoute} from "@angular/router";
-import {forms} from "./forms";
 import {FormPage} from "../dynamic-form/model/formPage";
 import {FormsEnum} from "../dynamic-form/model/formsEnum";
 
 
 @Component({
   selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss'],
+  templateUrl: './overview.component.html',
+  styleUrls: ['./overview.component.scss'],
   providers: [QuestionControlService]
 })
-export class FormComponent implements OnInit {
+export class OverviewComponent implements OnInit {
   page: FormPage;
   currentUser: User;
   dealConfig: DealConfig;
@@ -29,9 +28,7 @@ export class FormComponent implements OnInit {
   loading = false;
   tabIndex = 0;
   tabCount: number;
-  forms() : Array<string> {
-    return Object.keys(forms);
-  }
+
 
   constructor(
     private qcs: QuestionControlService,
@@ -48,11 +45,7 @@ export class FormComponent implements OnInit {
     this.route.paramMap.subscribe(queryParams => {
       this.dealConfig = new DealConfig()
       this.dealConfig.values = new Values();
-      if (queryParams.get('form')) {
-        this.page = forms[queryParams.get('form') as FormsEnum];
-        this.tabCount = this.page.form.length;
-        this.form = this.qcs.toFormGroup(this.page.form);
-      }
+
       this.route.queryParams.subscribe(params => {
         if (params['deal']) {
           this.dealConfig.values.deal_id = params['deal'];
@@ -204,9 +197,6 @@ export class FormComponent implements OnInit {
     this.tabIndex = (this.tabIndex - 1) % this.tabCount;
   }
 
-  getForm(formEnum: string): FormPage {
-    return forms[formEnum as FormsEnum]
-  }
 
   private setCustomValues() {
     let customQuestions: any[] = [];

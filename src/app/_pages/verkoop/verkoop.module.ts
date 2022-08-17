@@ -28,6 +28,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {FormComponent} from "./forms/form/form.component";
 import {ImageDrawingModule} from "ngx-image-drawing";
 import {MatSelectModule} from "@angular/material/select";
+import {OverviewComponent} from "./forms/overview/overview.component";
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import {MatSelectModule} from "@angular/material/select";
     InmetenComponent,
     AfsprakenComponent,
     FormComponent,
+    OverviewComponent,
     DynamicFormQuestionComponent
   ],
   exports: [
