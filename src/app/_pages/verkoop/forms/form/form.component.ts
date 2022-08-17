@@ -120,8 +120,8 @@ export class FormComponent implements OnInit {
       if (q.options.length != 0) {
         // @ts-ignore
         this.dealConfig.values[q.key as keyof Values] =
-          q.controlType == 'checkbox' && !Array.isArray(this.dealConfig.values[q.key as keyof Values]) ?
-            this.dealConfig.values[q.key as keyof Values].split(',') :
+          q.controlType == 'checkbox' && !Array.isArray(this.dealConfig.values[q.key as keyof Values]) && this.dealConfig.values[q.key as keyof Values] != '' ?
+            JSON.parse(this.dealConfig.values[q.key as keyof Values]):
             this.dealConfig.values[q.key as keyof Values];
 
         if (Array.isArray(this.dealConfig.values[q.key as keyof Values])) {
@@ -143,6 +143,13 @@ export class FormComponent implements OnInit {
         }
       }
     })
+    if (articles.includes('SDH301') && articles.includes('SDH100')) {
+      articles.forEach((v, i) => {
+        if (v == 'SDH301'){
+          articles.splice(i, 1, 'SDH302')
+        }
+      })
+    }
     console.log(articles);
     this.hubService.createInvoice(articles, this.dealConfig.values.deal_id).subscribe(t => {
       Swal.fire({
@@ -217,7 +224,7 @@ export class FormComponent implements OnInit {
       let val = this.dealConfig.values[q.key as keyof Values];
       if (val != null && val != '') {
         if (q.controlType == 'checkbox') {
-          val.split(',').forEach((v: string) => {
+          JSON.parse(val).forEach((v: string) => {
             if (q.options.filter((o: { value: string; }) => o.value == v).length == 0) {
               q.custom = v;
             }
