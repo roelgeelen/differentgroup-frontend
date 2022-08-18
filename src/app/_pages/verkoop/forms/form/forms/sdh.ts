@@ -146,15 +146,15 @@ export const buitenzijde: QuestionBase<string>[] = [
     key: 'model_bekleding',
     label: 'Model bekleding',
     options: [
+      {value: 'Delen (planken)'},
+      {value: 'Latten'},
+      {value: 'Aangeleverde delen of latten'},
+      {value: 'Trespa'},
+      {value: 'Bossing'},
+      {value: 'Sierlijsten'},
       {value: 'Slaglat'},
       {value: 'Weldorpel'},
       {value: 'Neutje'},
-      {value: 'Delen (planken)'},
-      {value: 'Latten'},
-      {value: 'Trespa'},
-      {value: 'Bossing'},
-      {value: 'Aangeleverde delen'},
-      {value: 'Sierlijsten'},
     ],
     other: true,
     custom: ''
@@ -187,7 +187,9 @@ export const buitenzijde: QuestionBase<string>[] = [
         field: 'behandeling',
         values: ['Transparant (Tweemaal gegrond)']
       }
-    ]
+    ],
+    other: true,
+    custom: ''
   }),
   new TextQuestion({
     label: 'Dekkend (tweemaal gegrond)',
@@ -448,9 +450,10 @@ export const glas: QuestionBase<string>[] = [
       {value: 'N.v.t.'},
       {value: 'HR++ helder glas'},
       {value: 'HR++ melk glas'},
-      {value: 'Overig'},
     ],
-    value: 'N.v.t.'
+    value: 'N.v.t.',
+    other: true,
+    custom: ''
   }),
   new UploadQuestion({
     key: 'foto_sg',
@@ -674,6 +677,10 @@ export const loopdeur: QuestionBase<string>[] = [
     value: 'N.v.t.',
     dependent: [
       {
+        field: 'loopdeur_of_voordeur',
+        values: ['Voordeur']
+      },
+      {
         field: 'loopdeur_voordeur',
         values: ['Geïntegreerd in de gevel', 'Met kozijn', 'Blind kozijn', 'Bestaand kozijn', 'Pivoterende deur']
       }
@@ -684,17 +691,21 @@ export const loopdeur: QuestionBase<string>[] = [
     label: 'Deurgreep voordeur',
     image: 'assets/forms/sdh/Deurset.png',
     options: [
-      {value: 'Vierkante RVS greep T-vorm met vierkant beslag', article: 'VDH400'},
-      {value: 'Vierkante Zwarte  greep T-vorm met vierkant beslag zwart', article: 'VDH401'},
-      {value: 'Vierkante RVS greep U-vorm met vierkant beslag', article: 'VDH402'},
-      {value: 'Vierkante Zwarte greep U-vorm met vierkant beslag zwart', article: 'VDH403'},
-      {value: 'Ronde RVS greep T-vorm met rond beslag', article: 'VDH404'},
-      {value: 'Ronde zwarte greep T-vorm met rond beslag zwart', article: 'VDH405'},
-      {value: 'Houten greep Different Doors met RVS rond beslag', article: 'VDH406'},
+      {value: '1. Ronde RVS greep T-vorm met rond beslag', article: 'VDH404'},
+      {value: '2. Vierkante RVS greep U-vorm met vierkant beslag', article: 'VDH402'},
+      {value: '3. Vierkante RVS greep T-vorm met vierkant beslag', article: 'VDH400'},
+      {value: '4. Ronde zwarte greep T-vorm met rond beslag zwart', article: 'VDH405'},
+      {value: '5. Vierkante Zwarte greep U-vorm met vierkant beslag zwart', article: 'VDH403'},
+      {value: '6. Vierkante Zwarte  greep T-vorm met vierkant beslag zwart', article: 'VDH401'},
+      {value: '7. Houten greep Different Doors met RVS rond beslag', article: 'VDH406'},
       {value: 'Aangeleverd door klant'},
       {value: 'Niet opgenomen in offerte'},
     ],
     dependent: [
+      {
+        field: 'loopdeur_of_voordeur',
+        values: ['Voordeur']
+      },
       {
         field: 'loopdeur_voordeur',
         values: ['Geïntegreerd in de gevel', 'Met kozijn', 'Blind kozijn', 'Bestaand kozijn', 'Pivoterende deur']
@@ -716,6 +727,10 @@ export const loopdeur: QuestionBase<string>[] = [
     value: 'N.v.t.',
     dependent: [
       {
+        field: 'loopdeur_of_voordeur',
+        values: ['Loopdeur']
+      },
+      {
         field: 'loopdeur_voordeur',
         values: ['Geïntegreerd in de gevel', 'Met kozijn', 'Blind kozijn', 'Bestaand kozijn', 'Pivoterende deur']
       }
@@ -726,15 +741,19 @@ export const loopdeur: QuestionBase<string>[] = [
     label: 'Deurgreep loopdeur',
     image: 'assets/forms/sdh/deurbeslag.png',
     options: [
-      {value: 'SKG*** veiligheid set Rond RVS', article: 'VDH300'},
-      {value: 'SKG*** veiligheid set Rond Zwart', article: 'VDH301'},
-      {value: 'SKG*** veiligheid set Vierkant RVS', article: 'VDH302'},
-      {value: 'SKG*** veiligheid set Vierkant Zwart', article: 'VDH303'},
+      {value: '1. SKG*** veiligheid set Rond RVS', article: 'VDH300'},
+      {value: '2. SKG*** veiligheid set Vierkant RVS', article: 'VDH302'},
+      {value: '3. SKG*** veiligheid set Rond Zwart', article: 'VDH301'},
+      {value: '4. SKG*** veiligheid set Vierkant Zwart', article: 'VDH303'},
       {value: 'Veiligheid-shuifrozet met kerntrek Ovaal RVS', article: 'VDH304'},
       {value: 'Aangeleverd door klant'},
       {value: 'Niet opgenomen in offerte'},
     ],
     dependent: [
+      {
+        field: 'loopdeur_of_voordeur',
+        values: ['Loopdeur']
+      },
       {
         field: 'loopdeur_voordeur',
         values: ['Geïntegreerd in de gevel', 'Met kozijn', 'Blind kozijn', 'Bestaand kozijn', 'Pivoterende deur']
@@ -745,7 +764,7 @@ export const loopdeur: QuestionBase<string>[] = [
       }
     ]
   }),
-  new RadioQuestion({
+  new CheckboxQuestion({
     key: 'loopdeur_voordeur_glassectie',
     label: 'Glassectie (van binnenuit gezien)',
     options: [
@@ -754,7 +773,6 @@ export const loopdeur: QuestionBase<string>[] = [
       {value: 'Glas rechts naast de deur'},
       {value: 'Glas in de deur'},
     ],
-    value: 'N.v.t.',
     dependent: [
       {
         field: 'loopdeur_voordeur',
