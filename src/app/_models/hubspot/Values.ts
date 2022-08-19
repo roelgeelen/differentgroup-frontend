@@ -3,6 +3,7 @@ export class Values {
   dealname?: string;
   adviseur?: string;
   title?: string;
+  updated_at: string;
   definitieve_bestelmaat: string;
   actieve_deur: string;
   draairichting: string;
@@ -113,7 +114,7 @@ export class Values {
   aantal_losse_ontvanger: string;
   loopdeur_of_voordeur: string;
   type_glas: string;
-
+  configuraties: {id: number, type: string}[];
   public constructor(init?: Partial<Values>) {
     Object.assign(this, init);
   }

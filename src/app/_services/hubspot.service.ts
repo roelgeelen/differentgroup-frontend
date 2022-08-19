@@ -13,25 +13,29 @@ export class HubspotService {
   }
 
   getDeal(id: number) {
-    return this.http.get<DealConfig>(`${environment.apiUrl}/deals/${id}/config`);
+    return this.http.get<DealConfig>(`${environment.apiUrlTest}/deals/${id}/menu`);
   }
 
   updateDealConfig(deal: DealConfig, id: number) {
-    return this.http.post(`${environment.apiUrl}/deals/${id}/config/update`, deal);
+    return this.http.post(`${environment.apiUrlTest}/deals/${id}/config/update`, deal);
   }
 
   createInvoice(values: string[], id: number) {
-    return this.http.post(`${environment.apiUrl}/deals/${id}/invoice/create`, values);
+    return this.http.post(`${environment.apiUrlTest}/deals/${id}/invoice/create`, values);
   }
 
   saveImage(file: File, filename: string): Observable<HttpEvent<{}>> {
     const formdata: FormData = new FormData();
     formdata.append('file', file);
     formdata.append('filename', filename);
-    const req = new HttpRequest('POST', `${environment.apiUrl}/upload/image`, formdata, {
+    const req = new HttpRequest('POST', `${environment.apiUrlTest}/upload/image`, formdata, {
       reportProgress: true,
       responseType: 'text'
     });
     return this.http.request(req);
+  }
+
+  getConfig(id: number) {
+    return this.http.get<DealConfig>(`${environment.apiUrlTest}/deals/config/${id}`);
   }
 }

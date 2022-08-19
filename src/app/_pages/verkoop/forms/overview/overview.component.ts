@@ -23,12 +23,11 @@ export class OverviewComponent implements OnInit {
   page: FormPage;
   currentUser: User;
   dealConfig: DealConfig;
+  configurations: DealConfig[];
   fullscreen = false;
   form!: FormGroup;
   error: string = '';
   loading = false;
-  tabIndex = 0;
-  tabCount: number;
   forms() : Array<string> {
     return Object.keys(forms);
   }
@@ -46,6 +45,7 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit() {
+    //this.getFormType();
     this.route.paramMap.subscribe(queryParams => {
       this.dealConfig = new DealConfig()
       this.dealConfig.values = new Values();
@@ -59,11 +59,16 @@ export class OverviewComponent implements OnInit {
   }
 
   findDeal() {
+    this.configurations = [];
     if (this.dealConfig.values.deal_id != null) {
       this.loading = true;
       this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
         this.dealConfig = deal;
-        this.dealConfig.values.adviseur = this.currentUser.name;
+        this.dealConfig.values.configuraties.forEach(c => {
+          this.hubService.getConfig(c.id).subscribe(r => {
+            this.configurations.push(r);
+          })
+        })
         this.loading = false;
       }, error => {
         this.loading = false;
@@ -86,4 +91,26 @@ export class OverviewComponent implements OnInit {
     return forms[formEnum as FormsEnum]
   }
 
+  getFormType(title: string|undefined) {
+    return Object.values(forms).filter(k => {
+      return k.title == title;
+    })[0].type
+  }
+
+  delete() {
+    Swal.fire({
+      title: 'Weet je het zeker?',
+      text: 'Wil je deze configuratie echt verwijderen?!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ja, verwijderen!',
+      cancelButtonText: 'Annuleren',
+    }).then((result) => {
+      if (result.value) {
+        //this.notificationsService.create(null, 'Not implemented yet.', NotificationType.Success, this.temp);
+      }
+    });
+  }
 }

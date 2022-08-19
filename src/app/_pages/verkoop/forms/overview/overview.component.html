@@ -6,7 +6,7 @@
   <div class="page">
     <div class="form-header d-flex justify-content-between">
       <div class="logo"><img src="../../../../../assets/images/cropped-logo-differentdoors-diap.png"></div>
-      <h1>{{page?.title ? page.title : 'Formulieren klant'}}<br><span>{{dealConfig.values.dealname}}</span></h1>
+      <h1>{{page?.title ? page.title : 'Formulieren klant'}}<br><span>{{dealConfig.name}}</span></h1>
       <div class="reset-btn">
         <button mat-button color="accent" class="clear" *ngIf="dealConfig.values.dealname !== undefined"
                 (click)="clear()">
@@ -14,7 +14,7 @@
         </button>
       </div>
     </div>
-    <ng-container *ngIf="dealConfig.values.dealname === undefined" class="w-100">
+    <ng-container *ngIf="dealConfig.name === undefined" class="w-100">
       <form (ngSubmit)="findDeal()" class="search">
         <mat-error *ngIf="error">{{error}}</mat-error>
         <mat-form-field appearance="fill" class="w-75">
@@ -30,7 +30,7 @@
       <div class="loading"></div>
     </div>
 
-    <ng-container *ngIf="dealConfig.values.dealname !== undefined && !form">
+    <ng-container *ngIf="dealConfig.name !== undefined && !form">
       <div class="form-list">
         <h2 class="m-3">Nieuw formulier invullen</h2>
         <div class="search">
@@ -49,29 +49,20 @@
         <hr>
         <h2 class="m-3">Ingevulde formulieren</h2>
         <mat-list>
-          <mat-list-item>
+          <mat-list-item *ngFor="let config of configurations">
             <mat-card class="w-100 h-100">
-              <span>Onderhoudsarme Openslaande deur / <small class="text-muted">2022-08-16 13:25</small></span>
+              <span>{{config.values.title}} / <small class="text-muted">{{config.values.updated_at}}</small></span>
             </mat-card>
+            /verkoop/formulier/{{getFormType(config.values.title)}}?deal={{config.values.deal_id}}
             <button mat-flat-button color="accent" class="middle-btn"
-                    routerLink="/verkoop/formulier/odo?deal=5204097735">
+                    [routerLink]="'/verkoop/formulier/'+getFormType(config.values.title)+'?deal='+config.values.deal_id">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-flat-button color="accent" class="end-btn">
+            <button mat-flat-button color="accent" class="end-btn" (click)="delete()">
               <mat-icon>delete</mat-icon>
             </button>
           </mat-list-item>
-          <mat-list-item>
-            <mat-card class="w-100 h-100">
-              <span>Onderhoudsarme Openslaande deur / <small class="text-muted">2022-08-16 13:25</small></span>
-            </mat-card>
-            <button mat-flat-button color="accent" class="middle-btn" routerLink="/formulier/odo?deal=">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-flat-button color="accent" class="end-btn">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </mat-list-item>
+
         </mat-list>
       </div>
     </ng-container>

@@ -62,24 +62,24 @@ export class FormComponent implements OnInit {
   findDeal() {
     if (this.dealConfig.values.deal_id != null) {
       this.loading = true;
-      this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
+      this.hubService.getConfig(this.dealConfig.values.deal_id).subscribe(deal => {
         this.dealConfig = deal;
         this.dealConfig.values.adviseur = this.currentUser.name;
-        //this.dealConfig.values.title = this.page.title;
+        this.dealConfig.values.title = this.page.title;
         this.loading = false;
-        // this.setCustomValues();
-        // this.setStringToArrays();
-        // this.setCustomValues();
-        // for (const key in this.dealConfig.values) {
-        //   if (this.dealConfig.values[key as keyof Values] === null || this.dealConfig.values[key as keyof Values].length == 0) {
-        //     // @ts-ignore
-        //     this.dealConfig.values[key] = this.form.get(key)?.value;
-        //   }
-        //   if (this.form.get(key) == null) {
-        //     delete this.dealConfig.values[key as keyof Values];
-        //   }
-        // }
-        // this.form.setValue(this.dealConfig.values);
+        this.setCustomValues();
+        this.setStringToArrays();
+        this.setCustomValues();
+        for (const key in this.dealConfig.values) {
+          if (this.dealConfig.values[key as keyof Values] === null || this.dealConfig.values[key as keyof Values].length == 0) {
+            // @ts-ignore
+            this.dealConfig.values[key] = this.form.get(key)?.value;
+          }
+          if (this.form.get(key) == null) {
+            delete this.dealConfig.values[key as keyof Values];
+          }
+        }
+        this.form.setValue(this.dealConfig.values);
       }, error => {
         this.loading = false;
         this.error = 'Kon deal niet vinden.';
