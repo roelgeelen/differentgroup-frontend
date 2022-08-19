@@ -40,7 +40,7 @@
       <mat-radio-button *ngFor="let opt of question.options" [value]="opt.value">{{opt.value}}</mat-radio-button>
       <mat-radio-button [value]="question.custom" *ngIf="question.other">
         <mat-form-field>
-          <input matInput placeholder="Anders" [(ngModel)]="question.custom" [ngModelOptions]="{standalone: true}">
+          <input matInput placeholder="Anders" [(ngModel)]="question.custom" [ngModelOptions]="{standalone: true}" (focusout)="updateCustom(question)">
         </mat-form-field>
       </mat-radio-button>
     </mat-radio-group>

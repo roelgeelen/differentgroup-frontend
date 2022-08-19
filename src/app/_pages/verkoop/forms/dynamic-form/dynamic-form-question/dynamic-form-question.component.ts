@@ -158,4 +158,8 @@ export class DynamicFormQuestionComponent {
     this.form.controls[this.question.key].value = this.form.controls[this.question.key].value.filter((u: { id: number; }) => u.id !== id);
     this.save();
   }
+
+  updateCustom(question: QuestionBase<string>) {
+    this.form.controls[question.key].patchValue(question.custom);
+  }
 }
