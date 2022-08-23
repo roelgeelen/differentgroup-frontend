@@ -146,15 +146,15 @@ export const buitenzijde: QuestionBase<string>[] = [
     key: 'model_bekleding',
     label: 'Model bekleding',
     options: [
-      {value: 'Delen (planken)'},
-      {value: 'Latten'},
+      {value: 'Delen (planken)', article: 'SDH400'},
+      {value: 'Latten', article: 'SDH400'},
       {value: 'Aangeleverde delen of latten'},
-      {value: 'Trespa'},
-      {value: 'Bossing'},
-      {value: 'Sierlijsten'},
-      {value: 'Slaglat'},
-      {value: 'Weldorpel'},
-      {value: 'Neutje'},
+      {value: 'Trespa', article: 'SDH400'},
+      {value: 'Bossing', article: 'SDH400'},
+      {value: 'Sierlijsten', article: 'SDH400'},
+      {value: 'Slaglat', article: 'SDH403'},
+      {value: 'Weldorpel', article: 'SDH404'},
+      {value: 'Neutje', article: 'SDH405'},
     ],
     other: true,
     custom: ''
@@ -539,14 +539,12 @@ export const loopdeur: QuestionBase<string>[] = [
       {
         key: 'loopdeur_voordeur_breedte',
         label: 'Breedte',
-        type: 'number',
-        validators: [Validators.max(3000)]
+        type: 'number'
       },
       {
         key: 'loopdeur_voordeur_hoogte',
         label: 'Hoogte',
-        type: 'number',
-        validators: [Validators.max(2500)]
+        type: 'number'
       }
     ],
     dependent: [
