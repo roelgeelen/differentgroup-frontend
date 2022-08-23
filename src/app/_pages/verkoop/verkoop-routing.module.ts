@@ -60,9 +60,22 @@ const routes: Routes = [
         },
       },
       {
-        path: 'formulier/:form',
+        path: 'formulier/:dealId',
+        component: OverviewComponent,
+        canActivate: [AuthGuard],
+        data: {
+          roles: [
+            EnumRoles.OFFICE,
+            EnumRoles.ICT,
+            EnumRoles.ENGINEERING,
+            EnumRoles.ADMINISTRATION,
+          ]
+        },
+      },
+      {
+        path: 'formulier/:dealId/:configId',
         component: FormComponent,
-        canActivate: [AuthGuard, EnumRouteGuard],
+        canActivate: [AuthGuard],
         data: {
           roles: [
             EnumRoles.OFFICE,

@@ -78,7 +78,7 @@ export class DynamicFormQuestionComponent {
         this.dealConfig.values[k] = JSON.stringify(v);
       }
     }
-    this.hubService.updateDealConfig(this.dealConfig, this.dealConfig.id).subscribe();
+    this.hubService.updateDealConfig(this.dealConfig.values.deal_id, this.dealConfig.id, this.dealConfig).subscribe();
   }
 
   ngOnDestroy(): void {

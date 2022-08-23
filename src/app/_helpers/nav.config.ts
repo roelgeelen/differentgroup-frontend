@@ -33,41 +33,6 @@ export const navConfig: Page[] = [
         url: '/verkoop/formulier',
         title: 'Formulieren',
         icon: 'dashboard',
-        pages: [
-          {
-            url: '/verkoop/formulier/odo',
-            title: 'ODO',
-            icon: 'description',
-            roles: [
-              EnumRoles.OFFICE,
-              EnumRoles.ICT,
-              EnumRoles.ENGINEERING,
-              EnumRoles.ADMINISTRATION,
-            ]
-          },
-          {
-            url: '/verkoop/formulier/odhd',
-            title: 'ODHD',
-            icon: 'description',
-            roles: [
-              EnumRoles.OFFICE,
-              EnumRoles.ICT,
-              EnumRoles.ENGINEERING,
-              EnumRoles.ADMINISTRATION,
-            ]
-          },
-          {
-            url: '/verkoop/formulier/sdh',
-            title: 'SDH',
-            icon: 'description',
-            roles: [
-              EnumRoles.OFFICE,
-              EnumRoles.ICT,
-              EnumRoles.ENGINEERING,
-              EnumRoles.ADMINISTRATION,
-            ]
-          }
-        ],
         roles: [
           EnumRoles.OFFICE,
           EnumRoles.ICT,

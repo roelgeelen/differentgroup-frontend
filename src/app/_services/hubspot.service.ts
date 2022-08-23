@@ -12,16 +12,24 @@ export class HubspotService {
   constructor(private http: HttpClient) {
   }
 
-  getDeal(id: number) {
-    return this.http.get<DealConfig>(`${environment.apiUrlTest}/deals/${id}/menu`);
+  getDeal(dealId: number) {
+    return this.http.get<DealConfig>(`${environment.apiUrlTest}/deals/${dealId}/configs`);
   }
 
-  updateDealConfig(deal: DealConfig, id: number) {
-    return this.http.post(`${environment.apiUrlTest}/deals/${id}/config/update`, deal);
+  createDealConfig(dealId: number, deal: DealConfig) {
+    return this.http.post(`${environment.apiUrlTest}/deals/${dealId}/configs/create`, deal);
   }
 
-  createInvoice(values: string[], id: number) {
-    return this.http.post(`${environment.apiUrlTest}/deals/${id}/invoice/create`, values);
+  getConfig(dealId: number, configId: number) {
+    return this.http.get<DealConfig>(`${environment.apiUrlTest}/deals/${dealId}/configs/${configId}`);
+  }
+
+  updateDealConfig(dealId: number, configId: number, deal: DealConfig) {
+    return this.http.post(`${environment.apiUrlTest}/deals/${dealId}/configs/${configId}/update`, deal);
+  }
+
+  createInvoice(dealId: number, configId: number, values: string[]) {
+    return this.http.post(`${environment.apiUrlTest}/deals/${dealId}/configs/${configId}/invoice`, values);
   }
 
   saveImage(file: File, filename: string): Observable<HttpEvent<{}>> {
@@ -33,9 +41,5 @@ export class HubspotService {
       responseType: 'text'
     });
     return this.http.request(req);
-  }
-
-  getConfig(id: number) {
-    return this.http.get<DealConfig>(`${environment.apiUrlTest}/deals/config/${id}`);
   }
 }

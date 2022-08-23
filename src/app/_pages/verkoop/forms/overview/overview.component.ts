@@ -11,6 +11,7 @@ import {ActivatedRoute} from "@angular/router";
 import {FormPage} from "../dynamic-form/model/formPage";
 import {FormsEnum} from "../dynamic-form/model/formsEnum";
 import {forms} from "../dynamic-form/forms";
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class OverviewComponent implements OnInit {
   form!: FormGroup;
   error: string = '';
   loading = false;
+  new_form: string;
   forms() : Array<string> {
     return Object.keys(forms);
   }
@@ -37,7 +39,8 @@ export class OverviewComponent implements OnInit {
     private qcs: QuestionControlService,
     private hubService: HubspotService,
     private authService: AuthenticationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {
     this.authService.currentUser.subscribe(x => {
       this.currentUser = x
@@ -45,16 +48,14 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.getFormType();
     this.route.paramMap.subscribe(queryParams => {
       this.dealConfig = new DealConfig()
       this.dealConfig.values = new Values();
-      this.route.queryParams.subscribe(params => {
-        if (params['deal']) {
-          this.dealConfig.values.deal_id = params['deal'];
-          this.findDeal();
-        }
-      })
+      if (queryParams.get('dealId') !== null) {
+        // @ts-ignore
+        this.dealConfig.values.deal_id = +queryParams.get('dealId');
+        this.findDeal();
+      }
     });
   }
 
@@ -64,11 +65,14 @@ export class OverviewComponent implements OnInit {
       this.loading = true;
       this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
         this.dealConfig = deal;
-        this.dealConfig.values.configuraties.forEach(c => {
-          this.hubService.getConfig(c.id).subscribe(r => {
-            this.configurations.push(r);
+        if (Array.isArray(this.dealConfig.values.configuraties)) {
+          this.dealConfig.values.configuraties.forEach(c => {
+            this.hubService.getConfig(this.dealConfig.values.deal_id, c.id).subscribe(r => {
+
+              this.configurations.push(r);
+            })
           })
-        })
+        }
         this.loading = false;
       }, error => {
         this.loading = false;
@@ -80,6 +84,8 @@ export class OverviewComponent implements OnInit {
   }
 
   clear() {
+    this.location.replaceState('/verkoop/formulier');
+    this.dealConfig = new DealConfig();
     this.dealConfig.values = new Values();
   }
 
@@ -91,19 +97,13 @@ export class OverviewComponent implements OnInit {
     return forms[formEnum as FormsEnum]
   }
 
-  getFormType(title: string|undefined) {
-    return Object.values(forms).filter(k => {
-      return k.title == title;
-    })[0].type
-  }
-
   delete() {
     Swal.fire({
       title: 'Weet je het zeker?',
       text: 'Wil je deze configuratie echt verwijderen?!',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#2e3785',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Ja, verwijderen!',
       cancelButtonText: 'Annuleren',
@@ -112,5 +112,28 @@ export class OverviewComponent implements OnInit {
         //this.notificationsService.create(null, 'Not implemented yet.', NotificationType.Success, this.temp);
       }
     });
+  }
+
+  addForm(new_form: string) {
+    this.loading = true;
+    this.error = '';
+    if (new_form == null) {
+      this.error = 'Kies eerst een formulier';
+      return;
+    }
+    let newConfig = new DealConfig();
+    newConfig.name = this.dealConfig.name;
+    let values = new Values();
+    values.title = forms[new_form as FormsEnum].title;
+    values.deal_id = this.dealConfig.values.deal_id;
+    values.dealname = this.dealConfig.name;
+    newConfig.values = values;
+
+    // @ts-ignore
+    this.hubService.createDealConfig(this.dealConfig.values.deal_id, newConfig).subscribe((r: DealConfig) => {
+      this.loading = false;
+      location.replace("/verkoop/formulier/"+ this.dealConfig.values.deal_id + "/" + r.id)
+    })
+
   }
 }

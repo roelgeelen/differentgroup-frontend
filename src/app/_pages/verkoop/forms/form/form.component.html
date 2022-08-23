@@ -6,26 +6,14 @@
   <div class="page">
     <div class="form-header d-flex justify-content-between">
       <div class="logo"><img src="../../../../../assets/images/cropped-logo-differentdoors-diap.png"></div>
-      <h1>{{page?.title ? page.title : 'Formulieren klant'}}<br><span>{{dealConfig.values.dealname}}</span></h1>
+      <h1>{{page?.title}}<br><span>{{dealConfig.values.dealname}}</span></h1>
       <div class="reset-btn">
         <button mat-button color="accent" class="clear" *ngIf="dealConfig.values.dealname !== undefined"
-                (click)="clear()">
+                routerLink="/verkoop/formulier/{{dealId}}">
           <mat-icon>clear</mat-icon>
         </button>
       </div>
     </div>
-    <ng-container *ngIf="dealConfig.values.dealname === undefined" class="w-100">
-      <form (ngSubmit)="findDeal()" class="search">
-        <mat-error *ngIf="error">{{error}}</mat-error>
-        <mat-form-field appearance="fill" class="w-75">
-          <mat-label>Deal nummer</mat-label>
-          <input matInput type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="dealConfig.values.deal_id">
-        </mat-form-field>
-        <button mat-raised-button color="accent">
-          <mat-icon>search</mat-icon>
-        </button>
-      </form>
-    </ng-container>
     <div class="loading-overlay fixed" *ngIf="loading">
       <div class="loading"></div>
     </div>

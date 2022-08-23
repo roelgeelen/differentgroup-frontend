@@ -6,9 +6,9 @@
   <div class="page">
     <div class="form-header d-flex justify-content-between">
       <div class="logo"><img src="../../../../../assets/images/cropped-logo-differentdoors-diap.png"></div>
-      <h1>{{page?.title ? page.title : 'Formulieren klant'}}<br><span>{{dealConfig.name}}</span></h1>
+      <h1>Formulieren klant<br><span>{{dealConfig.name}}</span></h1>
       <div class="reset-btn">
-        <button mat-button color="accent" class="clear" *ngIf="dealConfig.values.dealname !== undefined"
+        <button mat-button color="accent" class="clear" *ngIf="dealConfig.name !== undefined"
                 (click)="clear()">
           <mat-icon>clear</mat-icon>
         </button>
@@ -34,15 +34,16 @@
       <div class="form-list">
         <h2 class="m-3">Nieuw formulier invullen</h2>
         <div class="search">
+          <mat-error *ngIf="error">{{error}}</mat-error>
           <mat-form-field appearance="fill" class="w-75">
             <mat-label>Formulier</mat-label>
-            <mat-select>
+            <mat-select [(ngModel)]="new_form">
               <mat-option *ngFor="let frm of forms()" [value]="frm">
                 {{getForm(frm).title}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <button mat-flat-button color="primary">Aanmaken
+          <button mat-flat-button color="primary" (click)="addForm(new_form)">Aanmaken
             <mat-icon>add</mat-icon>
           </button>
         </div>
@@ -51,18 +52,17 @@
         <mat-list>
           <mat-list-item *ngFor="let config of configurations">
             <mat-card class="w-100 h-100">
-              <span>{{config.values.title}} / <small class="text-muted">{{config.values.updated_at}}</small></span>
+              <span>{{config.values.title}} / <small class="text-muted">{{config.values.adviseur}} - {{config.values.updated_at}}</small></span>
             </mat-card>
-            /verkoop/formulier/{{getFormType(config.values.title)}}?deal={{config.values.deal_id}}
             <button mat-flat-button color="accent" class="middle-btn"
-                    [routerLink]="'/verkoop/formulier/'+getFormType(config.values.title)+'?deal='+config.values.deal_id">
+                    routerLink="{{config.id}}">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-flat-button color="accent" class="end-btn" (click)="delete()">
               <mat-icon>delete</mat-icon>
             </button>
           </mat-list-item>
-
+          <mat-list-item *ngIf="configurations.length == 0"><span class="w-100 text-center">Nog geen aangemaakte formulieren</span></mat-list-item>
         </mat-list>
       </div>
     </ng-container>

@@ -29,6 +29,7 @@ export class FormComponent implements OnInit {
   loading = false;
   tabIndex = 0;
   tabCount: number;
+  dealId: number;
 
   constructor(
     private qcs: QuestionControlService,
@@ -45,31 +46,29 @@ export class FormComponent implements OnInit {
     this.route.paramMap.subscribe(queryParams => {
       this.dealConfig = new DealConfig()
       this.dealConfig.values = new Values();
-      if (queryParams.get('form')) {
-        this.page = forms[queryParams.get('form') as FormsEnum];
-        this.tabCount = this.page.form.length;
-        this.form = this.qcs.toFormGroup(this.page.form);
+      // @ts-ignore
+      this.dealId = +queryParams.get('dealId');
+      if (queryParams.get('configId') !== null) {
+        // @ts-ignore
+        this.findDeal(+queryParams.get('configId'));
       }
-      this.route.queryParams.subscribe(params => {
-        if (params['deal']) {
-          this.dealConfig.values.deal_id = params['deal'];
-          this.findDeal();
-        }
-      })
     });
   }
 
-  findDeal() {
-    if (this.dealConfig.values.deal_id != null) {
+  findDeal(configId: number) {
+    if (configId != null) {
       this.loading = true;
-      this.hubService.getConfig(this.dealConfig.values.deal_id).subscribe(deal => {
+      this.hubService.getConfig(this.dealId, configId).subscribe(deal => {
+        console.log(deal)
         this.dealConfig = deal;
         this.dealConfig.values.adviseur = this.currentUser.name;
-        this.dealConfig.values.title = this.page.title;
+        this.page = this.getFormPage(this.dealConfig.values.title);
         this.loading = false;
+        this.tabCount = this.page.form.length;
+        this.form = this.qcs.toFormGroup(this.page.form);
         this.setCustomValues();
         this.setStringToArrays();
-        this.setCustomValues();
+        this.setEmptyImages();
         for (const key in this.dealConfig.values) {
           if (this.dealConfig.values[key as keyof Values] === null || this.dealConfig.values[key as keyof Values].length == 0) {
             // @ts-ignore
@@ -90,7 +89,7 @@ export class FormComponent implements OnInit {
   }
 
   clear() {
-    this.dealConfig.values = new Values();
+    location.replace('/verkoop/formulier?deal='+this.dealConfig.values.deal_id)
   }
 
   getFormValidationErrors(): string[] {
@@ -148,11 +147,12 @@ export class FormComponent implements OnInit {
       })
     }
     console.log(articles);
-    this.hubService.createInvoice(articles, this.dealConfig.values.deal_id).subscribe(t => {
+    this.hubService.createInvoice(this.dealConfig.values.deal_id, this.dealConfig.id, articles).subscribe(t => {
       Swal.fire({
         title: 'Gelukt!',
         html: `<a href="https://info.differentdoors.nl/deal-configuratie/${this.dealConfig.values.deal_id}" target="_blank">Bekijk hier de configuratie</a>`,
         icon: 'success',
+        confirmButtonColor: '#2e3785',
         confirmButtonText: 'sluiten'
       });
       this.loading = false;
@@ -161,6 +161,7 @@ export class FormComponent implements OnInit {
         title: 'Error',
         text: 'Er is iets fout gegaan, probeer het later nog eens',
         icon: 'error',
+        confirmButtonColor: '#2e3785',
         confirmButtonText: 'sluiten'
       });
       this.loading = false;
@@ -251,5 +252,11 @@ export class FormComponent implements OnInit {
       // @ts-ignore
       this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values]?.url ? this.dealConfig.values[q.key as keyof Values] : { url: '', type: 'image' };
     })
+  }
+
+  getFormPage(title: string|undefined) {
+    return Object.values(forms).filter(k => {
+      return k.title == title;
+    })[0]
   }
 }
