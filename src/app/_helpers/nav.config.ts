@@ -141,17 +141,6 @@ export const navConfig: Page[] = [
     ]
   },
   {
-    url: '/bouw',
-    title: 'Bouw',
-    icon: 'linked_camera',
-    roles: [
-      EnumRoles.OFFICE,
-      EnumRoles.ICT,
-      EnumRoles.ENGINEERING,
-      EnumRoles.ADMINISTRATION,
-    ]
-  },
-  {
     url: '/admin',
     title: 'Beheer',
     icon: 'supervised_user_circle',

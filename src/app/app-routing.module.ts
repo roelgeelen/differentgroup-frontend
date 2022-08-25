@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./_pages/home/home.component";
-import {BouwComponent} from "./_pages/bouw/bouw.component";
 import {AuthGuard} from "./_helpers/auth.guard";
 import {EnumRoles} from "./_models/enum/enumRoles";
 
@@ -45,19 +44,6 @@ const routes: Routes = [
       roles: [
         EnumRoles.ADMINISTRATION,
         EnumRoles.ICT
-      ]
-    },
-  },
-  {
-    path: 'bouw',
-    component: BouwComponent,
-    canActivate: [AuthGuard],
-    data: {
-      roles: [
-        EnumRoles.OFFICE,
-        EnumRoles.ICT,
-        EnumRoles.ENGINEERING,
-        EnumRoles.ADMINISTRATION,
       ]
     },
   },

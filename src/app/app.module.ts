@@ -14,7 +14,6 @@ import {environment} from "../environments/environment";
 import {MatCardModule} from "@angular/material/card";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSidenavModule} from "@angular/material/sidenav";
-import { BouwComponent } from './_pages/bouw/bouw.component';
 import { WeatherWidgetComponent } from './_components/weather-widget/weather-widget.component';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {CommonModule, registerLocaleData} from "@angular/common";
@@ -35,7 +34,6 @@ registerLocaleData(localeNl);
   declarations: [
     AppComponent,
     HomeComponent,
-    BouwComponent,
     WeatherWidgetComponent,
     NavbarComponent,
     BirthdayWidgetComponent,
