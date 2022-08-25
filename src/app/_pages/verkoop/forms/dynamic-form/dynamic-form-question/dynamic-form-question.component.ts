@@ -6,8 +6,6 @@ import {DealConfig} from "../../../../../_models/hubspot/DealConfig";
 import {Values} from "../../../../../_models/hubspot/Values";
 import {Editor, Toolbar} from "ngx-editor";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
-import {editable} from "ngx-editor/lib/plugins";
-import {timeout} from "rxjs";
 
 @Component({
   selector: 'app-question',
@@ -113,7 +111,7 @@ export class DynamicFormQuestionComponent {
     this.editing = false;
     this.uploading = true;
     this.progress.percentage = 0;
-    this.hubService.saveImage(file, this.question.key + '-' + this.dealConfig.values.deal_id).subscribe(r => {
+    this.hubService.saveImage(this.dealConfig.values.deal_id, this.dealConfig.id, file, this.question.key + '-' + this.dealConfig.id).subscribe(r => {
       if (r.type === HttpEventType.UploadProgress) {
         // @ts-ignore
         this.progress.percentage = Math.round(100 * r.loaded / r.total);

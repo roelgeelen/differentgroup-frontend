@@ -25,18 +25,22 @@ export class HubspotService {
   }
 
   updateDealConfig(dealId: number, configId: number, deal: DealConfig) {
-    return this.http.post(`${environment.apiUrlTest}/deals/${dealId}/configs/${configId}/update`, deal);
+    return this.http.put(`${environment.apiUrlTest}/deals/${dealId}/configs/${configId}`, deal);
+  }
+
+  deleteDealConfig(dealId: number, configId: number) {
+    return this.http.delete(`${environment.apiUrlTest}/deals/${dealId}/configs/${configId}`);
   }
 
   createInvoice(dealId: number, configId: number, values: string[]) {
     return this.http.post(`${environment.apiUrlTest}/deals/${dealId}/configs/${configId}/invoice`, values);
   }
 
-  saveImage(file: File, filename: string): Observable<HttpEvent<{}>> {
+  saveImage(dealId: number, configId: number, file: File, filename: string): Observable<HttpEvent<{}>> {
     const formdata: FormData = new FormData();
     formdata.append('file', file);
     formdata.append('filename', filename);
-    const req = new HttpRequest('POST', `${environment.apiUrlTest}/upload/image`, formdata, {
+    const req = new HttpRequest('POST', `${environment.apiUrlTest}/deals/${dealId}/configs/${configId}/upload/image`, formdata, {
       reportProgress: true,
       responseType: 'text'
     });

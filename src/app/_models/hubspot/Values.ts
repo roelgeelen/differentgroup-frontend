@@ -40,11 +40,13 @@ export class Values {
   glassectie_in_vleugel: string;
   links: number;
   rechts: number;
-  schets: any;
-  schets_2: any;
-  buiten: { url: string; type: string; };
-  binnen: { url: string; type: string; };
-  foto_ld: { url: string; type: string; };
+  fs1: { url: string; type: string; };
+  fs2: { url: string; type: string; };
+  fb1: { url: string; type: string; };
+  fb2: { url: string; type: string; };
+  fld1: { url: string; type: string; };
+  fg1: { url: string; type: string; };
+  fldg1: { url: string; type: string; };
   //odhd
   deur_reeds_ingemeten: string;
   maat_tussen_metselwerk: string;

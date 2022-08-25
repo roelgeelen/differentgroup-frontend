@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, ValidationErrors} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {QuestionControlService} from "../dynamic-form/question-control.service";
 import {DealConfig} from "../../../../_models/hubspot/DealConfig";
 import {Values} from "../../../../_models/hubspot/Values";
@@ -11,7 +11,7 @@ import {ActivatedRoute} from "@angular/router";
 import {FormPage} from "../dynamic-form/model/formPage";
 import {FormsEnum} from "../dynamic-form/model/formsEnum";
 import {forms} from "../dynamic-form/forms";
-import { Location } from '@angular/common';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -30,10 +30,16 @@ export class OverviewComponent implements OnInit {
   error: string = '';
   loading = false;
   new_form: string;
-  forms() : Array<string> {
-    return Object.keys(forms);
-  }
-
+  selectForms: { name: string, items: string[] }[] = [
+    {
+      name: 'Onderhoudsarm',
+      items: ['odo']
+    },
+    {
+      name: 'Hout',
+      items: ['sdh', 'odhd']
+    }
+  ]
 
   constructor(
     private qcs: QuestionControlService,
@@ -60,19 +66,21 @@ export class OverviewComponent implements OnInit {
   }
 
   findDeal() {
+    this.error = '';
     this.configurations = [];
     if (this.dealConfig.values.deal_id != null) {
       this.loading = true;
       this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
         this.dealConfig = deal;
+        this.location.replaceState('/verkoop/formulier/' + this.dealConfig.values.deal_id);
         if (Array.isArray(this.dealConfig.values.configuraties)) {
           this.dealConfig.values.configuraties.forEach(c => {
             this.hubService.getConfig(this.dealConfig.values.deal_id, c.id).subscribe(r => {
-
               this.configurations.push(r);
             })
           })
         }
+
         this.loading = false;
       }, error => {
         this.loading = false;
@@ -97,10 +105,10 @@ export class OverviewComponent implements OnInit {
     return forms[formEnum as FormsEnum]
   }
 
-  delete() {
+  delete(configId: number) {
     Swal.fire({
       title: 'Weet je het zeker?',
-      text: 'Wil je deze configuratie echt verwijderen?!',
+      text: 'Wil je deze configuratie permanent verwijderen?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#2e3785',
@@ -108,8 +116,11 @@ export class OverviewComponent implements OnInit {
       confirmButtonText: 'Ja, verwijderen!',
       cancelButtonText: 'Annuleren',
     }).then((result) => {
-      if (result.value) {
-        //this.notificationsService.create(null, 'Not implemented yet.', NotificationType.Success, this.temp);
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.hubService.deleteDealConfig(this.dealConfig.values.deal_id, configId).subscribe(r => {
+          this.findDeal();
+        })
       }
     });
   }
@@ -132,7 +143,7 @@ export class OverviewComponent implements OnInit {
     // @ts-ignore
     this.hubService.createDealConfig(this.dealConfig.values.deal_id, newConfig).subscribe((r: DealConfig) => {
       this.loading = false;
-      location.replace("/verkoop/formulier/"+ this.dealConfig.values.deal_id + "/" + r.id)
+      location.replace("/verkoop/formulier/" + this.dealConfig.values.deal_id + "/" + r.id)
     })
 
   }
