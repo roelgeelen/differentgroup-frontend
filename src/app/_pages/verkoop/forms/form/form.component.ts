@@ -150,7 +150,7 @@ export class FormComponent implements OnInit {
     this.hubService.createInvoice(this.dealConfig.values.deal_id, this.dealConfig.id, articles).subscribe(t => {
       Swal.fire({
         title: 'Gelukt!',
-        html: `<a href="https://info.differentdoors.nl/configuratie-menu/deal/${this.dealConfig.values.deal_id}/${this.dealConfig.path}" target="_blank">Bekijk hier de configuratie</a>`,
+        html: `<a href="https://info.differentdoors.nl/configuratie-overview/deal/${this.dealConfig.values.deal_id}/${this.dealConfig.path}" target="_blank">Bekijk hier de configuratie</a>`,
         icon: 'success',
         confirmButtonColor: '#2e3785',
         confirmButtonText: 'sluiten'
