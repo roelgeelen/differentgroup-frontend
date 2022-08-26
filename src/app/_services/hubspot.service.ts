@@ -12,23 +12,35 @@ export class HubspotService {
   constructor(private http: HttpClient) {
   }
 
-  getDeal(id: number) {
-    return this.http.get<DealConfig>(`${environment.apiUrl}/deals/${id}/config`);
+  getDeal(dealId: number) {
+    return this.http.get<DealConfig>(`${environment.apiUrlTest}/deals/${dealId}/configs`);
   }
 
-  updateDealConfig(deal: DealConfig, id: number) {
-    return this.http.post(`${environment.apiUrl}/deals/${id}/config/update`, deal);
+  createDealConfig(dealId: number, deal: DealConfig) {
+    return this.http.post(`${environment.apiUrlTest}/deals/${dealId}/configs/create`, deal);
   }
 
-  createInvoice(values: string[], id: number) {
-    return this.http.post(`${environment.apiUrl}/deals/${id}/invoice/create`, values);
+  getConfig(dealId: number, configId: number) {
+    return this.http.get<DealConfig>(`${environment.apiUrlTest}/deals/${dealId}/configs/${configId}`);
   }
 
-  saveImage(file: File, filename: string): Observable<HttpEvent<{}>> {
+  updateDealConfig(dealId: number, configId: number, deal: DealConfig) {
+    return this.http.put(`${environment.apiUrlTest}/deals/${dealId}/configs/${configId}`, deal);
+  }
+
+  deleteDealConfig(dealId: number, configId: number) {
+    return this.http.delete(`${environment.apiUrlTest}/deals/${dealId}/configs/${configId}`);
+  }
+
+  createInvoice(dealId: number, configId: number, values: string[]) {
+    return this.http.post(`${environment.apiUrlTest}/deals/${dealId}/configs/${configId}/invoice`, values);
+  }
+
+  saveImage(dealId: number, configId: number, file: File, filename: string): Observable<HttpEvent<{}>> {
     const formdata: FormData = new FormData();
     formdata.append('file', file);
     formdata.append('filename', filename);
-    const req = new HttpRequest('POST', `${environment.apiUrl}/upload/image`, formdata, {
+    const req = new HttpRequest('POST', `${environment.apiUrlTest}/deals/${dealId}/configs/${configId}/upload/image`, formdata, {
       reportProgress: true,
       responseType: 'text'
     });

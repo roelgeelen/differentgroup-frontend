@@ -1,8 +1,8 @@
-import {FormsEnum} from "../dynamic-form/model/formsEnum";
-import {odo} from "./forms/odo";
-import {odhd} from "./forms/odhd";
-import {FormPage} from "../dynamic-form/model/formPage";
-import {sdh} from "./forms/sdh";
+import {FormsEnum} from "./model/formsEnum";
+import {odo} from "../form/forms/odo";
+import {odhd} from "../form/forms/odhd";
+import {FormPage} from "./model/formPage";
+import {sdh} from "../form/forms/sdh";
 
 export const forms: {[key in FormsEnum]: FormPage} = {
   odo: {

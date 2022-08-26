@@ -470,19 +470,19 @@ export const overige: QuestionBase<string>[] = [
 ];
 export const media: QuestionBase<string>[] = [
   new UploadQuestion({
-    key: 'schets',
+    key: 'fs1',
     label: 'Foto / schets (voor klant)'
   }),
   new UploadQuestion({
-    key: 'schets_2',
+    key: 'fs2',
     label: 'Foto / schets 2 (voor klant)'
   }),
   new UploadQuestion({
-    key: 'buiten',
+    key: 'fb1',
     label: 'Foto buitenzijde deur'
   }),
   new UploadQuestion({
-    key: 'binnen',
+    key: 'fb2',
     label: 'Foto binnenzijde deur'
   })
 ]

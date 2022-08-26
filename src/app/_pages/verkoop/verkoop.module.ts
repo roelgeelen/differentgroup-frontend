@@ -27,6 +27,8 @@ import {NgxEditorModule} from "ngx-editor";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {FormComponent} from "./forms/form/form.component";
 import {ImageDrawingModule} from "ngx-image-drawing";
+import {MatSelectModule} from "@angular/material/select";
+import {OverviewComponent} from "./forms/overview/overview.component";
 
 @NgModule({
   imports: [
@@ -53,6 +55,7 @@ import {ImageDrawingModule} from "ngx-image-drawing";
     NgxEditorModule,
     MatProgressBarModule,
     ImageDrawingModule,
+    MatSelectModule,
   ],
   declarations: [
     VerkoopComponent,
@@ -60,6 +63,7 @@ import {ImageDrawingModule} from "ngx-image-drawing";
     InmetenComponent,
     AfsprakenComponent,
     FormComponent,
+    OverviewComponent,
     DynamicFormQuestionComponent
   ],
   exports: [

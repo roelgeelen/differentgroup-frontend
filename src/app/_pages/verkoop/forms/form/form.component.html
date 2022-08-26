@@ -6,38 +6,35 @@
   <div class="page">
     <div class="form-header d-flex justify-content-between">
       <div class="logo"><img src="../../../../../assets/images/cropped-logo-differentdoors-diap.png"></div>
-      <h1>{{page.title}}<br><span>{{dealConfig.values.dealname}}</span></h1>
+      <h1>{{page?.title}}<br><span>{{dealConfig.values.dealname}}</span></h1>
       <div class="reset-btn">
-        <button mat-button color="accent" class="clear" *ngIf="dealConfig.values.dealname !== undefined" (click)="clear()">
+        <button mat-button color="accent" class="clear" *ngIf="dealConfig.values.dealname !== undefined"
+                routerLink="/verkoop/formulier/{{dealId}}">
           <mat-icon>clear</mat-icon>
         </button>
       </div>
     </div>
-    <ng-container *ngIf="dealConfig.values.dealname === undefined" class="w-100">
-      <form (ngSubmit)="findDeal()" class="search">
-        <mat-error *ngIf="error">{{error}}</mat-error>
-        <mat-form-field appearance="fill" class="w-75">
-          <mat-label>Deal nummer</mat-label>
-          <input matInput type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="dealConfig.values.deal_id">
-        </mat-form-field>
-        <button mat-raised-button color="accent">
-          <mat-icon>search</mat-icon>
-        </button>
-      </form>
-    </ng-container>
-    <div class="loading-overlay fixed" *ngIf="loading"><div class="loading"></div></div>
-    <form [formGroup]="form" *ngIf="dealConfig.values.dealname !== undefined">
+    <div class="loading-overlay fixed" *ngIf="loading">
+      <div class="loading"></div>
+    </div>
+
+    <form [formGroup]="form" *ngIf="dealConfig.values.dealname !== undefined && form">
       <mat-tab-group [(selectedIndex)]="tabIndex">
         <mat-tab *ngFor="let tab of page.form" [label]="tab.label">
           <div class="form-content">
-            <app-question *ngFor="let question of tab.questions" [question]="question" [form]="form" [dealConfig]="dealConfig"></app-question>
-            <mat-error *ngIf="tabIndex == 8 && getFormValidationErrors().length != 0">Controleer de velden: {{getFormValidationErrors()}}</mat-error>
+            <app-question *ngFor="let question of tab.questions" [question]="question" [form]="form"
+                          [dealConfig]="dealConfig"></app-question>
+            <mat-error *ngIf="tabIndex == 8 && getFormValidationErrors().length != 0">Controleer de
+              velden: {{getFormValidationErrors()}}</mat-error>
             <div class="d-flex justify-content-between mt-3">
               <button mat-raised-button [color]="tabIndex==0 ?'primary': 'accent'" (click)="prev()"
                       [disabled]="tabIndex==0">Vorige
               </button>
-              <button mat-raised-button color="accent" (click)="next()" *ngIf="tabIndex!= (tabCount -1)">Volgende</button>
-              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!form.valid" *ngIf="tabIndex == (tabCount -1)">Offerte maken</button>
+              <button mat-raised-button color="accent" (click)="next()" *ngIf="tabIndex!= (tabCount -1)">Volgende
+              </button>
+              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!form.valid"
+                      *ngIf="tabIndex == (tabCount -1)">Offerte maken
+              </button>
             </div>
           </div>
         </mat-tab>

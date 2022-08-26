@@ -8,7 +8,7 @@ import {AuthenticationService} from "../../../../_services/authentication.servic
 import {User} from "../../../../_models/User";
 import Swal from 'sweetalert2'
 import {ActivatedRoute} from "@angular/router";
-import {forms} from "./forms";
+import {forms} from "../dynamic-form/forms";
 import {FormPage} from "../dynamic-form/model/formPage";
 import {FormsEnum} from "../dynamic-form/model/formsEnum";
 
@@ -29,6 +29,7 @@ export class FormComponent implements OnInit {
   loading = false;
   tabIndex = 0;
   tabCount: number;
+  dealId: number;
 
   constructor(
     private qcs: QuestionControlService,
@@ -45,26 +46,26 @@ export class FormComponent implements OnInit {
     this.route.paramMap.subscribe(queryParams => {
       this.dealConfig = new DealConfig()
       this.dealConfig.values = new Values();
-      this.page = forms[queryParams.get('form') as FormsEnum];
-      this.tabCount = this.page.form.length;
-      this.form = this.qcs.toFormGroup(this.page.form);
-      this.route.queryParams.subscribe(params => {
-        if (params['deal']) {
-          this.dealConfig.values.deal_id = params['deal'];
-          this.findDeal();
-        }
-      })
+      // @ts-ignore
+      this.dealId = +queryParams.get('dealId');
+      if (queryParams.get('configId') !== null) {
+        // @ts-ignore
+        this.findDeal(+queryParams.get('configId'));
+      }
     });
   }
 
-  findDeal() {
-    if (this.dealConfig.values.deal_id != null) {
+  findDeal(configId: number) {
+    if (configId != null) {
       this.loading = true;
-      this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
+      this.hubService.getConfig(this.dealId, configId).subscribe(deal => {
+        console.log(deal)
         this.dealConfig = deal;
         this.dealConfig.values.adviseur = this.currentUser.name;
-        this.dealConfig.values.title = this.page.title;
+        this.page = this.getFormPage(this.dealConfig.values.title);
         this.loading = false;
+        this.tabCount = this.page.form.length;
+        this.form = this.qcs.toFormGroup(this.page.form);
         this.setCustomValues();
         this.setStringToArrays();
         this.setEmptyImages();
@@ -77,7 +78,6 @@ export class FormComponent implements OnInit {
             delete this.dealConfig.values[key as keyof Values];
           }
         }
-        console.log(this.dealConfig)
         this.form.setValue(this.dealConfig.values);
       }, error => {
         this.loading = false;
@@ -89,7 +89,7 @@ export class FormComponent implements OnInit {
   }
 
   clear() {
-    this.dealConfig.values = new Values();
+    location.replace('/verkoop/formulier?deal='+this.dealConfig.values.deal_id)
   }
 
   getFormValidationErrors(): string[] {
@@ -147,11 +147,12 @@ export class FormComponent implements OnInit {
       })
     }
     console.log(articles);
-    this.hubService.createInvoice(articles, this.dealConfig.values.deal_id).subscribe(t => {
+    this.hubService.createInvoice(this.dealConfig.values.deal_id, this.dealConfig.id, articles).subscribe(t => {
       Swal.fire({
         title: 'Gelukt!',
-        html: `<a href="https://info.differentdoors.nl/deal-configuratie/${this.dealConfig.values.deal_id}" target="_blank">Bekijk hier de configuratie</a>`,
+        html: `<a href="https://info.differentdoors.nl/configuratie-overview/deal/${this.dealConfig.values.deal_id}/${this.dealConfig.path}" target="_blank">Bekijk hier de configuratie</a>`,
         icon: 'success',
+        confirmButtonColor: '#2e3785',
         confirmButtonText: 'sluiten'
       });
       this.loading = false;
@@ -160,6 +161,7 @@ export class FormComponent implements OnInit {
         title: 'Error',
         text: 'Er is iets fout gegaan, probeer het later nog eens',
         icon: 'error',
+        confirmButtonColor: '#2e3785',
         confirmButtonText: 'sluiten'
       });
       this.loading = false;
@@ -169,7 +171,7 @@ export class FormComponent implements OnInit {
   }
 
   getArticles(): string[] {
-    let articles =[...this.page.articles];
+    let articles = [...this.page.articles];
     // ODO
     if (this.page.type == FormsEnum.odo) {
       const maat = Math.ceil((((this.dealConfig.values.breedte < 2000 ? 2000 : this.dealConfig.values.breedte) - 2000) / 100) + 1) + (Math.ceil(((this.dealConfig.values.hoogte < 2000 ? 2000 : this.dealConfig.values.hoogte) - 2000) / 100) * 11)
@@ -250,5 +252,11 @@ export class FormComponent implements OnInit {
       // @ts-ignore
       this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values]?.url ? this.dealConfig.values[q.key as keyof Values] : { url: '', type: 'image' };
     })
+  }
+
+  getFormPage(title: string|undefined) {
+    return Object.values(forms).filter(k => {
+      return k.title == title;
+    })[0]
   }
 }

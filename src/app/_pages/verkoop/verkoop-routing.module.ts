@@ -8,6 +8,7 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {EnumRoles} from "../../_models/enum/enumRoles";
 import {EnumRouteGuard} from "../../_helpers/enum.route.guard";
 import {FormComponent} from "./forms/form/form.component";
+import {OverviewComponent} from "./forms/overview/overview.component";
 
 const routes: Routes = [
   {
@@ -46,9 +47,35 @@ const routes: Routes = [
         },
       },
       {
-        path: 'formulier/:form',
+        path: 'formulier',
+        component: OverviewComponent,
+        canActivate: [AuthGuard],
+        data: {
+          roles: [
+            EnumRoles.OFFICE,
+            EnumRoles.ICT,
+            EnumRoles.ENGINEERING,
+            EnumRoles.ADMINISTRATION,
+          ]
+        },
+      },
+      {
+        path: 'formulier/:dealId',
+        component: OverviewComponent,
+        canActivate: [AuthGuard],
+        data: {
+          roles: [
+            EnumRoles.OFFICE,
+            EnumRoles.ICT,
+            EnumRoles.ENGINEERING,
+            EnumRoles.ADMINISTRATION,
+          ]
+        },
+      },
+      {
+        path: 'formulier/:dealId/:configId',
         component: FormComponent,
-        canActivate: [AuthGuard, EnumRouteGuard],
+        canActivate: [AuthGuard],
         data: {
           roles: [
             EnumRoles.OFFICE,

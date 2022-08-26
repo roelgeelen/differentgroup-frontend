@@ -1,4 +1,10 @@
+.mat-card-actions:not(.mat-card-actions-align-end) .mat-raised-button:first-child {
+  margin: 0 8px !important;
+}
 
+.border-primary {
+  border-color: #3f51b5 !important;
+}
 
 .fullscreen-btn {
   position: absolute;

@@ -456,7 +456,7 @@ export const glas: QuestionBase<string>[] = [
     custom: ''
   }),
   new UploadQuestion({
-    key: 'foto_sg',
+    key: 'fg1',
     label: 'Schets glas',
     dependent: [
       {
@@ -555,7 +555,7 @@ export const loopdeur: QuestionBase<string>[] = [
     ]
   }),
   new UploadQuestion({
-    key: 'foto_ld',
+    key: 'fld1',
     label: 'Schets loopdeur',
     dependent: [
       {
@@ -800,7 +800,7 @@ export const loopdeur: QuestionBase<string>[] = [
     ]
   }),
   new UploadQuestion({
-    key: 'foto_slg',
+    key: 'fldg1',
     label: 'Schets glas',
     dependent: [
       {
@@ -863,19 +863,19 @@ export const overige: QuestionBase<string>[] = [
 ];
 export const media: QuestionBase<string>[] = [
   new UploadQuestion({
-    key: 'schets',
+    key: 'fs1',
     label: 'Foto / schets (voor klant)'
   }),
   new UploadQuestion({
-    key: 'schets_2',
+    key: 'fs2',
     label: 'Foto / schets 2 (voor klant)'
   }),
   new UploadQuestion({
-    key: 'buiten',
+    key: 'fb1',
     label: 'Foto buitenzijde deur'
   }),
   new UploadQuestion({
-    key: 'binnen',
+    key: 'fb2',
     label: 'Foto binnenzijde deur'
   })
 ];
