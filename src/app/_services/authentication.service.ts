@@ -4,6 +4,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {User} from "../_models/User";
 import jwt_decode from "jwt-decode";
 import {Token} from "../_models/token";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,16 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private oauthService: OAuthService) {
+  constructor(private oauthService: OAuthService, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User>((this.convertTokenToUser()));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
   login() {
     this.currentUserSubject.next(this.convertTokenToUser());
+    let returnUrl = localStorage.getItem('returnUrl');
+    localStorage.clear();
+    this.router.navigate([returnUrl]);
   }
 
   public get currentUserValue(): User {
