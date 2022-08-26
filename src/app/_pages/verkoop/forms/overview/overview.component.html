@@ -58,7 +58,7 @@
               <mat-card-subtitle>{{config.values.adviseur}} - {{config.values.updated_at}}</mat-card-subtitle>
               <mat-card-actions>
                 <a mat-raised-button color="primary" href="https://info.differentdoors.nl/configuratie-overview/deal/{{config.values.deal_id}}/{{config.path}}" target="_blank"><mat-icon>remove_red_eye</mat-icon></a>
-                <button mat-raised-button color="primary" routerLink="{{config.id}}"><mat-icon>edit</mat-icon></button>
+                <button mat-raised-button color="primary" routerLink="/verkoop/formulier/{{config.values.deal_id}}/{{config.id}}"><mat-icon>edit</mat-icon></button>
                 <button mat-raised-button color="primary" (click)="delete(config.id)"><mat-icon>delete</mat-icon></button>
               </mat-card-actions>
             </mat-card>
