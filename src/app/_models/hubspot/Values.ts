@@ -94,16 +94,11 @@ export class Values {
   aanbrengen_gevelbekleding: string;
   gevel_afmetingen: string;
   loopdeur_voordeur: string;
-  loopdeur_voordeur_breedte: string;
-  loopdeur_voordeur_hoogte: string;
   kleur_kozijn: string;
   kleur_kozijn_ral: string;
   binnen_afwerking: string;
   vlakke_plaat_ral: string;
-  deur_beslag_voordeur: string;
-  deurgreep_voordeur: string;
-  deur_beslag_loopdeur: string;
-  deurgreep_loopdeur: string;
+  deurgreep: string;
   indicatie_montage_uren: string;
   electrisch_motorslot: string;
   deur_afmetingen: any;
@@ -114,7 +109,6 @@ export class Values {
   gelijk_met_de_wand: string;
   aantal_draadloos_codeklavier: string;
   aantal_losse_ontvanger: string;
-  loopdeur_of_voordeur: string;
   type_glas: string;
   configuraties: {id: number, type: string}[];
   public constructor(init?: Partial<Values>) {

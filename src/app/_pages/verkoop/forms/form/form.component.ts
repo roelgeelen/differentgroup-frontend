@@ -89,7 +89,7 @@ export class FormComponent implements OnInit {
   }
 
   clear() {
-    location.replace('/verkoop/formulier?deal='+this.dealConfig.values.deal_id)
+    location.replace('/verkoop/formulier?deal=' + this.dealConfig.values.deal_id)
   }
 
   getFormValidationErrors(): string[] {
@@ -108,66 +108,76 @@ export class FormComponent implements OnInit {
 
 
   submit() {
-    this.loading = true;
-    let articles = this.getArticles();
-    this.page.form.map(t => {
-      return t.questions;
-    }).flat().forEach(q => {
-      if (q.options.length != 0) {
-        // @ts-ignore
-        this.dealConfig.values[q.key as keyof Values] =
-          q.controlType == 'checkbox' && !Array.isArray(this.dealConfig.values[q.key as keyof Values]) && this.dealConfig.values[q.key as keyof Values] != '' ?
-            JSON.parse(this.dealConfig.values[q.key as keyof Values]):
-            this.dealConfig.values[q.key as keyof Values];
+    Swal.fire({
+      title: 'Wil je de artiekelen toevoegen aan de huidige offerte?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Ja, toevoegen',
+      confirmButtonColor: '#2e3785',
+      denyButtonText: `Nee, vervangen`,
+      cancelButtonText: 'Annuleren'
+    }).then((result) => {
+      if (!result.isDismissed) {
+        this.loading = true;
+        let articles = this.getArticles();
+        this.page.form.map(t => {
+          return t.questions;
+        }).flat().forEach(q => {
+          if (q.options.length != 0) {
+            // @ts-ignore
+            this.dealConfig.values[q.key as keyof Values] =
+              q.controlType == 'checkbox' && !Array.isArray(this.dealConfig.values[q.key as keyof Values]) && this.dealConfig.values[q.key as keyof Values] != '' ?
+                JSON.parse(this.dealConfig.values[q.key as keyof Values]) :
+                this.dealConfig.values[q.key as keyof Values];
 
-        if (Array.isArray(this.dealConfig.values[q.key as keyof Values])) {
-          this.dealConfig.values[q.key as keyof Values].forEach((v: string) => {
-            const option = q.options.find(o => {
-              return o.value == v
-            });
-            if (option?.article !== undefined) {
-              articles.push(option.article);
+            if (Array.isArray(this.dealConfig.values[q.key as keyof Values])) {
+              this.dealConfig.values[q.key as keyof Values].forEach((v: string) => {
+                const option = q.options.find(o => {
+                  return o.value == v
+                });
+                if (option?.article !== undefined) {
+                  articles.push(option.article);
+                }
+              })
+            } else {
+              const option = q.options.find(o => {
+                return o.value == this.dealConfig.values[q.key as keyof Values]
+              });
+              if (option?.article !== undefined) {
+                articles.push(option.article);
+              }
+            }
+          }
+        })
+        if (articles.includes('SDH301') && articles.includes('SDH100')) {
+          articles.forEach((v, i) => {
+            if (v == 'SDH301') {
+              articles.splice(i, 1, 'SDH302')
             }
           })
-        } else {
-          const option = q.options.find(o => {
-            return o.value == this.dealConfig.values[q.key as keyof Values]
+        }
+        console.log(articles);
+        this.hubService.createInvoice(this.dealConfig.values.deal_id, this.dealConfig.id, !result.isConfirmed, articles).subscribe(t => {
+          Swal.fire({
+            title: 'Gelukt!',
+            html: `<a href="https://info.differentdoors.nl/configuratie-overview/deal/${this.dealConfig.values.deal_id}/${this.dealConfig.path}" target="_blank">Bekijk hier de configuratie</a>`,
+            icon: 'success',
+            confirmButtonColor: '#2e3785',
+            confirmButtonText: 'sluiten'
           });
-          if (option?.article !== undefined) {
-            articles.push(option.article);
-          }
-        }
+          this.loading = false;
+        }, error => {
+          Swal.fire({
+            title: 'Error',
+            text: 'Er is iets fout gegaan, probeer het later nog eens',
+            icon: 'error',
+            confirmButtonColor: '#2e3785',
+            confirmButtonText: 'sluiten'
+          });
+          this.loading = false;
+        });
       }
-    })
-    if (articles.includes('SDH301') && articles.includes('SDH100')) {
-      articles.forEach((v, i) => {
-        if (v == 'SDH301'){
-          articles.splice(i, 1, 'SDH302')
-        }
-      })
-    }
-    console.log(articles);
-    this.hubService.createInvoice(this.dealConfig.values.deal_id, this.dealConfig.id, articles).subscribe(t => {
-      Swal.fire({
-        title: 'Gelukt!',
-        html: `<a href="https://info.differentdoors.nl/configuratie-overview/deal/${this.dealConfig.values.deal_id}/${this.dealConfig.path}" target="_blank">Bekijk hier de configuratie</a>`,
-        icon: 'success',
-        confirmButtonColor: '#2e3785',
-        confirmButtonText: 'sluiten'
-      });
-      this.loading = false;
-    }, error => {
-      Swal.fire({
-        title: 'Error',
-        text: 'Er is iets fout gegaan, probeer het later nog eens',
-        icon: 'error',
-        confirmButtonColor: '#2e3785',
-        confirmButtonText: 'sluiten'
-      });
-      this.loading = false;
     });
-
-
   }
 
   getArticles(): string[] {
@@ -200,12 +210,12 @@ export class FormComponent implements OnInit {
   }
 
   public next() {
-    window.scroll(0,0);
+    window.scroll(0, 0);
     this.tabIndex = (this.tabIndex + 1) % this.tabCount;
   }
 
   public prev() {
-    window.scroll(0,0);
+    window.scroll(0, 0);
     this.tabIndex = (this.tabIndex - 1) % this.tabCount;
   }
 
@@ -250,11 +260,14 @@ export class FormComponent implements OnInit {
     });
     questions.forEach(q => {
       // @ts-ignore
-      this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values]?.url ? this.dealConfig.values[q.key as keyof Values] : { url: '', type: 'image' };
+      this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values]?.url ? this.dealConfig.values[q.key as keyof Values] : {
+        url: '',
+        type: 'image'
+      };
     })
   }
 
-  getFormPage(title: string|undefined) {
+  getFormPage(title: string | undefined) {
     return Object.values(forms).filter(k => {
       return k.title == title;
     })[0]

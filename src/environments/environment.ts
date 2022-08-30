@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl:"https://api.differentdoors.nl/v1/api",
-  apiUrlTest:"https://a317-81-173-49-231.ngrok.io/api"
+  apiUrlTest:"https://664d-81-173-49-231.ngrok.io/api"
 };
 
 /*

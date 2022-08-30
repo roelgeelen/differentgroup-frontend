@@ -32,8 +32,8 @@ export class HubspotService {
     return this.http.delete(`${environment.apiUrl}/deals/${dealId}/configs/${configId}`);
   }
 
-  createInvoice(dealId: number, configId: number, values: string[]) {
-    return this.http.post(`${environment.apiUrl}/deals/${dealId}/configs/${configId}/invoice`, values);
+  createInvoice(dealId: number, configId: number, replace: boolean, values: string[]) {
+    return this.http.post(`${environment.apiUrl}/deals/${dealId}/configs/${configId}/invoice?replace=${replace}`, values);
   }
 
   saveImage(dealId: number, configId: number, file: File, filename: string): Observable<HttpEvent<{}>> {

@@ -17,11 +17,11 @@ const calendars: Calendar[] = [
     id: '260463341',
     color: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
   },
-  {
-    name: 'Sam Cummins',
-    id: '289996526',
-    color: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-  },
+  // {
+  //   name: 'Sam Cummins',
+  //   id: '289996526',
+  //   color: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+  // },
   {
     name: 'Patrick Smolders',
     id: '289992164',

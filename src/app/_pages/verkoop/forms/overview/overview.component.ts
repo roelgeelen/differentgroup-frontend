@@ -37,7 +37,7 @@ export class OverviewComponent implements OnInit {
     },
     {
       name: 'Hout',
-      items: ['sdh', 'odhd']
+      items: ['sdh', 'odhd', 'vdh', 'ldh']
     }
   ]
 
