@@ -185,7 +185,7 @@ export class FormComponent implements OnInit {
     // ODO
     if (this.page.type == FormsEnum.odo) {
       const maat = Math.ceil((((this.dealConfig.values.breedte < 2000 ? 2000 : this.dealConfig.values.breedte) - 2000) / 100) + 1) + (Math.ceil(((this.dealConfig.values.hoogte < 2000 ? 2000 : this.dealConfig.values.hoogte) - 2000) / 100) * 11)
-      return [...articles, 'ODO0' + maat, 'ODO' + (maat + 99)];
+      return [...articles, 'ODO0' + ('0' + maat).slice(-2), 'ODO' + (maat + 99)];
     }
 
     //SDH
