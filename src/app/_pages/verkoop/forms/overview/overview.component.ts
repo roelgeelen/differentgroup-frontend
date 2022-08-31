@@ -130,6 +130,7 @@ export class OverviewComponent implements OnInit {
     this.error = '';
     if (new_form == null) {
       this.error = 'Kies eerst een formulier';
+      this.loading = false;
       return;
     }
     let newConfig = new DealConfig();

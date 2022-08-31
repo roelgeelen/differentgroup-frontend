@@ -5,15 +5,69 @@ import {TextQuestion} from "../../dynamic-form/controls/question-textbox";
 import {CheckboxQuestion} from "../../dynamic-form/controls/question-checkbox";
 import {UploadQuestion} from "../../dynamic-form/controls/question-upload";
 import {TextareaQuestion} from "../../dynamic-form/controls/question-textarea";
+import {Validators} from "@angular/forms";
 
 export const algemeen: QuestionBase<string>[] = [
-  new RadioQuestion({
-    key: 'loopdeur_voordeur',
-    label: 'Type voordeur',
-    options: [
-      {value: 'Verticale delen', article: 'LDH001'},
-      {value: 'Horizontale delen', article: 'LDH002'},
-      {value: 'Verticale latten', article: 'LDH003'},
+  new TextQuestion({
+    label: 'Afwijkend montage adres',
+    fields: [
+      {
+        key: 'montage_straat',
+        label: 'Straat + huisnummer',
+        type: 'text'
+      },
+      {
+        key: 'montage_postcode',
+        label: 'Postcode',
+        type: 'text',
+      },
+      {
+        key: 'montage_plaats',
+        label: 'Plaats',
+        type: 'text'
+      }
+    ]
+  }),
+  new TextQuestion({
+    label: 'Uitvoerder',
+    fields: [
+      {
+        key: 'uitvoerder_naam',
+        label: 'Naam',
+        type: 'text'
+      },
+      {
+        key: 'uitvoerder_telefoon',
+        label: 'Telefoon',
+        type: 'number',
+      },
+      {
+        key: 'uitvoerder_email',
+        label: 'E-mail',
+        type: 'email',
+        validators: [Validators.email]
+      }
+    ]
+  }),
+  new TextQuestion({
+    label: 'Projectleider',
+    fields: [
+      {
+        key: 'projectleider_naam',
+        label: 'Naam',
+        type: 'text'
+      },
+      {
+        key: 'projectleider_telefoon',
+        label: 'Telefoon',
+        type: 'number'
+      },
+      {
+        key: 'projectleider_email',
+        label: 'E-mail',
+        type: 'email',
+        validators: [Validators.email]
+      }
     ]
   }),
   new RadioQuestion({
@@ -25,6 +79,21 @@ export const algemeen: QuestionBase<string>[] = [
       {value: 'Blind kozijn'},
       {value: 'Bestaand kozijn'},
       {value: 'Pivoterende deur', article: 'HPT001'},
+    ],
+    validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'sluitkommen',
+    label: 'Bestaande sluitkommen en scharnieren dicht zetten',
+    options: [
+      {value: 'Ja', article: 'aanmaken*****'},
+      {value: 'Nee'},
+    ],
+    dependent:[
+      {
+        field: 'model',
+        values:['Bestaand kozijn']
+      }
     ]
   }),
   new TextQuestion({
@@ -33,12 +102,14 @@ export const algemeen: QuestionBase<string>[] = [
       {
         key: 'breedte',
         label: 'Breedte',
-        type: 'number'
+        type: 'number',
+        validators: [Validators.required]
       },
       {
         key: 'hoogte',
         label: 'Hoogte',
-        type: 'number'
+        type: 'number',
+        validators: [Validators.required]
       }
     ]
   }),
@@ -48,6 +119,32 @@ export const algemeen: QuestionBase<string>[] = [
   }),
 ];
 export const buiten: QuestionBase<string>[] = [
+  new RadioQuestion({
+    key: 'houtsoort',
+    label: 'Houtsoort',
+    options: [
+      {value: 'Red cedar'},
+      {value: 'Eiken'},
+      {value: 'Afrormosia'},
+      {value: 'Mahonie'},
+      {value: 'Accoya'},
+      {value: 'Meranti'},
+      {value: 'Fraké'},
+      {value: 'Aangeleverde delen'}
+    ],
+    other: true,
+    custom: ' '
+  }),
+  new RadioQuestion({
+    key: 'loopdeur_voordeur',
+    label: 'Type voordeur',
+    options: [
+      {value: 'Verticale delen', article: 'LDH001'},
+      {value: 'Horizontale delen', article: 'LDH002'},
+      {value: 'Verticale latten', article: 'LDH003'},
+    ],
+    validators: [Validators.required]
+  }),
   new RadioQuestion({
     key: 'electrisch_motorslot',
     label: 'Electrisch motorslot',
@@ -81,6 +178,69 @@ export const buiten: QuestionBase<string>[] = [
       }
     ]
   }),
+  new RadioQuestion({
+    key: 'behandeling',
+    label: 'Behandeling',
+    options: [
+      {value: 'Onbehandeld'},
+      {value: 'Transparant (Tweemaal gegrond)'},
+      {value: 'Aangeleverde delen behandeld door klant'},
+      {value: 'Dekkend (Tweemaal gegrond)'},
+    ]
+  }),
+  new RadioQuestion({
+    key: 'transparant_kleurcode',
+    label: 'Kleurcode DD',
+    options: [
+      {value: 'VBH001'},
+      {value: 'VBH002'},
+      {value: 'VBH003'},
+      {value: 'VBH004'},
+      {value: 'VBH005'},
+      {value: 'VBH006'},
+      {value: 'VBH007'},
+      {value: 'VBH008'},
+    ],
+    dependent: [
+      {
+        field: 'behandeling',
+        values: ['Transparant (Tweemaal gegrond)']
+      }
+    ],
+    other: true,
+    custom: ''
+  }),
+  new TextQuestion({
+    label: 'Dekkend (tweemaal gegrond)',
+    fields: [
+      {
+        key: 'dekkend_ral',
+        label: 'RAL',
+        type: 'text'
+      }
+    ],
+    dependent: [
+      {
+        field: 'behandeling',
+        values: ['Dekkend (Tweemaal gegrond)']
+      }
+    ]
+  }),
+  new RadioQuestion({
+    key: 'afgelakt',
+    label: 'Afgelakt',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee'},
+    ],
+    value: 'Nee',
+    dependent: [
+      {
+        field: 'behandeling',
+        values: ['Dekkend (Tweemaal gegrond)']
+      }
+    ]
+  })
 ]
 export const binnen: QuestionBase<string>[] = [
   new RadioQuestion({
@@ -111,15 +271,16 @@ export const binnen: QuestionBase<string>[] = [
 ]
 export const deur: QuestionBase<string>[] = [
   new RadioQuestion({
-    key: 'cilinder',
-    label: 'Cilinder',
+    key: 'type_dorpel',
+    label:'Type dorpel (Ondersabelen door klant na montage)',
     options: [
-      {value: 'N.v.t.'},
-      {value: 'Niet zichtbaar'},
-      {value: 'In het hout frezen'},
-      {value: 'Doorsteken i.v.m. beslag'},
+      {value:'DTS'},
+      {value:'Natuursteen'},
+      {value:'Valdorpel (let op: dicht niet volledig af)'},
+      {value: 'Door klant'}
     ]
   }),
+
   new RadioQuestion({
     key: 'krukset_deurbeslag',
     label: 'Deur beslag',
@@ -148,6 +309,16 @@ export const deur: QuestionBase<string>[] = [
         field: 'krukset_deurbeslag',
         values: ['Ja']
       }
+    ]
+  }),
+  new RadioQuestion({
+    key: 'cilinder',
+    label: 'Cilinder',
+    options: [
+      {value: 'N.v.t.'},
+      {value: 'Niet zichtbaar'},
+      {value: 'In het hout frezen'},
+      {value: 'Doorsteken i.v.m. beslag'},
     ]
   }),
 ]
@@ -191,7 +362,46 @@ export const glas: QuestionBase<string>[] = [
     ]
   })
 ];
+export const montage: QuestionBase<string>[] = [
+  new CheckboxQuestion({
+    key: 'bestaande_deur',
+    label: 'Bestaande deur',
+    options: [
+      {value: 'N.v.t.'},
+      {value: 'Demontage DD'},
+      {value: 'Afvoer DD'},
+      {value: 'Demontage door klant'},
+      {value: 'Afvoer door klant'}
+    ]
+  }),
+  new RadioQuestion({
+    key: 'bouwkundig_aanpassingen',
+    label: 'Bouwkundige aanpassingen',
+    options: [
+      {value: 'N.v.t.'},
+      {value: 'Door klant volgens details DD'}
+    ],
+    value: 'Door klant volgens details DD'
+  }),
+  new TextareaQuestion({
+    key: 'indicatie_montage_uren',
+    label: 'Indicatie montage uren'
+  })
+]
 
+export const afwerking: QuestionBase<string>[] = [
+  new RadioQuestion({
+    key: 'aftimmering_binnenzijde',
+    label: 'Aftimmering binnenzijde',
+    options: [
+      {value: 'Klant kiest voor geen binnenaftimmering'},
+      {value: 'Enkel tussen kozijn en muur afpurren'},
+      {value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)'},
+      {value: 'Multipaint volledig (exclusief schilderen)'},
+    ],
+    value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)'
+  }),
+]
 export const overige: QuestionBase<string>[] = [
   new TextareaQuestion({
     key: 'overige_opmerkingen_klant',
@@ -223,6 +433,14 @@ export const ldh: TabBase[] = [
   {
     label: "Glas",
     questions: glas
+  },
+  {
+    label: "Montage",
+    questions: montage
+  },
+  {
+    label: "Afwerking",
+    questions: afwerking
   },
   {
     label: 'Overige',

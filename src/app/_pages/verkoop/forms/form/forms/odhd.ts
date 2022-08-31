@@ -9,6 +9,68 @@ import {UploadQuestion} from "../../dynamic-form/controls/question-upload";
 import {CalculationQuestion} from "../../dynamic-form/controls/question-calc";
 
 export const algemeen: QuestionBase<string>[] = [
+  new TextQuestion({
+    label: 'Afwijkend montage adres',
+    fields: [
+      {
+        key: 'montage_straat',
+        label: 'Straat + huisnummer',
+        type: 'text'
+      },
+      {
+        key: 'montage_postcode',
+        label: 'Postcode',
+        type: 'text',
+      },
+      {
+        key: 'montage_plaats',
+        label: 'Plaats',
+        type: 'text'
+      }
+    ]
+  }),
+  new TextQuestion({
+    label: 'Uitvoerder',
+    fields: [
+      {
+        key: 'uitvoerder_naam',
+        label: 'Naam',
+        type: 'text'
+      },
+      {
+        key: 'uitvoerder_telefoon',
+        label: 'Telefoon',
+        type: 'number',
+      },
+      {
+        key: 'uitvoerder_email',
+        label: 'E-mail',
+        type: 'email',
+        validators: [Validators.email]
+      }
+    ]
+  }),
+  new TextQuestion({
+    label: 'Projectleider',
+    fields: [
+      {
+        key: 'projectleider_naam',
+        label: 'Naam',
+        type: 'text'
+      },
+      {
+        key: 'projectleider_telefoon',
+        label: 'Telefoon',
+        type: 'number'
+      },
+      {
+        key: 'projectleider_email',
+        label: 'E-mail',
+        type: 'email',
+        validators: [Validators.email]
+      }
+    ]
+  }),
   new RadioQuestion({
     key: 'deur_reeds_ingemeten',
     label: 'Deur reeds ingemeten',

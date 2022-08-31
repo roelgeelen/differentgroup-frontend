@@ -11,7 +11,7 @@ import {TableQuestion} from "../../dynamic-form/controls/question-table";
 
 export const algemeen: QuestionBase<string>[] = [
   new TextQuestion({
-    label: 'Montage adres',
+    label: 'Afwijkend montage adres',
     fields: [
       {
         key: 'montage_straat',

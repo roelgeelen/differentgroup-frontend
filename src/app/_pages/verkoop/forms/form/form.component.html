@@ -24,7 +24,7 @@
           <div class="form-content">
             <app-question *ngFor="let question of tab.questions" [question]="question" [form]="form"
                           [dealConfig]="dealConfig"></app-question>
-            <mat-error *ngIf="tabIndex == 8 && getFormValidationErrors().length != 0">Controleer de
+            <mat-error *ngIf="tabIndex == (tabCount -1) && getFormValidationErrors().length != 0">Controleer de
               velden: {{getFormValidationErrors()}}</mat-error>
             <div class="d-flex justify-content-between mt-3">
               <button mat-raised-button [color]="tabIndex==0 ?'primary': 'accent'" (click)="prev()"

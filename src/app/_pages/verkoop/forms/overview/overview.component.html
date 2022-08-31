@@ -45,7 +45,7 @@
               </mat-optgroup>
             </mat-select>
           </mat-form-field>
-          <button mat-flat-button color="primary" (click)="addForm(new_form)">Aanmaken
+          <button mat-flat-button color="primary" (click)="addForm(new_form)" [disabled]="new_form==null">Aanmaken
             <mat-icon>add</mat-icon>
           </button>
         </div>
