@@ -15,6 +15,9 @@ export class HubspotService {
   getDeal(dealId: number) {
     return this.http.get<DealConfig>(`${environment.apiUrl}/deals/${dealId}/configs`);
   }
+  updateDeal(dealId: number, deal: Object) {
+    return this.http.put(`${environment.apiUrl}/deals/${dealId}`, deal);
+  }
 
   createDealConfig(dealId: number, deal: DealConfig) {
     return this.http.post(`${environment.apiUrl}/deals/${dealId}/configs/create`, deal);

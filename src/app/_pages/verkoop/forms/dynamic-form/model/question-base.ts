@@ -13,6 +13,7 @@ export class QuestionBase<T> {
   fields: { value?: T | undefined; key: string; label: string; validators?: ValidatorFn[]; required?: boolean; type: string }[];
   other: boolean;
   custom: string;
+  toDeal: boolean;
 
   constructor(options: {
     value?: any;
@@ -28,6 +29,7 @@ export class QuestionBase<T> {
     fields?: { key: string; label: string; value?: any | undefined; validators?: ValidatorFn[]; required?: boolean; type: string }[];
     other?: boolean;
     custom? : string;
+    toDeal?: boolean;
   } = {}) {
     this.value = options.value;
     this.key = options.key || '';
@@ -41,5 +43,6 @@ export class QuestionBase<T> {
     this.fields = options.fields || [];
     this.other = !!options.other;
     this.custom = options.custom || '';
+    this.toDeal = !!options.toDeal;
   }
 }
