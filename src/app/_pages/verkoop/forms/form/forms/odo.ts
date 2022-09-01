@@ -514,7 +514,7 @@ export const overige: QuestionBase<string>[] = [
       {value: 'Aansmeren vloer - 0.5 uur'},
       {value: 'Aftimmeren binnenzijde lijstje rondom - 0.5 uur'},
       {value: 'Aftimmeren binnenzijde compleet - 2 uur'},
-      {value: 'Aftimmeren buitenzijde - 1 uur'}
+      {value: 'Aftimmeren buitenzijde - 1 uur'},
     ],
     value: ['Plaatsen nieuwe deur - 2 uur']
   }),
@@ -547,6 +547,10 @@ export const media: QuestionBase<string>[] = [
   new UploadQuestion({
     key: 'fb2',
     label: 'Foto binnenzijde deur (monteurs)'
+  }),
+  new UploadQuestion({
+    key: 'fb3',
+    label: 'Foto positie in de dag (monteurs)'
   })
 ];
 export const odo: TabBase[] = [
