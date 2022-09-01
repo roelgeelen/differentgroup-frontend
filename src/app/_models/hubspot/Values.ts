@@ -110,6 +110,7 @@ export class Values {
   aantal_draadloos_codeklavier: string;
   aantal_losse_ontvanger: string;
   type_glas: string;
+  ventilatieroosters: string;
   configuraties: {id: number, type: string}[];
   public constructor(init?: Partial<Values>) {
     Object.assign(this, init);
