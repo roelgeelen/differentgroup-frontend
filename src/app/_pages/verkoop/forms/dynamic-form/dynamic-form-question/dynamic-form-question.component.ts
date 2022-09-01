@@ -68,7 +68,21 @@ export class DynamicFormQuestionComponent {
     return found;
   }
 
-  save() {
+  save(toDeal: boolean) {
+    if (toDeal) {
+      let properties: object = {};
+      if (this.question.fields.length > 0) {
+        this.question.fields.forEach(f => {
+          // @ts-ignore
+          properties[f.key] = this.form.controls[f.key].value;
+        })
+      } else {
+        // @ts-ignore
+        properties[this.question.key] = this.form.controls[this.question.key].value;
+      }
+
+      this.hubService.updateDeal(this.dealConfig.values.deal_id, {properties: properties}).subscribe();
+    }
     this.dealConfig.values = new Values(this.form.getRawValue());
     for (const [k, v] of Object.entries(this.dealConfig.values)) {
       if (Array.isArray(v)) {
@@ -118,7 +132,7 @@ export class DynamicFormQuestionComponent {
       } else if (r instanceof HttpResponse) {
         this.getProperty(this.question.key).url = r.body;
         this.timestamp = Date.now();
-        this.save();
+        this.save(false);
         this.uploading = false;
       }
     }, error => {
@@ -154,7 +168,7 @@ export class DynamicFormQuestionComponent {
   removeRow(id: number) {
     // @ts-ignore
     this.form.controls[this.question.key].value = this.form.controls[this.question.key].value.filter((u: { id: number; }) => u.id !== id);
-    this.save();
+    this.save(false);
   }
 
   updateCustom(question: QuestionBase<string>) {
