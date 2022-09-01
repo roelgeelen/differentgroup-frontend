@@ -71,6 +71,28 @@ export const algemeen: QuestionBase<string>[] = [
       }
     ]
   }),
+  new TextQuestion({
+    label: 'Verwachte leverweek',
+    fields: [{
+      key: 'verwachte_leverweek_klant',
+      label: 'Week',
+      type: 'number'
+    }],
+    toDeal: true
+  }),
+  new RadioQuestion({
+    key: 'fase_project',
+    label: 'Fase project',
+    options: [
+      {value: 'Bestaande bouw'},
+      {value: 'Ontwerp'},
+      {value: 'Bouw gestart'},
+      {value: 'Ruwbouw klaar'},
+      {value: 'Klaar om in te meten'},
+      {value: 'Deur kan er al in'},
+    ],
+    toDeal: true
+  }),
   new RadioQuestion({
     key: 'type_sectionaaldeur',
     label: 'Type sectionaaldeur',
