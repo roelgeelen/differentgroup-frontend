@@ -375,6 +375,17 @@ export const deur: QuestionBase<string>[] = [
     other: true,
     custom: ' ',
     value: ['Cilinder leveren door DD (incl. drie sleutels)']
+  }),
+  new RadioQuestion({
+    key: 'ventilatieroosters',
+    label: 'Ventilatieroosters',
+    options: [
+      {value:'N.v.t.'},
+      {value:'Actieve deurvleugel', article: 'ODO302'},
+      {value:'Passieve deurvleugel', article: 'ODO302'},
+      {value:'Beide deurvleugels', article: 'ODO302'},
+    ],
+    value: 'N.v.t.'
   })
 ]
 export const glas: QuestionBase<string>[] = [
