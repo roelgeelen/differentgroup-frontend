@@ -78,7 +78,7 @@ export class FormComponent implements OnInit {
             delete this.dealConfig.values[key as keyof Values];
           }
         }
-        this.form.setValue(this.dealConfig.values);
+        this.form.patchValue(this.dealConfig.values);
       }, error => {
         this.loading = false;
         this.error = 'Kon deal niet vinden.';
