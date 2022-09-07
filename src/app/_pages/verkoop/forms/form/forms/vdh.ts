@@ -86,7 +86,7 @@ export const algemeen: QuestionBase<string>[] = [
     key: 'sluitkommen',
     label: 'Bestaande sluitkommen en scharnieren dicht zetten',
     options: [
-      {value: 'Ja', article: 'aanmaken*****'},
+      {value: 'Ja', article: 'VDH102'},
       {value: 'Nee'},
     ],
     dependent:[
