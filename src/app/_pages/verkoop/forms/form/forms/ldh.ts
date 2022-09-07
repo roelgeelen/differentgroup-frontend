@@ -137,7 +137,7 @@ export const buiten: QuestionBase<string>[] = [
   }),
   new RadioQuestion({
     key: 'loopdeur_voordeur',
-    label: 'Type voordeur',
+    label: 'Type loopdeur',
     options: [
       {value: 'Verticale delen', article: 'LDH001'},
       {value: 'Horizontale delen', article: 'LDH002'},

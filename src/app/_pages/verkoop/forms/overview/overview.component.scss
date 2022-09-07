@@ -90,6 +90,24 @@ div.fullscreen {
     padding: 20px;
   }
 }
+::ng-deep {
+  .swal2-html-container {
+    label {
+      width: 100%;
+      background-color: #ebf2f4;
+      padding: 5px;
+      margin-top: 20px;
+    }
+    label:first-child{
+      margin-top: 0;
+    }
+
+    .swal2-input {
+      width: 80%;
+      margin-top: 5px;
+    }
+  }
+}
 
 @media only screen and (max-width: 950px) {
   .form {
