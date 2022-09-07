@@ -13,7 +13,6 @@ import {FormsEnum} from "../dynamic-form/model/formsEnum";
 import {forms} from "../dynamic-form/forms";
 import {Location} from '@angular/common';
 
-
 @Component({
   selector: 'app-form',
   templateUrl: './overview.component.html',
@@ -70,8 +69,8 @@ export class OverviewComponent implements OnInit {
     this.configurations = [];
     if (this.dealConfig.values.deal_id != null) {
       this.loading = true;
-      this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
-        this.dealConfig = deal;
+      this.hubService.getDealConfigs(this.dealConfig.values.deal_id).subscribe(dealConf => {
+        this.dealConfig = dealConf;
         this.location.replaceState('/verkoop/formulier/' + this.dealConfig.values.deal_id);
         if (Array.isArray(this.dealConfig.values.configuraties)) {
           this.dealConfig.values.configuraties.forEach(c => {
@@ -80,55 +79,17 @@ export class OverviewComponent implements OnInit {
             })
           })
         }
-
-        this.loading = false;
-        Swal.fire({
-          title: 'Sales vragen',
-          html:
-            '<label for="type_woning">Type woning</label>' +
-            '<select id="type_woning" class="swal2-input">' +
-            '  <option></option>' +
-            '  <option value="Villa">Villa</option>' +
-            '  <option value="Vrijstaande woning">Vrijstaande woning</option>' +
-            '  <option value="Twee onder een kap">2-onder-1 kap</option>' +
-            '  <option value="Geschakelde woning">Geschakelde woning</option>' +
-            '  <option value="Rijtjeswoning">Rijtjeswoning</option>' +
-            '</select>' +
-            '<label for="beide_personen_aanwezig_bij_gesprek_">Beide personen aanwezig</label>' +
-            '<select id="beide_personen_aanwezig_bij_gesprek_" class="swal2-input">' +
-            '  <option></option>' +
-            '  <option value="Ja">Ja</option>' +
-            '  <option value="Nee">Nee</option>' +
-            '  <option value="Alleenstaand">Alleenstaand</option>' +
-            '</select>' +
-            '<label for="wanneer_gaat_het_project_spelen_">Wanneer gaat het project spelen</label>' +
-            '<select id="wanneer_gaat_het_project_spelen_" class="swal2-input">' +
-            '  <option></option>' +
-            '  <option value="Binnen 3 maanden">Binnen 3 maanden</option>' +
-            '  <option value="3 tot 6 maanden">3 tot 6 maanden</option>' +
-            '  <option value="Langer dan 6 maanden">Langer dan 6 maanden</option>' +
-            '</select>' +
-            '<label for="dagdeel_bezoek">Dagdeel bezoek</label>' +
-            '<select id="dagdeel_bezoek" class="swal2-input">' +
-            '  <option></option>' +
-            '  <option value="Ochtend">Ochtend</option>' +
-            '  <option value="Middag">Middag</option>' +
-            '  <option value="Avond">Avond</option>' +
-            '</select>',
-          focusConfirm: false,
-          confirmButtonColor: '#2e3785',
-          preConfirm: () => {
-            let preForm: {type_woning: string, beide_personen_aanwezig_bij_gesprek_: string, wanneer_gaat_het_project_spelen_: string, dagdeel_bezoek: string} =
-              {
-                type_woning: (document.getElementById('type_woning') as HTMLInputElement).value,
-                beide_personen_aanwezig_bij_gesprek_: (document.getElementById('beide_personen_aanwezig_bij_gesprek_') as HTMLInputElement).value,
-                wanneer_gaat_het_project_spelen_: (document.getElementById('wanneer_gaat_het_project_spelen_') as HTMLInputElement).value,
-                dagdeel_bezoek: (document.getElementById('dagdeel_bezoek') as HTMLInputElement).value
-              };
-            console.log(preForm)
-            this.hubService.updateDeal(this.dealConfig.values.deal_id, {properties: preForm}).subscribe();
+        this.hubService.getDeal(this.dealConfig.values.deal_id).subscribe(deal => {
+          if (
+            !deal.properties.beide_personen_aanwezig_bij_gesprek_ ||
+            !deal.properties.type_woning ||
+            !deal.properties.dagdeel_bezoek ||
+            !deal.properties.wanneer_gaat_het_project_spelen_
+          ) {
+            this.openDealQuestions();
           }
         })
+        this.loading = false;
       }, error => {
         this.loading = false;
         this.error = 'Kon deal niet vinden.';
@@ -194,5 +155,57 @@ export class OverviewComponent implements OnInit {
       location.replace("/verkoop/formulier/" + this.dealConfig.values.deal_id + "/" + r.id)
     })
 
+  }
+
+  openDealQuestions() {
+    Swal.fire({
+      title: 'Sales vragen',
+      html:
+        '<label for="type_woning">Type woning</label>' +
+        '<select id="type_woning" class="swal2-input">' +
+        '  <option>Selecteer een optie</option>' +
+        '  <option value="Villa">Villa</option>' +
+        '  <option value="Vrijstaande woning">Vrijstaande woning</option>' +
+        '  <option value="Twee onder een kap">2-onder-1 kap</option>' +
+        '  <option value="Geschakelde woning">Geschakelde woning</option>' +
+        '  <option value="Rijtjeswoning">Rijtjeswoning</option>' +
+        '</select>' +
+        '<label for="beide_personen_aanwezig_bij_gesprek_">Beide personen aanwezig</label>' +
+        '<select id="beide_personen_aanwezig_bij_gesprek_" class="swal2-input">' +
+        '  <option>Selecteer een optie</option>' +
+        '  <option value="Ja">Ja</option>' +
+        '  <option value="Nee">Nee</option>' +
+        '  <option value="Alleenstaand">Alleenstaand</option>' +
+        '</select>' +
+        '<label for="wanneer_gaat_het_project_spelen_">Wanneer gaat het project spelen</label>' +
+        '<select id="wanneer_gaat_het_project_spelen_" class="swal2-input">' +
+        '  <option>Selecteer een optie</option>' +
+        '  <option value="Binnen 3 maanden">Binnen 3 maanden</option>' +
+        '  <option value="3 tot 6 maanden">3 tot 6 maanden</option>' +
+        '  <option value="Langer dan 6 maanden">Langer dan 6 maanden</option>' +
+        '</select>' +
+        '<label for="dagdeel_bezoek">Dagdeel bezoek</label>' +
+        '<select id="dagdeel_bezoek" class="swal2-input">' +
+        '  <option>Selecteer een optie</option>' +
+        '  <option value="Ochtend">Ochtend</option>' +
+        '  <option value="Middag">Middag</option>' +
+        '  <option value="Avond">Avond</option>' +
+        '</select>',
+      focusConfirm: false,
+      confirmButtonText: 'Opslaan',
+      confirmButtonColor: '#2e3785',
+      showCancelButton: true,
+      cancelButtonText: 'Later invullen',
+      preConfirm: () => {
+        let preForm: {type_woning: string, beide_personen_aanwezig_bij_gesprek_: string, wanneer_gaat_het_project_spelen_: string, dagdeel_bezoek: string} =
+          {
+            type_woning: (document.getElementById('type_woning') as HTMLInputElement).value,
+            beide_personen_aanwezig_bij_gesprek_: (document.getElementById('beide_personen_aanwezig_bij_gesprek_') as HTMLInputElement).value,
+            wanneer_gaat_het_project_spelen_: (document.getElementById('wanneer_gaat_het_project_spelen_') as HTMLInputElement).value,
+            dagdeel_bezoek: (document.getElementById('dagdeel_bezoek') as HTMLInputElement).value
+          };
+        this.hubService.updateDeal(this.dealConfig.values.deal_id, {properties: preForm}).subscribe();
+      }
+    })
   }
 }

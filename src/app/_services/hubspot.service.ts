@@ -3,6 +3,7 @@ import {HttpClient, HttpEvent, HttpRequest} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {DealConfig} from "../_models/hubspot/DealConfig";
 import {Observable} from "rxjs";
+import {Deal} from "../_models/hubspot/Deal";
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,15 @@ export class HubspotService {
   }
 
   getDeal(dealId: number) {
-    return this.http.get<DealConfig>(`${environment.apiUrl}/deals/${dealId}/configs`);
+    return this.http.get<Deal>(`${environment.apiUrl}/deals/${dealId}`);
   }
+
   updateDeal(dealId: number, deal: Object) {
     return this.http.put(`${environment.apiUrl}/deals/${dealId}`, deal);
+  }
+
+  getDealConfigs(dealId: number) {
+    return this.http.get<DealConfig>(`${environment.apiUrl}/deals/${dealId}/configs`);
   }
 
   createDealConfig(dealId: number, deal: DealConfig) {
