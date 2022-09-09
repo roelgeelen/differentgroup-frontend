@@ -53,7 +53,19 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       roles: [
-        EnumRoles.ADMIN
+        EnumRoles.ADMIN,
+        EnumRoles.ICT
+      ]
+    },
+  },
+  {
+    path: 'bestellen',
+    loadChildren: () => import('./_pages/bestellen/bestel.module').then(m => m.BestelModule),
+    canActivate: [AuthGuard],
+    data: {
+      roles: [
+        EnumRoles.ADMIN,
+        EnumRoles.ICT
       ]
     },
   },

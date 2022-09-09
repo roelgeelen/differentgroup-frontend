@@ -1,0 +1,23 @@
+<mat-toolbar color="accent">
+  <div *ngFor="let page of pages">
+    <ng-container *ngIf="page.pages">
+      <button mat-button [matMenuTriggerFor]="menu" *ngIf="hasPermission(page.roles)">{{page.title}}</button>
+      <mat-menu class="profile-menu" #menu="matMenu">
+        <div *ngFor="let sub of page.pages">
+          <a mat-menu-item *ngIf="hasPermission(sub.roles)" [routerLink]="sub.url">
+            <mat-icon>{{sub.icon}}</mat-icon>
+            {{sub.title}}</a>
+        </div>
+      </mat-menu>
+    </ng-container>
+    <ng-container *ngIf="!page.pages">
+      <button mat-button [routerLink]="page.url" *ngIf="hasPermission(page.roles)">{{page.title}}</button>
+    </ng-container>
+  </div>
+</mat-toolbar>
+<!-- graphs app container -->
+<div class="content">
+  <div class="layout-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

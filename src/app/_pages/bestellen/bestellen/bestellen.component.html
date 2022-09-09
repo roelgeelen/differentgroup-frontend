@@ -1,0 +1,4 @@
+<div class="d-flex">
+  <app-product-list class="w-100" (productAdded)="addProductToCart($event)" [products]="productList"></app-product-list>
+  <app-shopping-cart [products]="cartProductList" (productRemoved)="removeProduct($event)"></app-shopping-cart>
+</div>

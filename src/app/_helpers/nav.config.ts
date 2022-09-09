@@ -133,5 +133,33 @@ export const navConfig: Page[] = [
         ]
       }
     ]
+  },
+  {
+    url: 'bestellen',
+    title: 'Bestellen',
+    icon: '',
+    pages: [
+      {
+        url: '/bestellen',
+        title: 'Mijn bestellingen',
+        icon: '',
+        roles: []
+      },
+      {
+        url: '/bestellen/bestel',
+        title: 'Nieuwe bestelling',
+        icon: 'add',
+        roles: [
+
+        ]
+      },
+    ],
+    roles: []
+  },
+  {
+    url: '',
+    title: 'Bestellingen',
+    icon: '',
+    roles: []
   }
 ]

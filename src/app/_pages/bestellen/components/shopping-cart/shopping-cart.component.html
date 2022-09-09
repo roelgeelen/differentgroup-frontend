@@ -1,0 +1,20 @@
+<mat-card>
+  <h1>
+    <mat-icon>shopping_cart</mat-icon>
+    Winkelmandje ({{calcTotal()}})
+  </h1>
+  <hr>
+  <div class="cart-items">
+    <div *ngIf="products.length == 0">
+      Geen items gekozen.
+    </div>
+    <div *ngFor="let product of products" class="item d-flex justify-content-between">
+      <div class="item-name">{{product.name}}</div>
+      <input type="number" class="w-25" [(ngModel)]="product.num" min="0" (ngModelChange)="modelChanged(product)"/>
+      <button mat-raised-button color="primary" (click)="removeProduct(product)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+  <button mat-raised-button color="primary">Bestellen</button>
+</mat-card>
