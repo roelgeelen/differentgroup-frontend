@@ -79,6 +79,16 @@ export const algemeen: QuestionBase<string>[] = [
     ],
     validators: [Validators.required]
   }),
+  new RadioQuestion({
+    key: 'deur_bestellen',
+    label: 'Deur bestellen',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee'}
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
   new TextQuestion({
     label: 'Analoog afmetingen (in mm)',
     fields: [
@@ -300,7 +310,8 @@ export const binnenzijde: QuestionBase<string>[] = [
     key: 'kleuropties',
     label: 'Kleuropties (RAL)',
     options: [
-      {value: '9016 (standaard)'}
+      {value: '9016 (standaard)'},
+      {value: 'Gelijk aan kleur buitenzijde'},
     ],
     other: true,
     custom: '',
@@ -380,10 +391,10 @@ export const deur: QuestionBase<string>[] = [
     key: 'ventilatieroosters',
     label: 'Ventilatieroosters',
     options: [
-      {value:'N.v.t.'},
-      {value:'Actieve deurvleugel', article: 'ODO302'},
-      {value:'Passieve deurvleugel', article: 'ODO302'},
-      {value:'Beide deurvleugels', article: 'ODO302'},
+      {value: 'N.v.t.'},
+      {value: 'Actieve deurvleugel', article: 'ODO302'},
+      {value: 'Passieve deurvleugel', article: 'ODO302'},
+      {value: 'Beide deurvleugels', article: 'ODO302'},
     ],
     value: 'N.v.t.'
   })
@@ -446,6 +457,41 @@ export const glas: QuestionBase<string>[] = [
       field: 'glassectie',
       values: ['Horizontaal - HR++ helder glas', 'Horizontaal - HR++ melk glas', 'Verticaal - HR++ helder glas', 'Verticaal - HR++ melk glas']
     }]
+  }),
+  new RadioQuestion({
+    key: 'glasverdeling',
+    label: 'Glasverdeling',
+    options: [
+      {value: 'N.v.t.'},
+      {value: 'Aantal roedes', article: 'ODO204'},
+    ],
+    value: 'N.v.t.',
+    dependent: [
+      {
+        field: 'glassectie',
+        values: ['Horizontaal - HR++ helder glas', 'Horizontaal - HR++ melk glas', 'Verticaal - HR++ helder glas', 'Verticaal - HR++ melk glas']
+      }
+    ],
+  }),
+  new TextQuestion({
+    label: 'Aantal roedes',
+    fields: [
+      {
+        key: 'aantal_roedes',
+        label: 'Aantal',
+        type: 'number'
+      },
+    ],
+    dependent: [
+      {
+        field: 'glassectie',
+        values: ['Horizontaal - HR++ helder glas', 'Horizontaal - HR++ melk glas', 'Verticaal - HR++ helder glas', 'Verticaal - HR++ melk glas']
+      },
+      {
+        field: 'glasverdeling',
+        values: ['Aantal roedes']
+      }
+    ]
   })
 ]
 export const montage: QuestionBase<string>[] = [
