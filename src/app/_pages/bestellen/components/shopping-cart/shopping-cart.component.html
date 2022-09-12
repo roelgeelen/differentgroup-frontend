@@ -1,7 +1,7 @@
 <mat-card>
   <h1>
-    <mat-icon>shopping_cart</mat-icon>
-    Winkelmandje ({{calcTotal()}})
+    Winkelmandje
+    <mat-icon [matBadge]="calcTotal()" matBadgeOverlap=false matBadgeSize="medium">shopping_cart</mat-icon>
   </h1>
   <hr>
   <div class="cart-items">
