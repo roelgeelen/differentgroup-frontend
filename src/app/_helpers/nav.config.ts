@@ -137,12 +137,12 @@ export const navConfig: Page[] = [
   {
     url: 'bestellen',
     title: 'Bestellen',
-    icon: '',
+    icon: 'shopping_basket',
     pages: [
       {
         url: '/bestellen',
         title: 'Mijn bestellingen',
-        icon: '',
+        icon: 'reorder',
         roles: []
       },
       {
@@ -159,7 +159,7 @@ export const navConfig: Page[] = [
   {
     url: '',
     title: 'Bestellingen',
-    icon: '',
+    icon: 'shopping_basket',
     roles: []
   }
 ]
