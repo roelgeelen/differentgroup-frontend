@@ -164,6 +164,15 @@ export const buitenzijde: QuestionBase<string>[] = [
     other: true,
     custom: ''
   }),
+  new RadioQuestion({
+    key: 'stuiknaden',
+    label: 'Stuiknaden',
+    options: [
+      {value: 'N.v.t.'},
+      {value: 'Ja'},
+      {value: 'Nee'},
+    ]
+  }),
   new CheckboxQuestion({
     key: 'model_bekleding',
     label: 'Model bekleding',

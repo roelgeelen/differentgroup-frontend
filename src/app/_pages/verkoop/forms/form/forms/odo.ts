@@ -311,7 +311,7 @@ export const binnenzijde: QuestionBase<string>[] = [
     label: 'Kleuropties (RAL)',
     options: [
       {value: '9016 (standaard)'},
-      {value: 'Gelijk aan kleur buitenzijde'},
+      {value: 'Gelijk aan kleur buitenzijde', article: 'ODO309'},
     ],
     other: true,
     custom: '',
@@ -578,6 +578,10 @@ export const overige: QuestionBase<string>[] = [
   new TextareaQuestion({
     key: 'overige_opmerkingen_klant',
     label: 'Overige opmerkingen (klant)'
+  }),
+  new TextareaQuestion({
+    key: 'overige_opmerkingen_leverancier',
+    label: 'Overige opmerkingen (leverancier)'
   }),
   new TextareaQuestion({
     key: 'overige_opmerkingen_intern',
