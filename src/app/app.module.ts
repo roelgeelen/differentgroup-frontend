@@ -25,9 +25,10 @@ import {MatTreeModule} from "@angular/material/tree";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { BlogPostComponent } from './_components/blog-post/blog-post.component';
-import { SafeHtmlPipe } from './_helpers/safe-html.pipe';
-import {ErrorInterceptor} from "./_helpers/error.interceptor";
+import { SafeHtmlPipe } from './_helpers/pipes/safe-html.pipe';
+import {ErrorInterceptor} from "./_helpers/interceptors/error.interceptor";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MaxDeviationDirective} from "./_helpers/validators/max-deviation.directive";
 registerLocaleData(localeNl);
 
 @NgModule({
@@ -38,7 +39,8 @@ registerLocaleData(localeNl);
     NavbarComponent,
     BirthdayWidgetComponent,
     BlogPostComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    MaxDeviationDirective
   ],
   imports: [
     AppRoutingModule,
@@ -61,7 +63,7 @@ registerLocaleData(localeNl);
     MatSnackBarModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: [environment.apiUrl],
+        allowedUrls: [environment.apiUrl, environment.apiUrlTest],
         sendAccessToken: true
       }
     }),

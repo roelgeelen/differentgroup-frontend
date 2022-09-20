@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {PlanningComponent} from "./planning.component";
-import {AuthGuard} from "../../_helpers/auth.guard";
+import {AuthGuard} from "../../_helpers/guards/auth.guard";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {LogisticComponent} from "./logistic/logistic.component";
 import {ProductionComponent} from "./production/production.component";

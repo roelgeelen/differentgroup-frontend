@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {AdminComponent} from "./admin.component";
-import {AuthGuard} from "../../_helpers/auth.guard";
+import {AuthGuard} from "../../_helpers/guards/auth.guard";
 import {EnumRoles} from "../../_models/enum/enumRoles";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {PostsComponent} from "./posts/posts.component";

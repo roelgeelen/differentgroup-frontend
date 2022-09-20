@@ -2,11 +2,11 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {VerkoopComponent} from "./verkoop.component";
 import {AfsprakenComponent} from "./afspraken/afspraken.component";
-import {AuthGuard} from "../../_helpers/auth.guard";
+import {AuthGuard} from "../../_helpers/guards/auth.guard";
 import {InmetenComponent} from "./inmeten/inmeten.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {EnumRoles} from "../../_models/enum/enumRoles";
-import {EnumRouteGuard} from "../../_helpers/enum.route.guard";
+import {EnumRouteGuard} from "../../_helpers/guards/enum.route.guard";
 import {FormComponent} from "./forms/form/form.component";
 import {OverviewComponent} from "./forms/overview/overview.component";
 

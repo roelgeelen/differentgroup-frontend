@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import { Observable } from 'rxjs';
-import {FormsEnum} from "../_pages/verkoop/forms/dynamic-form/model/formsEnum";
+import {FormsEnum} from "../../_pages/verkoop/forms/dynamic-form/model/formsEnum";
 
 @Injectable({
   providedIn: 'root'

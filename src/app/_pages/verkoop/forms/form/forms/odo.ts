@@ -6,6 +6,7 @@ import {CheckboxQuestion} from "../../dynamic-form/controls/question-checkbox";
 import {TextareaQuestion} from "../../dynamic-form/controls/question-textarea";
 import {UploadQuestion} from "../../dynamic-form/controls/question-upload";
 import {Validators} from "@angular/forms";
+import {CalculationQuestion} from "../../dynamic-form/controls/question-calc";
 
 export const algemeen: QuestionBase<string>[] = [
   new TextQuestion({
