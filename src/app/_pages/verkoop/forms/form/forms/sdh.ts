@@ -30,6 +30,14 @@ export const algemeen: QuestionBase<string>[] = [
       }
     ]
   }),
+  new CheckboxQuestion({
+    key: 'begeleiding_project',
+    label: 'Begeleiding project',
+    options: [
+      {value: 'Uitvoerder'},
+      {value: 'Projectleider'}
+    ]
+  }),
   new TextQuestion({
     label: 'Uitvoerder',
     fields: [
@@ -48,6 +56,12 @@ export const algemeen: QuestionBase<string>[] = [
         label: 'E-mail',
         type: 'email',
         validators: [Validators.email]
+      }
+    ],
+    dependent: [
+      {
+        field: 'begeleiding_project',
+        values: ['Uitvoerder']
       }
     ]
   }),
@@ -69,15 +83,28 @@ export const algemeen: QuestionBase<string>[] = [
         label: 'E-mail',
         type: 'email'
       }
+    ],
+    dependent: [
+      {
+        field: 'begeleiding_project',
+        values: ['Projectleider']
+      }
     ]
   }),
   new TextQuestion({
     label: 'Verwachte leverweek',
-    fields: [{
-      key: 'verwachte_leverweek_klant',
-      label: 'Week',
-      type: 'number'
-    }],
+    fields: [
+      {
+        key: 'verwachte_leverweek_klant',
+        label: 'Week',
+        type: 'number'
+      },
+      {
+        key: 'verwachte_leverjaar_klant',
+        label: 'Jaar',
+        type: 'number'
+      }
+    ],
     toDeal: true
   }),
   new RadioQuestion({
@@ -88,10 +115,16 @@ export const algemeen: QuestionBase<string>[] = [
       {value: 'Ontwerp'},
       {value: 'Bouw gestart'},
       {value: 'Ruwbouw klaar'},
+    ],
+    toDeal: true
+  }),
+  new CheckboxQuestion({
+    key: 'status_project',
+    label: 'Status project',
+    options: [
       {value: 'Klaar om in te meten'},
       {value: 'Deur kan er al in'},
     ],
-    toDeal: true
   }),
   new RadioQuestion({
     key: 'type_sectionaaldeur',
@@ -105,9 +138,9 @@ export const algemeen: QuestionBase<string>[] = [
     key: 'draairichting_zijwaartse',
     label: 'Draairichting (van buiten uit gezien)',
     options: [
-      {value:'Links'},
-      {value:'Rechts'},
-      {value:'Beide', article: 'SDH300'},
+      {value: 'Links'},
+      {value: 'Rechts'},
+      {value: 'Beide', article: 'SDH300'},
     ],
     dependent: [
       {
@@ -120,20 +153,12 @@ export const algemeen: QuestionBase<string>[] = [
     key: 'deur_afmetingen',
     label: 'Afmetingen (in mm)',
     fields: [
-      {key: 'title', label: 'Sectionaaldeur', type: 'text'},
+      {key: 'title', label: 'Garagedeur', type: 'text'},
       {key: 'breedte', label: 'Breedte', type: 'number'},
       {key: 'hoogte', label: 'Hoogte', type: 'number'},
       {key: 'isEdit', label: '', type: 'isEdit'},
     ],
-    value: [{title: 'Sectionaaldeur 1', breedte: '', hoogte: ''}]
-  }),
-  new RadioQuestion({
-    key: 'garagedeur',
-    label: 'Garagedeur (Let op: bovenstaande maatvoering is niet de definitieve bestelmaat)',
-    options: [
-      {value: 'Offertemaatvoering'},
-      {value: 'Definitieve maatvoering'},
-    ]
+    value: [{title: 'Garagedeur', breedte: '', hoogte: ''}]
   })
 ];
 
@@ -177,12 +202,12 @@ export const buitenzijde: QuestionBase<string>[] = [
     key: 'model_bekleding',
     label: 'Model bekleding',
     options: [
-      {value: 'Delen (planken)', article: 'SDH400'},
-      {value: 'Latten', article: 'SDH400'},
+      {value: 'Delen (planken)'},
+      {value: 'Latten'},
       {value: 'Aangeleverde delen of latten'},
-      {value: 'Trespa', article: 'SDH400'},
-      {value: 'Bossing', article: 'SDH400'},
-      {value: 'Sierlijsten', article: 'SDH400'},
+      {value: 'Trespa'},
+      {value: 'Bossing'},
+      {value: 'Sierlijsten'},
       {value: 'Slaglat', article: 'SDH403'},
       {value: 'Weldorpel', article: 'SDH404'},
       {value: 'Neutje', article: 'SDH405'},
@@ -257,7 +282,7 @@ export const buitenzijde: QuestionBase<string>[] = [
 
 export const binnenzijde: QuestionBase<string>[] = [
   new RadioQuestion({
-    key: 'deurblad',//
+    key: 'deurblad',
     label: 'Binnenzijde deurblad (Tweemaal gegrond)',
     options: [
       {value: 'Transparant'},
@@ -285,9 +310,29 @@ export const binnenzijde: QuestionBase<string>[] = [
     label: 'Rails',
     options: [
       {value: 'Standaard gegalvaniseerd'},
+    ],
+    value: 'Standaard gegalvaniseerd',
+    dependent:[
+      {
+        field: 'type_sectionaaldeur',
+        values: ['Zijwaartse sectionaaldeur']
+      }
+    ]
+  }),
+  new RadioQuestion({
+    key: 'rails',
+    label: 'Rails',
+    options: [
+      {value: 'Standaard gegalvaniseerd'},
       {value: 'Op kleur', article: 'SDH100'},
     ],
-    value: 'Standaard gegalvaniseerd'
+    value: 'Standaard gegalvaniseerd',
+    dependent:[
+      {
+        field: 'type_sectionaaldeur',
+        values: ['Sectionaaldeur']
+      }
+    ]
   }),
   new TextQuestion({
     label: 'Op kleur (rails)',
@@ -503,7 +548,7 @@ export const gevelbekleding: QuestionBase<string>[] = [
     label: 'Aanbrengen gevelbekleding',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Door Different Doors (Zie arcering)', article: 'SDH402'},
+      {value: 'Door Different Doors (Zie gele arcering in foto)', article: 'SDH402'},
       {value: 'Door klant maar productie door Different Doors', article: 'SDH402'},
       {value: 'Door de klant', article: 'SDH401'},
     ]
@@ -547,7 +592,8 @@ export const montage: QuestionBase<string>[] = [
       {value: 'Afvoer DD', article: 'SDH602'},
       {value: 'Demontage door klant'},
       {value: 'Afvoer door klant'}
-    ]
+    ],
+    value: ['N.v.t.']
   }),
   new RadioQuestion({
     key: 'type_deur',
@@ -558,7 +604,8 @@ export const montage: QuestionBase<string>[] = [
       {value: 'Kanteldeur'},
       {value: 'Houten kozijn en deuren'},
       {value: 'Rolluik'}
-    ]
+    ],
+    value: 'N.v.t.'
   }),
   new RadioQuestion({
     key: 'bouwkundig_aanpassingen',
@@ -595,11 +642,11 @@ export const media: QuestionBase<string>[] = [
   }),
   new UploadQuestion({
     key: 'fb1',
-    label: 'Foto buitenzijde deur'
+    label: 'Foto overig'
   }),
   new UploadQuestion({
     key: 'fb2',
-    label: 'Foto binnenzijde deur'
+    label: 'Foto overig'
   })
 ];
 export const sdh: TabBase[] = [

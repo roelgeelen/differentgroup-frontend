@@ -59,7 +59,6 @@ export class FormComponent implements OnInit {
     if (configId != null) {
       this.loading = true;
       this.hubService.getConfig(this.dealId, configId).subscribe(deal => {
-        console.log(deal)
         this.dealConfig = deal;
         this.dealConfig.values.adviseur = this.currentUser.name;
         this.page = this.getFormPage(this.dealConfig.values.title);
