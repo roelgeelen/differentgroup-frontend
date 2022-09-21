@@ -28,6 +28,14 @@ export const algemeen: QuestionBase<string>[] = [
       }
     ]
   }),
+  new CheckboxQuestion({
+    key: 'begeleiding_project',
+    label: 'Begeleiding project',
+    options: [
+      {value: 'Uitvoerder'},
+      {value: 'Projectleider'}
+    ]
+  }),
   new TextQuestion({
     label: 'Uitvoerder',
     fields: [
@@ -46,6 +54,12 @@ export const algemeen: QuestionBase<string>[] = [
         label: 'E-mail',
         type: 'email',
         validators: [Validators.email]
+      }
+    ],
+    dependent: [
+      {
+        field: 'begeleiding_project',
+        values: ['Uitvoerder']
       }
     ]
   }),
@@ -67,6 +81,12 @@ export const algemeen: QuestionBase<string>[] = [
         label: 'E-mail',
         type: 'email',
         validators: [Validators.email]
+      }
+    ],
+    dependent: [
+      {
+        field: 'begeleiding_project',
+        values: ['Projectleider']
       }
     ]
   }),
@@ -332,6 +352,7 @@ export const glas: QuestionBase<string>[] = [
       {value: 'Glas links naast de deur'},
       {value: 'Glas rechts naast de deur'},
       {value: 'Glas in de deur'},
+      {value: 'Glas boven de deur'},
     ],
     value: ['N.v.t.']
   }),
@@ -348,7 +369,7 @@ export const glas: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'glassectie',
-        values: ['Glas links naast de deur', 'Glas rechts naast de deur', 'Glas in de deur']
+        values: ['Glas links naast de deur', 'Glas rechts naast de deur', 'Glas in de deur', 'Glas boven de deur']
       }
     ]
   }),
@@ -358,7 +379,7 @@ export const glas: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'glassectie',
-        values: ['Glas links naast de deur', 'Glas rechts naast de deur', 'Glas in de deur']
+        values: ['Glas links naast de deur', 'Glas rechts naast de deur', 'Glas in de deur', 'Glas boven de deur']
       }
     ]
   })
@@ -400,6 +421,7 @@ export const afwerking: QuestionBase<string>[] = [
       {value: 'Enkel tussen kozijn en muur afpurren'},
       {value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)'},
       {value: 'Multipaint volledig (exclusief schilderen)'},
+      {value: 'Afwerking door aannemer'},
     ],
     value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)'
   }),

@@ -28,6 +28,14 @@ export const algemeen: QuestionBase<string>[] = [
       }
     ]
   }),
+  new CheckboxQuestion({
+    key: 'begeleiding_project',
+    label: 'Begeleiding project',
+    options: [
+      {value: 'Uitvoerder'},
+      {value: 'Projectleider'}
+    ]
+  }),
   new TextQuestion({
     label: 'Uitvoerder',
     fields: [
@@ -46,6 +54,12 @@ export const algemeen: QuestionBase<string>[] = [
         label: 'E-mail',
         type: 'email',
         validators: [Validators.email]
+      }
+    ],
+    dependent: [
+      {
+        field: 'begeleiding_project',
+        values: ['Uitvoerder']
       }
     ]
   }),
@@ -67,6 +81,12 @@ export const algemeen: QuestionBase<string>[] = [
         label: 'E-mail',
         type: 'email',
         validators: [Validators.email]
+      }
+    ],
+    dependent: [
+      {
+        field: 'begeleiding_project',
+        values: ['Projectleider']
       }
     ]
   }),

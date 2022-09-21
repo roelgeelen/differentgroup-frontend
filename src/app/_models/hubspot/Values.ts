@@ -111,6 +111,9 @@ export class Values {
   aantal_losse_ontvanger: string;
   type_glas: string;
   ventilatieroosters: string;
+  begeleiding_project: string;
+  verwachte_leverjaar_klant: string;
+  status_project: string;
   configuraties: {id: number, type: string}[];
   public constructor(init?: Partial<Values>) {
     Object.assign(this, init);
