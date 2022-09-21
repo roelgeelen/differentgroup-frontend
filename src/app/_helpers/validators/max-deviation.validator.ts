@@ -1,13 +1,16 @@
-import { FormGroup } from '@angular/forms';
+import {FormGroup, ValidatorFn} from '@angular/forms';
 
 // custom validator to check that two fields match
-export function MaxDeviation(controlName: string, deviation: string, deviationControlName: string, deviationControlName2?: string) {
+export function maxDeviation(controlName: string, deviation: string, deviationControlName: string, deviationControlName2?: string): ValidatorFn {
   // @ts-ignore
   return (formGroup: FormGroup) => {
+    console.log(formGroup.controls)
     const control = formGroup.controls[controlName];
-    const deviationControl = formGroup.controls[deviationControlName];
+    let controlValue = formGroup.controls[controlName].value;
+    let deviationControl = formGroup.controls[deviationControlName].value;
+    let deviationControl2 = 0;
     if (deviationControlName2 !== undefined) {
-      const deviationControl2 = formGroup.controls[deviationControlName2];
+      deviationControl2 = formGroup.controls[deviationControlName2].value;
     }
 
     // return null if controls haven't initialised yet
@@ -20,11 +23,13 @@ export function MaxDeviation(controlName: string, deviation: string, deviationCo
       return null;
     }
 
+    let value = deviationControl + (deviationControl - deviationControl2);
+console.log(value);
     // set error on matchingControl if validation fails
-    if (control.value !== matchingControl.value) {
-      matchingControl.setErrors({ mustMatch: true });
+    if (control.value !== value) {
+      control.setErrors({ mustMatch: true });
     } else {
-      matchingControl.setErrors(null);
+      control.setErrors(null);
     }
   }
 }

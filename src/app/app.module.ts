@@ -28,7 +28,6 @@ import { BlogPostComponent } from './_components/blog-post/blog-post.component';
 import { SafeHtmlPipe } from './_helpers/pipes/safe-html.pipe';
 import {ErrorInterceptor} from "./_helpers/interceptors/error.interceptor";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
-import {MaxDeviationDirective} from "./_helpers/validators/max-deviation.directive";
 registerLocaleData(localeNl);
 
 @NgModule({
@@ -39,8 +38,7 @@ registerLocaleData(localeNl);
     NavbarComponent,
     BirthdayWidgetComponent,
     BlogPostComponent,
-    SafeHtmlPipe,
-    MaxDeviationDirective
+    SafeHtmlPipe
   ],
   imports: [
     AppRoutingModule,
