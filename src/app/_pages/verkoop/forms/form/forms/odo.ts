@@ -7,6 +7,7 @@ import {TextareaQuestion} from "../../dynamic-form/controls/question-textarea";
 import {UploadQuestion} from "../../dynamic-form/controls/question-upload";
 import {Validators} from "@angular/forms";
 import {maxDeviation} from "../../../../../_helpers/validators/max-deviation.validator";
+import {max} from "rxjs";
 
 export const algemeen: QuestionBase<string>[] = [
   new TextQuestion({
@@ -151,7 +152,7 @@ export const algemeen: QuestionBase<string>[] = [
         key: 'breedte',
         label: 'Breedte',
         type: 'number',
-        validators: [Validators.required, Validators.max(3000), maxDeviation('breedte', '10', 'analoog_breedte', 'digitaal_breedte')]
+        validators: [Validators.required, Validators.max(3000), max(this.form.controls['maat_tussen_latei'].value)]
       },
       {
         key: 'hoogte',
