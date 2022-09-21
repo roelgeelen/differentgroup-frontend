@@ -248,8 +248,10 @@ export class FormComponent implements OnInit {
       questions.push(...element.questions.filter(q => q.controlType == 'checkbox' || q.controlType == 'table'));
     });
     questions.forEach(q => {
-      // @ts-ignore
-      this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values] != '' ? JSON.parse(this.dealConfig.values[q.key as keyof Values]) : [];
+      if (this.dealConfig.values[q.key as keyof Values] !== undefined) {
+        // @ts-ignore
+        this.dealConfig.values[q.key] = this.dealConfig.values[q.key as keyof Values] != '' ? JSON.parse(this.dealConfig.values[q.key as keyof Values]) : [];
+      }
     })
   }
 
