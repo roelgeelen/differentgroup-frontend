@@ -8,6 +8,75 @@ import {TextareaQuestion} from "../../dynamic-form/controls/question-textarea";
 import {UploadQuestion} from "../../dynamic-form/controls/question-upload";
 import {CalculationQuestion} from "../../dynamic-form/controls/question-calc";
 
+export const sales: QuestionBase<string>[] = [
+  new RadioQuestion({
+    key: 'type_woning',
+    label: 'Type woning',
+    options: [
+      {value: '2-onder-1-kap/geschakelde woning'},
+      {value: 'Vrijstaande woning'},
+      {value: 'Rijtjeswoning'},
+      {value: 'Drive-in-woning'},
+      {value: 'Overig'}
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'beide_personen_aanwezig_bij_gesprek_',
+    label: 'Beide bewoners bij gesprek aanwezig?',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee'}
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'situatie',
+    label: 'Situatie',
+    options: [
+      {value: 'Nieuwbouw'},
+      {value: 'Vervangen oude garagedeur'}
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'garage_aangrenzend_aan_woning',
+    label: 'Garage aangrenzend aan woning',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee, losstaande garage'}
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'leeftijdsschatting',
+    label: 'Leeftijdsschatting',
+    options: [
+      {value: '< 30'},
+      {value: '30-40'},
+      {value: '40-50'},
+      {value: '50-60'},
+      {value: '60-70'},
+      {value: '70 >'},
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'thuiswonende_kinderen',
+    label: 'Thuiswonende kinderen?',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee'}
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+]
 export const algemeen: QuestionBase<string>[] = [
   new TextQuestion({
     label: 'Afwijkend montage adres',
@@ -569,6 +638,10 @@ export const media: QuestionBase<string>[] = [
   })
 ]
 export const odhd: TabBase[] = [
+  {
+    label: "Sales vragen",
+    questions: sales
+  },
   {
     label: "Algemeen",
     questions: algemeen

@@ -78,7 +78,7 @@ export class DynamicFormQuestionComponent {
         })
       } else {
         // @ts-ignore
-        properties[this.question.key] = this.form.controls[this.question.key].value;
+        properties[this.question.key] = Array.isArray(this.form.controls[this.question.key].value) ? this.form.controls[this.question.key].value.join(';') : this.form.controls[this.question.key].value;
       }
 
       this.hubService.updateDeal(this.dealConfig.values.deal_id, {properties: properties}).subscribe();

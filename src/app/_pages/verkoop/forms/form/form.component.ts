@@ -196,7 +196,7 @@ export class FormComponent implements OnInit {
         if (afm.hoogte > 2500) {
           maat++;
         }
-        if (this.form.controls['type_sectionaaldeur'].value != 'type_sectionaaldeur') {
+        if (this.form.controls['type_sectionaaldeur'].value != 'Zijwaartse sectionaaldeur') {
           articles.push('SDH' + (maat + 100))
         }
         articles.push('SDH0' + ('0' + maat).slice(-2));

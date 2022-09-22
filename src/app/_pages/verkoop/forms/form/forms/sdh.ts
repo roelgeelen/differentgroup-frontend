@@ -9,6 +9,65 @@ import {Validators} from "@angular/forms";
 import {CalculationQuestion} from "../../dynamic-form/controls/question-calc";
 import {TableQuestion} from "../../dynamic-form/controls/question-table";
 
+export const sales: QuestionBase<string>[] = [
+  new CheckboxQuestion({
+    key: 'wie_is_er_bij_het_gesprek_aanwezig',
+    label: 'Wie is er bij het gesprek aanwezig?',
+    options: [
+      {value: 'Eindklant'},
+      {value: 'Aannemer/bouwbegeleider'},
+      {value: 'Architect'},
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'geschatte_woningwaarde',
+    label: 'Geschatte woningwaarde',
+    options: [
+      {value: '250 duizend – 500 duizend'},
+      {value: '500 duizend – 1 miljoen'},
+      {value: '> 1 miljoen'},
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'situatie',
+    label: 'Situatie',
+    options: [
+      {value: 'Nieuwbouw'},
+      {value: 'Vervangen oude garagedeur'}
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'wanneer_gaat_het_project_spelen_',
+    label: 'Gewenste levertijd',
+    options: [
+      {value: 'Binnen 3 maanden'},
+      {value: '3 tot 6 maanden'},
+      {value: 'Langer dan 6 maanden'},
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'leeftijdsschatting',
+    label: 'Leeftijdsschatting',
+    options: [
+      {value: '< 30'},
+      {value: '30-40'},
+      {value: '40-50'},
+      {value: '50-60'},
+      {value: '60-70'},
+      {value: '70 >'},
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+]
 export const algemeen: QuestionBase<string>[] = [
   new TextQuestion({
     label: 'Afwijkend montage adres',
@@ -125,6 +184,7 @@ export const algemeen: QuestionBase<string>[] = [
       {value: 'Klaar om in te meten'},
       {value: 'Deur kan er al in'},
     ],
+    toDeal: true
   }),
   new RadioQuestion({
     key: 'type_sectionaaldeur',
@@ -650,6 +710,10 @@ export const media: QuestionBase<string>[] = [
   })
 ];
 export const sdh: TabBase[] = [
+  {
+    label: "Sales vragen",
+    questions: sales
+  },
   {
     label: "Algemeen",
     questions: algemeen
