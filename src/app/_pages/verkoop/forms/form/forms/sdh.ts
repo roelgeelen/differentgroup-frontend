@@ -63,6 +63,7 @@ export const sales: QuestionBase<string>[] = [
       {value: '50-60'},
       {value: '60-70'},
       {value: '70 >'},
+      {value: 'Niet bekend'},
     ],
     toDeal: true,
     validators: [Validators.required]
