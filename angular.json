@@ -35,9 +35,7 @@
               "src/styles.scss",
               "node_modules/sweetalert2/src/sweetalert2.scss"
             ],
-            "scripts": [
-              "./node_modules/canvas-confetti/src/confetti.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
