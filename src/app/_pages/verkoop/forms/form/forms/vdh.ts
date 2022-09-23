@@ -109,10 +109,10 @@ export const algemeen: QuestionBase<string>[] = [
       {value: 'Ja', article: 'VDH102'},
       {value: 'Nee'},
     ],
-    dependent:[
+    dependent: [
       {
         field: 'model',
-        values:['Bestaand kozijn']
+        values: ['Bestaand kozijn']
       }
     ]
   }),
@@ -292,12 +292,13 @@ export const binnen: QuestionBase<string>[] = [
 export const deur: QuestionBase<string>[] = [
   new RadioQuestion({
     key: 'type_dorpel',
-    label:'Type dorpel (Ondersabelen door klant na montage)',
+    label: 'Type dorpel (Ondersabelen door klant na montage)',
     options: [
-      {value:'DTS'},
-      {value:'Natuursteen'},
-      {value:'Valdorpel (let op: dicht niet volledig af)'},
-      {value: 'Door klant'}
+      {value: 'N.v.t.'},
+      {value: 'DTS'},
+      {value: 'Natuursteen'},
+      {value: 'Valdorpel (let op: dicht niet volledig af)'},
+      {value: 'Door klant'},
     ]
   }),
   new RadioQuestion({
@@ -417,6 +418,7 @@ export const afwerking: QuestionBase<string>[] = [
     key: 'aftimmering_binnenzijde',
     label: 'Aftimmering binnenzijde',
     options: [
+      {value: 'N.v.t.'},
       {value: 'Klant kiest voor geen binnenaftimmering'},
       {value: 'Enkel tussen kozijn en muur afpurren'},
       {value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)'},
