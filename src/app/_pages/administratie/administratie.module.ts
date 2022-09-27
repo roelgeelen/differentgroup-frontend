@@ -5,6 +5,8 @@ import {CommonModule} from "@angular/common";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
+import {FinancieelComponent} from "./financieel/financieel.component";
+import {OrderComponent} from "./order/order.component";
 
 @NgModule({
   imports: [
@@ -16,6 +18,8 @@ import {MatButtonModule} from "@angular/material/button";
   declarations: [
     AdministratieComponent,
     DashboardComponent,
+    FinancieelComponent,
+    OrderComponent
   ],
   exports: [
     AdministratieComponent

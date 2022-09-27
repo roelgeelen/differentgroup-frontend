@@ -103,6 +103,26 @@ export const navConfig: Page[] = [
     roles: [
       EnumRoles.ADMINISTRATION,
       EnumRoles.ICT
+    ],
+    pages: [
+      {
+        url: '/administratie/financieel',
+        title: 'Financieel raport',
+        icon: 'attach_money',
+        roles: [
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.ICT
+        ]
+      },
+      {
+        url: '/administratie/order',
+        title: 'Order overzicht',
+        icon: 'pie_chart',
+        roles: [
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.ICT
+        ]
+      }
     ]
   },
   {
