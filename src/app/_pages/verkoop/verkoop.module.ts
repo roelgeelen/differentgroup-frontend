@@ -29,6 +29,8 @@ import {FormComponent} from "./forms/form/form.component";
 import {ImageDrawingModule} from "ngx-image-drawing";
 import {MatSelectModule} from "@angular/material/select";
 import {OverviewComponent} from "./forms/overview/overview.component";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   imports: [
@@ -56,6 +58,8 @@ import {OverviewComponent} from "./forms/overview/overview.component";
     MatProgressBarModule,
     ImageDrawingModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [
     VerkoopComponent,
@@ -71,4 +75,5 @@ import {OverviewComponent} from "./forms/overview/overview.component";
     MatTabsModule,
   ]
 })
-export class VerkoopModule {}
+export class VerkoopModule {
+}

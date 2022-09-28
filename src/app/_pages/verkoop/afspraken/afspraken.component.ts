@@ -5,6 +5,9 @@ import {Appointment} from "../../../_models/appointment/Appointment";
 import {ApiService} from "../../../_services/api.service";
 import {formatDate} from "@angular/common";
 import {Calendar} from "../../../_models/calendar/Calendar";
+import {MAT_DATE_RANGE_SELECTION_STRATEGY} from "@angular/material/datepicker";
+import {WeekRangeSelectionStrategy} from "../../../_helpers/weekRangeSelection.strategy";
+import {DateAdapter, NativeDateAdapter} from "@angular/material/core";
 
 const calendars: Calendar[] = [
   {
@@ -32,12 +35,25 @@ const calendars: Calendar[] = [
     id: '364617441',
     color: 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png'
   }
-]
+];
+
+export class CustomDateAdapter extends NativeDateAdapter {
+  override getFirstDayOfWeek(): number {
+    return 1
+  }
+}
 
 @Component({
   selector: 'app-afspraken',
   templateUrl: './afspraken.component.html',
-  styleUrls: ['./afspraken.component.scss']
+  styleUrls: ['./afspraken.component.scss'],
+  providers: [
+    {
+      provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
+      useClass: WeekRangeSelectionStrategy
+    },
+    { provide: DateAdapter, useClass: CustomDateAdapter },
+  ]
 })
 export class AfsprakenComponent implements OnInit {
   @ViewChild('mapSearchField') searchField: ElementRef;
@@ -63,6 +79,8 @@ export class AfsprakenComponent implements OnInit {
   address: string = '';
   loadingCals = false;
   distance: number = 25;
+  start: Date;
+  end: Date;
   formatLabel(value: number) {
     if (value >= 10) {
       return value + 'km';
@@ -108,7 +126,7 @@ export class AfsprakenComponent implements OnInit {
       });
       this.center.lat = bounds.getCenter().lat();
       this.center.lng = bounds.getCenter().lng();
-      this.onSearch();
+      //this.onSearch();
       this.map.fitBounds(bounds);
     });
   }
@@ -145,12 +163,12 @@ export class AfsprakenComponent implements OnInit {
   }
 
   onSearch() {
-    if (this.address === '' || this.owners.length === 0) {
+    if (this.address === '' || this.owners.length === 0 || this.start === undefined) {
       return;
     }
 
     this.loading = true;
-    this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, this.owners, this.distance).subscribe(apos => {
+    this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, this.owners, this.distance, this.start.toISOString(), this.end.toISOString()).subscribe(apos => {
       this.markers = [];
       this.appointments = apos;
       apos.forEach(apo => {

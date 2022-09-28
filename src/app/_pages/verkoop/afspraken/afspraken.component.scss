@@ -43,6 +43,14 @@ mat-spinner {
 }
 
 ::ng-deep {
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+    margin-left: 11px;
+  }
+  .mat-date-range-input-inner[disabled] {
+    color: rgba(0, 0, 0, 1);
+  }
+
   .mat-slider.mat-slider-horizontal .mat-slider-wrapper {
     top: 15px;
   }
