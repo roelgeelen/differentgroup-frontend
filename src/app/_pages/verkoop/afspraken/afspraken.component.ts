@@ -163,7 +163,7 @@ export class AfsprakenComponent implements OnInit {
   }
 
   onSearch() {
-    if (this.address === '' || this.owners.length === 0 || this.start === undefined) {
+    if (this.address === '' || this.owners.length === 0 || this.end === undefined) {
       return;
     }
 

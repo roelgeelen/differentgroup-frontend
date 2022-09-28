@@ -9,8 +9,8 @@
   <mat-form-field appearance="fill">
     <mat-label>Selecteer een week</mat-label>
     <mat-date-range-input [rangePicker]="picker" disabled>
-      <input matStartDate placeholder="Start datum" [(ngModel)]="start" (dateChange)="onSearch()">
-      <input matEndDate placeholder="Eind datum" [(ngModel)]="end">
+      <input matStartDate placeholder="Start datum" [(ngModel)]="start">
+      <input matEndDate placeholder="Eind datum" [(ngModel)]="end" (dateChange)="onSearch()">
     </mat-date-range-input>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>
