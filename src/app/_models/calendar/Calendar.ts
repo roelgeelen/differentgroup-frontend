@@ -1,5 +1,6 @@
 export class Calendar {
   id: string;
   name: string;
-  color: string;
+  icon: string;
+  color: {primary: string, secondary: string}
 }

@@ -31,6 +31,10 @@ import {MatSelectModule} from "@angular/material/select";
 import {OverviewComponent} from "./forms/overview/overview.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import {CalendarModule, DateAdapter} from "angular-calendar";
+import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
   imports: [
@@ -59,7 +63,13 @@ import {MatNativeDateModule} from "@angular/material/core";
     ImageDrawingModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    MatChipsModule,
+    MatAutocompleteModule,
   ],
   declarations: [
     VerkoopComponent,
