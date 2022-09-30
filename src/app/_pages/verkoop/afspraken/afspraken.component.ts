@@ -18,7 +18,7 @@ import {WeekRangeSelectionStrategy} from "../../../_helpers/weekRangeSelection.s
 import {DateAdapter, NativeDateAdapter} from "@angular/material/core";
 import {CalendarDateFormatter, CalendarEvent} from "angular-calendar";
 import {Observable, startWith, map, Subject} from 'rxjs';
-import {startOfWeek, endOfWeek, addHours} from 'date-fns';
+import {startOfWeek, endOfWeek, addHours, subHours} from 'date-fns';
 import {CustomDateAdapter, CustomDateFormatter} from "./custom-date-formatter.provider";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {FormControl} from "@angular/forms";
@@ -217,22 +217,24 @@ export class AfsprakenComponent implements OnInit {
       this.appointments.forEach(apo => {
         // @ts-ignore
         const pointer: Calendar = calendars.find(({name}) => name === apo.organizer.emailAddress.name.split(' | ')[0]);
-        this.markers.push({
-          position: {
-            lat: +apo.location.coordinates.latitude,
-            lng: +apo.location.coordinates.longitude,
-          },
-          label: {
-            color: 'black',
-            text: apo.subject,
-          },
-          title: apo.location.displayName,
-          info: formatDate(apo.start.dateTime + 'Z', 'EEEE, dd MMMM, HH:mm', 'nl-NL'),
-          options: {
-            icon: pointer.icon,
-            animation: google.maps.Animation.DROP,
-          },
-        })
+        if (pointer != undefined) {
+          this.markers.push({
+            position: {
+              lat: +apo.location.coordinates.latitude,
+              lng: +apo.location.coordinates.longitude,
+            },
+            label: {
+              color: 'black',
+              text: apo.subject,
+            },
+            title: apo.location.displayName,
+            info: formatDate(apo.start.dateTime + 'Z', 'EEEE, dd MMMM, HH:mm', 'nl-NL'),
+            options: {
+              icon: pointer.icon,
+              animation: google.maps.Animation.DROP,
+            },
+          })
+        }
       });
 
       setTimeout(() => {
@@ -252,13 +254,15 @@ export class AfsprakenComponent implements OnInit {
       // @ts-ignore
       const pointer: Calendar = calendars.find(({name}) => name === apo.organizer.emailAddress.name.split(' | ')[0]);
       if (pointer != undefined) {
+        const duration = (new Date(apo.end.dateTime).getTime() - new Date(apo.start.dateTime).getTime());
         newEvents.push({
           id: apo.location.displayName,
           title: (apo.distance < 500 ? '(' + Math.round(60 * (apo.distance / 50)) + ' min) ' : '') + apo.subject,
           color: pointer.color,
           cssClass: apo.distance < this.distance ? 'nearby' : '',
           start: addHours(new Date(apo.start.dateTime), new Date(apo.start.dateTime).getTimezoneOffset() / -60),
-          end: addHours(new Date(apo.end.dateTime), new Date(apo.end.dateTime).getTimezoneOffset() / -60),
+          end: duration > 86300000 ? subHours(new Date(apo.end.dateTime), 1) :addHours(new Date(apo.end.dateTime), new Date(apo.end.dateTime).getTimezoneOffset() / -60),
+          allDay: duration > 86300000
         })
       }
     })
