@@ -2,9 +2,7 @@
   <div class="text-center w-100" *ngIf="loadingCals">
     <mat-spinner diameter="50"></mat-spinner>
   </div>
-  <!--  <mat-button-toggle-group class="w-100" *ngIf="!loadingCals" name="fontStyle" aria-label="Font Style" [(ngModel)]="owners" multiple>-->
-  <!--    <mat-button-toggle class="flex-grow-1 mat-accent" *ngFor="let calendar of calendars" [value]="calendar.id" (change)="onSearch()"><img [src]="calendar.icon" height="20px">{{calendar.name}}</mat-button-toggle>-->
-  <!--  </mat-button-toggle-group>-->
+
   <mat-form-field class="w-100" appearance="fill">
     <mat-label>Agenda's</mat-label>
     <mat-chip-list #chipList aria-label="Fruit selection">
@@ -118,31 +116,6 @@
   (eventClicked)="selectPoint($event.event)"
   [weekStartsOn]="1">
 </mwl-calendar-week-view>
-<!--<table class="table table-striped table-hover">-->
-<!--  <thead>-->
-<!--  <tr>-->
-<!--    <th scope="col">#</th>-->
-<!--    <th scope="col">Datum</th>-->
-<!--    <th scope="col">Adviseur</th>-->
-<!--    <th scope="col">Adres</th>-->
-<!--    <th scope="col">Afspraak</th>-->
-<!--    <th scope="col">Afstand</th>-->
-<!--  </tr>-->
-<!--  </thead>-->
-<!--  <tbody *ngIf="!loading">-->
-<!--  <tr *ngFor="let appointment of appointments; index as i" (click)="selectPoint(appointment)" [class]="appointment.selected ? 'selected' : ''">-->
-<!--    <th scope="row">{{ i + 1 }}</th>-->
-<!--    <td>{{ appointment.start.dateTime+'Z' | date: 'EEEE, dd MMMM, HH:mm' }}</td>-->
-<!--    <td>{{ appointment.organizer.emailAddress.name }}</td>-->
-<!--    <td>{{ appointment.location.displayName }}</td>-->
-<!--    <td>{{ appointment.subject }}</td>-->
-<!--    <td>{{ appointment.distance | number:'1.0-0' }}km (~{{60 * (appointment.distance / 50) | number:'1.0-0' }} min)</td>-->
-<!--  </tr>-->
-<!--  <tr *ngIf="appointments.length === 0">-->
-<!--    <td colspan="6" class="text-center">Niks gevonden!</td>-->
-<!--  </tr>-->
-<!--  </tbody>-->
-<!--</table>-->
 <div class="text-center w-100" *ngIf="loading">
   <mat-spinner></mat-spinner>
 </div>
