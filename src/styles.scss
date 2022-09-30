@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @use "assets/theme/theme.scss" as theme;
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 
 @include mat.core();
 
