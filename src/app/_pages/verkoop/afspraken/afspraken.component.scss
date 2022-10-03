@@ -67,6 +67,11 @@ mat-spinner {
       border: 4px solid #00d10e !important;
     }
   }
+  .cal-event {
+    img {
+      height: 20px;
+    }
+  }
   .filter {
     .search-filter {
       mat-form-field {
@@ -121,18 +126,5 @@ mat-spinner {
   .loading {
     height: 40px;
     width: 40px;
-  }
-}
-
-.table tr {
-  &:hover {
-    cursor: pointer;
-  }
-  &.selected {
-    background-color: #049693 !important;
-
-    td {
-      color: white;
-    }
   }
 }

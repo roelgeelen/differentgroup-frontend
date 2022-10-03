@@ -1,0 +1,10 @@
+<h1>{{data.title}}</h1>
+<div>{{data.start | date: "dd-MM-yyyy HH:mm"}} / {{data.end | date: "HH:mm"}}</div>
+<hr>
+<h3 *ngIf="data.id">Adres: {{data.id}}</h3>
+<mat-dialog-content class="mat-typography">
+  <div *ngIf="data.meta" [innerHTML]="data.meta | safeHtml" class="content"></div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" mat-dialog-close="">Sluiten</button>
+</mat-dialog-actions>

@@ -6,8 +6,9 @@ export class Appointment {
   subject: string;
   start: { dateTime: Date };
   end: { dateTime: Date };
+  body: { contentType: string, content: string };
   location: Location = new Location();
   distance: number = 0;
-  organizer: {emailAddress: {name: string, address: string}};
+  organizer: { emailAddress: { name: string, address: string } };
   selected = false;
 }

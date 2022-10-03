@@ -28,6 +28,7 @@ import {BlogPostComponent} from './_components/blog-post/blog-post.component';
 import {SafeHtmlPipe} from './_helpers/safe-html.pipe';
 import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {SharedModule} from "./shared.module";
 
 registerLocaleData(localeNl);
 
@@ -38,10 +39,10 @@ registerLocaleData(localeNl);
     WeatherWidgetComponent,
     NavbarComponent,
     BirthdayWidgetComponent,
-    BlogPostComponent,
-    SafeHtmlPipe
+    BlogPostComponent
   ],
   imports: [
+    SharedModule,
     AppRoutingModule,
     CommonModule,
     BrowserModule,
@@ -62,7 +63,7 @@ registerLocaleData(localeNl);
     MatSnackBarModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: [environment.apiUrl],
+        allowedUrls: [environment.apiUrl, environment.apiUrlTest],
         sendAccessToken: true
       }
     }),

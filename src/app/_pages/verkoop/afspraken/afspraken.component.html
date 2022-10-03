@@ -113,7 +113,7 @@
   [events]="events"
   [dayStartHour]="6"
   [refresh]="refresh"
-  (eventClicked)="selectPoint($event.event)"
+  (eventClicked)="openDialog($event.event)"
   [weekStartsOn]="1">
 </mwl-calendar-week-view>
 <div class="text-center w-100" *ngIf="loading">

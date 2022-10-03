@@ -35,9 +35,13 @@ import {CalendarModule, DateAdapter} from "angular-calendar";
 import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatDialogModule} from "@angular/material/dialog";
+import {EventInfoDialogComponent} from "./afspraken/event-info-dialog/event-info-dialog.component";
+import {SharedModule} from "../../shared.module";
 
 @NgModule({
   imports: [
+    SharedModule,
     FormsModule,
     ReactiveFormsModule,
     GoogleMapsModule,
@@ -64,6 +68,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
@@ -78,7 +83,8 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     AfsprakenComponent,
     FormComponent,
     OverviewComponent,
-    DynamicFormQuestionComponent
+    DynamicFormQuestionComponent,
+    EventInfoDialogComponent
   ],
   exports: [
     VerkoopComponent,

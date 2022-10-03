@@ -24,6 +24,8 @@ import {MatChipInputEvent} from "@angular/material/chips";
 import {FormControl} from "@angular/forms";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
+import {MatDialog} from "@angular/material/dialog";
+import {EventInfoDialogComponent} from "./event-info-dialog/event-info-dialog.component";
 
 const calendars: Calendar[] = [
   {
@@ -125,7 +127,7 @@ export class AfsprakenComponent implements OnInit {
     return value;
   }
 
-  constructor(@Inject(ApiService) private apiService: ApiService) {
+  constructor(@Inject(ApiService) private apiService: ApiService, public dialog: MatDialog) {
     this.filteredCalendars = this.calendarCtrl.valueChanges.pipe(
       startWith(null),
       map((fruit: string | null) => (fruit ? this._filter(fruit) : this.calendars.slice())),
@@ -139,6 +141,13 @@ export class AfsprakenComponent implements OnInit {
         lng: position.coords.longitude,
       }
     })
+  }
+
+  openDialog(event: CalendarEvent) {
+    this.dialog.open(EventInfoDialogComponent, {
+        data: event
+      }
+    );
   }
 
   ngAfterViewInit(): void {
@@ -212,6 +221,7 @@ export class AfsprakenComponent implements OnInit {
     this.loading = true;
     this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, this.owners.map(object => object.id), this.distance, this.start.toISOString(), this.end.toISOString()).subscribe(apos => {
       this.appointments = apos;
+      console.log(apos)
       this.setEvents();
       this.markers = [];
       this.appointments.forEach(apo => {
@@ -262,7 +272,16 @@ export class AfsprakenComponent implements OnInit {
           cssClass: apo.distance < this.distance ? 'nearby' : '',
           start: addHours(new Date(apo.start.dateTime), new Date(apo.start.dateTime).getTimezoneOffset() / -60),
           end: duration > 86300000 ? subHours(new Date(apo.end.dateTime), 1) :addHours(new Date(apo.end.dateTime), new Date(apo.end.dateTime).getTimezoneOffset() / -60),
-          allDay: duration > 86300000
+          allDay: duration > 86300000,
+          actions: apo.distance < 500 ? [
+            {
+              label: '<img src="'+pointer.icon+'">',
+              onClick: ({ event }: { event: CalendarEvent }): void => {
+                this.selectPoint(event);
+              }
+            }
+          ] : [],
+          meta: apo.body.content
         })
       }
     })
