@@ -63,7 +63,7 @@ registerLocaleData(localeNl);
     MatSnackBarModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: [environment.apiUrl, environment.apiUrlTest],
+        allowedUrls: [environment.apiUrl],
         sendAccessToken: true
       }
     }),

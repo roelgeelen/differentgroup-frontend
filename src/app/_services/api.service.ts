@@ -16,7 +16,7 @@ export class ApiService {
   }
 
   searchNearbyEvents(lat: number, lng: number, owners: string[], distance: number, start: string, end: string) {
-    return this.http.get<Appointment[]>(`${environment.apiUrlTest}/search/appointments/nearby?lat=${lat}&lng=${lng}&owners=${owners}&radius=${distance}&start=${start}&end=${end}`);
+    return this.http.get<Appointment[]>(`${environment.apiUrl}/search/appointments/nearby?lat=${lat}&lng=${lng}&owners=${owners}&radius=${distance}&start=${start}&end=${end}`);
   }
 
   getBirthdays() {
