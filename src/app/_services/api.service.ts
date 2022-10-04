@@ -32,7 +32,7 @@ export class ApiService {
   }
 
   getGeproduceert() {
-    return this.http.get<any>(`${environment.apiUrlTest}/stats/geproduceert`)
+    return this.http.get<any>(`${environment.apiUrl}/stats/geproduceert`)
   }
 
   getTotal() {
