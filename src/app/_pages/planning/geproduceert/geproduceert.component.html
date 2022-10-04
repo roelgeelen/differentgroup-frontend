@@ -1,0 +1,10 @@
+<h1>Productie</h1>
+<div class="chart-box">
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <div class="chart-scroll">
+    <div class="chart-width" id="chart-size">
+      <google-chart *ngIf="!loading" [type]="type" [data]="myData" [columns]="chartColumns" [options]="myOptions"
+                    [dynamicResize]="dynamicResize"></google-chart>
+    </div>
+  </div>
+</div>

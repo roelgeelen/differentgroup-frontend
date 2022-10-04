@@ -1,0 +1,15 @@
+.chart-box {
+  overflow: hidden;
+  width: 100%;
+  google-chart {
+    width: 100%;
+  }
+}
+
+.chart-scroll {
+  overflow: scroll;
+  overflow-y: hidden;
+  .chart-width {
+    min-width: 1000px;
+  }
+}
