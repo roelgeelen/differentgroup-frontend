@@ -88,8 +88,8 @@ export const navConfig: Page[] = [
         ]
       },
       {
-        url: '/planning/geproduceert',
-        title: 'Geproduceert',
+        url: '/planning/geproduceerd',
+        title: 'Geproduceerd',
         icon: 'bar_chart',
         roles: [
           EnumRoles.ENGINEERING,

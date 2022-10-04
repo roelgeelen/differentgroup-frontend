@@ -4,10 +4,10 @@ import {ChartType} from "angular-google-charts";
 
 @Component({
   selector: 'app-geproduceert',
-  templateUrl: './geproduceert.component.html',
-  styleUrls: ['./geproduceert.component.scss']
+  templateUrl: './geproduceerd.component.html',
+  styleUrls: ['./geproduceerd.component.scss']
 })
-export class GeproduceertComponent implements OnInit {
+export class GeproduceerdComponent implements OnInit {
   loading = false;
   myData = [];
   chartColumns = [];

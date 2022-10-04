@@ -11,7 +11,7 @@ import {LogisticComponent} from "./logistic/logistic.component";
 import {MagazijnComponent} from "./magazijn/magazijn.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {ProductionComponent} from "./production/production.component";
-import { GeproduceertComponent } from './geproduceert/geproduceert.component';
+import { GeproduceerdComponent } from './geproduceert/geproduceerd.component';
 
 @NgModule({
   imports: [
@@ -29,7 +29,7 @@ import { GeproduceertComponent } from './geproduceert/geproduceert.component';
     LogisticComponent,
     MagazijnComponent,
     ProductionComponent,
-    GeproduceertComponent
+    GeproduceerdComponent
   ],
   exports: [
     PlanningComponent
