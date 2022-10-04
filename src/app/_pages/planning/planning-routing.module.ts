@@ -7,6 +7,7 @@ import {LogisticComponent} from "./logistic/logistic.component";
 import {ProductionComponent} from "./production/production.component";
 import {MagazijnComponent} from "./magazijn/magazijn.component";
 import {EnumRoles} from "../../_models/enum/enumRoles";
+import {GeproduceertComponent} from "./geproduceert/geproduceert.component";
 
 const routes: Routes = [
   {
@@ -48,6 +49,19 @@ const routes: Routes = [
       {
         path: 'magazijn',
         component: MagazijnComponent,
+        canActivate: [AuthGuard],
+        data: {
+          roles: [
+            EnumRoles.ENGINEERING,
+            EnumRoles.ADMINISTRATION,
+            EnumRoles.PLANNING,
+            EnumRoles.ICT
+          ]
+        },
+      },
+      {
+        path: 'geproduceert',
+        component: GeproduceertComponent,
         canActivate: [AuthGuard],
         data: {
           roles: [

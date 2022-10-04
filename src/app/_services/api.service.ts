@@ -31,6 +31,10 @@ export class ApiService {
     return this.http.get<any>(`${environment.apiUrl}/stats/graphData`)
   }
 
+  getGeproduceert() {
+    return this.http.get<any>(`${environment.apiUrl}/stats/geproduceert`)
+  }
+
   getTotal() {
     return this.http.get<any>(`${environment.apiUrl}/stats/total`)
   }

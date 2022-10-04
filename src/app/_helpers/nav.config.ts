@@ -87,6 +87,17 @@ export const navConfig: Page[] = [
           EnumRoles.ICT
         ]
       },
+      {
+        url: '/planning/geproduceert',
+        title: 'Geproduceert',
+        icon: 'bar_chart',
+        roles: [
+          EnumRoles.ENGINEERING,
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.PLANNING,
+          EnumRoles.ICT
+        ]
+      },
     ],
     roles: [
       EnumRoles.ENGINEERING,
