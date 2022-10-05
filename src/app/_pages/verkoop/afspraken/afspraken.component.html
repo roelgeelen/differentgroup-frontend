@@ -25,12 +25,17 @@
         (matChipInputTokenEnd)="add($event)">
     </mat-chip-list>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-      <mat-option *ngFor="let fruit of filteredCalendars | async" [value]="fruit">
-        {{fruit.name}}
+      <mat-option *ngFor="let cal of filteredCalendars | async" [value]="cal">
+        {{cal.name}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+
   <div class="d-flex search-filter">
+    <div class="cal-filter d-flex">
+      <button mat-raised-button color="primary" (click)="filterCals('hout')">Hout</button>
+      <button mat-raised-button color="primary" (click)="filterCals('onderhoudsarm')">Onderhoudsarm</button>
+    </div>
     <button
       mat-raised-button
       mwlCalendarPreviousView

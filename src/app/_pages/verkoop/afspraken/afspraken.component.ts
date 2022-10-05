@@ -35,7 +35,8 @@ const calendars: Calendar[] = [
     color: {
       primary: '#ad2121',
       secondary: '#FAE3E3'
-    }
+    },
+    type: 'hout'
   },
   {
     name: 'Harm Verstappen',
@@ -44,7 +45,8 @@ const calendars: Calendar[] = [
     color: {
       primary: '#1e90ff',
       secondary: '#D1E8FF'
-    }
+    },
+    type: 'hout'
   },
   // {
   //   name: 'Sam Cummins',
@@ -58,7 +60,8 @@ const calendars: Calendar[] = [
     color: {
       primary: '#e3bc08',
       secondary: '#FDF1BA'
-    }
+    },
+    type: 'onderhoudsarm'
   },
   {
     name: 'Danny Rutjes',
@@ -67,7 +70,8 @@ const calendars: Calendar[] = [
     color: {
       primary: '#691eff',
       secondary: '#e2d1ff'
-    }
+    },
+    type: 'onderhoudsarm'
   }
 ];
 
@@ -89,6 +93,7 @@ const calendars: Calendar[] = [
   ]
 })
 export class AfsprakenComponent implements OnInit {
+  @ViewChild('calendarInput') calendarInput: ElementRef<HTMLInputElement>;
   @ViewChild('mapSearchField') searchField: ElementRef;
   @ViewChild('radiusCircle') circle: ElementRef;
   @ViewChildren('somemarker') components: QueryList<MapMarker>;
@@ -119,6 +124,10 @@ export class AfsprakenComponent implements OnInit {
   events: CalendarEvent[] = [];
   refresh: Subject<any> = new Subject();
 
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  calendarCtrl = new FormControl('');
+  filteredCalendars: Observable<Calendar[]>;
+
 
   formatLabel(value: number) {
     if (value >= 10) {
@@ -130,7 +139,7 @@ export class AfsprakenComponent implements OnInit {
   constructor(@Inject(ApiService) private apiService: ApiService, public dialog: MatDialog) {
     this.filteredCalendars = this.calendarCtrl.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => (fruit ? this._filter(fruit) : this.calendars.slice())),
+      map((cal: string | null) => (cal ? this._filter(cal) : this.calendars.slice())),
     );
   }
 
@@ -221,13 +230,12 @@ export class AfsprakenComponent implements OnInit {
     this.loading = true;
     this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, this.owners.map(object => object.id), this.distance, this.start.toISOString(), this.end.toISOString()).subscribe(apos => {
       this.appointments = apos;
-      console.log(apos)
       this.setEvents();
       this.markers = [];
       this.appointments.forEach(apo => {
         // @ts-ignore
         const pointer: Calendar = calendars.find(({name}) => name === apo.organizer.emailAddress.name.split(' | ')[0]);
-        if (pointer != undefined) {
+        if (pointer != undefined && apo.location.coordinates) {
           this.markers.push({
             position: {
               lat: +apo.location.coordinates.latitude,
@@ -303,12 +311,6 @@ export class AfsprakenComponent implements OnInit {
     this.onSearch();
   }
 
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  calendarCtrl = new FormControl('');
-  filteredCalendars: Observable<Calendar[]>;
-
-  @ViewChild('calendarInput') calendarInput: ElementRef<HTMLInputElement>;
-
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
@@ -345,5 +347,10 @@ export class AfsprakenComponent implements OnInit {
 
   private _filter(value: string): Calendar[] {
     return  this.calendars.filter(owner => owner.name.includes(value));
+  }
+
+  filterCals(type: string) {
+    this.owners = this.calendars.filter(q => q.type === type);
+    this.onSearch();
   }
 }

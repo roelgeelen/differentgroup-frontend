@@ -6,6 +6,17 @@ mat-spinner {
   margin-bottom: -20px;
   .search-filter {
     margin-left: 11px;
+    .cal-filter {
+      margin-right: 11px;
+      button:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      button:last-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
     button {
       height: 52px;
       margin: auto;
