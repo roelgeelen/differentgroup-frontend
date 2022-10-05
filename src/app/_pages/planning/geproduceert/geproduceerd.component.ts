@@ -13,7 +13,7 @@ export class GeproduceerdComponent implements OnInit {
   chartColumns = [];
   type = ChartType.ColumnChart;
   myOptions = {
-    colors: ['#4658a0', '#FFFF00', '#7382bf', '#00994d', '#06af85', '#dcdcdc', '#ff0000'],
+    colors: ['#4658a0', '#06af85',],
     height: 400,
     backgroundColor: 'transparent',
     legend: {position: 'top', maxLines: 0},
@@ -39,6 +39,7 @@ export class GeproduceerdComponent implements OnInit {
       data.splice(0, 1);
       data.forEach((item: any, index: number) => {
         item[1] = +item[1]
+        item[2] = +item[2]
       });
       this.loading = false;
       this.myData = data;
