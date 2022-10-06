@@ -7,7 +7,7 @@ import {
   ViewChild,
   ViewChildren
 } from '@angular/core';
-import {GoogleMap, MapInfoWindow, MapMarker} from "@angular/google-maps";
+import {GoogleMap, MapDirectionsService, MapInfoWindow, MapMarker} from "@angular/google-maps";
 import {ProgressSpinnerMode} from "@angular/material/progress-spinner";
 import {Appointment} from "../../../_models/appointment/Appointment";
 import {ApiService} from "../../../_services/api.service";
@@ -17,7 +17,7 @@ import {MAT_DATE_RANGE_SELECTION_STRATEGY} from "@angular/material/datepicker";
 import {WeekRangeSelectionStrategy} from "../../../_helpers/weekRangeSelection.strategy";
 import {DateAdapter, NativeDateAdapter} from "@angular/material/core";
 import {CalendarDateFormatter, CalendarEvent} from "angular-calendar";
-import {Observable, startWith, map, Subject} from 'rxjs';
+import {Observable, startWith, map, Subject, of} from 'rxjs';
 import {startOfWeek, endOfWeek, addHours, subHours} from 'date-fns';
 import {CustomDateAdapter, CustomDateFormatter} from "./custom-date-formatter.provider";
 import {MatChipInputEvent} from "@angular/material/chips";
@@ -106,8 +106,10 @@ export class AfsprakenComponent implements OnInit {
   options: google.maps.MapOptions = {
     mapTypeId: 'roadmap',
     maxZoom: 15,
-    minZoom: 6,
+    minZoom: 6
   }
+  directionsResults$: Observable<google.maps.DirectionsResult|undefined>;
+
   markers: any[] = []
   radius: any[] = []
   infoContent = ''
@@ -136,7 +138,7 @@ export class AfsprakenComponent implements OnInit {
     return value;
   }
 
-  constructor(@Inject(ApiService) private apiService: ApiService, public dialog: MatDialog) {
+  constructor(@Inject(ApiService) private apiService: ApiService, public dialog: MatDialog, public mapDirectionsService: MapDirectionsService) {
     this.filteredCalendars = this.calendarCtrl.valueChanges.pipe(
       startWith(null),
       map((cal: string | null) => (cal ? this._filter(cal) : this.calendars.slice())),
@@ -150,6 +152,22 @@ export class AfsprakenComponent implements OnInit {
         lng: position.coords.longitude,
       }
     })
+  }
+
+  calculateRoute(apo: CalendarEvent) {
+    const marker = this.components.find(m => m.getTitle() == apo.id);
+    if (marker instanceof MapMarker) {
+      const request: google.maps.DirectionsRequest = {
+        destination: marker['_position'],
+        origin: this.center,
+        travelMode: google.maps.TravelMode.DRIVING,
+
+      };
+      this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => {
+        this.openInfo(marker, response.result?.routes[0].legs[0].duration?.text);
+        return response.result
+      }));
+    }
   }
 
   openDialog(event: CalendarEvent) {
@@ -227,11 +245,13 @@ export class AfsprakenComponent implements OnInit {
     if (this.address === '' || this.owners.length === 0 || this.end === undefined) {
       return;
     }
+
     this.loading = true;
     this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, this.owners.map(object => object.id), this.distance, this.start.toISOString(), this.end.toISOString()).subscribe(apos => {
       this.appointments = apos;
       this.setEvents();
       this.markers = [];
+      this.directionsResults$ = of(undefined);
       this.appointments.forEach(apo => {
         // @ts-ignore
         const pointer: Calendar = calendars.find(({name}) => name === apo.organizer.emailAddress.name.split(' | ')[0]);
@@ -275,7 +295,7 @@ export class AfsprakenComponent implements OnInit {
         const duration = (new Date(apo.end.dateTime).getTime() - new Date(apo.start.dateTime).getTime());
         newEvents.push({
           id: apo.location.displayName,
-          title: (apo.distance < 500 ? '(' + Math.round(60 * (apo.distance / 50)) + ' min) ' : '') + apo.subject,
+          title: apo.subject,
           color: pointer.color,
           cssClass: apo.distance < this.distance ? 'nearby' : '',
           start: addHours(new Date(apo.start.dateTime), new Date(apo.start.dateTime).getTimezoneOffset() / -60),
@@ -285,7 +305,7 @@ export class AfsprakenComponent implements OnInit {
             {
               label: '<img src="'+pointer.icon+'">',
               onClick: ({ event }: { event: CalendarEvent }): void => {
-                this.selectPoint(event);
+                this.calculateRoute(event);
               }
             }
           ] : [],
@@ -300,9 +320,7 @@ export class AfsprakenComponent implements OnInit {
   }
 
   selectPoint(apo: CalendarEvent) {
-    const markerinfo = this.markers.find(({title}) => title === apo.id).info;
-    const marker = this.components.find(m => m.getTitle() == apo.id);
-    this.openInfo(marker, markerinfo);
+
   }
 
   setSelectedWeek() {

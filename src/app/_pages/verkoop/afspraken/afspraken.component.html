@@ -111,6 +111,7 @@
       [radius]="rad.radius"
       [options]="rad.options"></map-circle>
     <map-info-window>{{ infoContent }}</map-info-window>
+    <map-directions-renderer *ngIf="(directionsResults$ | async) as directionsResults" [directions]="directionsResults"></map-directions-renderer>
   </google-map>
 </div>
 <mwl-calendar-week-view

@@ -25,7 +25,6 @@ import {MatTreeModule} from "@angular/material/tree";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {BlogPostComponent} from './_components/blog-post/blog-post.component';
-import {SafeHtmlPipe} from './_helpers/safe-html.pipe';
 import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {SharedModule} from "./shared.module";
