@@ -1,4 +1,4 @@
-<h1>{{data.title}}</h1>
+<h1 [innerHTML]="data.title | safeHtml"></h1>
 <div>{{data.start | date: "dd-MM-yyyy HH:mm"}} / {{data.end | date: "HH:mm"}}</div>
 <hr>
 <h3 *ngIf="data.id">Adres: {{data.id}}</h3>

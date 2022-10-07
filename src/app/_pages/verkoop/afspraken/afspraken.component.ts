@@ -36,7 +36,9 @@ const calendars: Calendar[] = [
       primary: '#ad2121',
       secondary: '#FAE3E3'
     },
-    type: 'hout'
+    type: 'sectionaal',
+    events: [],
+    appointments: []
   },
   {
     name: 'Harm Verstappen',
@@ -46,7 +48,9 @@ const calendars: Calendar[] = [
       primary: '#1e90ff',
       secondary: '#D1E8FF'
     },
-    type: 'hout'
+    type: 'sectionaal',
+    events: [],
+    appointments: []
   },
   // {
   //   name: 'Sam Cummins',
@@ -61,7 +65,9 @@ const calendars: Calendar[] = [
       primary: '#e3bc08',
       secondary: '#FDF1BA'
     },
-    type: 'onderhoudsarm'
+    type: 'openslaande',
+    events: [],
+    appointments: []
   },
   {
     name: 'Danny Rutjes',
@@ -71,7 +77,9 @@ const calendars: Calendar[] = [
       primary: '#691eff',
       secondary: '#e2d1ff'
     },
-    type: 'onderhoudsarm'
+    type: 'openslaande',
+    events: [],
+    appointments: []
   }
 ];
 
@@ -113,7 +121,6 @@ export class AfsprakenComponent implements OnInit {
   markers: any[] = []
   radius: any[] = []
   infoContent = ''
-  appointments: Appointment[] = [];
   calendars: Calendar[] = calendars;
   owners: Calendar[] = [];
   address: string = '';
@@ -121,9 +128,7 @@ export class AfsprakenComponent implements OnInit {
   distance: number = 25;
   start: Date = startOfWeek(new Date(), {weekStartsOn: 1});
   end: Date = endOfWeek(new Date(), {weekStartsOn: 1});
-
   viewDate: Date = new Date();
-  events: CalendarEvent[] = [];
   refresh: Subject<any> = new Subject();
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -212,7 +217,9 @@ export class AfsprakenComponent implements OnInit {
   onInputChange(event: number | null) {
     if (event != null) {
       this.distance = event;
-      this.setEvents();
+      this.owners.forEach(owner => {
+        this.setEvents(owner);
+      })
     }
   }
 
@@ -247,55 +254,57 @@ export class AfsprakenComponent implements OnInit {
     }
 
     this.loading = true;
-    this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, this.owners.map(object => object.id), this.distance, this.start.toISOString(), this.end.toISOString()).subscribe(apos => {
-      this.appointments = apos;
-      this.setEvents();
-      this.markers = [];
-      this.directionsResults$ = of(undefined);
-      this.appointments.forEach(apo => {
-        // @ts-ignore
-        const pointer: Calendar = calendars.find(({name}) => name === apo.organizer.emailAddress.name.split(' | ')[0]);
-        if (pointer != undefined && apo.location.coordinates) {
-          this.markers.push({
-            position: {
-              lat: +apo.location.coordinates.latitude,
-              lng: +apo.location.coordinates.longitude,
-            },
-            label: {
-              color: 'black',
-              text: apo.subject,
-            },
-            title: apo.location.displayName,
-            info: formatDate(apo.start.dateTime + 'Z', 'EEEE, dd MMMM, HH:mm', 'nl-NL'),
-            options: {
-              icon: pointer.icon,
-              animation: google.maps.Animation.DROP,
-            },
-          })
-        }
-      });
+    this.markers = [];
+    this.owners.forEach(owner => {
+      this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, [owner.id], this.distance, this.start.toISOString(), this.end.toISOString()).subscribe(apos => {
+        owner.appointments = apos;
+        this.setEvents(owner);
+        this.directionsResults$ = of(undefined);
+        owner.appointments.forEach(apo => {
+          // @ts-ignore
+          const pointer: Calendar = calendars.find(({name}) => name === apo.organizer.emailAddress.name.split(' | ')[0]);
+          if (pointer != undefined && apo.location.coordinates) {
+            this.markers.push({
+              position: {
+                lat: +apo.location.coordinates.latitude,
+                lng: +apo.location.coordinates.longitude,
+              },
+              label: {
+                color: 'black',
+                text: apo.subject,
+              },
+              title: apo.location.displayName,
+              info: formatDate(apo.start.dateTime + 'Z', 'EEEE, dd MMMM, HH:mm', 'nl-NL'),
+              options: {
+                icon: pointer.icon,
+                animation: google.maps.Animation.DROP,
+              },
+            })
+          }
+        });
 
-      setTimeout(() => {
-        this.searchField.nativeElement.blur();
-      }, 0);
-      this.loading = false;
-    }, error => {
-      this.loading = false;
+        setTimeout(() => {
+          this.searchField.nativeElement.blur();
+        }, 0);
+        this.loading = false;
+      }, error => {
+        this.loading = false;
+      })
     })
   }
 
-  setEvents() {
-    this.events = [];
+  setEvents(owner: Calendar) {
+    owner.events = [];
     const newEvents: CalendarEvent[] = [];
 
-    this.appointments.forEach(apo => {
+    owner.appointments.forEach(apo => {
       // @ts-ignore
       const pointer: Calendar = calendars.find(({name}) => name === apo.organizer.emailAddress.name.split(' | ')[0]);
       if (pointer != undefined) {
         const duration = (new Date(apo.end.dateTime).getTime() - new Date(apo.start.dateTime).getTime());
         newEvents.push({
           id: apo.location.displayName,
-          title: apo.subject,
+          title: apo.subject + '<br><small>' + apo.location.displayName.split(';')[0] + '</small>',
           color: pointer.color,
           cssClass: apo.distance < this.distance ? 'nearby' : '',
           start: addHours(new Date(apo.start.dateTime), new Date(apo.start.dateTime).getTimezoneOffset() / -60),
@@ -313,7 +322,7 @@ export class AfsprakenComponent implements OnInit {
         })
       }
     })
-    this.events = newEvents;
+    owner.events = newEvents;
     // @ts-ignore
     this.refresh.next();
     this.setRadius();
