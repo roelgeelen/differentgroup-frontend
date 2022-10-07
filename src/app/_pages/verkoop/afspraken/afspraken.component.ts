@@ -343,7 +343,7 @@ export class AfsprakenComponent implements OnInit {
 
     if (value) {
       const cals = this.calendars.filter(owner => owner.name.includes(value))[0];
-      if (cals != undefined && this.owners.filter(owner => owner.name.includes(value)).length == 0) {
+      if (cals != undefined && this.owners.filter(owner => owner.name.includes(value)).length == 0 && this.owners.length < 3) {
         this.owners.push(cals);
         this.onSearch();
       }
@@ -364,7 +364,7 @@ export class AfsprakenComponent implements OnInit {
 
   selected(event: MatAutocompleteSelectedEvent): void {
     // @ts-ignore
-    if (this.owners.filter(owner => owner.name.includes(event.option.viewValue)).length == 0) {
+    if (this.owners.filter(owner => owner.name.includes(event.option.viewValue)).length == 0 && this.owners.length < 3) {
       this.owners.push(this.calendars.filter(owner => owner.name.includes(event.option.viewValue))[0]);
       this.onSearch();
     }
