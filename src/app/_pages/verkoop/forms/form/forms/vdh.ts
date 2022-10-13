@@ -291,6 +291,22 @@ export const binnen: QuestionBase<string>[] = [
 ]
 export const deur: QuestionBase<string>[] = [
   new RadioQuestion({
+    key: 'draairichting',
+    label: 'Draairichting (van buiten gezien)',
+    options: [
+      {value: 'Naar buiten'},
+      {value: 'Naar binnen'},
+    ]
+  }),
+  new RadioQuestion({
+    key: 'scharnierzijde',
+    label: 'Scharnierzijde  (van buiten gezien)',
+    options: [
+      {value: 'Rechterzijde'},
+      {value: 'Linkerzijde '}
+    ]
+  }),
+  new RadioQuestion({
     key: 'type_dorpel',
     label: 'Type dorpel (Ondersabelen door klant na montage)',
     options: [

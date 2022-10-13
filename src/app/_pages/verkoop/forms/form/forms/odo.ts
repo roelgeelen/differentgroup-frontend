@@ -678,7 +678,8 @@ export const overige: QuestionBase<string>[] = [
   }),
   new TextareaQuestion({
     key: 'materiaal_te_bestellen_door_werkvoorbereiding',
-    label: 'Materiaal te bestellen door werkvoorbereiding'
+    label: 'Materiaal te bestellen door werkvoorbereiding',
+    toDeal: true
   })
 ];
 export const media: QuestionBase<string>[] = [
