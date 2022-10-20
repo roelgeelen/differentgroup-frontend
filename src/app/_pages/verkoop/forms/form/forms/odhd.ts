@@ -617,6 +617,11 @@ export const overige: QuestionBase<string>[] = [
   new TextareaQuestion({
     key: 'overige_opmerkingen_intern',
     label: 'Overige opmerkingen (intern)'
+  }),
+  new TextareaQuestion({
+    key: 'materiaal_te_bestellen_door_werkvoorbereiding',
+    label: 'Materiaal te bestellen door werkvoorbereiding',
+    toDeal: true
   })
 ];
 export const media: QuestionBase<string>[] = [
@@ -630,11 +635,15 @@ export const media: QuestionBase<string>[] = [
   }),
   new UploadQuestion({
     key: 'fb1',
-    label: 'Foto buitenzijde deur'
+    label: 'Foto buitenzijde deur (monteurs)'
   }),
   new UploadQuestion({
     key: 'fb2',
-    label: 'Foto binnenzijde deur'
+    label: 'Foto binnenzijde deur (monteurs)'
+  }),
+  new UploadQuestion({
+    key: 'fb3',
+    label: 'Foto positie in de dag (monteurs)'
   })
 ]
 export const odhd: TabBase[] = [

@@ -417,9 +417,24 @@ export const binnenzijde: QuestionBase<string>[] = [
     options: [
       {value: 'N.v.t.'},
       {value: 'Plafond motor 230 V', article: 'SDH200'},
-      {value: 'Freq. gestuurde plafond motor 230 V (Blauwe CE stekker)', article: 'SDH201'},
+      {value: 'Freq. gestuurde plafond motor 230 V (Blauwe CE stekker)', article: 'SDH212'},
       {value: 'As motor 380 V', article: 'SDH201'},
       {value: 'Freq. gestuurde as motor 230 V (Blauwe CE stekker)', article: 'SDH201'},
+    ]
+  }),
+  new RadioQuestion({
+    key: 'stroom',
+    label: 'Stroom',
+    options: [
+      {value: 'Door klant te voorzien', article: 'SDH207'},
+      {value: 'Aanwezig op de juiste plaats', article: 'SDH207'},
+    ],
+    value: 'Door klant te voorzien',
+    dependent:[
+      {
+        field: 'motor',
+        values: ['Plafond motor 230 V']
+      }
     ]
   }),
   new RadioQuestion({
@@ -429,7 +444,13 @@ export const binnenzijde: QuestionBase<string>[] = [
       {value: 'Door klant te voorzien'},
       {value: 'Aanwezig op de juiste plaats'},
     ],
-    value: 'Door klant te voorzien'
+    value: 'Door klant te voorzien',
+    dependent:[
+      {
+        field: 'motor',
+        values: ['Freq. gestuurde plafond motor 230 V (Blauwe CE stekker)', 'As motor 380 V', 'Freq. gestuurde as motor 230 V (Blauwe CE stekker)']
+      }
+    ]
   })
 ]
 
@@ -534,11 +555,10 @@ export const deur: QuestionBase<string>[] = [
       }
     ]
   }),
-  new RadioQuestion({
+  new CheckboxQuestion({
     key: 'binnen_bediening',
     label: 'Binnen bediening',
     options: [
-      {value: 'N.v.t.'},
       {value: 'Draadloze drukknop', article: 'SDH203'},
       {value: 'Op / Stop / Neer'},
       {value: 'Domotica of puls voorziening door de klant'},
@@ -609,6 +629,7 @@ export const gevelbekleding: QuestionBase<string>[] = [
     label: 'Aanbrengen gevelbekleding',
     options: [
       {value: 'N.v.t.'},
+      {value: 'Different Doors monteert het hout op de kappen (overige gevel door klant)'},
       {value: 'Door Different Doors (Zie gele arcering in foto)', article: 'SDH402'},
       {value: 'Door klant maar productie door Different Doors', article: 'SDH402'},
       {value: 'Door de klant', article: 'SDH401'},
