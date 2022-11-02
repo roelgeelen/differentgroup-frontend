@@ -1,24 +1,15 @@
-import {
-  Component,
-  ElementRef,
-  Inject,
-  OnInit,
-  QueryList,
-  ViewChild,
-  ViewChildren
-} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {GoogleMap, MapDirectionsService, MapInfoWindow, MapMarker} from "@angular/google-maps";
 import {ProgressSpinnerMode} from "@angular/material/progress-spinner";
-import {Appointment} from "../../../_models/appointment/Appointment";
 import {ApiService} from "../../../_services/api.service";
 import {formatDate} from "@angular/common";
 import {Calendar} from "../../../_models/calendar/Calendar";
 import {MAT_DATE_RANGE_SELECTION_STRATEGY} from "@angular/material/datepicker";
 import {WeekRangeSelectionStrategy} from "../../../_helpers/weekRangeSelection.strategy";
-import {DateAdapter, NativeDateAdapter} from "@angular/material/core";
+import {DateAdapter} from "@angular/material/core";
 import {CalendarDateFormatter, CalendarEvent} from "angular-calendar";
-import {Observable, startWith, map, Subject, of} from 'rxjs';
-import {startOfWeek, endOfWeek, addHours, subHours} from 'date-fns';
+import {map, Observable, of, startWith, Subject} from 'rxjs';
+import {addHours, endOfWeek, startOfWeek, subHours} from 'date-fns';
 import {CustomDateAdapter, CustomDateFormatter} from "./custom-date-formatter.provider";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {FormControl} from "@angular/forms";
@@ -116,7 +107,7 @@ export class AfsprakenComponent implements OnInit {
     maxZoom: 15,
     minZoom: 6
   }
-  directionsResults$: Observable<google.maps.DirectionsResult|undefined>;
+  directionsResults$: Observable<google.maps.DirectionsResult | undefined>;
 
   markers: any[] = []
   radius: any[] = []
@@ -207,7 +198,9 @@ export class AfsprakenComponent implements OnInit {
       });
       this.center.lat = bounds.getCenter().lat();
       this.center.lng = bounds.getCenter().lng();
-      this.onSearch();
+      this.owners.forEach(owner => {
+        this.setEvents(owner);
+      })
       this.map.fitBounds(bounds);
       this.searchField.nativeElement.focus();
     });
@@ -249,21 +242,23 @@ export class AfsprakenComponent implements OnInit {
   }
 
   onSearch() {
-    if (this.address === '' || this.owners.length === 0 || this.end === undefined) {
+    if (this.owners.length === 0 || this.end === undefined) {
       return;
     }
-
     this.loading = true;
     this.markers = [];
+    this.directionsResults$ = of(undefined);
+
+    // Loop calendars
     this.owners.forEach(owner => {
-      this.apiService.searchNearbyEvents(this.center.lat, this.center.lng, [owner.id], this.distance, this.start.toISOString(), this.end.toISOString()).subscribe(apos => {
+      //Get events
+      this.apiService.getCalendar(owner.id, this.start.toISOString(), this.end.toISOString()).subscribe(apos => {
         owner.appointments = apos;
         this.setEvents(owner);
-        this.directionsResults$ = of(undefined);
+
+        // Set map points
         owner.appointments.forEach(apo => {
-          // @ts-ignore
-          const pointer: Calendar = calendars.find(({name}) => name === apo.organizer.emailAddress.name.split(' | ')[0]);
-          if (pointer != undefined && apo.location.coordinates) {
+          if (apo.location.coordinates) {
             this.markers.push({
               position: {
                 lat: +apo.location.coordinates.latitude,
@@ -276,16 +271,13 @@ export class AfsprakenComponent implements OnInit {
               title: apo.location.displayName,
               info: formatDate(apo.start.dateTime + 'Z', 'EEEE, dd MMMM, HH:mm', 'nl-NL'),
               options: {
-                icon: pointer.icon,
+                icon: owner.icon,
                 animation: google.maps.Animation.DROP,
               },
             })
           }
         });
 
-        setTimeout(() => {
-          this.searchField.nativeElement.blur();
-        }, 0);
         this.loading = false;
       }, error => {
         this.loading = false;
@@ -298,29 +290,29 @@ export class AfsprakenComponent implements OnInit {
     const newEvents: CalendarEvent[] = [];
 
     owner.appointments.forEach(apo => {
-      // @ts-ignore
-      const pointer: Calendar = calendars.find(({name}) => name === apo.organizer.emailAddress.name.split(' | ')[0]);
-      if (pointer != undefined) {
-        const duration = (new Date(apo.end.dateTime).getTime() - new Date(apo.start.dateTime).getTime());
-        newEvents.push({
-          id: apo.location.displayName,
-          title: apo.subject + '<br><small>' + apo.location.displayName.split(';')[0] + '</small>',
-          color: pointer.color,
-          cssClass: apo.distance < this.distance ? 'nearby' : '',
-          start: addHours(new Date(apo.start.dateTime), new Date(apo.start.dateTime).getTimezoneOffset() / -60),
-          end: duration > 86300000 ? subHours(new Date(apo.end.dateTime), 1) :addHours(new Date(apo.end.dateTime), new Date(apo.end.dateTime).getTimezoneOffset() / -60),
-          allDay: duration > 86300000,
-          actions: apo.distance < 500 ? [
-            {
-              label: '<img src="'+pointer.icon+'">',
-              onClick: ({ event }: { event: CalendarEvent }): void => {
-                this.calculateRoute(event);
-              }
-            }
-          ] : [],
-          meta: apo.body.content
-        })
+      if (apo.location.coordinates) {
+        apo.distance = this.getDistanceFromLatLonInKm(this.center.lat, this.center.lng, +apo.location.coordinates.latitude, +apo.location.coordinates.longitude);
       }
+      const duration = (new Date(apo.end.dateTime).getTime() - new Date(apo.start.dateTime).getTime());
+      newEvents.push({
+        id: apo.location.displayName,
+        title: apo.subject + '<br><small>' + apo.location.displayName.split(';')[0] + '</small>',
+        color: owner.color,
+        cssClass: apo.distance < this.distance ? 'nearby' : '',
+        start: addHours(new Date(apo.start.dateTime), new Date(apo.start.dateTime).getTimezoneOffset() / -60),
+        end: duration > 86300000 ? subHours(new Date(apo.end.dateTime), 1) : addHours(new Date(apo.end.dateTime), new Date(apo.end.dateTime).getTimezoneOffset() / -60),
+        allDay: duration > 86300000,
+        actions: apo.distance < 500 ? [
+          {
+            label: '<img src="' + owner.icon + '">',
+            onClick: ({event}: { event: CalendarEvent }): void => {
+              this.calculateRoute(event);
+            }
+          }
+        ] : [],
+        meta: apo.body.content
+      })
+
     })
     owner.events = newEvents;
     // @ts-ignore
@@ -373,11 +365,31 @@ export class AfsprakenComponent implements OnInit {
   }
 
   private _filter(value: string): Calendar[] {
-    return  this.calendars.filter(owner => owner.name.includes(value));
+    return this.calendars.filter(owner => owner.name.includes(value));
   }
 
   filterCals(type: string) {
     this.owners = this.calendars.filter(q => q.type === type);
     this.onSearch();
+  }
+
+  getDistanceFromLatLonInKm(lat1: number, lon1: number, lat2: number, lon2: number) {
+    if ((lat1 == lat2) && (lon1 == lon2)) {
+      return 0;
+    }
+    else {
+      var radlat1 = Math.PI * lat1/180;
+      var radlat2 = Math.PI * lat2/180;
+      var theta = lon1-lon2;
+      var radtheta = Math.PI * theta/180;
+      var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+      if (dist > 1) {
+        dist = 1;
+      }
+      dist = Math.acos(dist);
+      dist = dist * 180/Math.PI;
+      dist = dist * 60 * 1.1515;
+      return dist * 1.609344;
+    }
   }
 }

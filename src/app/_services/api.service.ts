@@ -15,48 +15,48 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  searchNearbyEvents(lat: number, lng: number, owners: string[], distance: number, start: string, end: string) {
-    return this.http.get<Appointment[]>(`${environment.apiUrl}/search/appointments/nearby?lat=${lat}&lng=${lng}&owners=${owners}&radius=${distance}&start=${start}&end=${end}`);
+  getCalendar(owner: string, start: string, end: string) {
+    return this.http.get<Appointment[]>(`${environment.apiUrlTest}/calendars/${owner}?start=${start}&end=${end}`);
   }
 
   getBirthdays() {
-    return this.http.get<Event[]>(`${environment.apiUrl}/birthdays`);
+    return this.http.get<Event[]>(`${environment.apiUrlTest}/profile/birthdays`);
   }
 
   getProfilePicture(): Observable<HttpResponse<Blob>> {
-    return this.http.get(`${environment.apiUrl}/profile/picture`, {observe: 'response', responseType: 'blob'});
+    return this.http.get(`${environment.apiUrlTest}/profile/avatar`, {observe: 'response', responseType: 'blob'});
   }
 
   getProduction() {
-    return this.http.get<any>(`${environment.apiUrl}/stats/graphData`)
+    return this.http.get<any>(`${environment.apiUrlTest}/graphs/production`)
   }
 
   getGeproduceert() {
-    return this.http.get<any>(`${environment.apiUrl}/stats/geproduceert`)
+    return this.http.get<any>(`${environment.apiUrlTest}/graphs/produced`)
   }
 
   getTotal() {
-    return this.http.get<any>(`${environment.apiUrl}/stats/total`)
+    return this.http.get<any>(`${environment.apiUrlTest}/graphs/totals/open`)
   }
 
   getInplan() {
-    return this.http.get<any>(`${environment.apiUrl}/stats/inplannen`)
+    return this.http.get<any>(`${environment.apiUrlTest}/graphs/totals/schedule`)
   }
 
   getUB() {
-    return this.http.get<any>(`${environment.apiUrl}/stats/ub`)
+    return this.http.get<any>(`${environment.apiUrlTest}/graphs/totals/ub`)
   }
 
-  getOrderStatus(id: number) {
-    return this.http.get<any>(`${environment.apiUrl}/order/status/${id}`)
+  getOrderStatus(status: number) {
+    return this.http.get<any>(`${environment.apiUrlTest}/graphs/orders/${status}`)
   }
 
   getMagazijn() {
-    return this.http.get<any>(`${environment.apiUrl}/stats/magazijn`)
+    return this.http.get<any>(`${environment.apiUrlTest}/graphs/stockroom`)
   }
 
   getPosts() {
-    return this.http.get<any>(`${environment.apiUrl}/posts`)
+    return this.http.get<any>(`${environment.apiUrlTest}/posts`)
   }
 
   savePost(post: Post, file: File): Observable<HttpEvent<{}>> {
@@ -64,7 +64,7 @@ export class ApiService {
     formdata.append('file', file);
     formdata.append('title', post.title);
     formdata.append('content', post.message);
-    const req = new HttpRequest('POST', `${environment.apiUrl}/posts/create`, formdata, {
+    const req = new HttpRequest('POST', `${environment.apiUrlTest}/posts`, formdata, {
       reportProgress: true,
       responseType: 'text'
     });
@@ -72,11 +72,11 @@ export class ApiService {
   }
 
   getPostPicture(uuid: string): Observable<HttpResponse<Blob>> {
-    return this.http.get(`${environment.apiUrl}/posts/image/${uuid}`, {observe: 'response', responseType: 'blob'});
+    return this.http.get(`${environment.apiUrlTest}/images/${uuid}`, {observe: 'response', responseType: 'blob'});
   }
 
   deletePost(uuid: string): Observable<HttpEvent<{}>> {
-    const req = new HttpRequest('DELETE', `${environment.apiUrl}/posts/${uuid}/delete`, null, {
+    const req = new HttpRequest('DELETE', `${environment.apiUrlTest}/posts/${uuid}`, null, {
       reportProgress: true,
       responseType: 'text'
     });
@@ -84,7 +84,7 @@ export class ApiService {
   }
 
   getPost(uuid: string | null) {
-    return this.http.get(`${environment.apiUrl}/posts/${uuid}`);
+    return this.http.get(`${environment.apiUrlTest}/posts/${uuid}`);
   }
 
   updatePost(post: Post, file: File){
@@ -92,7 +92,7 @@ export class ApiService {
     formdata.append('file', file);
     formdata.append('title', post.title);
     formdata.append('content', post.message);
-    const req = new HttpRequest('PUT', `${environment.apiUrl}/posts/${post.id}`, formdata, {
+    const req = new HttpRequest('PUT', `${environment.apiUrlTest}/posts/${post.id}`, formdata, {
       reportProgress: true,
       responseType: 'text'
     });

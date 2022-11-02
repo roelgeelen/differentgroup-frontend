@@ -70,6 +70,7 @@ export class OverviewComponent implements OnInit {
     if (this.dealConfig.values.deal_id != null) {
       this.loading = true;
       this.hubService.getDealConfigs(this.dealConfig.values.deal_id).subscribe(dealConf => {
+        console.log(dealConf)
         this.dealConfig = dealConf;
         this.location.replaceState('/verkoop/formulier/' + this.dealConfig.values.deal_id);
         if (Array.isArray(this.dealConfig.values.configuraties)) {
