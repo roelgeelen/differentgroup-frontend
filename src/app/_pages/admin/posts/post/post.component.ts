@@ -69,7 +69,7 @@ export class PostComponent implements OnInit {
     this.selectedFiles = event.target.files;
     this.isImageInvalid = false;
     // @ts-ignore
-    if (this.selectedFiles.item(0).size > 500000) {
+    if (this.selectedFiles.item(0).size > 5000000) {
       this.isImageInvalid = true;
       this.selectedFiles = null;
       this.imageSrc = '';
