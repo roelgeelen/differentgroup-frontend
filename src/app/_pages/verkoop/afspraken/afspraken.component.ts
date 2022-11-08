@@ -17,6 +17,8 @@ import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {MatDialog} from "@angular/material/dialog";
 import {EventInfoDialogComponent} from "./event-info-dialog/event-info-dialog.component";
+import {Appointment} from "../../../_models/appointment/Appointment";
+import {Location} from "../../../_models/appointment/Location";
 
 const calendars: Calendar[] = [
   {
@@ -67,6 +69,18 @@ const calendars: Calendar[] = [
     color: {
       primary: '#691eff',
       secondary: '#e2d1ff'
+    },
+    type: 'openslaande',
+    events: [],
+    appointments: []
+  },
+  {
+    name: 'Mark Bogers',
+    id: '522705647',
+    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+    color: {
+      primary: '#5eff1e',
+      secondary: '#ddffd1'
     },
     type: 'openslaande',
     events: [],
@@ -376,18 +390,17 @@ export class AfsprakenComponent implements OnInit {
   getDistanceFromLatLonInKm(lat1: number, lon1: number, lat2: number, lon2: number) {
     if ((lat1 == lat2) && (lon1 == lon2)) {
       return 0;
-    }
-    else {
-      var radlat1 = Math.PI * lat1/180;
-      var radlat2 = Math.PI * lat2/180;
-      var theta = lon1-lon2;
-      var radtheta = Math.PI * theta/180;
+    } else {
+      var radlat1 = Math.PI * lat1 / 180;
+      var radlat2 = Math.PI * lat2 / 180;
+      var theta = lon1 - lon2;
+      var radtheta = Math.PI * theta / 180;
       var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
       if (dist > 1) {
         dist = 1;
       }
       dist = Math.acos(dist);
-      dist = dist * 180/Math.PI;
+      dist = dist * 180 / Math.PI;
       dist = dist * 60 * 1.1515;
       return dist * 1.609344;
     }

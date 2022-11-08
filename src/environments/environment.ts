@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl:"https://api.differentdoors.nl/v1/api",
-  apiUrlTest:"https://api.differentgroup.nl/differentgroup"
+  apiUrl:"https://api.differentgroup.nl/differentgroup",
 };
 
 /*
