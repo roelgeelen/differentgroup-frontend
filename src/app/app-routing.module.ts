@@ -37,6 +37,20 @@ const routes: Routes = [
     },
   },
   {
+    path: 'magazijn',
+    loadChildren: () => import('./_pages/magazijn/magazijn.module').then(m => m.MagazijnModule),
+    canActivate: [AuthGuard],
+    data: {
+      roles: [
+        EnumRoles.ENGINEERING,
+        EnumRoles.ADMINISTRATION,
+        EnumRoles.PRODUCTION,
+        EnumRoles.PLANNING,
+        EnumRoles.ICT
+      ]
+    },
+  },
+  {
     path: 'administratie',
     loadChildren: () => import('./_pages/administratie/administratie.module').then(m => m.AdministratieModule),
     canActivate: [AuthGuard],

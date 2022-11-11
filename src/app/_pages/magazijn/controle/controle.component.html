@@ -1,0 +1,51 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<mat-form-field appearance="fill" class="h-100">
+  <mat-label>Selecteer datum</mat-label>
+  <mat-date-range-input [rangePicker]="picker" disabled>
+    <input matStartDate placeholder="Start datum" [(ngModel)]="start">
+    <input matEndDate placeholder="Eind datum" [(ngModel)]="end" (dateChange)="getTable()">
+  </mat-date-range-input>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>
+</mat-form-field>
+<div class="chart-scroll">
+  <table mat-table [dataSource]="tableData" *ngIf="!loading">
+    <!-- Deadline Column -->
+    <ng-container matColumnDef="deadline">
+      <th mat-header-cell *matHeaderCellDef> Uitvoer datum</th>
+      <td mat-cell *matCellDef="let element" style="width: 100px"> {{element.deadline}} </td>
+    </ng-container>
+    <!-- Time-->
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef> Tijd</th>
+      <td mat-cell *matCellDef="let element" style="width: 100px"> {{element.city}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Project nummer</th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- City Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Monteur</th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="shortDescription">
+      <th mat-header-cell *matHeaderCellDef> Omschrijving</th>
+      <td mat-cell *matCellDef="let element"> {{element.shortDescription}} </td>
+    </ng-container>
+
+    <!-- Short description Column -->
+    <ng-container matColumnDef="link">
+      <th mat-header-cell *matHeaderCellDef> Link</th>
+      <td mat-cell *matCellDef="let element"> <a [href]="'https://info.differentdoors.nl/configuratie-menu/montage/p'+ element.name" target="_blank">Configuratie</a></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
