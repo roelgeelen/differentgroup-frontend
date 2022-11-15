@@ -1,11 +1,36 @@
-.chart-scroll {
-  overflow: scroll;
-  overflow-y: hidden;
+.mobile-label {
+  display: none;
 }
-.mat-row {
-  height: auto;
+.mat-column-shortDescription {
+  flex: 0 0 35% !important;
+  padding: 0 10px;
 }
 
-.mat-cell, .mat-header-cell {
-  padding: 8px 8px 8px 0;
+@media(max-width: 700px) {
+  .mobile-label {
+    width: 120px;
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  .mat-header-row {
+    display: none;
+  }
+
+  .mat-row {
+    flex-direction: column;
+    align-items: start;
+    padding: 8px 24px;
+  }
+  mat-cell {
+    min-height: auto;
+    align-items: baseline;
+    flex-wrap: wrap;
+    &:first-of-type {
+      padding: 0;
+    }
+  }
+  .mat-column-shortDescription {
+    padding: 0;
+  }
 }

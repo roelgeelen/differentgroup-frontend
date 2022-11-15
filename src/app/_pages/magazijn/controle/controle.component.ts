@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Table} from "../../../_models/pages/table";
 import {ApiService} from "../../../_services/api.service";
 import {MAT_DATE_RANGE_SELECTION_STRATEGY} from "@angular/material/datepicker";
-import {WeekRangeSelectionStrategy} from "../../../_helpers/weekRangeSelection.strategy";
-import {CustomDateAdapter, CustomDateFormatter} from "../../verkoop/afspraken/custom-date-formatter.provider";
-import {CalendarDateFormatter} from "angular-calendar";
+import {CustomDateAdapter} from "../../verkoop/afspraken/custom-date-formatter.provider";
 import {addDays} from "date-fns";
 import {DateAdapter} from "@angular/material/core";
 import {AddDaysRangeSelectionStrategy} from "../../../_helpers/addDaysRangeSelection.strategy";
@@ -40,7 +38,6 @@ export class ControleComponent implements OnInit {
     this.loading = true;
     this.apiService.getControle(this.datepipe.transform(this.start, 'yyyy-MM-dd'), this.datepipe.transform(this.end, 'yyyy-MM-dd')).subscribe(data => {
       this.tableData = data;
-      console.log(this.tableData)
       this.loading = false;
     })
   }

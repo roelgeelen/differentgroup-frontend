@@ -7,4 +7,5 @@
   ADMINISTRATION = 'Administratie',
   ADMIN = 'Admin',
   PLANNING = 'Planning',
+  STOCKROOM = 'magazijn',
 }

@@ -54,17 +54,6 @@ export const navConfig: Page[] = [
     icon: 'insert_chart_outlined',
     pages: [
       {
-        url: '/planning/logistiek',
-        title: 'Logistiek',
-        icon: 'calendar_today',
-        roles: [
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
-          EnumRoles.PLANNING,
-          EnumRoles.ICT
-        ]
-      },
-      {
         url: '/planning/productie',
         title: 'Productie',
         icon: 'bar_chart',
@@ -101,6 +90,7 @@ export const navConfig: Page[] = [
     title: 'Magazijn',
     icon: 'supervised_user_circle',
     roles: [
+      EnumRoles.STOCKROOM,
       EnumRoles.ENGINEERING,
       EnumRoles.ADMINISTRATION,
       EnumRoles.PLANNING,
@@ -108,10 +98,23 @@ export const navConfig: Page[] = [
     ],
     pages: [
       {
+        url: '/magazijn/logistiek',
+        title: 'Logistiek',
+        icon: 'calendar_today',
+        roles: [
+          EnumRoles.STOCKROOM,
+          EnumRoles.ENGINEERING,
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.PLANNING,
+          EnumRoles.ICT
+        ]
+      },
+      {
         url: '/magazijn/controle',
         title: 'Controle',
         icon: 'playlist_add_check',
         roles: [
+          EnumRoles.STOCKROOM,
           EnumRoles.ENGINEERING,
           EnumRoles.ADMINISTRATION,
           EnumRoles.PLANNING,
@@ -123,6 +126,7 @@ export const navConfig: Page[] = [
         title: 'Voorraad',
         icon: 'bar_chart',
         roles: [
+          EnumRoles.STOCKROOM,
           EnumRoles.ENGINEERING,
           EnumRoles.ADMINISTRATION,
           EnumRoles.PLANNING,
