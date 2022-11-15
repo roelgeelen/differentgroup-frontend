@@ -282,28 +282,84 @@ export const buitenzijde: QuestionBase<string>[] = [
       }
     ]
   }),
-  new TextQuestion({
-    label: 'Kleuropties (Tweemaal gegrond)',
-    fields: [
+  new RadioQuestion({
+    label: 'Kleuropties deur (Tweemaal gegrond)',
+    key: 'deur_ral',
+    options: [
+      {value: '9010'},
+      {value: '7016'},
+      {value: '9005'},
+      {value: '6009'}
+    ]
+  }),
+  new RadioQuestion({
+    label: 'Staat de deur op het zuiden',
+    key: 'deur_op_zuiden',
+    options: [
+      {value: 'Ja (IROKO hout toepassen)', article: 'ODH203'},
+      {value: 'Nee'}
+    ],
+    dependent: [
+      {field: 'deur_ral', values: ['7016']},
       {
-        key: 'deur_ral',
-        label: 'Deur RAL',
-        type: 'text'
-      },
-      {
-        key: 'kozijn_ral',
-        label: 'Kozijn RAL',
-        type: 'text'
+        field: 'model',
+        values: ['A', 'B', 'C', 'H', 'I']
       }
     ]
   }),
   new RadioQuestion({
-    key: 'aflakken_op_locatie',
-    label: 'Aflakken op locatie (door professionele schilder)',
+    label: 'Kleuropties kozijn (Tweemaal gegrond)',
+    key: 'kleur_kozijn_ral',
+    options: [
+      {value: '9010'},
+      {value: '7016'},
+      {value: '9005'},
+      {value: '6009'}
+    ]
+  }),
+  // new TextQuestion({
+  //   label: 'Kleuropties (Tweemaal gegrond)',
+  //   fields: [
+  //     {
+  //       key: 'deur_ral',
+  //       label: 'Deur RAL',
+  //       type: 'text'
+  //     },
+  //     {
+  //       key: 'kozijn_ral',
+  //       label: 'Kozijn RAL',
+  //       type: 'text'
+  //     }
+  //   ]
+  // }),
+  new RadioQuestion({
+    key: 'aflakken',
+    label: 'Deur afgelakt leveren in gekozen kleur',
     options: [
       {value: 'Klant lakt de deur zelf af binnen drie maanden na montage'},
       {value: 'Ja', article: 'ODH200'},
       {value: 'Nee'},
+    ],
+    dependent: [
+      {
+        field: 'model',
+        values: ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'Overig']
+      }
+    ]
+  }),
+  new RadioQuestion({
+    key: 'aflakken',
+    label: 'Deur afgelakt leveren in gekozen kleur',
+    options: [
+      {value: 'Klant lakt de deur zelf af binnen drie maanden na montage'},
+      {value: 'Ja ', article: 'ODH204'},
+      {value: 'Nee'},
+    ],
+    dependent: [
+      {
+        field: 'model',
+        values: ['E']
+      }
     ]
   }),
 ];
@@ -316,22 +372,7 @@ export const binnenzijde: QuestionBase<string>[] = [
       {value: 'Horizontale belijning'},
       {value: 'Verticale belijning'},
     ]
-  }),
-  new TextQuestion({
-    label: 'Kleuropties (Tweemaal gegrond)',
-    fields: [
-      {
-        key: 'deur_ral_binnen',
-        label: 'Deur RAL',
-        type: 'text'
-      },
-      {
-        key: 'kozijn_ral_binnen',
-        label: 'Kozijn RAL',
-        type: 'text'
-      }
-    ]
-  }),
+  })
 ];
 export const deur: QuestionBase<string>[] = [
   new RadioQuestion({
@@ -358,20 +399,9 @@ export const deur: QuestionBase<string>[] = [
     options: [
       {value: 'Klink aluminium'},
       {value: 'Knop aluminium'},
-      {value: 'Klink zwart'},
-      {value: 'Knop zwart'},
-      {value: 'Klink RVS'},
-      {value: 'Knop RVS'},
+      {value: 'Klink zwart', article: 'ODH201'},
+      {value: 'Knop zwart', article: 'ODH201'},
       {value: 'Door klant (Minimaal 8 weken voor gewenste montageweek)'},
-    ]
-  }),
-  new RadioQuestion({
-    key: 'isolatie',
-    label: 'Isolatie',
-    options: [
-      {value: 'Ja'},
-      {value: 'Nee (Let op: bij het verwarmen van de ruimte kan er condens ontstaan op de deur)'},
-      {value: 'N.v.t. (Alu stabiel deuren zijn standaard geïsoleerd)'},
     ]
   }),
   new RadioQuestion({
@@ -416,7 +446,7 @@ export const glas: QuestionBase<string>[] = [
     options: [
       {value: 'N.v.t.'},
       {value: 'HR++ helder glas'},
-      {value: 'HR++ melk glas'},
+      {value: 'HR++ melk glas', article: 'ODH202'},
     ],
     value: 'N.v.t.',
     dependent: [
