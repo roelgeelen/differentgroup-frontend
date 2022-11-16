@@ -46,13 +46,23 @@
     </ng-container>
 
     <!-- Description Column -->
-    <ng-container matColumnDef="shortDescription">
-      <mat-header-cell *matHeaderCellDef> Omschrijving </mat-header-cell>
+    <ng-container matColumnDef="memo">
+      <mat-header-cell *matHeaderCellDef> Memo </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <span class="mobile-label">Omschrijving:</span>
+        <span class="mobile-label">Memo:</span>
+        {{element.internalWorkDescription}}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="shortDescription">
+      <mat-header-cell *matHeaderCellDef> Korte memo </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <span class="mobile-label">Korte memo:</span>
         {{element.shortDescription}}
       </mat-cell>
     </ng-container>
+
 
     <!-- Short description Column -->
     <ng-container matColumnDef="link">

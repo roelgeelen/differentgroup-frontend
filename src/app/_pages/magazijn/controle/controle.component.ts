@@ -27,7 +27,7 @@ export class ControleComponent implements OnInit {
   end: Date  = addDays(new Date(), 3);
   loading = false;
   tableData: Table[] = [];
-  displayedColumns: string[] = ['deadline', 'name', 'city', 'description', 'shortDescription', 'link'];
+  displayedColumns: string[] = ['deadline', 'name', 'city', 'description', 'memo','shortDescription', 'link'];
   constructor(private apiService: ApiService, private datepipe: DatePipe) { }
 
   ngOnInit(): void {

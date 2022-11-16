@@ -1,12 +1,12 @@
 .mobile-label {
   display: none;
 }
-.mat-column-shortDescription {
-  flex: 0 0 35% !important;
-  padding: 0 10px;
+.mat-column-shortDescription, .mat-column-memo {
+  flex: 0 0 30% !important;
+  padding: 10px;
 }
 
-@media(max-width: 700px) {
+@media(max-width: 900px) {
   .mobile-label {
     width: 120px;
     display: inline-block;
@@ -30,7 +30,7 @@
       padding: 0;
     }
   }
-  .mat-column-shortDescription {
+  .mat-column-shortDescription, .mat-column-memo {
     padding: 0;
   }
 }
