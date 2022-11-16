@@ -283,7 +283,7 @@ export const buitenzijde: QuestionBase<string>[] = [
     ]
   }),
   new RadioQuestion({
-    label: 'Kleuropties deur (Tweemaal gegrond)',
+    label: 'Kleuropties deur binnen- en buitenzijde (Tweemaal gegrond)',
     key: 'deur_ral',
     options: [
       {value: '9010'},
@@ -300,7 +300,7 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: 'Nee'}
     ],
     dependent: [
-      {field: 'deur_ral', values: ['7016']},
+      {field: 'deur_ral', values: ['7016', '9005', '6009']},
       {
         field: 'model',
         values: ['A', 'B', 'C', 'H', 'I']
