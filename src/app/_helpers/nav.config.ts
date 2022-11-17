@@ -54,17 +54,6 @@ export const navConfig: Page[] = [
     icon: 'insert_chart_outlined',
     pages: [
       {
-        url: '/planning/logistiek',
-        title: 'Logistiek',
-        icon: 'calendar_today',
-        roles: [
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
-          EnumRoles.PLANNING,
-          EnumRoles.ICT
-        ]
-      },
-      {
         url: '/planning/productie',
         title: 'Productie',
         icon: 'bar_chart',
@@ -72,17 +61,6 @@ export const navConfig: Page[] = [
           EnumRoles.ENGINEERING,
           EnumRoles.ADMINISTRATION,
           EnumRoles.PRODUCTION,
-          EnumRoles.PLANNING,
-          EnumRoles.ICT
-        ]
-      },
-      {
-        url: '/planning/magazijn',
-        title: 'Magazijn',
-        icon: 'bar_chart',
-        roles: [
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
           EnumRoles.PLANNING,
           EnumRoles.ICT
         ]
@@ -105,6 +83,56 @@ export const navConfig: Page[] = [
       EnumRoles.PRODUCTION,
       EnumRoles.PLANNING,
       EnumRoles.ICT
+    ]
+  },
+  {
+    url: '/magazijn',
+    title: 'Magazijn',
+    icon: 'supervised_user_circle',
+    roles: [
+      EnumRoles.STOCKROOM,
+      EnumRoles.ENGINEERING,
+      EnumRoles.ADMINISTRATION,
+      EnumRoles.PLANNING,
+      EnumRoles.ICT
+    ],
+    pages: [
+      {
+        url: '/magazijn/logistiek',
+        title: 'Logistiek',
+        icon: 'calendar_today',
+        roles: [
+          EnumRoles.STOCKROOM,
+          EnumRoles.ENGINEERING,
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.PLANNING,
+          EnumRoles.ICT
+        ]
+      },
+      {
+        url: '/magazijn/controle',
+        title: 'Controle',
+        icon: 'playlist_add_check',
+        roles: [
+          EnumRoles.STOCKROOM,
+          EnumRoles.ENGINEERING,
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.PLANNING,
+          EnumRoles.ICT
+        ]
+      },
+      {
+        url: '/magazijn/voorraad',
+        title: 'Voorraad',
+        icon: 'bar_chart',
+        roles: [
+          EnumRoles.STOCKROOM,
+          EnumRoles.ENGINEERING,
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.PLANNING,
+          EnumRoles.ICT
+        ]
+      }
     ]
   },
   {

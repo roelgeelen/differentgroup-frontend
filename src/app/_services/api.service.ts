@@ -47,8 +47,13 @@ export class ApiService {
     return this.http.get<any>(`${environment.apiUrl}/graphs/totals/ub`)
   }
 
-  getOrderStatus(status: number) {
-    return this.http.get<any>(`${environment.apiUrl}/graphs/orders/${status}`)
+
+  getOrderStatus() {
+    return this.http.get<any>(`${environment.apiUrl}/graphs/table/measure`)
+  }
+
+  getControle(start: string | null, end: string | null) {
+    return this.http.get<any>(`${environment.apiUrl}/graphs/table/control?start=${start}&end=${end}`)
   }
 
   getMagazijn() {

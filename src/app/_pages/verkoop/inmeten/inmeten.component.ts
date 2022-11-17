@@ -15,7 +15,7 @@ export class InmetenComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.apiService.getOrderStatus(1).subscribe(data => {
+    this.apiService.getOrderStatus().subscribe(data => {
       this.tableData = data;
       this.loading = false;
     })

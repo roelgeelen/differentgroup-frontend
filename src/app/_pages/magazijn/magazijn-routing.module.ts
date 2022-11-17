@@ -1,36 +1,49 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {PlanningComponent} from "./planning.component";
+import {MagazijnComponent} from "./magazijn.component";
 import {AuthGuard} from "../../_helpers/auth.guard";
-import {DashboardComponent} from "./dashboard/dashboard.component";
-import {ProductionComponent} from "./production/production.component";
-import {VoorraadComponent} from "../magazijn/voorraad/voorraad.component";
+import {VoorraadComponent} from "./voorraad/voorraad.component";
 import {EnumRoles} from "../../_models/enum/enumRoles";
-import {GeproduceerdComponent} from "./geproduceert/geproduceerd.component";
+import {ControleComponent} from "./controle/controle.component";
+import {LogisticComponent} from "./logistic/logistic.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: PlanningComponent,
+    component: MagazijnComponent,
     children: [
+      // {
+      //   path: '',
+      //   component: DashboardComponent,
+      //   canActivate: [AuthGuard],
+      // },
       {
-        path: '',
-        component: DashboardComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'productie',
-        component: ProductionComponent,
+        path: 'logistiek',
+        component: LogisticComponent,
         canActivate: [AuthGuard],
         data: {
           roles: [
+            EnumRoles.STOCKROOM,
             EnumRoles.ENGINEERING,
             EnumRoles.ADMINISTRATION,
-            EnumRoles.PRODUCTION,
             EnumRoles.PLANNING,
             EnumRoles.ICT
           ]
         },
+      },
+      {
+        path: 'controle',
+        component: ControleComponent,
+        canActivate: [AuthGuard],
+        data: {
+          roles: [
+            EnumRoles.STOCKROOM,
+            EnumRoles.ENGINEERING,
+            EnumRoles.ADMINISTRATION,
+            EnumRoles.PLANNING,
+            EnumRoles.ICT
+          ]
+        }
       },
       {
         path: 'voorraad',
@@ -38,25 +51,13 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
+            EnumRoles.STOCKROOM,
             EnumRoles.ENGINEERING,
             EnumRoles.ADMINISTRATION,
             EnumRoles.PLANNING,
             EnumRoles.ICT
           ]
-        },
-      },
-      {
-        path: 'geproduceerd',
-        component: GeproduceerdComponent,
-        canActivate: [AuthGuard],
-        data: {
-          roles: [
-            EnumRoles.ENGINEERING,
-            EnumRoles.ADMINISTRATION,
-            EnumRoles.PLANNING,
-            EnumRoles.ICT
-          ]
-        },
+        }
       }
     ]
   }
@@ -71,5 +72,5 @@ const routes: Routes = [
   ]
 })
 
-export class PlanningRoutingModule {
+export class MagazijnRoutingModule {
 }

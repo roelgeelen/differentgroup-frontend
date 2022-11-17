@@ -4,10 +4,10 @@ import {ApiService} from "../../../_services/api.service";
 
 @Component({
   selector: 'app-production',
-  templateUrl: './magazijn.component.html',
-  styleUrls: ['./magazijn.component.scss']
+  templateUrl: './voorraad.component.html',
+  styleUrls: ['./voorraad.component.scss']
 })
-export class MagazijnComponent implements OnInit {
+export class VoorraadComponent implements OnInit {
   loading = false;
   myData = [];
   chartColumns = [];

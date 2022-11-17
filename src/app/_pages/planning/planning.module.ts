@@ -7,8 +7,6 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {GoogleChartsModule} from "angular-google-charts";
 import {DashboardComponent} from "./dashboard/dashboard.component";
-import {LogisticComponent} from "./logistic/logistic.component";
-import {MagazijnComponent} from "./magazijn/magazijn.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {ProductionComponent} from "./production/production.component";
 import { GeproduceerdComponent } from './geproduceert/geproduceerd.component';
@@ -26,8 +24,6 @@ import { GeproduceerdComponent } from './geproduceert/geproduceerd.component';
   declarations: [
     PlanningComponent,
     DashboardComponent,
-    LogisticComponent,
-    MagazijnComponent,
     ProductionComponent,
     GeproduceerdComponent
   ],
