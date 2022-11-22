@@ -8,18 +8,30 @@
       <div class="widgets">
         <app-weather-widget></app-weather-widget>
         <app-birthday-widget class="mt-2"></app-birthday-widget>
+        <mat-card class="mt-3">
+          <h2>Kernwaarde</h2>
+          We doen alles <strong>anders</strong>, geloven in de kracht van <strong>samen</strong>
+          en denken <strong>vrij</strong>, met als resultaat de optimale beleving
+        </mat-card>
+        <mat-card class="mt-3">
+          <h2>Links</h2>
+          <ul>
+            <li><a href="https://docs.google.com/spreadsheets/d/17TiCI7x9J9BzjbGrQc0R9K9Z8ylPZkXXAHiJIJBuiNA/edit?usp=sharing" target="_blank">Broodjes bestellen</a></li>
+            <li><a href="https://www.wkpooltjes.nl/pools/3242/wk-pool-different-doors.html" target="_blank">WK pooltjes</a></li>
+          </ul>
+        </mat-card>
       </div>
     </div>
 
-    <div class="card-links" *ngIf="isKANTOOR">
-      <mat-card class="mat-elevation-z4" *ngFor="let link of links">
-        <div class="img">
-          <img mat-card-image [src]="link.img">
-        </div>
-        <mat-card-actions>
-          <a mat-raised-button color="accent" target="_blank" [href]="link.link">Ga naar {{link.title}}</a>
-        </mat-card-actions>
-      </mat-card>
-    </div>
+<!--    <div class="card-links" *ngIf="isKANTOOR">-->
+<!--      <mat-card class="mat-elevation-z4" *ngFor="let link of links">-->
+<!--        <div class="img">-->
+<!--          <img mat-card-image [src]="link.img">-->
+<!--        </div>-->
+<!--        <mat-card-actions>-->
+<!--          <a mat-raised-button color="accent" target="_blank" [href]="link.link">Ga naar {{link.title}}</a>-->
+<!--        </mat-card-actions>-->
+<!--      </mat-card>-->
+<!--    </div>-->
   </div>
 </div>
