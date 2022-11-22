@@ -39,7 +39,11 @@ app-weather-widget {
   margin-left: 10px;
 }
 .widgets {
+  width: 332px;
   margin-left: 20px;
+}
+strong {
+  color: #334d9c;
 }
 @media only screen and (max-width: 678px) {
   h1{
