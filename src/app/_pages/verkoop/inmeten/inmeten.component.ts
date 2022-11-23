@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {MeasureTable} from "../../../_models/pages/MeasureTable";
 import {ApiService} from "../../../_services/api.service";
+import {MeasureTable} from "../../../_models/pages/MeasureTable";
 
 @Component({
   selector: 'app-inmeten',
