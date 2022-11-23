@@ -1,12 +1,11 @@
-export class Table {
+export class MeasureTable {
 
-  constructor(name: string, deadline: string, city: string, description: string, shortDescription: string, internalWorkDescription: string) {
+  constructor(name: string, deadline: string, city: string, description: string, shortDescription: string) {
     this.name = name;
     this.deadline = deadline;
     this.city = city;
     this.description = description;
     this.shortDescription = shortDescription;
-    this.internalWorkDescription = internalWorkDescription;
   }
 
   name: string;
@@ -14,5 +13,4 @@ export class Table {
   city: string;
   description: string;
   shortDescription: string;
-  internalWorkDescription: string;
 }

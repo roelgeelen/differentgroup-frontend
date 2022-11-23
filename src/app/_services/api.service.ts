@@ -15,48 +15,49 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  searchNearbyEvents(lat: number, lng: number, owners: string[], distance: number, start: string, end: string) {
-    return this.http.get<Appointment[]>(`${environment.apiUrl}/search/appointments/nearby?lat=${lat}&lng=${lng}&owners=${owners}&radius=${distance}&start=${start}&end=${end}`);
+  getCalendar(owner: string, start: string, end: string) {
+    return this.http.get<Appointment[]>(`${environment.apiUrl}/calendars/${owner}?start=${start}&end=${end}`);
   }
 
   getBirthdays() {
-    return this.http.get<Event[]>(`${environment.apiUrl}/birthdays`);
+    return this.http.get<Event[]>(`${environment.apiUrl}/profile/birthdays`);
   }
 
   getProfilePicture(): Observable<HttpResponse<Blob>> {
-    return this.http.get(`${environment.apiUrl}/profile/picture`, {observe: 'response', responseType: 'blob'});
+    return this.http.get(`${environment.apiUrl}/profile/avatar`, {observe: 'response', responseType: 'blob'});
   }
 
   getProduction() {
-    return this.http.get<any>(`${environment.apiUrl}/stats/graphData`)
+    return this.http.get<any>(`${environment.apiUrl}/graphs/production`)
   }
 
   getGeproduceert() {
-    return this.http.get<any>(`${environment.apiUrl}/stats/geproduceert`)
+    return this.http.get<any>(`${environment.apiUrl}/graphs/produced`)
   }
 
   getTotal() {
-    return this.http.get<any>(`${environment.apiUrl}/stats/total`)
+    return this.http.get<any>(`${environment.apiUrl}/graphs/totals/open`)
   }
 
   getInplan() {
-    return this.http.get<any>(`${environment.apiUrl}/stats/inplannen`)
+    return this.http.get<any>(`${environment.apiUrl}/graphs/totals/schedule`)
   }
 
   getUB() {
-    return this.http.get<any>(`${environment.apiUrl}/stats/ub`)
+    return this.http.get<any>(`${environment.apiUrl}/graphs/totals/ub`)
   }
 
+
   getOrderStatus() {
-    return this.http.get<any>(`${environment.apiUrl}/stats/inmeten`)
+    return this.http.get<any>(`${environment.apiUrl}/graphs/table/measure`)
   }
 
   getControle(start: string | null, end: string | null) {
-    return this.http.get<any>(`${environment.apiUrl}/stats/controle?start=${start}&end=${end}`)
+    return this.http.get<any>(`${environment.apiUrl}/graphs/table/control?start=${start}&end=${end}`)
   }
 
   getMagazijn() {
-    return this.http.get<any>(`${environment.apiUrl}/stats/magazijn`)
+    return this.http.get<any>(`${environment.apiUrl}/graphs/stockroom`)
   }
 
   getPosts() {
@@ -68,7 +69,7 @@ export class ApiService {
     formdata.append('file', file);
     formdata.append('title', post.title);
     formdata.append('content', post.message);
-    const req = new HttpRequest('POST', `${environment.apiUrl}/posts/create`, formdata, {
+    const req = new HttpRequest('POST', `${environment.apiUrl}/posts`, formdata, {
       reportProgress: true,
       responseType: 'text'
     });
@@ -76,11 +77,11 @@ export class ApiService {
   }
 
   getPostPicture(uuid: string): Observable<HttpResponse<Blob>> {
-    return this.http.get(`${environment.apiUrl}/posts/image/${uuid}`, {observe: 'response', responseType: 'blob'});
+    return this.http.get(`${environment.apiUrl}/images/${uuid}`, {observe: 'response', responseType: 'blob'});
   }
 
   deletePost(uuid: string): Observable<HttpEvent<{}>> {
-    const req = new HttpRequest('DELETE', `${environment.apiUrl}/posts/${uuid}/delete`, null, {
+    const req = new HttpRequest('DELETE', `${environment.apiUrl}/posts/${uuid}`, null, {
       reportProgress: true,
       responseType: 'text'
     });

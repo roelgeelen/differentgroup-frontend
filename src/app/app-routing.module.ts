@@ -51,8 +51,8 @@ const routes: Routes = [
     },
   },
   {
-    path: 'administratie',
-    loadChildren: () => import('./_pages/administratie/administratie.module').then(m => m.AdministratieModule),
+    path: 'rapportage',
+    loadChildren: () => import('./_pages/rapportage/rapportage.module').then(m => m.RapportageModule),
     canActivate: [AuthGuard],
     data: {
       roles: [

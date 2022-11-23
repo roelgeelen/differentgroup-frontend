@@ -31,6 +31,8 @@ export class AuthenticationService {
 
   convertTokenToUser(): User {
     const user: User = new User();
+
+    console.log(this.oauthService.getAccessToken())
     if (this.oauthService.getAccessToken()) {
       const token: Token = this.getDecodedAccessToken(this.oauthService.getAccessToken());
       user.name = token.name;
