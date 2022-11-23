@@ -5,10 +5,10 @@ import {AuthenticationService} from "../../_services/authentication.service";
 
 @Component({
   selector: 'app-main',
-  templateUrl: './administratie.component.html',
-  styleUrls: ['./administratie.component.scss']
+  templateUrl: './rapportage.component.html',
+  styleUrls: ['./rapportage.component.scss']
 })
-export class AdministratieComponent implements OnInit {
+export class RapportageComponent implements OnInit {
   pages: any;
   private currentUser: User;
 
@@ -18,7 +18,7 @@ export class AdministratieComponent implements OnInit {
 
   ngOnInit(): void {
     this.pages = navConfig.filter((p) => {
-      return p.title === 'Administratie';
+      return p.title === 'Rapportage';
     })[0].pages
   }
 

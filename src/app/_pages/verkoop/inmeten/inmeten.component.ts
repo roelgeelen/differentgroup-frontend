@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Table} from "../../../_models/pages/table";
+import {MeasureTable} from "../../../_models/pages/MeasureTable";
 import {ApiService} from "../../../_services/api.service";
 
 @Component({
@@ -9,7 +9,7 @@ import {ApiService} from "../../../_services/api.service";
 })
 export class InmetenComponent implements OnInit {
   loading = false;
-  tableData: Table[] = [];
+  tableData: MeasureTable[] = [];
   displayedColumns: string[] = ['deadline', 'name', 'city', 'description', 'shortDescription'];
   constructor(private apiService: ApiService) { }
 

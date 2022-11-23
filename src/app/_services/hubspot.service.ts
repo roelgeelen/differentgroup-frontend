@@ -27,7 +27,7 @@ export class HubspotService {
   }
 
   createDealConfig(dealId: number, deal: DealConfig) {
-    return this.http.post(`${environment.apiUrl}/configs/${dealId}/forms/create`, deal);
+    return this.http.post(`${environment.apiUrl}/configs/${dealId}/forms`, deal);
   }
 
   getConfig(dealId: number, configId: number) {
