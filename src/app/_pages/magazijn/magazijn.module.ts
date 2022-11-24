@@ -12,6 +12,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule} from "@angular/forms";
 import {MatNativeDateModule} from "@angular/material/core";
 import {LogisticComponent} from "./logistic/logistic.component";
+import {MatButtonModule} from "@angular/material/button";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
   imports: [
@@ -23,6 +25,7 @@ import {LogisticComponent} from "./logistic/logistic.component";
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    MatButtonToggleModule,
     FormsModule
   ],
   declarations: [

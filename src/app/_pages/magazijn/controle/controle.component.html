@@ -1,18 +1,25 @@
+<div class="d-flex filter">
+  <mat-form-field appearance="fill" class="h-100">
+    <mat-label>Selecteer datum</mat-label>
+    <mat-date-range-input [rangePicker]="picker" disabled>
+      <input matStartDate placeholder="Start datum" [(ngModel)]="start">
+      <input matEndDate placeholder="Eind datum" [(ngModel)]="end" (dateChange)="getTable()">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>
+  </mat-form-field>
+  <mat-button-toggle-group class="type-filter" [(ngModel)]="type" (change)="getTable()">
+    <mat-button-toggle value="OPENSLAANDE">Openslaande</mat-button-toggle>
+    <mat-button-toggle value="HOUT">Hout</mat-button-toggle>
+    <mat-button-toggle value="STORING">Storing</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
 <mat-spinner *ngIf="loading"></mat-spinner>
-<mat-form-field appearance="fill" class="h-100">
-  <mat-label>Selecteer datum</mat-label>
-  <mat-date-range-input [rangePicker]="picker" disabled>
-    <input matStartDate placeholder="Start datum" [(ngModel)]="start">
-    <input matEndDate placeholder="Eind datum" [(ngModel)]="end" (dateChange)="getTable()">
-  </mat-date-range-input>
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>
-</mat-form-field>
 <div class="chart-scroll">
   <mat-table [dataSource]="tableData" *ngIf="!loading">
     <!-- Deadline Column -->
     <ng-container matColumnDef="workDate">
-      <mat-header-cell *matHeaderCellDef> Uitvoer datum </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Uitvoer datum</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <span class="mobile-label">Uitvoerdatum:</span>
         {{element.workDate}}
@@ -20,7 +27,7 @@
     </ng-container>
     <!-- Time-->
     <ng-container matColumnDef="workTime">
-      <mat-header-cell *matHeaderCellDef> Tijd </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Tijd</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <span class="mobile-label">Tijd:</span>
         {{element.workTime}}
@@ -29,7 +36,7 @@
 
     <!-- Name Column -->
     <ng-container matColumnDef="no">
-      <mat-header-cell *matHeaderCellDef> Project nummer </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Project nummer</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <span class="mobile-label">Project nummer:</span>
         {{element.no}}
@@ -38,7 +45,7 @@
 
     <!-- City Column -->
     <ng-container matColumnDef="employee">
-      <mat-header-cell *matHeaderCellDef> Monteur </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Monteur</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <span class="mobile-label">Monteur:</span>
         {{element.employee}}
@@ -47,7 +54,7 @@
 
     <!-- Description Column -->
     <ng-container matColumnDef="memo">
-      <mat-header-cell *matHeaderCellDef> Memo </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Memo</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <span class="mobile-label">Memo:</span>
         {{element.memo}}
@@ -56,7 +63,7 @@
 
     <!-- Description Column -->
     <ng-container matColumnDef="shortMemo">
-      <mat-header-cell *matHeaderCellDef> Korte memo </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Korte memo</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <span class="mobile-label">Korte memo:</span>
         {{element.shortMemo}}
@@ -66,7 +73,7 @@
 
     <!-- Short description Column -->
     <ng-container matColumnDef="link">
-      <mat-header-cell *matHeaderCellDef> Link </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Link</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <span class="mobile-label">Link:</span>
         <a [href]="'https://info.differentdoors.nl/configuratie-menu/montage/p'+ element.no" target="_blank">Configuratie</a>

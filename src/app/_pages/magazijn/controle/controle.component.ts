@@ -25,6 +25,7 @@ import {ControlTable} from "../../../_models/pages/ControlTable";
 export class ControleComponent implements OnInit {
   start: Date = new Date();
   end: Date  = addDays(new Date(), 3);
+  type: string = "OPENSLAANDE";
   loading = false;
   tableData: ControlTable[] = [];
   displayedColumns: string[] = ['workDate', 'workTime', 'no', 'employee', 'memo','shortMemo', 'link'];
@@ -36,7 +37,7 @@ export class ControleComponent implements OnInit {
 
   getTable() {
     this.loading = true;
-    this.apiService.getControle(this.datepipe.transform(this.start, 'yyyy-MM-dd'), this.datepipe.transform(this.end, 'yyyy-MM-dd')).subscribe(data => {
+    this.apiService.getControle(this.datepipe.transform(this.start, 'yyyy-MM-dd'), this.datepipe.transform(this.end, 'yyyy-MM-dd'), this.type).subscribe(data => {
       this.tableData = data;
       console.log(data);
       this.loading = false;
