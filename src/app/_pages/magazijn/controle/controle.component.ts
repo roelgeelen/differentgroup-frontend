@@ -44,6 +44,6 @@ export class ControleComponent implements OnInit {
   }
 
   updatePriority(element: ControlTable) {
-    this.apiService.stockroomUpdatePick(element.no, !element.priorityCode).subscribe();
+    this.apiService.stockroomUpdatePick(element.id, !element.priorityCode).subscribe();
   }
 }
