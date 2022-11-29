@@ -34,7 +34,6 @@ export class GeproduceerdComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.apiService.getGeproduceert().subscribe(data => {
-      console.log(data);
       this.chartColumns = data[0];
       data.splice(0, 1);
       data.forEach((item: any, index: number) => {

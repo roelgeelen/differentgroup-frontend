@@ -44,7 +44,7 @@ export class PostComponent implements OnInit {
           // @ts-ignore
           this.post = p;
           if (this.post.image != null) {
-            this.apiService.getPostPicture(this.post.image).subscribe(pic => {
+            this.apiService.getPostPicture(this.post.image.uuid).subscribe(pic => {
               if (pic.body?.size !== 0) {
                 var picture: Blob | null = pic.body;
                 // @ts-ignore
@@ -87,7 +87,7 @@ export class PostComponent implements OnInit {
   }
 
   removeImage() {
-    this.post.image = '';
+    this.post.image.uuid = '';
     this.selectedFiles = null;
     this.imageSrc = '';
   }

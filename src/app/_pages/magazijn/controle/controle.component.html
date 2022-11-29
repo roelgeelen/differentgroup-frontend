@@ -1,13 +1,31 @@
-<div class="d-flex filter">
+<div class="filter d-flex">
+<!--  <mat-form-field appearance="fill" class="h-100">-->
+<!--    <mat-label>Selecteer datum</mat-label>-->
+<!--    <mat-date-range-input [rangePicker]="picker" disabled>-->
+<!--      <input matStartDate placeholder="Start datum" [(ngModel)]="start">-->
+<!--      <input matEndDate placeholder="Eind datum" [(ngModel)]="end" (dateChange)="getTable()">-->
+<!--    </mat-date-range-input>-->
+<!--    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--    <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>-->
+<!--  </mat-form-field>-->
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="prev()">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
   <mat-form-field appearance="fill" class="h-100">
-    <mat-label>Selecteer datum</mat-label>
-    <mat-date-range-input [rangePicker]="picker" disabled>
-      <input matStartDate placeholder="Start datum" [(ngModel)]="start">
-      <input matEndDate placeholder="Eind datum" [(ngModel)]="end" (dateChange)="getTable()">
-    </mat-date-range-input>
+    <mat-label>Selecteer een week</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="date" (dateChange)="getTable()" disabled>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>
+    <mat-datepicker #picker disabled="false"></mat-datepicker>
   </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="next()">
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
   <mat-button-toggle-group class="type-filter" [(ngModel)]="type" (change)="getTable()">
     <mat-button-toggle value="OPENSLAANDE">Openslaande</mat-button-toggle>
     <mat-button-toggle value="HOUT">Hout</mat-button-toggle>
@@ -19,25 +37,40 @@
   <mat-table [dataSource]="tableData" *ngIf="!loading">
     <!-- Deadline Column -->
     <ng-container matColumnDef="workDate">
-      <mat-header-cell *matHeaderCellDef> Uitvoer datum</mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef class="mat-column-l">Uitvoer datum</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="mat-column-l">
         <span class="mobile-label">Uitvoerdatum:</span>
         {{element.workDate}}
       </mat-cell>
     </ng-container>
     <!-- Time-->
     <ng-container matColumnDef="workTime">
-      <mat-header-cell *matHeaderCellDef> Tijd</mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef class="mat-column-s">Tijd</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="mat-column-s">
         <span class="mobile-label">Tijd:</span>
         {{element.workTime}}
       </mat-cell>
     </ng-container>
-
     <!-- Name Column -->
+    <ng-container matColumnDef="customer">
+      <mat-header-cell *matHeaderCellDef class="mat-column-xl">Klant</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="mat-column-xl">
+        <span class="mobile-label">Klant:</span>
+        {{element.customer}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="customerNo">
+      <mat-header-cell *matHeaderCellDef class="mat-column-m">debiteur nummer</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="mat-column-m">
+        <span class="mobile-label">Debiteur nummer:</span>
+        {{element.customerNo}}
+      </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="no">
-      <mat-header-cell *matHeaderCellDef> Project nummer</mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef class="mat-column-l">Project nummer</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="mat-column-l">
         <span class="mobile-label">Project nummer:</span>
         {{element.no}}
       </mat-cell>
@@ -45,8 +78,8 @@
 
     <!-- City Column -->
     <ng-container matColumnDef="employee">
-      <mat-header-cell *matHeaderCellDef> Monteur</mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef class="mat-column-m">Monteur</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="mat-column-m">
         <span class="mobile-label">Monteur:</span>
         {{element.employee}}
       </mat-cell>
@@ -54,7 +87,7 @@
 
     <!-- Description Column -->
     <ng-container matColumnDef="memo">
-      <mat-header-cell *matHeaderCellDef> Memo</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Memo</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <span class="mobile-label">Memo:</span>
         {{element.memo}}
@@ -63,7 +96,7 @@
 
     <!-- Description Column -->
     <ng-container matColumnDef="shortMemo">
-      <mat-header-cell *matHeaderCellDef> Korte memo</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Korte memo</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <span class="mobile-label">Korte memo:</span>
         {{element.shortMemo}}
@@ -73,10 +106,20 @@
 
     <!-- Short description Column -->
     <ng-container matColumnDef="link">
-      <mat-header-cell *matHeaderCellDef> Link</mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef class="mat-column-m">Link</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="mat-column-m">
+        <div *ngIf="element.no">
         <span class="mobile-label">Link:</span>
         <a [href]="'https://info.differentdoors.nl/configuratie-menu/montage/p'+ element.no" target="_blank">Configuratie</a>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="check">
+      <mat-header-cell *matHeaderCellDef class="justify-content-center mat-column-m">Klaargezet</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="justify-content-center mat-column-m">
+        <span class="mobile-label">Klaargezet:</span>
+        <mat-checkbox [(ngModel)]="element.priorityCode" (click)="updatePriority(element)"></mat-checkbox>
       </mat-cell>
     </ng-container>
 

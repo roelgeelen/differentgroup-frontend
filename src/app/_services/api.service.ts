@@ -52,16 +52,20 @@ export class ApiService {
     return this.http.get<any>(`${environment.apiUrl}/graphs/table/measure`)
   }
 
-  getControle(start: string | null, end: string | null, type: string) {
-    return this.http.get<any>(`${environment.apiUrl}/graphs/table/control?start=${start}&end=${end}&type=${type}`)
+  getControle(date: string | null, type: string) {
+    return this.http.get<any>(`${environment.apiUrl}/stockroom/table/control?date=${date}&type=${type}`)
+  }
+
+  stockroomUpdatePick(id: string, status: boolean) {
+    return this.http.put(`${environment.apiUrl}/stockroom/control/${id}/picked`, status)
   }
 
   getMagazijn() {
     return this.http.get<any>(`${environment.apiUrl}/graphs/stockroom`)
   }
 
-  getPosts() {
-    return this.http.get<any>(`${environment.apiUrl}/posts`)
+  getPosts(page: number, size: number) {
+    return this.http.get<any>(`${environment.apiUrl}/posts?page=${page}&size=${size}`)
   }
 
   savePost(post: Post, file: File): Observable<HttpEvent<{}>> {

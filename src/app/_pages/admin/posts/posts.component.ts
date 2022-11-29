@@ -16,8 +16,8 @@ export class PostsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.apiService.getPosts().subscribe(p => {
-      this.posts = p;
+    this.apiService.getPosts(0, 10).subscribe(p => {
+      this.posts = p.content;
       this.loading = false;
     })
   }

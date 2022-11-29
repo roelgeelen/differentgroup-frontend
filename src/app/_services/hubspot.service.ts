@@ -18,7 +18,6 @@ export class HubspotService {
   }
 
   updateDeal(dealId: number, deal: Object) {
-    console.log(deal)
     return this.http.put(`${environment.apiUrl}/deals/${dealId}`, deal);
   }
 

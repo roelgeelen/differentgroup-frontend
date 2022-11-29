@@ -3,7 +3,7 @@ export class Post {
   title: string = '';
   message: string = '';
   date: Date;
-  image: string;
+  image: {id: string, uuid: string, pic: Blob};
   loadedImage: any;
   url: string;
   file?: FormData;

@@ -14,6 +14,9 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {LogisticComponent} from "./logistic/logistic.component";
 import {MatButtonModule} from "@angular/material/button";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatInputModule} from "@angular/material/input";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   imports: [
@@ -26,7 +29,11 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     MatNativeDateModule,
     MatFormFieldModule,
     MatButtonToggleModule,
-    FormsModule
+    FormsModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule
   ],
   declarations: [
     LogisticComponent,
