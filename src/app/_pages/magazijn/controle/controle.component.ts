@@ -7,6 +7,7 @@ import {DateAdapter} from "@angular/material/core";
 import {AddDaysRangeSelectionStrategy} from "../../../_helpers/addDaysRangeSelection.strategy";
 import {DatePipe} from "@angular/common";
 import {ControlTable} from "../../../_models/pages/ControlTable";
+import {ApiStockroomService} from "../../../_services/api-stockroom.service";
 
 @Component({
   selector: 'app-controle',
@@ -19,7 +20,7 @@ export class ControleComponent implements OnInit {
   loading = false;
   tableData: ControlTable[] = [];
   displayedColumns: string[] = ['workDate', 'workTime', 'customer','customerNo','no', 'employee', 'memo','shortMemo', 'link', 'check'];
-  constructor(private apiService: ApiService, private datepipe: DatePipe) { }
+  constructor(private apiStockroomService: ApiStockroomService, private datepipe: DatePipe) { }
 
   ngOnInit(): void {
     this.getTable();
@@ -27,7 +28,7 @@ export class ControleComponent implements OnInit {
 
   getTable() {
     this.loading = true;
-    this.apiService.getControle(this.datepipe.transform(this.date, 'yyyy-MM-dd'), this.type).subscribe(data => {
+    this.apiStockroomService.getControl(this.datepipe.transform(this.date, 'yyyy-MM-dd'), this.type).subscribe(data => {
       this.tableData = data;
       this.loading = false;
     })
@@ -44,6 +45,6 @@ export class ControleComponent implements OnInit {
   }
 
   updatePriority(element: ControlTable) {
-    this.apiService.stockroomUpdatePick(element.id, !element.priorityCode).subscribe();
+    this.apiStockroomService.updatePick(element.id, !element.priorityCode).subscribe();
   }
 }

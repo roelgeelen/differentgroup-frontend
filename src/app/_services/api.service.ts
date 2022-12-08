@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpRequest, HttpResponse} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Appointment} from "../_models/appointment/Appointment";
-import {Calendar} from "../_models/calendar/Calendar";
 import {Event} from "../_models/calendar/Event";
 import {Observable} from "rxjs";
 import {Post} from "../_models/pages/Post";
@@ -27,43 +26,6 @@ export class ApiService {
     return this.http.get(`${environment.apiUrl}/profile/avatar`, {observe: 'response', responseType: 'blob'});
   }
 
-  getProduction() {
-    return this.http.get<any>(`${environment.apiUrl}/graphs/production`)
-  }
-
-  getGeproduceert() {
-    return this.http.get<any>(`${environment.apiUrl}/graphs/produced`)
-  }
-
-  getTotal() {
-    return this.http.get<any>(`${environment.apiUrl}/graphs/totals/open`)
-  }
-
-  getInplan() {
-    return this.http.get<any>(`${environment.apiUrl}/graphs/totals/schedule`)
-  }
-
-  getUB() {
-    return this.http.get<any>(`${environment.apiUrl}/graphs/totals/ub`)
-  }
-
-
-  getOrderStatus() {
-    return this.http.get<any>(`${environment.apiUrl}/graphs/table/measure`)
-  }
-
-  getControle(date: string | null, type: string) {
-    return this.http.get<any>(`${environment.apiUrl}/stockroom/table/control?date=${date}&type=${type}`)
-  }
-
-  stockroomUpdatePick(id: string, status: boolean) {
-    return this.http.put(`${environment.apiUrl}/stockroom/control/${id}/picked`, status)
-  }
-
-  getMagazijn() {
-    return this.http.get<any>(`${environment.apiUrl}/graphs/stockroom`)
-  }
-
   getPosts(page: number, size: number) {
     return this.http.get<any>(`${environment.apiUrl}/posts?page=${page}&size=${size}`)
   }
@@ -80,7 +42,7 @@ export class ApiService {
     return this.http.request(req);
   }
 
-  getPostPicture(uuid: string): Observable<HttpResponse<Blob>> {
+  getPicture(uuid: string): Observable<HttpResponse<Blob>> {
     return this.http.get(`${environment.apiUrl}/images/${uuid}`, {observe: 'response', responseType: 'blob'});
   }
 

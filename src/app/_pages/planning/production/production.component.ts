@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ChartType} from "angular-google-charts";
 import {ApiService} from "../../../_services/api.service";
+import {ApiGraphService} from "../../../_services/api-graph.service";
 
 @Component({
   selector: 'app-production',
@@ -35,7 +36,7 @@ export class ProductionComponent implements OnInit {
   valueTotal!: number;
   valueInplan!: number;
   valueUB!: number;
-  constructor(private apiService: ApiService) {
+  constructor(private apiGraphService: ApiGraphService) {
   }
 
   ngOnInit(): void {
@@ -43,7 +44,7 @@ export class ProductionComponent implements OnInit {
     this.loadingT = true;
     this.loadingI = true;
     this.loadingU = true;
-    this.apiService.getProduction().subscribe(data => {
+    this.apiGraphService.getProduction().subscribe(data => {
       this.chartColumns = data[0];
       data.splice(0, 1);
       data.forEach((item: any, index: number) => {
@@ -63,17 +64,17 @@ export class ProductionComponent implements OnInit {
       this.myData = data;
     });
 
-    this.apiService.getTotal().subscribe(data => {
+    this.apiGraphService.getOpen().subscribe(data => {
       this.valueTotal = data.value;
       this.loadingT = false;
     });
 
-    this.apiService.getInplan().subscribe(data => {
+    this.apiGraphService.getSchedule().subscribe(data => {
       this.valueInplan = data.value;
       this.loadingI = false;
     });
 
-    this.apiService.getUB().subscribe(data => {
+    this.apiGraphService.getUB().subscribe(data => {
       this.valueUB = data.value;
       this.loadingU = false;
     })

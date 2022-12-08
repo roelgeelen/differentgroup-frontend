@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../../_services/api.service";
 import {ChartType} from "angular-google-charts";
+import {ApiGraphService} from "../../../_services/api-graph.service";
 
 @Component({
   selector: 'app-geproduceert',
@@ -28,12 +29,12 @@ export class GeproduceerdComponent implements OnInit {
   };
   dynamicResize = true;
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiGraphService: ApiGraphService) {
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.apiService.getGeproduceert().subscribe(data => {
+    this.apiGraphService.getProduced().subscribe(data => {
       this.chartColumns = data[0];
       data.splice(0, 1);
       data.forEach((item: any, index: number) => {

@@ -23,7 +23,7 @@ export class BlogPostComponent implements OnInit {
       console.log(p)
       this.posts.forEach((post) => {
         if (post.image != null) {
-          this.apiService.getPostPicture(post.image.uuid).subscribe(pic => {
+          this.apiService.getPicture(post.image.uuid).subscribe(pic => {
             if (pic.body?.size !== 0) {
               var picture: Blob | null = pic.body;
               // @ts-ignore

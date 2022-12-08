@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ChartType} from "angular-google-charts";
 import {ApiService} from "../../../_services/api.service";
+import {ApiStockroomService} from "../../../_services/api-stockroom.service";
 
 @Component({
   selector: 'app-production',
@@ -29,12 +30,12 @@ export class VoorraadComponent implements OnInit {
 
   valueExpected: number = 0;
   value!: number;
-  constructor(private apiService: ApiService) {
+  constructor(private apiStockroomService: ApiStockroomService) {
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.apiService.getMagazijn().subscribe(data => {
+    this.apiStockroomService.getStockroom().subscribe(data => {
       this.chartColumns = data[0];
       this.value = data[1][1];
       data.splice(0, 1);
