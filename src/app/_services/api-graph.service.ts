@@ -14,6 +14,10 @@ export class ApiGraphService {
     return this.http.get<any>(`${environment.apiUrl}/graphs/production`)
   }
 
+  getProductionv2() {
+    return this.http.get<any>(`${environment.apiUrl}/graphs/production/v2`)
+  }
+
   getProduced() {
     return this.http.get<any>(`${environment.apiUrl}/graphs/produced`)
   }

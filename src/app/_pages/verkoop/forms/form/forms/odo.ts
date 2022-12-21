@@ -661,6 +661,7 @@ export const overige: QuestionBase<string>[] = [
       {value: 'Aftimmeren binnenzijde lijstje rondom - 0.5 uur'},
       {value: 'Aftimmeren binnenzijde compleet - 2 uur'},
       {value: 'Aftimmeren buitenzijde - 1 uur'},
+      {value: 'Natuursteen/DTS dorpel plaatsen - 1 uur', article: 'ODO407'},
     ],
     value: ['Plaatsen nieuwe deur - 2 uur']
   }),

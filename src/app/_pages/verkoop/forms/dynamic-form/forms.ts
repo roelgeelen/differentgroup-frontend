@@ -5,6 +5,7 @@ import {FormPage} from "./model/formPage";
 import {sdh} from "../form/forms/sdh";
 import {vdh} from "../form/forms/vdh";
 import {ldh} from "../form/forms/ldh";
+import {hpt} from "../form/forms/hpt";
 
 export const forms: {[key in FormsEnum]: FormPage} = {
   odo: {
@@ -24,6 +25,12 @@ export const forms: {[key in FormsEnum]: FormPage} = {
     type: FormsEnum.sdh,
     articles: ['SDH600', 'SDH500'],
     form: sdh
+  },
+  hpt: {
+    title: 'Houten pivoterende deur',
+    type: FormsEnum.hpt,
+    articles: [],
+    form: hpt
   },
   vdh: {
     title: 'Houten voordeur',

@@ -1,0 +1,25 @@
+<h1>Productie</h1>
+<div class="chart-box">
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <div class="chart-scroll">
+    <div class="chart-width" id="chart-size">
+      <google-chart *ngIf="!loading" [type]="type" [data]="myData" [columns]="chartColumns" [options]="myOptions"
+                    [dynamicResize]="dynamicResize"></google-chart>
+    </div>
+  </div>
+</div>
+
+<div class="totals">
+  <div class="round">Totaal<br>
+    <mat-spinner diameter="75" *ngIf="loadingT"></mat-spinner>
+    <span>{{valueTotal}}</span>
+  </div>
+  <div class="round">Inplan.<br>
+    <mat-spinner diameter="75" *ngIf="loadingI"></mat-spinner>
+    <span>{{valueInplan}}</span>
+  </div>
+  <div class="round">UB<br>
+    <mat-spinner diameter="75" *ngIf="loadingU"></mat-spinner>
+    <span>{{valueUB}}</span>
+  </div>
+</div>

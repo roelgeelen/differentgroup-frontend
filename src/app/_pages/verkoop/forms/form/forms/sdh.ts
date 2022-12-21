@@ -238,6 +238,7 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: 'Aangeleverde delen'}
     ],
     other: true,
+    toDeal: true,
     custom: ''
   }),
   new RadioQuestion({

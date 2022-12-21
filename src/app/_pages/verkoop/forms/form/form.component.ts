@@ -198,8 +198,10 @@ export class FormComponent implements OnInit {
         }
         if (this.form.controls['type_sectionaaldeur'].value != 'Zijwaartse sectionaaldeur') {
           articles.push('SDH' + (maat + 100))
+          articles.push('SDH0' + ('0' + maat).slice(-2));
+        } else {
+          articles.push('ZDH0' + ('0' + maat).slice(-2));
         }
-        articles.push('SDH0' + ('0' + maat).slice(-2));
       }
     }
     return articles;
