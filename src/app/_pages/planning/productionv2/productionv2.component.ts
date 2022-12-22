@@ -42,7 +42,8 @@ export class Productionv2Component implements OnInit {
   };
   dynamicResize = true;
 
-  valueTotal!: number;
+  valueOrders!: number;
+  valueProjects!: number;
   valueInplan!: number;
   valueUB!: number;
   constructor(private apiGraphService: ApiGraphService) {
@@ -74,8 +75,13 @@ export class Productionv2Component implements OnInit {
       this.myData = data;
     });
 
-    this.apiGraphService.getOpen().subscribe(data => {
-      this.valueTotal = data.value;
+    this.apiGraphService.getOrders().subscribe(data => {
+      this.valueOrders = data.value;
+      this.loadingT = false;
+    });
+
+    this.apiGraphService.getProjects().subscribe(data => {
+      this.valueProjects = data.value;
       this.loadingT = false;
     });
 

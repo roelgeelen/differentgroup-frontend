@@ -22,8 +22,11 @@ export class ApiGraphService {
     return this.http.get<any>(`${environment.apiUrl}/graphs/produced`)
   }
 
-  getOpen() {
-    return this.http.get<any>(`${environment.apiUrl}/graphs/totals/open`)
+  getOrders() {
+    return this.http.get<any>(`${environment.apiUrl}/graphs/totals/orders`)
+  }
+  getProjects() {
+    return this.http.get<any>(`${environment.apiUrl}/graphs/totals/projects`)
   }
 
   getSchedule() {

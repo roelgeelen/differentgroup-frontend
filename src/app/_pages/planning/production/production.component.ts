@@ -64,7 +64,7 @@ export class ProductionComponent implements OnInit {
       this.myData = data;
     });
 
-    this.apiGraphService.getOpen().subscribe(data => {
+    this.apiGraphService.getOrders().subscribe(data => {
       this.valueTotal = data.value;
       this.loadingT = false;
     });
