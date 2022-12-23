@@ -158,9 +158,9 @@ export const buiten: QuestionBase<string>[] = [
     key: 'loopdeur_voordeur',
     label: 'Type loopdeur',
     options: [
-      {value: 'Verticale delen', article: 'LDH001'},
-      {value: 'Horizontale delen', article: 'LDH002'},
-      {value: 'Verticale latten', article: 'LDH003'},
+      {value: 'Verticale delen', article: 'ODHT001'},
+      {value: 'Horizontale delen', article: 'ODHT002'},
+      {value: 'Verticale latten', article: 'ODHT003'},
     ],
     validators: [Validators.required]
   }),
@@ -298,12 +298,13 @@ export const deur: QuestionBase<string>[] = [
     ]
   }),
   new RadioQuestion({
-    key: 'scharnierzijde',
-    label: 'Scharnierzijde  (van buiten gezien)',
+    key: 'actieve_deur',
+    label: 'Actieve deur (vanaf buitenaanzicht)',
     options: [
-      {value: 'Rechterzijde'},
-      {value: 'Linkerzijde '}
-    ]
+      {value: 'Rechts'},
+      {value: 'Links'}
+    ],
+    validators: [Validators.required]
   }),
   new RadioQuestion({
     key: 'type_dorpel',
@@ -452,7 +453,7 @@ export const overige: QuestionBase<string>[] = [
   })
 ]
 
-export const ldh: TabBase[] = [
+export const odht: TabBase[] = [
   {
     label: "Algemeen",
     questions: algemeen

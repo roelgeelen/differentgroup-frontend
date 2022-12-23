@@ -4,5 +4,6 @@ export enum FormsEnum {
   sdh = 'sdh',
   vdh = 'vdh',
   ldh = 'ldh',
-  hpt = 'hpt'
+  hpt = 'hpt',
+  odht = 'odht',
 }

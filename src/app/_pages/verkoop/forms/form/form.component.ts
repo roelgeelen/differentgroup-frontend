@@ -108,7 +108,7 @@ export class FormComponent implements OnInit {
 
   submit() {
     Swal.fire({
-      title: 'Wil je de artiekelen toevoegen aan de huidige offerte?',
+      title: 'Wil je de artikelen toevoegen aan de huidige offerte?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Ja, toevoegen',
