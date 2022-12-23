@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl:"https://a198-81-173-49-231.ngrok.io",
-  apiUrlLegacy:"https://api.differentgroup.nl/differentgroup",
+  apiUrl:"https://api.differentgroup.nl/differentgroup",
+  apiUrlLegacy:"https://api.differentdoors.nl/v2/api",
 };
 
 /*

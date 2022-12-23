@@ -325,7 +325,8 @@ export const buitenzijde: QuestionBase<string>[] = [
       {
         key: 'deur_ral',
         label: 'Deur RAL in structuurlak',
-        type: 'text'
+        type: 'text',
+        validators: [Validators.required]
       },
     ],
     dependent: [
@@ -342,7 +343,8 @@ export const buitenzijde: QuestionBase<string>[] = [
       {
         key: 'deur_ral',
         label: 'Deur RAL in structuurlak',
-        type: 'text'
+        type: 'text',
+        validators: [Validators.required]
       },
       {
         key: 'kozijn_ral',

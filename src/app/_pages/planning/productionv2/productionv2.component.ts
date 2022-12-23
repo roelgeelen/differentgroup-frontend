@@ -38,7 +38,15 @@ export class Productionv2Component implements OnInit {
       width: '100%'
     },
     isStacked: true,
-    series: {8: {type: 'line'}}
+    series: {8: {type: 'line'}},
+    vAxis: {
+      maxValue:300,
+    },
+    hAxis: {
+      textStyle: {
+        fontSize: 14 // or the number you want
+      }
+    }
   };
   dynamicResize = true;
 
@@ -46,6 +54,7 @@ export class Productionv2Component implements OnInit {
   valueProjects!: number;
   valueInplan!: number;
   valueUB!: number;
+
   constructor(private apiGraphService: ApiGraphService) {
   }
 
