@@ -10,7 +10,6 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {ProductionComponent} from "./production/production.component";
 import {GeproduceerdComponent} from './geproduceert/geproduceerd.component';
-import {Productionv2Component} from "./productionv2/productionv2.component";
 
 @NgModule({
   imports: [
@@ -26,7 +25,6 @@ import {Productionv2Component} from "./productionv2/productionv2.component";
     PlanningComponent,
     DashboardComponent,
     ProductionComponent,
-    Productionv2Component,
     GeproduceerdComponent
   ],
   exports: [

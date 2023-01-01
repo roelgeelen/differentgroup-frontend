@@ -10,10 +10,6 @@ export class ApiGraphService {
   constructor(private http: HttpClient) {
   }
 
-  getProduction() {
-    return this.http.get<any>(`${environment.apiUrl}/graphs/production`)
-  }
-
   getProductionv2() {
     return this.http.get<any>(`${environment.apiUrl}/graphs/production/v2`)
   }

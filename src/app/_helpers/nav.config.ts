@@ -66,18 +66,6 @@ export const navConfig: Page[] = [
         ]
       },
       {
-        url: '/planning/productiev2',
-        title: 'Productie (v2)',
-        icon: 'bar_chart',
-        roles: [
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
-          EnumRoles.PRODUCTION,
-          EnumRoles.PLANNING,
-          EnumRoles.ICT
-        ]
-      },
-      {
         url: '/planning/geproduceerd',
         title: 'Geproduceerd',
         icon: 'bar_chart',

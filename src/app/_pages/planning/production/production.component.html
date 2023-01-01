@@ -10,15 +10,15 @@
 </div>
 
 <div class="totals">
+  <div class="round">Deals<br>
+    <mat-spinner diameter="75" *ngIf="loadingT"></mat-spinner>
+    <span>{{valueProjects}}</span>
+  </div>
   <div class="round">Totaal<br>
     <mat-spinner diameter="75" *ngIf="loadingT"></mat-spinner>
-    <span>{{valueTotal}}</span>
+    <span>{{valueOrders}}</span>
   </div>
-  <div class="round">Open<br>
-    <mat-spinner diameter="75" *ngIf="loading"></mat-spinner>
-    <span>{{valueOpen}}</span>
-  </div>
-  <div class="round">Inplan.<br>
+  <div class="round">Plannen<br>
     <mat-spinner diameter="75" *ngIf="loadingI"></mat-spinner>
     <span>{{valueInplan}}</span>
   </div>
