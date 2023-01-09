@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl:"https://api.differentdoors.nl/differentgroup",
-  apiUrlLegacy:"https://api.differentdoors.nl/differentgroup",
+  apiUrl:"https://api.differentgroup.nl/differentgroup",
+  apiUrlLegacy:"https://api.differentgroup.nl/differentgroup",
 };
