@@ -7,7 +7,7 @@ import {HubspotService} from "../../../../_services/hubspot.service";
 import {AuthenticationService} from "../../../../_services/authentication.service";
 import {User} from "../../../../_models/User";
 import Swal from 'sweetalert2'
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormPage} from "../dynamic-form/model/formPage";
 import {FormsEnum} from "../dynamic-form/model/formsEnum";
 import {forms} from "../dynamic-form/forms";
@@ -28,6 +28,7 @@ export class OverviewComponent implements OnInit {
   form!: FormGroup;
   error: string = '';
   loading = false;
+  loadingC = false;
   new_form: string;
   selectForms: { name: string, items: string[] }[] = [
     {
@@ -45,7 +46,8 @@ export class OverviewComponent implements OnInit {
     private hubService: HubspotService,
     private authService: AuthenticationService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {
     this.authService.currentUser.subscribe(x => {
       this.currentUser = x
@@ -72,13 +74,13 @@ export class OverviewComponent implements OnInit {
       this.hubService.getDealConfigs(this.dealConfig.values.deal_id).subscribe(dealConf => {
         this.dealConfig = dealConf;
         this.location.replaceState('/verkoop/formulier/' + this.dealConfig.values.deal_id);
-        if (Array.isArray(this.dealConfig.values.configuraties)) {
-          this.dealConfig.values.configuraties.forEach(c => {
-            this.hubService.getConfig(this.dealConfig.values.deal_id, c.id).subscribe(r => {
-              this.configurations.push(r);
-            })
-          })
-        }
+        this.loadingC = true;
+        this.hubService.getConfigs(this.dealConfig.values.deal_id).subscribe(c => {
+          this.loadingC = false;
+          this.configurations = c;
+        }, error1 => {
+          this.loadingC = false;
+        })
         this.loading = false;
       }, error => {
         this.loading = false;
@@ -118,6 +120,9 @@ export class OverviewComponent implements OnInit {
         this.loading = true;
         this.hubService.deleteDealConfig(this.dealConfig.values.deal_id, configId).subscribe(r => {
           this.findDeal();
+        }, error1 => {
+          this.loading = false;
+          this.error = 'Er is iets fout gegaan bij het verwijderen';
         })
       }
     });
@@ -141,8 +146,13 @@ export class OverviewComponent implements OnInit {
 
     // @ts-ignore
     this.hubService.createDealConfig(this.dealConfig.values.deal_id, newConfig).subscribe((r: DealConfig) => {
-      this.loading = false;
-      location.replace("/verkoop/formulier/" + this.dealConfig.values.deal_id + "/" + r.id)
-    })
+        this.loading = false;
+        this.router.navigate(['/verkoop/formulier/' + this.dealConfig.values.deal_id + '/' + r.id]);
+        // location.replace("/verkoop/formulier/" + this.dealConfig.values.deal_id + "/" + r.id)
+      },
+      error1 => {
+        this.loading = false;
+        this.error = 'Er is iets fout gegaan bij het aanmaken';
+      })
   }
 }
