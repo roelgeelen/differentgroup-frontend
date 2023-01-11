@@ -19,7 +19,7 @@
           <h2>
             {{bday.subject}}
           </h2>
-          {{year - bday.bodyPreview}} jaar
+          {{toInt(bday.start.dateTime | date: 'yyyy') - bday.bodyPreview}} jaar
         </div>
       </div>
     </div>

@@ -32,4 +32,8 @@ export class BirthdayWidgetComponent implements OnInit {
   isToday(inputDate: Date) {
      return (new Date(inputDate)).setHours(0,0,0,0) === (new Date()).setHours(0,0,0,0)
   }
+
+  toInt(year: any) {
+    return year
+  }
 }
