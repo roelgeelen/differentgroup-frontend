@@ -14,6 +14,7 @@ export class BirthdayWidgetComponent implements OnInit {
   loading = false;
   bdays: Event[] = [];
   error: string;
+  year = (new Date()).getFullYear();
 
   constructor(@Inject(ApiService)private apiService: ApiService) { }
 
