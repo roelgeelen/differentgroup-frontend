@@ -71,20 +71,20 @@
     </button>
   </div>
 </div>
-<div class="slider bg-white">
-  <mat-slider
-    thumbLabel
-    [value]="distance"
-    (valueChange)="onInputChange($event)"
-    [displayWith]="formatLabel"
-    step="5"
-    min="10"
-    max="100"
-    aria-label="units"></mat-slider>
-</div>
-<input #mapSearchField class="google-search-bar" type="text" placeholder="Search" aria-label="Search"
-       aria-describedby="search-addon" [(ngModel)]="address"/>
-<div>
+<div class="scroll">
+  <div class="slider bg-white">
+    <mat-slider
+      thumbLabel
+      [value]="distance"
+      (valueChange)="onInputChange($event)"
+      [displayWith]="formatLabel"
+      step="5"
+      min="10"
+      max="100"
+      aria-label="units"></mat-slider>
+  </div>
+  <input #mapSearchField class="google-search-bar" type="text" placeholder="Search" aria-label="Search"
+         aria-describedby="search-addon" [(ngModel)]="address"/>
   <div class="loading-overlay" *ngIf="loading">
     <div class="loading"></div>
   </div>
@@ -114,25 +114,26 @@
     <map-directions-renderer *ngIf="(directionsResults$ | async) as directionsResults"
                              [directions]="directionsResults"></map-directions-renderer>
   </google-map>
-</div>
-<div class="d-flex w-100">
-  <mwl-calendar-week-view
-    class="w-100"
-    *ngIf="owners.length == 0"
-    [viewDate]="viewDate"
-    [dayStartHour]="7"
-    [weekStartsOn]="1">
-  </mwl-calendar-week-view>
-  <mwl-calendar-week-view
-    class="w-100"
-    *ngFor="let owner of owners"
-    [viewDate]="viewDate"
-    [events]="owner.events"
-    [dayStartHour]="7"
-    [refresh]="refresh"
-    (eventClicked)="openDialog($event.event)"
-    [weekStartsOn]="1">
-  </mwl-calendar-week-view>
+
+  <div class="d-flex w-100">
+    <mwl-calendar-week-view
+      class="w-100"
+      *ngIf="owners.length == 0"
+      [viewDate]="viewDate"
+      [dayStartHour]="7"
+      [weekStartsOn]="1">
+    </mwl-calendar-week-view>
+    <mwl-calendar-week-view
+      class="w-100"
+      *ngFor="let owner of owners"
+      [viewDate]="viewDate"
+      [events]="owner.events"
+      [dayStartHour]="7"
+      [refresh]="refresh"
+      (eventClicked)="openDialog($event.event)"
+      [weekStartsOn]="1">
+    </mwl-calendar-week-view>
+  </div>
 </div>
 <div class="text-center w-100" *ngIf="loading">
   <mat-spinner></mat-spinner>

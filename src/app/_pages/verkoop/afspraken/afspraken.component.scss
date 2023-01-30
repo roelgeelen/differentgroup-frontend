@@ -3,7 +3,7 @@ mat-spinner {
 }
 
 .filter {
-  margin-bottom: -20px;
+  margin-bottom: 5px;
   .search-filter {
     margin-left: 11px;
     .cal-filter {
@@ -27,7 +27,25 @@ mat-spinner {
   }
 
 }
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+.scroll {
+  height: calc(100vh - 253px);
+  overflow-y: scroll;
+
+}
 .google-search-bar {
   margin-top: 10px;
   width: 40%;
@@ -59,9 +77,10 @@ mat-spinner {
 .slider {
   position: relative;
   z-index: 1;
+  height: 0;
   box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px -1px;
-  top: 43px;
-  left: calc(100vw - 225px);
+  top: 11px;
+  left: calc(100vw - 230px);
 }
 
 .mat-button-toggle-group {

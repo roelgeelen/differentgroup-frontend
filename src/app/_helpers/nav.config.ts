@@ -142,6 +142,35 @@ export const navConfig: Page[] = [
     roles: [
       EnumRoles.ADMINISTRATION,
       EnumRoles.ICT
+    ],
+    pages: [
+      {
+        url: '/rapportage/dashboard',
+        title: 'Dashboard',
+        icon: 'dashboard',
+        roles: [
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.ICT
+        ]
+      },
+      {
+        url: '/rapportage/stoplichten',
+        title: 'Stoplichten',
+        icon: 'traffic',
+        roles: [
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.ICT
+        ]
+      },
+      {
+        url: '/rapportage/financieel',
+        title: 'Financieel',
+        icon: 'attach_money',
+        roles: [
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.ICT
+        ]
+      }
     ]
   },
   {
