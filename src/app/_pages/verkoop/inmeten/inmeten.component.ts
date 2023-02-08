@@ -11,7 +11,7 @@ import {ApiGraphService} from "../../../_services/api-graph.service";
 export class InmetenComponent implements OnInit {
   loading = false;
   tableData: MeasureTable[] = [];
-  displayedColumns: string[] = ['deadline', 'name', 'city', 'description', 'shortDescription'];
+  displayedColumns: string[] = ['deadline', 'name', 'city', 'description', 'adviseur', 'shortDescription'];
   constructor(private apiGraphService: ApiGraphService) { }
 
   ngOnInit(): void {

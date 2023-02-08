@@ -13,7 +13,8 @@ const graphs = [
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  graphs: Card[] = graphs;
+  width = window.innerWidth - 66;
+  height = window.innerHeight - 283;
   constructor() { }
 
   ngOnInit(): void {
