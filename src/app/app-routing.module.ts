@@ -3,11 +3,22 @@ import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./_pages/home/home.component";
 import {AuthGuard} from "./_helpers/auth.guard";
 import {EnumRoles} from "./_models/enum/enumRoles";
+import {WallofshameComponent} from "./_pages/wallofshame/wallofshame.component";
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+  },
+  {
+    path: 'wallofshame',
+    component: WallofshameComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: [
+        EnumRoles.OFFICE
+      ]
+    },
   },
   {
     path: 'verkoop',

@@ -3,6 +3,8 @@ import {AuthenticationService} from "../../_services/authentication.service";
 import {User} from "../../_models/User";
 import {Card} from "../../_models/pages/card";
 import {EnumRoles} from "../../_models/enum/enumRoles";
+import Swal from 'sweetalert2'
+import {ApiService} from "../../_services/api.service";
 
 const links = [
   {title: "Outsmart", img: "assets/images/outsamrt.svg", content: "", link: "https://office.out-smart.com/dashboard.php"},
@@ -23,7 +25,7 @@ export class HomeComponent implements OnInit {
   welkom: string;
   links: Card[] = links;
 
-  constructor(private authService: AuthenticationService) {
+  constructor(private authService: AuthenticationService, private apiService: ApiService) {
     this.authService.currentUser.subscribe(x => this.currentUser = x);
   }
 
@@ -44,4 +46,29 @@ export class HomeComponent implements OnInit {
     return this.currentUser && this.currentUser.roles.indexOf(EnumRoles.OFFICE) !== -1;
   }
 
+  get isICT() {
+    return this.currentUser && this.currentUser.roles.indexOf(EnumRoles.ICT) !== -1;
+  }
+
+  betrayUser() {
+    Swal.fire({
+      title: 'Ik wil ' + this.currentUser.name + ' verraden.',
+      showCancelButton: true,
+      imageUrl: '/assets/images/betray.png',
+      imageHeight: 300,
+      confirmButtonText: 'Ja, Verraden',
+      confirmButtonColor: '#2e3785',
+      cancelButtonText: `Nee toch niet`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.apiService.postToWallOfShame(this.currentUser.name).subscribe()
+        Swal.fire({
+          title: 'Bedankt voor je oplettendheid, ' +this.currentUser.name + ' is je niet dankbaar.',
+          icon: 'success',
+          confirmButtonColor: '#2e3785',
+        })
+      }
+    })
+  }
 }

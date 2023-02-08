@@ -28,6 +28,7 @@ import {BlogPostComponent} from './_components/blog-post/blog-post.component';
 import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {SharedModule} from "./shared.module";
+import { WallofshameComponent } from './_pages/wallofshame/wallofshame.component';
 
 registerLocaleData(localeNl);
 
@@ -38,7 +39,8 @@ registerLocaleData(localeNl);
     WeatherWidgetComponent,
     NavbarComponent,
     BirthdayWidgetComponent,
-    BlogPostComponent
+    BlogPostComponent,
+    WallofshameComponent
   ],
   imports: [
     SharedModule,

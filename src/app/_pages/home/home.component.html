@@ -8,17 +8,24 @@
       <div class="widgets">
         <app-weather-widget></app-weather-widget>
         <app-birthday-widget class="mt-2"></app-birthday-widget>
-        <mat-card class="mt-3">
+        <mat-card class="mt-3" *ngIf="isKANTOOR">
           <h2>Kernwaarde</h2>
           We doen alles <strong>anders</strong>, geloven in de kracht van <strong>samen</strong>
           en denken <strong>vrij</strong>, met als resultaat de optimale beleving
         </mat-card>
-        <mat-card class="mt-3">
+        <mat-card class="mt-3" *ngIf="isKANTOOR">
           <h2>Links</h2>
           <ul>
             <li><a href="https://docs.google.com/spreadsheets/d/17TiCI7x9J9BzjbGrQc0R9K9Z8ylPZkXXAHiJIJBuiNA/edit?usp=sharing" target="_blank">Broodjes bestellen</a></li>
             <li><a href="https://forms.office.com/r/rvr8YcN5kw" target="_blank">Onkosten declaratie</a></li>
           </ul>
+        </mat-card>
+        <mat-card class="mt-3" *ngIf="isKANTOOR ">
+          <h2>Scherm niet vergrendeld?</h2>
+          <div class="d-flex justify-content-between">
+          <button mat-raised-button color="accent" (click)="betrayUser()">Verraden</button>
+          <button mat-raised-button routerLink="/wallofshame">Open de ranking</button>
+          </div>
         </mat-card>
       </div>
     </div>
