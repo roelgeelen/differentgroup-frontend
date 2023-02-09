@@ -215,6 +215,7 @@ export const algemeen: QuestionBase<string>[] = [
       {value: 'G', article: 'ODH007'},
       {value: 'H', article: 'ODH008'},
       {value: 'I', article: 'ODH009'},
+      {value: 'J', article: 'ODH010'},
       {value: 'Overig'},
     ],
     validators: [Validators.required]
@@ -290,20 +291,27 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: '7016'},
       {value: '9005'},
       {value: '6009'}
+    ],
+    dependent: [
+      {
+        field: 'model',
+        values: ['D', 'E', 'F', 'G']
+      }
     ]
   }),
   new RadioQuestion({
-    label: 'Staat de deur op het zuiden',
-    key: 'deur_op_zuiden',
+    label: 'Kleuropties deur binnen- en buitenzijde (Tweemaal gegrond)',
+    key: 'deur_ral',
     options: [
-      {value: 'Ja (IROKO hout toepassen)', article: 'ODH203'},
-      {value: 'Nee'}
+      {value: '9010'},
+      {value: '7016', article: 'ODH203'},
+      {value: '9005', article: 'ODH203'},
+      {value: '6009', article: 'ODH203'}
     ],
     dependent: [
-      {field: 'deur_ral', values: ['7016', '9005', '6009']},
       {
         field: 'model',
-        values: ['A', 'B', 'C', 'H', 'I']
+        values: ['A', 'B', 'C', 'H', 'I', 'J']
       }
     ]
   }),
@@ -317,21 +325,6 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: '6009'}
     ]
   }),
-  // new TextQuestion({
-  //   label: 'Kleuropties (Tweemaal gegrond)',
-  //   fields: [
-  //     {
-  //       key: 'deur_ral',
-  //       label: 'Deur RAL',
-  //       type: 'text'
-  //     },
-  //     {
-  //       key: 'kozijn_ral',
-  //       label: 'Kozijn RAL',
-  //       type: 'text'
-  //     }
-  //   ]
-  // }),
   new RadioQuestion({
     key: 'aflakken',
     label: 'Deur afgelakt leveren in gekozen kleur',
@@ -343,7 +336,7 @@ export const buitenzijde: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'model',
-        values: ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'Overig']
+        values: ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'Overig']
       }
     ]
   }),
@@ -436,7 +429,7 @@ export const glas: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'model',
-        values: ['B', 'C', 'F', 'H']
+        values: ['B', 'C', 'F', 'H', 'J']
       }
     ]
   }),
