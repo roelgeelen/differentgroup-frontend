@@ -20,7 +20,6 @@ export class BlogPostComponent implements OnInit {
     this.loading = true
     this.apiService.getPosts(0, 4).subscribe(p => {
       this.posts = p.content;
-      console.log(p)
       this.posts.forEach((post) => {
         if (post.image != null) {
           this.apiService.getPicture(post.image.uuid).subscribe(pic => {

@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        this.apiService.postToWallOfShame(this.currentUser.name).subscribe()
+        this.apiService.postToWallOfShame(this.currentUser.name, this.currentUser.email).subscribe()
         Swal.fire({
           title: 'Bedankt voor je oplettendheid, ' +this.currentUser.name + ' is je niet dankbaar.',
           icon: 'success',

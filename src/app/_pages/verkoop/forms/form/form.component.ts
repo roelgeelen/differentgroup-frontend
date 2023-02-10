@@ -156,7 +156,6 @@ export class FormComponent implements OnInit {
           })
         }
         articles.sort();
-        console.log(articles);
         this.hubService.createInvoice(this.dealConfig.values.deal_id, this.dealConfig.id, !result.isConfirmed, articles).subscribe(t => {
           Swal.fire({
             title: 'Gelukt!',

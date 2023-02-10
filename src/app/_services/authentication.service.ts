@@ -34,6 +34,7 @@ export class AuthenticationService {
     if (this.oauthService.getAccessToken()) {
       const token: Token = this.getDecodedAccessToken(this.oauthService.getAccessToken());
       user.name = token.name;
+      user.email = token.preferred_username;
       user.roles = token.roles;
       return user;
     }
