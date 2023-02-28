@@ -5,5 +5,6 @@ export class FormPage {
   title: string;
   type: FormsEnum;
   articles: string[];
+  duration: number;
   form: TabBase[];
 }

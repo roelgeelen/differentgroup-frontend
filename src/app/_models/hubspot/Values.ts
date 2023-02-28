@@ -114,7 +114,6 @@ export class Values {
   begeleiding_project: string;
   verwachte_leverjaar_klant: string;
   status_project: string;
-
   type_woning: string;
   beide_personen_aanwezig_bij_gesprek_: string;
   situatie: string;
@@ -124,6 +123,12 @@ export class Values {
   wie_is_er_bij_het_gesprek_aanwezig: string;
   geschatte_woningwaarde: string;
   wanneer_gaat_het_project_spelen_: string;
+  hulpmiddelen: string;
+  engineering: string;
+  type_engineering: string;
+  aftimmering_buitenzijde: string;
+  extra_duration: string;
+  opmerkingen_extra_tijd: string;
 
   configuraties: {id: number, type: string}[];
   public constructor(init?: Partial<Values>) {

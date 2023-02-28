@@ -7,6 +7,66 @@ import {UploadQuestion} from "../../dynamic-form/controls/question-upload";
 import {TextareaQuestion} from "../../dynamic-form/controls/question-textarea";
 import {Validators} from "@angular/forms";
 
+export const sales: QuestionBase<string>[] = [
+  new CheckboxQuestion({
+    key: 'wie_is_er_bij_het_gesprek_aanwezig',
+    label: 'Wie is er bij het gesprek aanwezig?',
+    options: [
+      {value: 'Eindklant'},
+      {value: 'Aannemer/bouwbegeleider'},
+      {value: 'Architect'},
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'geschatte_woningwaarde',
+    label: 'Geschatte woningwaarde',
+    options: [
+      {value: '250 duizend – 500 duizend'},
+      {value: '500 duizend – 1 miljoen'},
+      {value: '> 1 miljoen'},
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'situatie',
+    label: 'Situatie',
+    options: [
+      {value: 'Nieuwbouw'},
+      {value: 'Vervangen oude garagedeur'}
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'wanneer_gaat_het_project_spelen_',
+    label: 'Gewenste levertijd',
+    options: [
+      {value: 'Binnen 3 maanden'},
+      {value: '3 tot 6 maanden'},
+      {value: 'Langer dan 6 maanden'},
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new RadioQuestion({
+    key: 'leeftijdsschatting',
+    label: 'Leeftijdsschatting',
+    options: [
+      {value: '< 30'},
+      {value: '30-40'},
+      {value: '40-50'},
+      {value: '50-60'},
+      {value: '60-70'},
+      {value: '70 >'},
+      {value: 'Niet bekend'},
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+];
 export const algemeen: QuestionBase<string>[] = [
   new TextQuestion({
     label: 'Afwijkend montage adres',
@@ -455,6 +515,10 @@ export const overige: QuestionBase<string>[] = [
 ]
 
 export const hpt: TabBase[] = [
+  {
+    label: "Sales",
+    questions: sales
+  },
   {
     label: "Algemeen",
     questions: algemeen

@@ -11,6 +11,7 @@ import {ActivatedRoute} from "@angular/router";
 import {forms} from "../dynamic-form/forms";
 import {FormPage} from "../dynamic-form/model/formPage";
 import {FormsEnum} from "../dynamic-form/model/formsEnum";
+import {BehaviorSubject, Observable} from "rxjs";
 
 
 @Component({
@@ -20,6 +21,8 @@ import {FormsEnum} from "../dynamic-form/model/formsEnum";
   providers: [QuestionControlService]
 })
 export class FormComponent implements OnInit {
+  private durationSubject: BehaviorSubject<number>;
+  public totalDuration: Observable<number>;
   page: FormPage;
   currentUser: User;
   dealConfig: DealConfig;
@@ -30,6 +33,7 @@ export class FormComponent implements OnInit {
   tabIndex = 0;
   tabCount: number;
   dealId: number;
+  publishing = false;
 
   constructor(
     private qcs: QuestionControlService,
@@ -37,6 +41,8 @@ export class FormComponent implements OnInit {
     private authService: AuthenticationService,
     private route: ActivatedRoute
   ) {
+    this.durationSubject = new BehaviorSubject<number>(0);
+    this.totalDuration = this.durationSubject.asObservable();
     this.authService.currentUser.subscribe(x => {
       this.currentUser = x
     });
@@ -78,6 +84,7 @@ export class FormComponent implements OnInit {
           }
         }
         this.form.patchValue(this.dealConfig.values);
+        this.updateDuration();
       }, error => {
         this.loading = false;
         this.error = 'Kon deal niet vinden.';
@@ -107,6 +114,7 @@ export class FormComponent implements OnInit {
 
 
   submit() {
+    this.publish();
     Swal.fire({
       title: 'Wil je de artikelen toevoegen aan de huidige offerte?',
       showDenyButton: true,
@@ -156,6 +164,8 @@ export class FormComponent implements OnInit {
           })
         }
         articles.sort();
+
+        // Create invoice
         this.hubService.createInvoice(this.dealConfig.values.deal_id, this.dealConfig.id, !result.isConfirmed, articles).subscribe(t => {
           Swal.fire({
             title: 'Gelukt!',
@@ -206,6 +216,30 @@ export class FormComponent implements OnInit {
     return articles;
   }
 
+  calculateDuration(): number {
+    let duration = this.page.duration;
+    this.page.form.map(t => {
+      return t.questions;
+    }).flat().forEach(q => {
+      if (q.options.length != 0) {
+        const option = q.options.find(o => {
+          return o.value == this.form.controls[q.key].value
+        });
+        if (option?.duration !== undefined) {
+          duration = duration + option.duration;
+        }
+      }
+    });
+    if (this.dealConfig.values.extra_duration !== '' && this.dealConfig.values.extra_duration !== undefined) {
+      duration = duration + parseInt(this.dealConfig.values.extra_duration);
+    }
+    return duration;
+  }
+
+  updateDuration() {
+    this.durationSubject.next(this.calculateDuration());
+  }
+
   toggleFullscreen() {
     this.fullscreen = !this.fullscreen;
   }
@@ -213,11 +247,13 @@ export class FormComponent implements OnInit {
   public next() {
     window.scroll(0, 0);
     this.tabIndex = (this.tabIndex + 1) % this.tabCount;
+    this.publish();
   }
 
   public prev() {
     window.scroll(0, 0);
     this.tabIndex = (this.tabIndex - 1) % this.tabCount;
+    this.publish();
   }
 
   private setCustomValues() {
@@ -274,5 +310,15 @@ export class FormComponent implements OnInit {
     return Object.values(forms).filter(k => {
       return k.title == title;
     })[0]
+  }
+
+  publish() {
+    this.publishing = true;
+    // Add montage duration
+    const duration = this.calculateDuration();
+    if (duration != 0) {
+      this.hubService.updateDeal(this.dealConfig.values.deal_id, {properties: {montage_duration: duration}}).subscribe();
+    }
+    this.hubService.publishDealConfig(this.dealConfig.values.deal_id, this.dealConfig.id).subscribe(() => this.publishing = false, error1 => this.publishing = false);
   }
 }

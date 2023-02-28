@@ -374,7 +374,7 @@ export const binnenzijde: QuestionBase<string>[] = [
       {value: 'Standaard gegalvaniseerd'},
     ],
     value: 'Standaard gegalvaniseerd',
-    dependent:[
+    dependent: [
       {
         field: 'type_sectionaaldeur',
         values: ['Zijwaartse sectionaaldeur']
@@ -389,7 +389,7 @@ export const binnenzijde: QuestionBase<string>[] = [
       {value: 'Op kleur', article: 'SDH100'},
     ],
     value: 'Standaard gegalvaniseerd',
-    dependent:[
+    dependent: [
       {
         field: 'type_sectionaaldeur',
         values: ['Sectionaaldeur']
@@ -431,7 +431,7 @@ export const binnenzijde: QuestionBase<string>[] = [
       {value: 'Aanwezig op de juiste plaats', article: 'SDH207'},
     ],
     value: 'Door klant te voorzien',
-    dependent:[
+    dependent: [
       {
         field: 'motor',
         values: ['Plafond motor 230 V']
@@ -446,7 +446,7 @@ export const binnenzijde: QuestionBase<string>[] = [
       {value: 'Aanwezig op de juiste plaats'},
     ],
     value: 'Door klant te voorzien',
-    dependent:[
+    dependent: [
       {
         field: 'motor',
         values: ['Freq. gestuurde plafond motor 230 V (Blauwe CE stekker)', 'As motor 380 V', 'Freq. gestuurde as motor 230 V (Blauwe CE stekker)']
@@ -562,7 +562,8 @@ export const deur: QuestionBase<string>[] = [
     options: [
       {value: 'Draadloze drukknop', article: 'SDH203'},
       {value: 'Op / Stop / Neer'},
-      {value: 'Domotica of puls voorziening door de klant'},
+      {value: 'Domotica', article: 'SDH208'},
+      {value: 'Puls voorziening door de klant'},
     ]
   }),
   new TextQuestion({
@@ -667,6 +668,17 @@ export const gevelbekleding: QuestionBase<string>[] = [
 
 export const montage: QuestionBase<string>[] = [
   new CheckboxQuestion({
+    key: 'hulpmiddelen',
+    label: 'Hulpmiddelen',
+    options: [
+      {value: 'N.v.t.'},
+      {value: 'Hoogwerker door DD', article: 'SDH603'},
+      {value: 'Verticaal transport door DD', article: 'SDH604'},
+      {value: 'Verticaal transport door klant'},
+    ],
+    value: ['N.v.t.']
+  }),
+  new CheckboxQuestion({
     key: 'bestaande_deur',
     label: 'Bestaande deur',
     options: [
@@ -712,6 +724,22 @@ export const overige: QuestionBase<string>[] = [
   new TextareaQuestion({
     key: 'overige_opmerkingen_intern',
     label: 'Overige opmerkingen (intern)'
+  }),
+  new CheckboxQuestion({
+    key: 'engineering',
+    label: 'Engineering',
+    options: [
+      {value: 'Vingerknel beveiligd'},
+      {value: 'Uit 3D model'},
+    ]
+  }),
+  new RadioQuestion({
+    key: 'type_engineering',
+    label: 'Type',
+    options: [
+      {value: 'Standaard', article: 'SDH500'},
+      {value: 'Special', article: 'SDH501'}
+    ]
   })
 ];
 export const media: QuestionBase<string>[] = [

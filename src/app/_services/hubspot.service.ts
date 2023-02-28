@@ -41,6 +41,10 @@ export class HubspotService {
     return this.http.put(`${environment.apiUrl}/configs/${dealId}/forms/${configId}`, deal);
   }
 
+  publishDealConfig(dealId: number, configId: number) {
+    return this.http.post(`${environment.apiUrl}/configs/${dealId}/forms/${configId}/publish`, null);
+  }
+
   deleteDealConfig(dealId: number, configId: number) {
     return this.http.delete(`${environment.apiUrl}/configs/${dealId}/forms/${configId}`);
   }

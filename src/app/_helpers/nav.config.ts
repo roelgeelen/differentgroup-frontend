@@ -165,15 +165,6 @@ export const navConfig: Page[] = [
         ]
       },
       {
-        url: '/rapportage/stoplichten',
-        title: 'Stoplichten',
-        icon: 'traffic',
-        roles: [
-          EnumRoles.ADMINISTRATION,
-          EnumRoles.ICT
-        ]
-      },
-      {
         url: '/rapportage/financieel',
         title: 'Financieel',
         icon: 'attach_money',

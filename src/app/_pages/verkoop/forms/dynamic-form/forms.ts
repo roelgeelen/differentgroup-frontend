@@ -13,42 +13,49 @@ export const forms: {[key in FormsEnum]: FormPage} = {
     title: 'Onderhoudsarme openslaande garagedeur',
     type: FormsEnum.odo,
     articles: ['ODO400'],
+    duration: 120,
     form: odo
   },
   odhd: {
     title: 'Houten openslaande deur',
     type: FormsEnum.odhd,
     articles: ['ODH100'],
+    duration: 120,
     form: odhd
   },
   sdh: {
     title: 'Houten sectionaaldeur',
     type: FormsEnum.sdh,
-    articles: ['SDH600', 'SDH500'],
+    articles: ['SDH600'],
+    duration: 0,
     form: sdh
   },
   hpt: {
     title: 'Houten pivoterende deur',
     type: FormsEnum.hpt,
     articles: [],
+    duration: 0,
     form: hpt
   },
   vdh: {
     title: 'Houten voordeur',
     type: FormsEnum.vdh,
     articles: [],
+    duration: 0,
     form: vdh
   },
   ldh: {
     title: 'Houten loopdeur',
     type: FormsEnum.ldh,
     articles: [],
+    duration: 0,
     form: ldh
   },
   odht: {
     title: 'Houten openslaande deur transparant',
     type: FormsEnum.odht,
     articles: [],
+    duration: 0,
     form: odht
   }
 }

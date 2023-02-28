@@ -6,6 +6,7 @@ import {DealConfig} from "../../../../../_models/hubspot/DealConfig";
 import {Values} from "../../../../../_models/hubspot/Values";
 import {Editor, Toolbar} from "ngx-editor";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
+import {FormComponent} from "../../form/form.component";
 
 @Component({
   selector: 'app-question',
@@ -37,9 +38,13 @@ export class DynamicFormQuestionComponent {
   editorWidth = 900;
   editorHeight = 300;
   error: string;
+  totalDuration: number;
 
-  constructor(private hubService: HubspotService) {
+  constructor(private hubService: HubspotService, private formComponent: FormComponent) {
     this.editor = new Editor();
+    this.formComponent.totalDuration.subscribe(x => {
+      this.totalDuration = x;
+    });
   }
 
   get displayedColumns() {
@@ -90,6 +95,7 @@ export class DynamicFormQuestionComponent {
         this.dealConfig.values[k] = JSON.stringify(v);
       }
     }
+    this.formComponent.updateDuration();
     this.hubService.updateDealConfig(this.dealConfig.values.deal_id, this.dealConfig.id, this.dealConfig).subscribe();
   }
 

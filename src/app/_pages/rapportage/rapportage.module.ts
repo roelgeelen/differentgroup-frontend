@@ -5,7 +5,6 @@ import {CommonModule} from "@angular/common";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
-import {StoplichtenComponent} from "./stoplichten/stoplichten.component";
 import {FinancieelComponent} from "./Financieel/financieel.component";
 
 @NgModule({
@@ -18,7 +17,6 @@ import {FinancieelComponent} from "./Financieel/financieel.component";
   declarations: [
     RapportageComponent,
     DashboardComponent,
-    StoplichtenComponent,
     FinancieelComponent,
   ],
   exports: [

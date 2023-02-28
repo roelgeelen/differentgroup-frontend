@@ -15,7 +15,7 @@ export const sales: QuestionBase<string>[] = [
     options: [
       {value: '2-onder-1-kap/geschakelde woning'},
       {value: 'Vrijstaande woning'},
-      {value: 'Rijtjeswoning'},
+      {value: 'Rijtjeswoning', duration: 30},
       {value: 'Drive-in-woning'},
       {value: 'Overig'}
     ],
@@ -579,8 +579,8 @@ export const montage: QuestionBase<string>[] = [
     options: [
       {value: 'N.v.t.'},
       {value: 'Sectionaaldeur'},
-      {value: 'Kanteldeur'},
-      {value: 'Houten kozijn en deuren'},
+      {value: 'Kanteldeur', duration: 30},
+      {value: 'Houten kozijn en deuren', duration: 60},
       {value: 'Rolluik'}
     ]
   })
@@ -591,8 +591,8 @@ export const afwerking: QuestionBase<string>[] = [
     label: 'Vloeraanpassing',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Uithakken vloer', article: 'ODH103'},
-      {value: 'Aansmeren vloer', article: 'ODH104'}
+      {value: 'Uithakken vloer', article: 'ODH103', duration: 60},
+      {value: 'Aansmeren vloer', article: 'ODH104', duration: 30}
     ],
     value: ['N.v.t.']
   }),
@@ -602,10 +602,18 @@ export const afwerking: QuestionBase<string>[] = [
     options: [
       {value: 'Klant kiest voor geen binnenaftimmering'},
       {value: 'Enkel tussen kozijn en muur afpurren'},
-      {value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)', article: 'ODH105'},
-      {value: 'Multipaint volledig (exclusief schilderen)', article: 'ODH106'},
+      {value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)', article: 'ODH105', duration: 30},
+      {value: 'Multipaint volledig (exclusief schilderen)', article: 'ODH106', duration: 120},
     ],
     value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)'
+  }),
+  new RadioQuestion({
+    key: 'aftimmering_buitenzijde',
+    label: 'Aftimmering buitenzijde',
+    options: [
+      {value: 'Klant kiest voor geen buitenaftimmering'},
+      {value: 'Aftimmeren buitenzijde (zie foto)', article: 'ODO408', duration: 60},
+    ]
   }),
   new RadioQuestion({
     key: 'bouwkundig_aanpassingen',
@@ -618,21 +626,40 @@ export const afwerking: QuestionBase<string>[] = [
   })
 ]
 export const overige: QuestionBase<string>[] = [
-  new CheckboxQuestion({
-    key: 'indicatie_van_montage_uren',
-    label: 'Indicatie van montage uren',
-    options: [
-      {value: 'Plaatsen nieuwe deur - 2 uur'},
-      {value: 'Demontage kanteldeur - 0.5 uur'},
-      {value: 'Demontage houten openslaande deuren - 1 uur'},
-      {value: 'Aansmeren vloer - 0.5 uur'},
-      {value: 'Aftimmeren binnenzijde lijstje rondom - 0.5 uur'},
-      {value: 'Aftimmeren binnenzijde compleet - 2 uur'},
-      {value: 'Aftimmeren buitenzijde - 1 uur'},
-      {value: 'Uithakken vloer - 1 uur'}
-    ],
-    value: ['Plaatsen nieuwe deur - 2 uur']
+  new TextQuestion({
+    label: 'Extra montage tijd',
+    fields: [
+      {
+        key: 'extra_duration', //
+        label: 'Extra tijd (in minuten)',
+        type: 'number',
+      },
+      {
+        key: 'extra_duration_opmerking', //
+        label: 'Omschrijving',
+        type: 'text'
+      }
+    ]
   }),
+  new CalculationQuestion({
+    label: 'Totaal aantal montage tijd:',
+    value: '(Math.floor(this.totalDuration / 60)) + "u " + (Math.floor(this.totalDuration % 60))+"m"'
+  }),
+  // new CheckboxQuestion({
+  //   key: 'indicatie_van_montage_uren',
+  //   label: 'Indicatie van montage uren',
+  //   options: [
+  //     {value: 'Plaatsen nieuwe deur - 2 uur'},
+  //     {value: 'Demontage kanteldeur - 0.5 uur'},
+  //     {value: 'Demontage houten openslaande deuren - 1 uur'},
+  //     {value: 'Aansmeren vloer - 0.5 uur'},
+  //     {value: 'Aftimmeren binnenzijde lijstje rondom - 0.5 uur'},
+  //     {value: 'Aftimmeren binnenzijde compleet - 2 uur'},
+  //     {value: 'Aftimmeren buitenzijde - 1 uur'},
+  //     {value: 'Uithakken vloer - 1 uur'}
+  //   ],
+  //   value: ['Plaatsen nieuwe deur - 2 uur']
+  // }),
   new TextareaQuestion({
     key: 'overige_opmerkingen_klant',
     label: 'Overige opmerkingen (klant)'

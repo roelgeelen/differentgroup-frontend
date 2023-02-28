@@ -1,7 +1,14 @@
-<button mat-raised-button color="accent" class="fullscreen-btn {{fullscreen ? 'fullscreen' : ''}}"
-        (click)="toggleFullscreen()">
-  <mat-icon>{{fullscreen ? 'fullscreen_exit' : 'fullscreen'}}</mat-icon>
-</button>
+<div class="buttons {{fullscreen ? 'buttons-fullscreen' : ''}}">
+  <button mat-raised-button color="accent"
+          (click)="publish()">
+    <mat-icon *ngIf="!publishing">publish</mat-icon>
+    <mat-spinner *ngIf="publishing" diameter="20"></mat-spinner>
+  </button>
+  <button mat-raised-button color="accent"
+          (click)="toggleFullscreen()">
+    <mat-icon>{{fullscreen ? 'fullscreen_exit' : 'fullscreen'}}</mat-icon>
+  </button>
+</div>
 <div [ngClass]="fullscreen ? 'fullscreen' : ''" class="form">
   <div class="page">
     <div class="form-header d-flex justify-content-between">
