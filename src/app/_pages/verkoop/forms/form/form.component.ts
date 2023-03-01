@@ -222,11 +222,22 @@ export class FormComponent implements OnInit {
       return t.questions;
     }).flat().forEach(q => {
       if (q.options.length != 0) {
-        const option = q.options.find(o => {
-          return o.value == this.form.controls[q.key].value
-        });
-        if (option?.duration !== undefined) {
-          duration = duration + option.duration;
+        if (Array.isArray(this.form.controls[q.key].value)) {
+          this.form.controls[q.key].value.forEach((v: string) => {
+            const option = q.options.find(o => {
+              return o.value == v
+            });
+            if (option?.duration !== undefined) {
+              duration = duration + option.duration;
+            }
+          })
+        } else {
+          const option = q.options.find(o => {
+            return o.value == this.form.controls[q.key].value
+          });
+          if (option?.duration !== undefined) {
+            duration = duration + option.duration;
+          }
         }
       }
     });
