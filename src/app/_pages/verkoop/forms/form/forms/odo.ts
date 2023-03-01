@@ -717,23 +717,28 @@ export const overige: QuestionBase<string>[] = [
 export const media: QuestionBase<string>[] = [
   new UploadQuestion({
     key: 'fs1',
-    label: 'Foto / schets 1 (voor klant)'
+    label: 'Foto / schets 1 (voor klant)',
+    type: 'image'
   }),
   new UploadQuestion({
     key: 'fs2',
-    label: 'Foto / schets 2 (voor klant)'
+    label: 'Foto / schets 2 (voor klant)',
+    type: 'image'
   }),
   new UploadQuestion({
     key: 'fb1',
-    label: 'Foto buitenzijde deur (monteurs)'
+    label: 'Foto buitenzijde deur (monteurs)',
+    type: 'image'
   }),
   new UploadQuestion({
     key: 'fb2',
-    label: 'Foto binnenzijde deur (monteurs)'
+    label: 'Foto binnenzijde deur (monteurs)',
+    type: 'image'
   }),
   new UploadQuestion({
     key: 'fb3',
-    label: 'Foto positie in de dag (monteurs)'
+    label: 'Foto positie in de dag (monteurs)',
+    type: 'image'
   })
 ];
 export const odo: TabBase[] = [

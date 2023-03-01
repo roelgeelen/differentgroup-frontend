@@ -30,6 +30,20 @@
     flex: 1;
   }
 
+  .attachment {
+    border: solid 1px;
+    border-radius: 5px;
+    display: flex;
+    width: fit-content;
+    padding: 10px;
+    mat-icon {
+      margin-right: 5px;
+    }
+    span {
+      padding: 2px;
+    }
+  }
+
   .mat-table {
     margin-top: 10px;
     .mat-row {

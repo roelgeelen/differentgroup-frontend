@@ -617,6 +617,7 @@ export const glas: QuestionBase<string>[] = [
   new UploadQuestion({
     key: 'fg1',
     label: 'Schets glas',
+    type: 'image',
     dependent: [
       {
         field: 'glassectie',
@@ -745,19 +746,28 @@ export const overige: QuestionBase<string>[] = [
 export const media: QuestionBase<string>[] = [
   new UploadQuestion({
     key: 'fs1',
-    label: 'Foto / schets (voor klant)'
+    label: 'Foto / schets (voor klant)',
+    type: 'image'
   }),
   new UploadQuestion({
     key: 'fs2',
-    label: 'Foto / schets 2 (voor klant)'
+    label: 'Foto / schets 2 (voor klant)',
+    type: 'image'
   }),
   new UploadQuestion({
     key: 'fb1',
-    label: 'Foto overig'
+    label: 'Foto overig',
+    type: 'image'
   }),
   new UploadQuestion({
     key: 'fb2',
-    label: 'Foto overig'
+    label: 'Foto overig',
+    type: 'image'
+  }),
+  new UploadQuestion({
+    key: 'inmeet',
+    label: 'Inmeet bon',
+    type: 'file'
   })
 ];
 export const sdh: TabBase[] = [

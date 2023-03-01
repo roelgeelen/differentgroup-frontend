@@ -194,7 +194,8 @@ export const algemeen: QuestionBase<string>[] = [
   }),
   new UploadQuestion({
     key: 'fs1',
-    label: 'Schets voordeur'
+    label: 'Schets voordeur',
+    type: 'image'
   }),
 ];
 export const buiten: QuestionBase<string>[] = [
@@ -452,6 +453,7 @@ export const glas: QuestionBase<string>[] = [
   new UploadQuestion({
     key: 'fg1',
     label: 'Schets glas',
+    type: 'image',
     dependent: [
       {
         field: 'glassectie',
@@ -511,6 +513,11 @@ export const overige: QuestionBase<string>[] = [
   new TextareaQuestion({
     key: 'overige_opmerkingen_intern',
     label: 'Overige opmerkingen (intern)'
+  }),
+  new UploadQuestion({
+    key: 'inmeet',
+    label: 'Inmeet bon',
+    type: 'file'
   })
 ]
 
