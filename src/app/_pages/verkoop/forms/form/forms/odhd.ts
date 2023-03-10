@@ -475,6 +475,11 @@ export const glas: QuestionBase<string>[] = [
         key: 'netto_glasmaat',
         label: 'Breedte',
         type: 'number'
+      },
+      {
+        key: 'netto_glasmaat_info',
+        label: 'Opmerking',
+        type: 'text'
       }
     ],
     dependent: [
@@ -495,6 +500,11 @@ export const glas: QuestionBase<string>[] = [
         key: 'netto_glasmaat',
         label: 'Hoogte',
         type: 'number'
+      },
+      {
+        key: 'netto_glasmaat_info',
+        label: 'Opmerking',
+        type: 'text'
       }
     ],
     dependent: [

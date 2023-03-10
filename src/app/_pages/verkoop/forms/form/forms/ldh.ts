@@ -162,6 +162,7 @@ export const buiten: QuestionBase<string>[] = [
       {value: 'Verticale delen', article: 'LDH001'},
       {value: 'Horizontale delen', article: 'LDH002'},
       {value: 'Verticale latten', article: 'LDH003'},
+      {value: 'Overige', article: 'LDH004'},
     ],
     validators: [Validators.required]
   }),
