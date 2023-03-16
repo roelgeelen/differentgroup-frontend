@@ -576,7 +576,7 @@ export const montage: QuestionBase<string>[] = [
     key: 'bestaande_deur',
     label: 'Bestaande deur',
     options: [
-      {value: 'Demontage DD', article: 'ODH101'},
+      {value: 'Demontage DD', article: 'ODH101', duration: 30},
       {value: 'Afvoer DD', article: 'ODH102'},
       {value: 'Demontage door klant'},
       {value: 'Afvoer door klant'}
@@ -589,8 +589,8 @@ export const montage: QuestionBase<string>[] = [
     options: [
       {value: 'N.v.t.'},
       {value: 'Sectionaaldeur'},
-      {value: 'Kanteldeur', duration: 30},
-      {value: 'Houten kozijn en deuren', duration: 60},
+      {value: 'Kanteldeur'},
+      {value: 'Houten kozijn en deuren', duration: 30},
       {value: 'Rolluik'}
     ]
   })
