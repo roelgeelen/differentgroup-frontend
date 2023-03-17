@@ -167,6 +167,11 @@ export const algemeen: QuestionBase<string>[] = [
     ],
     toDeal: true
   }),
+  new TextareaQuestion({
+    key: "verwachte_levertijd_opmerkingen",
+    label: "Opmerking levertijd",
+    toDeal: true
+  }),
   new RadioQuestion({
     key: 'fase_project',
     label: 'Fase project',

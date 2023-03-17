@@ -31,10 +31,10 @@
 </div>
 <span class="nav-spacer"></span>
 <div fxShow="true" fxHide.lt-md="true" class="media align-items-center user-profile" [matMenuTriggerFor]="loginMenu">
-    <span class="avatar avatar-sm rounded-circle">
-      <img [src]="currentUser.image ? currentUser.image : 'assets/images/user_placeholder.png'">
-    </span>
   <span class="mb-0 text-sm  font-weight-bold">{{currentUser.name}}</span>
+  <span class="avatar avatar-sm rounded-circle">
+    <img [src]="currentUser.image ? currentUser.image : 'assets/images/user_placeholder.png'">
+  </span>
 </div>
 <div fxShow="true" fxHide.gt-sm="true" class="media align-items-center user-profile small"
      [matMenuTriggerFor]="loginMenu">
