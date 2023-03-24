@@ -381,8 +381,8 @@ export const deur: QuestionBase<string>[] = [
     key: 'actieve_deur',
     label: 'Actieve deur (vanaf buitenaanzicht)',
     options: [
-      {value: 'Rechts'},
-      {value: 'Links'}
+      {value: 'Links'},
+      {value: 'Rechts'}
     ],
     validators: [Validators.required]
   }),
