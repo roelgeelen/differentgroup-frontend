@@ -192,10 +192,10 @@ export const buiten: QuestionBase<string>[] = [
     key: 'loopdeur_voordeur',
     label: 'Type voordeur',
     options: [
-      {value: 'Verticale delen', article: 'VDH011'},
-      {value: 'Horizontale delen', article: 'VDH012'},
-      {value: 'Verticale latten', article: 'VDH013'},
-      {value: 'Overige', article: 'VDH014'},
+      {value: 'Verticale delen dubbel', article: 'VDH011'},
+      {value: 'Horizontale delen dubbel', article: 'VDH012'},
+      {value: 'Verticale latten dubbel', article: 'VDH013'},
+      {value: 'Overige dubbel', article: 'VDH014'},
     ],
     validators: [Validators.required],
     dependent: [
@@ -208,7 +208,7 @@ export const buiten: QuestionBase<string>[] = [
       {key: 'type_overige_omschr', label: 'Omschrijving', type: 'text'}
     ],
     dependent: [
-      {field: 'loopdeur_voordeur', values: ['Overige']}
+      {field: 'loopdeur_voordeur', values: ['Overige', 'Overige dubbel']}
     ]
   }),
   new RadioQuestion({
