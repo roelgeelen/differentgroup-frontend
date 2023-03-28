@@ -27,6 +27,9 @@ div.fullscreen {
   width: 100vw;
   height: 100vh;
   overflow-y: scroll;
+  .page {
+    min-height: calc(100vh - 90px);
+  }
 }
 
 .form {
@@ -34,9 +37,9 @@ div.fullscreen {
   padding: 20px;
 
   .page {
-    background-color: white;
+    background-color: #fafafa;
     box-shadow: 0 0 11px rgb(0 0 0 / 12%);
-    min-height: calc(100vh - 90px);
+    min-height: calc(100vh - 270px);
     width: 900px;
     margin: 0 auto 50px auto;
   }
@@ -44,6 +47,7 @@ div.fullscreen {
   .form-header {
     padding: 10px;
     border-bottom: 1px solid black;
+    background-color: white;
 
     img {
       width: 150px;
@@ -75,7 +79,9 @@ div.fullscreen {
   }
 
   .search {
-    margin-top: 50px;
+    background-color: white;
+    padding-top: 25px;
+    padding-bottom: 35px;
     text-align: center;
 
     button {
@@ -85,11 +91,67 @@ div.fullscreen {
     }
   }
 
+  .items {
+    padding: 15px;
+    border-top: 1px solid;
+
+    .header-recent {
+      h2 {
+        margin-top: 10px;
+      }
+
+      .search-recent {
+        height: 10px;
+      }
+    }
+    &.recent {
+      mat-list-item {
+        overflow: hidden;
+        height: 55px !important;
+        box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%) !important;
+        border-radius: 4px;
+        margin-bottom: 10px;
+
+        mat-card {
+          border-bottom-right-radius: 0;
+          border-top-right-radius: 0;
+          padding: 10px;
+
+          span {
+            padding: 5px;
+            position: relative;
+          }
+        }
+
+        .middle-btn {
+          border-radius: 0;
+        }
+
+        .end-btn {
+          border-bottom-left-radius: 0;
+          border-top-left-radius: 0;
+        }
+
+        button, a {
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+
+    ::ng-deep .mat-list-item-content {
+      padding: 0 !important;
+    }
+  }
+
   .form-content {
     min-height: 100%;
     padding: 20px;
   }
 }
+
 ::ng-deep {
   .swal2-html-container {
     label {
@@ -98,7 +160,8 @@ div.fullscreen {
       padding: 5px;
       margin-top: 20px;
     }
-    label:first-child{
+
+    label:first-child {
       margin-top: 0;
     }
 

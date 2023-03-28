@@ -222,8 +222,18 @@ export const buiten: QuestionBase<string>[] = [
       {value: 'Verticale delen', article: 'HPT001'},
       {value: 'Horizontale delen', article: 'HPT002'},
       {value: 'Verticale latten', article: 'HPT003'},
+      {value: 'Overige', article: 'HPT004'},
     ],
     validators: [Validators.required]
+  }),
+  new TextQuestion({
+    label: 'Type pivoterende deur omschrijving',
+    fields: [
+      {key: 'type_overige_omschr', label: 'Omschrijving', type: 'text'}
+    ],
+    dependent: [
+      {field: 'loopdeur_voordeur', values: ['Overige']}
+    ]
   }),
   new RadioQuestion({
     key: 'electrisch_motorslot',

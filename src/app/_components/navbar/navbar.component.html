@@ -1,4 +1,4 @@
-<a routerLink="/"><img src="/assets/images/img.png" height="50" alt=""></a>
+<a routerLink="/"><img src="/assets/images/logo_different-doors-witte-letters.svg" height="50" alt=""></a>
 <div fxShow="true" fxHide.lt-md="true" *ngFor="let page of pages">
   <ng-container *ngIf="page.pages && hasPermission(page.roles)">
     <button mat-button [matMenuTriggerFor]="menu" #menuPages="matMenuTrigger">{{page.title}}</button>

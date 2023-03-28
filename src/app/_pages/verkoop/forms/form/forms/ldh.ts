@@ -166,6 +166,15 @@ export const buiten: QuestionBase<string>[] = [
     ],
     validators: [Validators.required]
   }),
+  new TextQuestion({
+    label: 'Type loopdeur omschrijving',
+    fields: [
+      {key: 'type_overige_omschr', label: 'Omschrijving', type: 'text'}
+    ],
+    dependent: [
+      {field: 'loopdeur_voordeur', values: ['Overige']}
+    ]
+  }),
   new RadioQuestion({
     key: 'electrisch_motorslot',
     label: 'Electrisch motorslot',

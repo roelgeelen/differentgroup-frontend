@@ -27,6 +27,9 @@ div.fullscreen {
   width: 100vw;
   height: 100vh;
   overflow-y: scroll;
+  .page {
+    min-height: calc(100vh - 90px);
+  }
 }
 
 .form {
@@ -36,7 +39,7 @@ div.fullscreen {
   .page {
     background-color: white;
     box-shadow: 0 0 11px rgb(0 0 0 / 12%);
-    min-height: calc(100vh - 90px);
+    min-height: calc(100vh - 270px);
     width: 900px;
     margin: 0 auto 50px auto;
   }

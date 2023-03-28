@@ -5,7 +5,7 @@
 <div [ngClass]="fullscreen ? 'fullscreen' : ''" class="form">
   <div class="page">
     <div class="form-header d-flex justify-content-between">
-      <div class="logo"><img src="../../../../../assets/images/cropped-logo-differentdoors-diap.png"></div>
+      <div class="logo"><img src="../../../../../assets/images/logo_different-doors-zwarte-letters.svg"></div>
       <h1>Formulieren klant<br><span>{{dealConfig.name}}</span></h1>
       <div class="reset-btn">
         <button mat-button color="accent" class="clear" *ngIf="dealConfig.name !== undefined"
@@ -15,16 +15,52 @@
       </div>
     </div>
     <ng-container *ngIf="dealConfig.name === undefined" class="w-100">
-      <form (ngSubmit)="findDeal()" class="search">
-        <mat-error *ngIf="error">{{error}}</mat-error>
-        <mat-form-field appearance="fill" class="w-75">
-          <mat-label>Deal nummer</mat-label>
-          <input matInput type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="dealConfig.values.deal_id">
-        </mat-form-field>
-        <button mat-raised-button color="accent">
-          <mat-icon>search</mat-icon>
-        </button>
-      </form>
+      <div class="bg-white d-grid">
+        <h2 class="m-3">Zoeken op nummer</h2>
+        <form (ngSubmit)="findDeal()" class="search">
+          <mat-error *ngIf="error">{{error}}</mat-error>
+          <mat-form-field appearance="fill" class="w-75">
+            <mat-label>Deal nummer</mat-label>
+            <input matInput type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="dealConfig.values.deal_id">
+          </mat-form-field>
+          <button mat-raised-button color="accent">
+            <mat-icon>search</mat-icon>
+          </button>
+        </form>
+      </div>
+      <div class="container items recent">
+        <div class="header-recent d-flex justify-content-between">
+          <h2>Recente formulieren</h2>
+          <form (ngSubmit)="findRecent()">
+            <mat-form-field class="example-full-width">
+              <mat-label>Zoeken</mat-label>
+              <input type="text" matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="searchRecent"
+                     (focusout)="findRecent()">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </form>
+        </div>
+        <mat-list>
+          <mat-list-item *ngFor="let config of recentConfigs">
+            <mat-card class="w-100 h-100">
+              <span>{{config.values.dealname}}</span><br>
+              <span><small class="text-muted">{{config.values.updated_at}}</small></span>
+            </mat-card>
+            <a mat-flat-button color="accent" class="middle-btn"
+               href="https://info.differentdoors.nl/configuratie-menu/deal/p{{config.values.deal_id}}" target="_blank">
+              <mat-icon>remove_red_eye</mat-icon>
+            </a>
+            <button mat-flat-button color="accent" class="end-btn" (click)="openRecent(config.values.deal_id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+        <div *ngIf="loadingC">
+          <mat-spinner diameter="75"></mat-spinner>
+        </div>
+        <div *ngIf="recentConfigs.length == 0 && !loadingC"><span class="w-100 text-center">Geen recente formulieren gevonden</span>
+        </div>
+      </div>
     </ng-container>
     <div class="loading-overlay fixed" *ngIf="loading">
       <div class="loading"></div>
@@ -32,40 +68,55 @@
 
     <ng-container *ngIf="dealConfig.name !== undefined && !form">
       <div class="form-list">
-        <h2 class="m-3">Nieuw formulier invullen</h2>
-        <div class="search">
-          <mat-error *ngIf="error">{{error}}</mat-error>
-          <mat-form-field appearance="fill" class="w-75">
-            <mat-label>Formulier</mat-label>
-            <mat-select [(ngModel)]="new_form">
-              <mat-optgroup *ngFor="let group of selectForms" [label]="group.name">
-                <mat-option *ngFor="let item of group.items" [value]="item">
-                  {{getForm(item).title}}
-                </mat-option>
-              </mat-optgroup>
-            </mat-select>
-          </mat-form-field>
-          <button mat-flat-button color="primary" (click)="addForm(new_form)" [disabled]="new_form==null">Aanmaken
-            <mat-icon>add</mat-icon>
-          </button>
-        </div>
-        <hr>
-        <h2 class="m-3">Ingevulde formulieren</h2>
-        <div class="m-3">
-          <div class="m-3" *ngFor="let config of configurations">
-            <mat-card class="border-top border-primary">
-              <mat-card-title>{{config.values.title}}</mat-card-title>
-              <mat-card-subtitle>{{config.values.adviseur}} - {{config.values.updated_at}}</mat-card-subtitle>
-              <mat-card-actions>
-                <a mat-raised-button color="primary" href="https://info.differentdoors.nl/configuratie-overview/deal/P{{config.values.deal_id}}/{{config.path}}" target="_blank"><mat-icon>remove_red_eye</mat-icon></a>
-                <button mat-raised-button color="primary" routerLink="/verkoop/formulier/{{config.values.deal_id}}/{{config.id}}"><mat-icon>edit</mat-icon></button>
-                <button mat-raised-button color="primary" (click)="delete(config.id)"><mat-icon>delete</mat-icon></button>
-              </mat-card-actions>
-            </mat-card>
+        <div class="bg-white d-grid">
+          <h2 class="m-3">Nieuw formulier aanmaken</h2>
+          <div class="search">
+            <mat-error *ngIf="error">{{error}}</mat-error>
+            <mat-form-field appearance="fill" class="w-75">
+              <mat-label>Formulier</mat-label>
+              <mat-select [(ngModel)]="new_form">
+                <mat-optgroup *ngFor="let group of selectForms" [label]="group.name">
+                  <mat-option *ngFor="let item of group.items" [value]="item">
+                    {{getForm(item).title}}
+                  </mat-option>
+                </mat-optgroup>
+              </mat-select>
+            </mat-form-field>
+            <button mat-flat-button color="primary" (click)="addForm(new_form)" [disabled]="new_form==null">Aanmaken
+              <mat-icon>add</mat-icon>
+            </button>
           </div>
-          <mat-list-item *ngIf="loadingC"><mat-spinner diameter="75"></mat-spinner></mat-list-item>
-          <mat-list-item *ngIf="configurations.length == 0 && !loadingC"><span class="w-100 text-center">Nog geen aangemaakte formulieren</span></mat-list-item>
-      </div>
+        </div>
+        <div class="container items">
+          <h2>Ingevulde formulieren</h2>
+          <div class="pb-3">
+            <div class="mb-3" *ngFor="let config of configurations">
+              <mat-card class="border-top border-primary">
+                <mat-card-title>{{config.values.title}}</mat-card-title>
+                <mat-card-subtitle>{{config.values.adviseur}} - {{config.values.updated_at}}</mat-card-subtitle>
+                <mat-card-actions>
+                  <a mat-raised-button color="primary"
+                     href="https://info.differentdoors.nl/configuratie-overview/deal/P{{config.values.deal_id}}/{{config.path}}"
+                     target="_blank">
+                    <mat-icon>remove_red_eye</mat-icon>
+                  </a>
+                  <button mat-raised-button color="primary"
+                          routerLink="/verkoop/formulier/{{config.values.deal_id}}/{{config.id}}" [queryParams]="{fullscreen}">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-raised-button color="primary" (click)="delete(config.id)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+            <mat-list-item *ngIf="loadingC">
+              <mat-spinner diameter="75"></mat-spinner>
+            </mat-list-item>
+            <mat-list-item *ngIf="configurations.length == 0 && !loadingC"><span class="w-100 text-center">Nog geen aangemaakte formulieren</span>
+            </mat-list-item>
+          </div>
+        </div>
       </div>
     </ng-container>
 

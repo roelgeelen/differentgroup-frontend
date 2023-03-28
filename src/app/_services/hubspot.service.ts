@@ -21,6 +21,10 @@ export class HubspotService {
     return this.http.put(`${environment.apiUrl}/deals/${dealId}`, deal);
   }
 
+  getRecentConfigs(username: string, search: string) {
+    return this.http.get<DealConfig[]>(`${environment.apiUrl}/configs/${username}/recent?search=${search}`);
+  }
+
   getDealConfigs(dealId: number) {
     return this.http.get<DealConfig>(`${environment.apiUrl}/configs/${dealId}`);
   }

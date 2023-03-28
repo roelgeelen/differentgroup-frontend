@@ -12,11 +12,11 @@
 <div [ngClass]="fullscreen ? 'fullscreen' : ''" class="form">
   <div class="page">
     <div class="form-header d-flex justify-content-between">
-      <div class="logo"><img src="../../../../../assets/images/cropped-logo-differentdoors-diap.png"></div>
+      <div class="logo"><img src="../../../../../assets/images/logo_different-doors-zwarte-letters.svg"></div>
       <h1>{{page?.title}}<br><span>{{dealConfig.values.dealname}}</span></h1>
       <div class="reset-btn">
         <button mat-button color="accent" class="clear" *ngIf="dealConfig.values.dealname !== undefined"
-                routerLink="/verkoop/formulier/{{dealId}}">
+                routerLink="/verkoop/formulier/{{dealId}}"  [queryParams]="{fullscreen}">
           <mat-icon>clear</mat-icon>
         </button>
       </div>

@@ -102,6 +102,25 @@ export const algemeen: QuestionBase<string>[] = [
     validators: [Validators.required]
   }),
   new RadioQuestion({
+    key: 'aantal_vleugels',
+    label: 'Aantal deurvleugels',
+    options: [
+      {value: '1 vleugel'},
+      {value: '2 vleugels'}
+    ]
+  }),
+  new RadioQuestion({
+    key: 'actieve_deur',
+    label: 'Actieve vleugel (vanaf buitenaanzicht)',
+    options: [
+      {value: 'Links'},
+      {value: 'Rechts'}
+    ],
+    dependent: [
+      {field: 'aantal_vleugels', values: ['2 vleugels']}
+    ]
+  }),
+  new RadioQuestion({
     key: 'sluitkommen',
     label: 'Bestaande sluitkommen en scharnieren dicht zetten',
     options: [
@@ -164,7 +183,33 @@ export const buiten: QuestionBase<string>[] = [
       {value: 'Verticale latten', article: 'VDH003'},
       {value: 'Overige', article: 'VDH004'},
     ],
-    validators: [Validators.required]
+    validators: [Validators.required],
+    dependent: [
+      {field:'aantal_vleugels', values: ['1 vleugel']}
+    ]
+  }),
+  new RadioQuestion({
+    key: 'loopdeur_voordeur',
+    label: 'Type voordeur',
+    options: [
+      {value: 'Verticale delen', article: 'VDH011'},
+      {value: 'Horizontale delen', article: 'VDH012'},
+      {value: 'Verticale latten', article: 'VDH013'},
+      {value: 'Overige', article: 'VDH014'},
+    ],
+    validators: [Validators.required],
+    dependent: [
+      {field:'aantal_vleugels', values: ['2 vleugels']}
+    ]
+  }),
+  new TextQuestion({
+    label: 'Type voordeur omschrijving',
+    fields: [
+      {key: 'type_overige_omschr', label: 'Omschrijving', type: 'text'}
+    ],
+    dependent: [
+      {field: 'loopdeur_voordeur', values: ['Overige']}
+    ]
   }),
   new RadioQuestion({
     key: 'electrisch_motorslot',
@@ -327,6 +372,24 @@ export const deur: QuestionBase<string>[] = [
       {value: 'Door klant'},
     ],
     value: 'N.v.t.'
+  }),
+  new RadioQuestion({
+    key: 'beslag_beide_deuren',
+    label: 'Beslag beide deuren',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee'},
+    ],
+    dependent: [
+      {
+        field: 'aantal_vleugels',
+        values: ['2 vleugels']
+      },
+      {
+        field: 'krukset_deurbeslag',
+        values: ['Ja']
+      }
+    ]
   }),
   new RadioQuestion({
     key: 'deurgreep',

@@ -23,7 +23,9 @@ export class OverviewComponent implements OnInit {
   page: FormPage;
   currentUser: User;
   dealConfig: DealConfig;
-  configurations: DealConfig[];
+  configurations: DealConfig[] = [];
+  recentConfigs: DealConfig[] = [];
+  searchRecent: string = "";
   fullscreen = false;
   form!: FormGroup;
   error: string = '';
@@ -55,6 +57,9 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe(queryParams => {
+      this.fullscreen = queryParams.get('fullscreen') == 'true';
+    });
     this.route.paramMap.subscribe(queryParams => {
       this.dealConfig = new DealConfig()
       this.dealConfig.values = new Values();
@@ -62,8 +67,26 @@ export class OverviewComponent implements OnInit {
         // @ts-ignore
         this.dealConfig.values.deal_id = +queryParams.get('dealId');
         this.findDeal();
+      } else {
+        this.findRecent();
       }
     });
+  }
+
+  findRecent() {
+    this.recentConfigs = [];
+    this.loadingC = true;
+    this.hubService.getRecentConfigs(this.currentUser.name, this.searchRecent).subscribe(c => {
+      this.recentConfigs = c;
+      this.loadingC = false;
+    }, error1 => {
+      this.loadingC = false;
+    });
+  }
+
+  openRecent(dealId: number) {
+    this.dealConfig.values.deal_id = dealId;
+    this.findDeal();
   }
 
   findDeal() {
@@ -95,6 +118,7 @@ export class OverviewComponent implements OnInit {
     this.location.replaceState('/verkoop/formulier');
     this.dealConfig = new DealConfig();
     this.dealConfig.values = new Values();
+    this.findRecent();
   }
 
   toggleFullscreen() {

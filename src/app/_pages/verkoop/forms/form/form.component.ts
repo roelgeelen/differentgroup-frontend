@@ -49,11 +49,15 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe(queryParams => {
+      this.fullscreen = queryParams.get('fullscreen') == 'true';
+    });
     this.route.paramMap.subscribe(queryParams => {
       this.dealConfig = new DealConfig()
       this.dealConfig.values = new Values();
       // @ts-ignore
       this.dealId = +queryParams.get('dealId');
+
       if (queryParams.get('configId') !== null) {
         // @ts-ignore
         this.findDeal(+queryParams.get('configId'));
