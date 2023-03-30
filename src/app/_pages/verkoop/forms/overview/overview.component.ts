@@ -164,6 +164,7 @@ export class OverviewComponent implements OnInit {
     newConfig.name = this.dealConfig.name;
     let values = new Values();
     values.title = forms[new_form as FormsEnum].title;
+    values.type = forms[new_form as FormsEnum].type;
     values.deal_id = this.dealConfig.values.deal_id;
     values.dealname = this.dealConfig.name;
     newConfig.values = values;

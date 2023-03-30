@@ -34,6 +34,7 @@ export class FormComponent implements OnInit {
   tabCount: number;
   dealId: number;
   publishing = false;
+  editTitle = false;
 
   constructor(
     private qcs: QuestionControlService,
@@ -71,7 +72,7 @@ export class FormComponent implements OnInit {
       this.hubService.getConfig(this.dealId, configId).subscribe(deal => {
         this.dealConfig = deal;
         this.dealConfig.values.adviseur = this.currentUser.name;
-        this.page = this.getFormPage(this.dealConfig.values.title);
+        this.page = this.getFormPage(this.dealConfig.values.type);
         this.loading = false;
         this.tabCount = this.page.form.length;
         this.form = this.qcs.toFormGroup(this.page.form);
@@ -116,6 +117,14 @@ export class FormComponent implements OnInit {
     return formError;
   }
 
+  updateTitle() {
+    if (this.dealConfig.values.title != undefined) {
+      this.form.patchValue(this.dealConfig.values);
+      this.hubService.updateConfigTitle(this.dealConfig.values.deal_id, this.dealConfig.id, this.dealConfig.values.title).subscribe(() => {
+        this.publish();
+      });
+    }
+  }
 
   submit() {
     this.publish();
@@ -321,9 +330,9 @@ export class FormComponent implements OnInit {
     })
   }
 
-  getFormPage(title: string | undefined) {
+  getFormPage(type: string | undefined) {
     return Object.values(forms).filter(k => {
-      return k.title == title;
+      return k.type == type;
     })[0]
   }
 

@@ -25,6 +25,7 @@ export class QuestionControlService {
     group['deal_id'] = new FormControl('');
     group['adviseur'] = new FormControl('');
     group['title'] = new FormControl('');
+    group['type'] = new FormControl('');
     group['dealname'] = new FormControl('');
     return new FormGroup(group);
   }

@@ -45,6 +45,10 @@ export class HubspotService {
     return this.http.put(`${environment.apiUrl}/configs/${dealId}/forms/${configId}`, deal);
   }
 
+  updateConfigTitle(dealId: number, configId: number, title: string) {
+    return this.http.put(`${environment.apiUrl}/configs/${dealId}/forms/${configId}/title`, title);
+  }
+
   publishDealConfig(dealId: number, configId: number) {
     return this.http.post(`${environment.apiUrl}/configs/${dealId}/forms/${configId}/publish`, null);
   }
