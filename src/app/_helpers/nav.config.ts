@@ -8,17 +8,6 @@ export const navConfig: Page[] = [
     icon: 'dashboard',
     pages: [
       {
-        url: '/verkoop',
-        title: 'Dashboard',
-        icon: 'dashboard',
-        roles: [
-          EnumRoles.OFFICE,
-          EnumRoles.ICT,
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
-        ]
-      },
-      {
         url: '/verkoop/afspraken',
         title: 'Afspraken',
         icon: 'map',
@@ -64,6 +53,18 @@ export const navConfig: Page[] = [
     title: 'Planning',
     icon: 'insert_chart_outlined',
     pages: [
+      {
+        url: '/planning/tracking',
+        title: 'Tracking',
+        icon: 'maps',
+        roles: [
+          EnumRoles.ENGINEERING,
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.PRODUCTION,
+          EnumRoles.PLANNING,
+          EnumRoles.ICT
+        ]
+      },
       {
         url: '/planning/productie',
         title: 'Productie',

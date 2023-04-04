@@ -4,9 +4,7 @@ import {VerkoopComponent} from "./verkoop.component";
 import {AfsprakenComponent} from "./afspraken/afspraken.component";
 import {AuthGuard} from "../../_helpers/auth.guard";
 import {InmetenComponent} from "./inmeten/inmeten.component";
-import {DashboardComponent} from "./dashboard/dashboard.component";
 import {EnumRoles} from "../../_models/enum/enumRoles";
-import {EnumRouteGuard} from "../../_helpers/enum.route.guard";
 import {FormComponent} from "./forms/form/form.component";
 import {OverviewComponent} from "./forms/overview/overview.component";
 
@@ -15,11 +13,6 @@ const routes: Routes = [
     path: '',
     component: VerkoopComponent,
     children: [
-      {
-        path: '',
-        component: DashboardComponent,
-        canActivate: [AuthGuard],
-      },
       {
         path: 'afspraken',
         component: AfsprakenComponent,

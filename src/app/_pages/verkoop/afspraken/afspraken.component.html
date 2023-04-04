@@ -105,6 +105,11 @@
       (mapClick)="openInfo(somemarker, marker.info)"
     >
     </map-marker>
+    <map-marker
+      *ngFor="let vehicle of vehicles"
+      [position]="vehicle.position"
+      [options]="vehicle.options"
+    ></map-marker>
     <map-circle
       *ngFor="let rad of radius"
       [center]="rad.center"

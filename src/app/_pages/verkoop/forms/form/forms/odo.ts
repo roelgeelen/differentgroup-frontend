@@ -241,10 +241,6 @@ export const algemeen: QuestionBase<string>[] = [
   }),
   new TextQuestion({
     label: 'Verdeling (van buiten gezien inclusief kozijn)',
-    dependent: [{
-      field: 'verdeling_symmetrisch',
-      values: ['Nee']
-    }],
     fields: [
       {
         key: 'links',
@@ -256,7 +252,11 @@ export const algemeen: QuestionBase<string>[] = [
         label: 'Rechts',
         type: 'number'
       }
-    ]
+    ],
+    dependent: [{
+      field: 'verdeling_symmetrisch',
+      values: ['Nee']
+    }]
   })
 ];
 

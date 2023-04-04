@@ -5,7 +5,7 @@ import {Appointment} from "../_models/appointment/Appointment";
 import {Event} from "../_models/calendar/Event";
 import {Observable} from "rxjs";
 import {Post} from "../_models/pages/Post";
-import {DealConfig} from "../_models/hubspot/DealConfig";
+import {Vehicle} from "../_models/vehicle/Vehicle";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,10 @@ export class ApiService {
 
   getCalendar(owner: string, start: string, end: string) {
     return this.http.get<Appointment[]>(`${environment.apiUrl}/calendars/${owner}?start=${start}&end=${end}`);
+  }
+
+  getTracking(organisation: string) {
+    return this.http.get<Vehicle[]>(`${environment.apiUrl}/tracking/vehicles?organisation=${organisation}`);
   }
 
   getBirthdays() {

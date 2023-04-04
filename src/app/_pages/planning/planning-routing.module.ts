@@ -7,6 +7,7 @@ import {ProductionComponent} from "./production/production.component";
 import {VoorraadComponent} from "../magazijn/voorraad/voorraad.component";
 import {EnumRoles} from "../../_models/enum/enumRoles";
 import {GeproduceerdComponent} from "./geproduceert/geproduceerd.component";
+import {TrackingComponent} from "./tracking/tracking.component";
 
 const routes: Routes = [
   {
@@ -17,6 +18,20 @@ const routes: Routes = [
         path: '',
         component: DashboardComponent,
         canActivate: [AuthGuard],
+      },
+      {
+        path: 'tracking',
+        component: TrackingComponent,
+        canActivate: [AuthGuard],
+        data: {
+          roles: [
+            EnumRoles.ENGINEERING,
+            EnumRoles.ADMINISTRATION,
+            EnumRoles.PRODUCTION,
+            EnumRoles.PLANNING,
+            EnumRoles.ICT
+          ]
+        },
       },
       {
         path: 'productie',

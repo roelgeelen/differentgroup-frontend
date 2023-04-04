@@ -231,10 +231,6 @@ export const algemeen: QuestionBase<string>[] = [
   }),
   new TextQuestion({
     label: 'Verdeling (van buiten gezien inclusief kozijn)',
-    dependent: [{
-      field: 'verdeling_symmetrisch',
-      values: ['Nee']
-    }],
     fields: [
       {
         key: 'links',
@@ -246,7 +242,11 @@ export const algemeen: QuestionBase<string>[] = [
         label: 'Rechts',
         type: 'number'
       }
-    ]
+    ],
+    dependent: [{
+      field: 'verdeling_symmetrisch',
+      values: ['Nee']
+    }]
   })
 ];
 export const buitenzijde: QuestionBase<string>[] = [
@@ -262,25 +262,25 @@ export const buitenzijde: QuestionBase<string>[] = [
   new RadioQuestion({
     key: 'type_profilering',
     label: 'Type',
-    dependent: [
-      {field: 'profilering', values: ['Horizontale belijning', 'Verticale belijning']}
-    ],
     options: [
       {value: 'U'},
       {value: 'V'},
+    ],
+    dependent: [
+      {field: 'profilering', values: ['Horizontale belijning', 'Verticale belijning']}
     ]
   }),
   new TextQuestion({
     label: 'Afstand belijning (in mm)',
-    dependent: [
-      {field: 'profilering', values: ['Horizontale belijning', 'Verticale belijning']}
-    ],
     fields: [
       {
         key: 'afstand_belijning',
         label: 'Afstand',
         type: 'number'
       }
+    ],
+    dependent: [
+      {field: 'profilering', values: ['Horizontale belijning', 'Verticale belijning']}
     ]
   }),
   new RadioQuestion({

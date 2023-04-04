@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {delay, Observable} from "rxjs";
 import {WeatherService} from "../../_services/weather.service";
 
 @Component({

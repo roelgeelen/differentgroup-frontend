@@ -1,0 +1,18 @@
+<div class="loading-overlay fixed" *ngIf="loading">
+  <div class="loading"></div>
+</div>
+<google-map
+  width="100%"
+  [height]="height"
+  [zoom]="zoom"
+  [center]="center"
+  [options]="options"
+>
+  <map-marker
+    *ngFor="let marker of markers"
+    [position]="marker.position"
+    [options]="marker.options"
+  >
+  </map-marker>
+  <map-traffic-layer [autoRefresh]="true"></map-traffic-layer>
+</google-map>

@@ -7,7 +7,6 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatTableModule} from "@angular/material/table";
-import {DashboardComponent} from "./dashboard/dashboard.component";
 import {InmetenComponent} from "./inmeten/inmeten.component";
 import {AfsprakenComponent} from "./afspraken/afspraken.component";
 import {MatSliderModule} from "@angular/material/slider";
@@ -78,7 +77,6 @@ import {SharedModule} from "../../shared.module";
   ],
   declarations: [
     VerkoopComponent,
-    DashboardComponent,
     InmetenComponent,
     AfsprakenComponent,
     FormComponent,

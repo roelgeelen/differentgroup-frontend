@@ -10,10 +10,13 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {ProductionComponent} from "./production/production.component";
 import {GeproduceerdComponent} from './geproduceert/geproduceerd.component';
+import { TrackingComponent } from './tracking/tracking.component';
+import {GoogleMapsModule} from "@angular/google-maps";
 
 @NgModule({
   imports: [
     CommonModule,
+    GoogleMapsModule,
     PlanningRoutingModule,
     MatCardModule,
     MatToolbarModule,
@@ -25,7 +28,8 @@ import {GeproduceerdComponent} from './geproduceert/geproduceerd.component';
     PlanningComponent,
     DashboardComponent,
     ProductionComponent,
-    GeproduceerdComponent
+    GeproduceerdComponent,
+    TrackingComponent
   ],
   exports: [
     PlanningComponent
