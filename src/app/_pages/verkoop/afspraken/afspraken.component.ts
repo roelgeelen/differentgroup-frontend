@@ -319,7 +319,10 @@ export class AfsprakenComponent implements OnInit {
               lng: +v.location.longitude,
             },
             options: {
-              icon: this.encodeSVG(this.generateCarMarker(v.alias, v.location.course, v.location.in_movement))
+              icon: {
+                url: this.encodeSVG(this.generateCarMarker(v.alias, v.location.course, v.location.in_movement)),
+                anchor: new google.maps.Point(25, 15),
+              }
             },
           })
         }
@@ -435,7 +438,7 @@ export class AfsprakenComponent implements OnInit {
   }
 
   generateCarMarker(name: string, rotation: number, in_movement: boolean) {
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="45" viewBox="-25 -10 71 45" fill="none">
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="45"  viewBox="40 0 71 45" fill="none">
       <style type="text/css">
         .car{transform:rotate(${rotation}deg);transform-box: fill-box;transform-origin: center;}
         .st0{fill:#EDEDED;stroke:#000000;stroke-width:0.7;stroke-miterlimit:10;}

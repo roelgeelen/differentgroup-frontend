@@ -9,10 +9,37 @@
   [options]="options"
 >
   <map-marker
+    #somemarker="mapMarker"
     *ngFor="let marker of markers"
     [position]="marker.position"
     [options]="marker.options"
+    (mapClick)="openInfo(somemarker, marker.vehicle)"
   >
+    <map-info-window>
+      <div class="driver-info" *ngIf="infoContent">
+        <div class="info-header">
+          <div class="title">
+            <h3>{{infoContent.alias}}</h3>
+            <small>{{infoContent.location.timestamp | date: 'yyyy-MM-dd HH:mm'}}</small>
+          </div>
+          <div class="license">
+            {{infoContent.license_plate.number}}
+          </div>
+        </div>
+        <div class="info-body">
+          <div>
+            <mat-icon>directions_car</mat-icon>
+            <strong>{{infoContent.manufacturer.name}}</strong>
+            <span>{{infoContent.model.name}}</span>
+          </div>
+          <div>
+            <mat-icon>network_check</mat-icon>
+            <span>{{infoContent.location.speed}} <sup>km/h</sup></span>
+          </div>
+        </div>
+      </div>
+    </map-info-window>
   </map-marker>
+
   <map-traffic-layer [autoRefresh]="true"></map-traffic-layer>
 </google-map>

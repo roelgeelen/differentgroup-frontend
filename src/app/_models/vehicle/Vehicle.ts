@@ -4,6 +4,6 @@ export class Vehicle {
   alias: string;
   manufacturer: {name:string};
   model: {name:string};
-  license_plate: {name:string};
-  location: {latitude: number, longitude: number, in_movement: boolean, course: number, timestamp: Date};
+  license_plate: {number:string};
+  location: {latitude: number, longitude: number, in_movement: boolean, course: number, speed: number, timestamp: Date};
 }

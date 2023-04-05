@@ -1,9 +1,10 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {GoogleMap} from "@angular/google-maps";
+import {Component, Inject, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {GoogleMap, MapInfoWindow, MapMarker} from "@angular/google-maps";
 import {ApiService} from "../../../_services/api.service";
 import {EnumRoles} from "../../../_models/enum/enumRoles";
 import {AuthenticationService} from "../../../_services/authentication.service";
 import {User} from "../../../_models/User";
+import {Vehicle} from "../../../_models/vehicle/Vehicle";
 
 @Component({
   selector: 'app-tracking',
@@ -11,7 +12,9 @@ import {User} from "../../../_models/User";
   styleUrls: ['./tracking.component.scss']
 })
 export class TrackingComponent implements OnInit {
+  @ViewChildren('somemarker') components: QueryList<MapMarker>;
   @ViewChild(GoogleMap) map: GoogleMap
+  @ViewChild(MapInfoWindow) info: MapInfoWindow
   interval: any;
   loading = false;
   currentUser: User;
@@ -22,13 +25,14 @@ export class TrackingComponent implements OnInit {
   }
   options: google.maps.MapOptions = {
     mapTypeId: 'roadmap',
-    maxZoom: 30,
-    minZoom: 0
+    maxZoom: 20,
+    minZoom: 6
   }
   markers: any[] = [];
+  infoContent: Vehicle | null = null;
   height = window.innerHeight - 180;
 
-  constructor(@Inject(ApiService) private apiService: ApiService,private authService: AuthenticationService,) {
+  constructor(@Inject(ApiService) private apiService: ApiService,private authService: AuthenticationService) {
     this.authService.currentUser.subscribe(x => {
       this.currentUser = x
     });
@@ -45,6 +49,12 @@ export class TrackingComponent implements OnInit {
     clearInterval(this.interval);
   }
 
+  openInfo(marker: MapMarker | undefined, content: Vehicle) {
+    this.infoContent = content;
+    console.log(this.infoContent)
+    this.info.open(marker)
+  }
+
   getTrackingVehicles() {
     this.markers = [];
     this.loading = true
@@ -58,9 +68,14 @@ export class TrackingComponent implements OnInit {
               lat: +v.location.latitude,
               lng: +v.location.longitude,
             },
+            vehicle: v,
             options: {
-              icon: this.encodeSVG(this.generateBusMarker(v.alias, v.location.course, v.location.in_movement))
-            },
+              icon: {
+                url: this.encodeSVG(this.generateBusMarker(v.alias, v.location.course, v.location.in_movement)),
+                anchor: new google.maps.Point(25, 15),
+              },
+              anchorPoint: new google.maps.Point(0, -15)
+            }
           })
         }
       })
@@ -74,8 +89,13 @@ export class TrackingComponent implements OnInit {
                 lat: +v.location.latitude,
                 lng: +v.location.longitude,
               },
+              vehicle: v,
               options: {
-                icon: this.encodeSVG(this.generateCarMarker(v.alias, v.location.course, v.location.in_movement))
+                icon: {
+                  url: this.encodeSVG(this.generateCarMarker(v.alias, v.location.course, v.location.in_movement)),
+                  anchor: new google.maps.Point(25, 15),
+                },
+                anchorPoint: new google.maps.Point(0, -15)
               },
             })
           }
@@ -104,29 +124,29 @@ export class TrackingComponent implements OnInit {
   }
 
   generateBusMarker(name: string, rotation: number, in_movement: boolean) {
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="45" viewBox="-25 -10 71 45" fill="none">
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="45"  viewBox="40 0 71 45" fill="none">
       <style type="text/css">
-      \t.car{transform:rotate(${rotation}deg);transform-box: fill-box;transform-origin: center;}
-      \t.st0{fill:#EDEDED;stroke:#000000;stroke-miterlimit:10;}
-      \t.st1{fill:${in_movement ? '#06b085' : '#d3d3d3'};stroke:#000000;stroke-miterlimit:10;}
-      \t.st2{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}
+      .car{transform:rotate(${rotation}deg);transform-box: fill-box;transform-origin: center;}
+      .st0{fill:#EDEDED;stroke:#000000;stroke-miterlimit:10;}
+      .st1{fill:${in_movement ? '#06b085' : '#d3d3d3'};stroke:#000000;stroke-miterlimit:10;}
+      .st2{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}
       </style>
       <g class="car">
-      <path class="st0" d="M2.63,12.08c-0.6,0.09-1.12,0.16-1.63,0.26c-0.31,0.06-0.43-0.05-0.47-0.35c-0.09-0.69,0.07-0.96,0.73-1.2
-      \tc0.35-0.13,0.7-0.28,1.06-0.39c0.26-0.08,0.33-0.22,0.33-0.48C2.62,8.74,2.64,7.57,2.63,6.41C2.6,3.97,3.76,2.3,5.94,1.34
-      \tc2.61-1.15,5.25-1.12,7.83,0.09c2.04,0.96,3.13,2.59,3.12,4.89c-0.01,1.17,0.02,2.34-0.01,3.51c-0.01,0.36,0.12,0.52,0.45,0.62
-      \tc0.36,0.1,0.71,0.24,1.06,0.38c0.59,0.23,0.85,0.8,0.57,1.35c-0.05,0.1-0.3,0.16-0.44,0.15c-0.52-0.05-1.04-0.15-1.62-0.24
-      \tc0,0.23,0,0.4,0,0.58c0,5.49,0,10.98,0,16.48c0,1.11-0.56,1.67-1.66,1.67c-3.6,0-7.21-0.03-10.81,0.02c-1.29,0.02-1.84-0.8-1.79-1.9
-      \tc0.04-0.82,0-1.64,0-2.46c0-4.63,0-9.27,0-13.9C2.63,12.42,2.63,12.28,2.63,12.08z"/>
-      <path class="st1" d="M9.81,9.7c3.69,0,5.82,1.31,5.82,1.52c0,0,0,11.87,0,17.01c0,0.1-0.2,0.31-0.3,0.31c-3.69,0-7.39,0-11.08,0
-      \tc-0.1,0-0.31-0.2-0.31-0.31c0-5.17,0-17,0-17C3.94,10.91,6.11,9.7,9.81,9.7z"/>
-      <path class="st2" d="M5.28,10.38c3-0.91,5.95-0.91,8.96,0c0.35-0.77,0.73-1.58,1.08-2.41c0.04-0.09-0.08-0.32-0.18-0.36
-      \tc-0.59-0.26-1.18-0.57-1.81-0.72c-2.12-0.52-4.27-0.55-6.41-0.15C6.05,6.9,5.21,7.3,4.35,7.62C4.26,7.66,4.15,7.9,4.19,7.98
-      \tC4.54,8.81,4.93,9.62,5.28,10.38z"/>
-      <path class="st2" d="M6.65,2.73C6.59,2.29,6.39,2.12,6.02,2.27c-0.63,0.27-1.13,0.7-1.44,1.32C4.42,3.93,4.56,4.28,4.9,4.48
-      \tc0.33,0.2,0.79,0.2,0.95-0.09C6.15,3.86,6.39,3.28,6.65,2.73z"/>
-      <path class="st2" d="M12.96,2.67c-0.04,0.02,0.43,1.22,0.77,1.77c0.16,0.27,0.65,0.25,0.95,0.01c0.27-0.21,0.43-0.49,0.26-0.84
-      \tc-0.3-0.63-0.8-1.06-1.43-1.33C13.14,2.12,12.95,2.27,12.96,2.67z"/>
+        <path class="st0" d="M2.63,12.08c-0.6,0.09-1.12,0.16-1.63,0.26c-0.31,0.06-0.43-0.05-0.47-0.35c-0.09-0.69,0.07-0.96,0.73-1.2
+        c0.35-0.13,0.7-0.28,1.06-0.39c0.26-0.08,0.33-0.22,0.33-0.48C2.62,8.74,2.64,7.57,2.63,6.41C2.6,3.97,3.76,2.3,5.94,1.34
+        c2.61-1.15,5.25-1.12,7.83,0.09c2.04,0.96,3.13,2.59,3.12,4.89c-0.01,1.17,0.02,2.34-0.01,3.51c-0.01,0.36,0.12,0.52,0.45,0.62
+        c0.36,0.1,0.71,0.24,1.06,0.38c0.59,0.23,0.85,0.8,0.57,1.35c-0.05,0.1-0.3,0.16-0.44,0.15c-0.52-0.05-1.04-0.15-1.62-0.24
+        c0,0.23,0,0.4,0,0.58c0,5.49,0,10.98,0,16.48c0,1.11-0.56,1.67-1.66,1.67c-3.6,0-7.21-0.03-10.81,0.02c-1.29,0.02-1.84-0.8-1.79-1.9
+        c0.04-0.82,0-1.64,0-2.46c0-4.63,0-9.27,0-13.9C2.63,12.42,2.63,12.28,2.63,12.08z"/>
+        <path class="st1" d="M9.81,9.7c3.69,0,5.82,1.31,5.82,1.52c0,0,0,11.87,0,17.01c0,0.1-0.2,0.31-0.3,0.31c-3.69,0-7.39,0-11.08,0
+        c-0.1,0-0.31-0.2-0.31-0.31c0-5.17,0-17,0-17C3.94,10.91,6.11,9.7,9.81,9.7z"/>
+        <path class="st2" d="M5.28,10.38c3-0.91,5.95-0.91,8.96,0c0.35-0.77,0.73-1.58,1.08-2.41c0.04-0.09-0.08-0.32-0.18-0.36
+        c-0.59-0.26-1.18-0.57-1.81-0.72c-2.12-0.52-4.27-0.55-6.41-0.15C6.05,6.9,5.21,7.3,4.35,7.62C4.26,7.66,4.15,7.9,4.19,7.98
+        C4.54,8.81,4.93,9.62,5.28,10.38z"/>
+        <path class="st2" d="M6.65,2.73C6.59,2.29,6.39,2.12,6.02,2.27c-0.63,0.27-1.13,0.7-1.44,1.32C4.42,3.93,4.56,4.28,4.9,4.48
+        c0.33,0.2,0.79,0.2,0.95-0.09C6.15,3.86,6.39,3.28,6.65,2.73z"/>
+        <path class="st2" d="M12.96,2.67c-0.04,0.02,0.43,1.22,0.77,1.77c0.16,0.27,0.65,0.25,0.95,0.01c0.27-0.21,0.43-0.49,0.26-0.84
+        c-0.3-0.63-0.8-1.06-1.43-1.33C13.14,2.12,12.95,2.27,12.96,2.67z"/>
       </g>
       <rect width="${15 + (name.length * 6)}" height="22" rx="10" x="25" y="5" fill="#cb372b"/>
       <text x="30" y="20"
@@ -138,7 +158,7 @@ export class TrackingComponent implements OnInit {
   }
 
   generateCarMarker(name: string, rotation: number, in_movement: boolean) {
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="45" viewBox="-25 -10 71 45" fill="none">
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="45"  viewBox="40 0 71 45" fill="none">
       <style type="text/css">
         .car{transform:rotate(${rotation}deg);transform-box: fill-box;transform-origin: center;}
         .st0{fill:#EDEDED;stroke:#000000;stroke-width:0.7;stroke-miterlimit:10;}
