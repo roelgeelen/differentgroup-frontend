@@ -10,22 +10,11 @@ import {Validators} from "@angular/forms";
 export const sales: QuestionBase<string>[] = [
   new CheckboxQuestion({
     key: 'wie_is_er_bij_het_gesprek_aanwezig',
-    label: 'Wie is er bij het gesprek aanwezig?',
+    label: 'Wie hebben we allemaal gesproken in de voorbereiding op het project?',
     options: [
       {value: 'Eindklant'},
       {value: 'Aannemer/bouwbegeleider'},
       {value: 'Architect'},
-    ],
-    toDeal: true,
-    validators: [Validators.required]
-  }),
-  new RadioQuestion({
-    key: 'geschatte_woningwaarde',
-    label: 'Geschatte woningwaarde',
-    options: [
-      {value: '250 duizend – 500 duizend'},
-      {value: '500 duizend – 1 miljoen'},
-      {value: '> 1 miljoen'},
     ],
     toDeal: true,
     validators: [Validators.required]
@@ -53,7 +42,7 @@ export const sales: QuestionBase<string>[] = [
   }),
   new RadioQuestion({
     key: 'leeftijdsschatting',
-    label: 'Leeftijdsschatting',
+    label: 'Leeftijdsschatting eindklant',
     options: [
       {value: '< 30'},
       {value: '30-40'},

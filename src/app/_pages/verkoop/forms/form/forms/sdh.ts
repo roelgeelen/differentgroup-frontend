@@ -12,22 +12,11 @@ import {TableQuestion} from "../../dynamic-form/controls/question-table";
 export const sales: QuestionBase<string>[] = [
   new CheckboxQuestion({
     key: 'wie_is_er_bij_het_gesprek_aanwezig',
-    label: 'Wie is er bij het gesprek aanwezig?',
+    label: 'Wie hebben we allemaal gesproken in de voorbereiding op het project?',
     options: [
       {value: 'Eindklant'},
       {value: 'Aannemer/bouwbegeleider'},
       {value: 'Architect'},
-    ],
-    toDeal: true,
-    validators: [Validators.required]
-  }),
-  new RadioQuestion({
-    key: 'geschatte_woningwaarde',
-    label: 'Geschatte woningwaarde',
-    options: [
-      {value: '250 duizend – 500 duizend'},
-      {value: '500 duizend – 1 miljoen'},
-      {value: '> 1 miljoen'},
     ],
     toDeal: true,
     validators: [Validators.required]
@@ -55,7 +44,7 @@ export const sales: QuestionBase<string>[] = [
   }),
   new RadioQuestion({
     key: 'leeftijdsschatting',
-    label: 'Leeftijdsschatting',
+    label: 'Leeftijdsschatting eindklant',
     options: [
       {value: '< 30'},
       {value: '30-40'},
@@ -148,6 +137,26 @@ export const algemeen: QuestionBase<string>[] = [
       {
         field: 'begeleiding_project',
         values: ['Projectleider']
+      }
+    ]
+  }),
+  new TextQuestion({
+    label: 'Eindklant',
+    fields: [
+      {
+        key: 'eindklant_naam',
+        label: 'Naam',
+        type: 'text'
+      },
+      {
+        key: 'eindklant_telefoon',
+        label: 'Telefoon',
+        type: 'number'
+      },
+      {
+        key: 'eindklant_email',
+        label: 'E-mail',
+        type: 'email'
       }
     ]
   }),
@@ -392,6 +401,7 @@ export const binnenzijde: QuestionBase<string>[] = [
     options: [
       {value: 'Standaard gegalvaniseerd'},
       {value: 'Op kleur', article: 'SDH100'},
+      {value: 'Rails + beslag op kleur', article: 'SDH120'},
     ],
     value: 'Standaard gegalvaniseerd',
     dependent: [
@@ -413,12 +423,12 @@ export const binnenzijde: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'rails',
-        values: ['Op kleur']
+        values: ['Op kleur', 'Rails + beslag op kleur']
       }
     ]
   }),
-  new RadioQuestion({
-    key: 'motor',
+  new CheckboxQuestion({
+    key: 'motor',// radio to check
     label: 'Motor',
     options: [
       {value: 'N.v.t.'},
@@ -429,8 +439,8 @@ export const binnenzijde: QuestionBase<string>[] = [
     ]
   }),
   new RadioQuestion({
-    key: 'stroom',
-    label: 'Stroom',
+    key: 'stroom_plafond',
+    label: 'Stroom plafond motor',
     options: [
       {value: 'Door klant te voorzien', article: 'SDH207'},
       {value: 'Aanwezig op de juiste plaats', article: 'SDH207'},
@@ -445,7 +455,7 @@ export const binnenzijde: QuestionBase<string>[] = [
   }),
   new RadioQuestion({
     key: 'stroom',
-    label: 'Stroom',
+    label: 'Stroom motor',
     options: [
       {value: 'Door klant te voorzien'},
       {value: 'Aanwezig op de juiste plaats'},
@@ -637,11 +647,13 @@ export const gevelbekleding: QuestionBase<string>[] = [
     label: 'Aanbrengen gevelbekleding',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Different Doors monteert het hout op de kappen (overige gevel door klant)'},
-      {value: 'Door Different Doors (Zie gele arcering in foto)', article: 'SDH402'},
-      {value: 'Door klant maar productie door Different Doors', article: 'SDH402'},
-      {value: 'Door de klant', article: 'SDH401'},
-    ]
+      {value: 'Gevelbekleding los geleverd (montage door klant), enkel de stalen zethoeken worden door Different Doors bekleed', article: 'SDH401'},
+      {value: 'Gevelbekleding geproduceerd en gemonteerd door Different Doors (zie gele arcering)', article: 'SDH402'},
+      {value: 'Gevelbekleding los geleverd (montage door klant)', article: 'SDH407'},
+      {value: 'Door de klant'},
+    ],
+    other: true,
+    custom: ''
   }),
   new TableQuestion({
     key: 'gevel_afmetingen',
@@ -656,7 +668,7 @@ export const gevelbekleding: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'aanbrengen_gevelbekleding',
-        values: ['Door Different Doors (Zie arcering)', 'Door klant maar productie door Different Doors']
+        values: ['Gevelbekleding geproduceerd en gemonteerd door Different Doors (zie gele arcering)', 'Gevelbekleding los geleverd (montage door klant), enkel de stalen zethoeken worden door Different Doors bekleed', 'Gevelbekleding los geleverd (montage door klant)']
       }
     ]
   }),
@@ -666,7 +678,7 @@ export const gevelbekleding: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'aanbrengen_gevelbekleding',
-        values: ['Door Different Doors (Zie arcering)', 'Door klant maar productie door Different Doors']
+        values: ['Gevelbekleding geproduceerd en gemonteerd door Different Doors (zie gele arcering)', 'Gevelbekleding los geleverd (montage door klant), enkel de stalen zethoeken worden door Different Doors bekleed', 'Gevelbekleding los geleverd (montage door klant)']
       }
     ]
   })
