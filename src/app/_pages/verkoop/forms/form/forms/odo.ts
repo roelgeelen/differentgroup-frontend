@@ -435,15 +435,6 @@ export const binnenzijde: QuestionBase<string>[] = [
 
 export const deur: QuestionBase<string>[] = [
   new RadioQuestion({
-    key: 'draairichting',
-    label: 'Draairichting (van buiten gezien)',
-    options: [
-      {value: 'Naar buiten'},
-      {value: 'Naar binnen'},
-    ],
-    validators: [Validators.required]
-  }),
-  new RadioQuestion({
     key: 'actieve_deur',
     label: 'Actieve deur (van buiten gezien)',
     options: [
@@ -478,17 +469,6 @@ export const deur: QuestionBase<string>[] = [
     other: true,
     custom: ' ',
     value: ['Cilinder leveren door DD (incl. drie sleutels)']
-  }),
-  new RadioQuestion({
-    key: 'ventilatieroosters',
-    label: 'Ventilatieroosters',
-    options: [
-      {value: 'N.v.t.'},
-      {value: 'Actieve deurvleugel', article: 'ODO302'},
-      {value: 'Passieve deurvleugel', article: 'ODO302'},
-      {value: 'Beide deurvleugels', article: 'ODO302'},
-    ],
-    value: 'N.v.t.'
   })
 ]
 export const glas: QuestionBase<string>[] = [
@@ -716,7 +696,8 @@ export const overige: QuestionBase<string>[] = [
   }),
   new TextareaQuestion({
     key: 'overige_opmerkingen_intern',
-    label: 'Overige opmerkingen (monteurs)'
+    label: 'Overige opmerkingen (monteurs)',
+    toDeal: true
   }),
   new TextareaQuestion({
     key: 'materiaal_te_bestellen_door_werkvoorbereiding',
