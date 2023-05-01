@@ -749,7 +749,8 @@ export const overige: QuestionBase<string>[] = [
     options: [
       {value: 'Vingerknel beveiligd'},
       {value: 'Uit 3D model'},
-    ]
+    ],
+    toDeal: true
   }),
   new RadioQuestion({
     key: 'type_engineering',
