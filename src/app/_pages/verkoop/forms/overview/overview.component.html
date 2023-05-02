@@ -91,7 +91,17 @@
           <h2>Ingevulde formulieren</h2>
           <div class="pb-3">
             <div class="mb-3" *ngFor="let config of configurations">
-              <mat-card class="border-top border-primary">
+              <mat-card class="border-top border-primary"><mat-icon class="menu" [matMenuTriggerFor]="optionsMenu">more_vert</mat-icon>
+                <mat-menu class="profile-menu" #optionsMenu="matMenu">
+                  <a mat-menu-item (click)="duplicateForm(config)">
+                    <mat-icon>control_point_duplicate</mat-icon>
+                    Dupliceren
+                  </a>
+                  <a mat-menu-item (click)="delete(config.id)">
+                    <mat-icon>delete</mat-icon>
+                    Verwijderen
+                  </a>
+                </mat-menu>
                 <mat-card-title>{{config.values.title}}</mat-card-title>
                 <mat-card-subtitle>{{config.values.adviseur}} - {{config.values.updated_at}}</mat-card-subtitle>
                 <mat-card-actions>
@@ -104,9 +114,9 @@
                           routerLink="/verkoop/formulier/{{config.values.deal_id}}/{{config.id}}" [queryParams]="{fullscreen}">
                     <mat-icon>edit</mat-icon>
                   </button>
-                  <button mat-raised-button color="primary" (click)="delete(config.id)">
-                    <mat-icon>delete</mat-icon>
-                  </button>
+<!--                  <button mat-raised-button color="primary" (click)="delete(config.id)">-->
+<!--                    <mat-icon>delete</mat-icon>-->
+<!--                  </button>-->
                 </mat-card-actions>
               </mat-card>
             </div>

@@ -180,4 +180,34 @@ export class OverviewComponent implements OnInit {
         this.error = 'Er is iets fout gegaan bij het aanmaken';
       })
   }
+
+  duplicateForm(config: DealConfig) {
+    Swal.fire({
+      title: 'Formulier dupliceren',
+      input: 'text',
+      inputValue: config.values.title + ' copy',
+      showCancelButton: true,
+      confirmButtonText: 'Dupliceren',
+      showLoaderOnConfirm: true,
+      cancelButtonText: 'Annuleren',
+      confirmButtonColor: '#2e3785',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.hubService.getConfig(config.values.deal_id, config.id).subscribe(fullConfig => {
+          fullConfig.values.title = result.value;
+          // @ts-ignore
+          this.hubService.createDealConfig(this.dealConfig.values.deal_id, fullConfig).subscribe((r: DealConfig) => {
+              this.loading = false;
+              this.router.navigate(['/verkoop/formulier/' + this.dealConfig.values.deal_id + '/' + r.id]);
+              // location.replace("/verkoop/formulier/" + this.dealConfig.values.deal_id + "/" + r.id)
+            },
+            error1 => {
+              this.loading = false;
+              this.error = 'Er is iets fout gegaan bij het aanmaken';
+            })
+        })
+      }
+    })
+  }
 }
