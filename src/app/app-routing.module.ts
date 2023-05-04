@@ -4,11 +4,16 @@ import {HomeComponent} from "./_pages/home/home.component";
 import {AuthGuard} from "./_helpers/auth.guard";
 import {EnumRoles} from "./_models/enum/enumRoles";
 import {WallofshameComponent} from "./_pages/wallofshame/wallofshame.component";
+import {BroodjesComponent} from "./_pages/broodjes/broodjes.component";
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+  },
+  {
+    path: 'broodjes',
+    component: BroodjesComponent,
   },
   {
     path: 'wallofshame',

@@ -76,7 +76,7 @@ export class OverviewComponent implements OnInit {
   findRecent() {
     this.recentConfigs = [];
     this.loadingC = true;
-    this.hubService.getRecentConfigs(this.currentUser.name, this.searchRecent).subscribe(c => {
+    this.hubService.getRecentConfigs('Mark Bogers', this.searchRecent).subscribe(c => {
       this.recentConfigs = c;
       this.loadingC = false;
     }, error1 => {

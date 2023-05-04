@@ -29,6 +29,8 @@ import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {SharedModule} from "./shared.module";
 import { WallofshameComponent } from './_pages/wallofshame/wallofshame.component';
+import {BroodjesComponent} from "./_pages/broodjes/broodjes.component";
+import {MatTabsModule} from "@angular/material/tabs";
 
 registerLocaleData(localeNl);
 
@@ -36,6 +38,7 @@ registerLocaleData(localeNl);
   declarations: [
     AppComponent,
     HomeComponent,
+    BroodjesComponent,
     WeatherWidgetComponent,
     NavbarComponent,
     BirthdayWidgetComponent,
@@ -68,6 +71,7 @@ registerLocaleData(localeNl);
         sendAccessToken: true
       }
     }),
+    MatTabsModule,
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "nl-NL"},
