@@ -637,6 +637,7 @@ export const afwerking: QuestionBase<string>[] = [
     key: 'aftimmering_buitenzijde',
     label: 'Aftimmering buitenzijde',
     options: [
+      {value: 'N.v.t.'},
       {value: 'Klant kiest voor geen buitenaftimmering'},
       {value: 'Aftimmeren buitenzijde (zie foto)', article: 'ODO408', duration: 60},
     ]
