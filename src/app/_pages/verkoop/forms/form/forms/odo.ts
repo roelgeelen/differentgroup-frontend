@@ -642,6 +642,7 @@ export const afwerking: QuestionBase<string>[] = [
       {value: 'Aftimmeren buitenzijde (zie foto)', article: 'ODO408', duration: 60},
     ]
   }),
+
   new RadioQuestion({
     key: 'bouwkundig_aanpassingen',
     label: 'Bouwkundig aanpassingen',
