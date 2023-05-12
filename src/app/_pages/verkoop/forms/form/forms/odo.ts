@@ -339,7 +339,7 @@ export const buitenzijde: QuestionBase<string>[] = [
   }),
   new TextQuestion({
     label: 'Kleuren',
-    image: 'assets/forms/odo/2022-05-17%2016_23_28-.png',
+    image: 'assets/forms/odo/odo-kleuren-.png',
     fields: [
       {
         key: 'deur_ral',
@@ -373,7 +373,7 @@ export const binnenzijde: QuestionBase<string>[] = [
     label: 'Paneel',
     image: 'assets/forms/odo/56020ab6-c695-4125-b0ba-bd97f79e4204.png',
     options: [
-      {value: 'Standaard stucco'},
+      {value: 'Standaard stucco RAL9016'},
       {value: 'Volledig vlakke plaat', article: 'ODO301'},
     ],
     value: 'Standaard stucco',
@@ -402,7 +402,6 @@ export const binnenzijde: QuestionBase<string>[] = [
     key: 'kleuropties',
     label: 'Kleuropties (RAL)',
     options: [
-      {value: '9016 (standaard)'},
       {value: 'Gelijk aan kleur buitenzijde', article: 'ODO309'},
     ],
     other: true,
@@ -412,6 +411,10 @@ export const binnenzijde: QuestionBase<string>[] = [
       {
         field: 'model',
         values: ['Verticaal', 'Horizontaal']
+      },
+      {
+        field: 'paneel',
+        values: ['Volledig vlakke plaat']
       }
     ]
   }),
@@ -642,7 +645,6 @@ export const afwerking: QuestionBase<string>[] = [
       {value: 'Aftimmeren buitenzijde (zie foto)', article: 'ODO408', duration: 60},
     ]
   }),
-
   new RadioQuestion({
     key: 'bouwkundig_aanpassingen',
     label: 'Bouwkundig aanpassingen',
