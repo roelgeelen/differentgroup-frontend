@@ -17,6 +17,7 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
+import { BestellingenComponent } from './bestellingen/bestellingen.component';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import {MatIconModule} from "@angular/material/icon";
     LogisticComponent,
     MagazijnComponent,
     VoorraadComponent,
-    ControleComponent
+    ControleComponent,
+    BestellingenComponent
   ],
   exports: [
     MagazijnComponent

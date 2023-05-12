@@ -476,17 +476,43 @@ export const deur: QuestionBase<string>[] = [
 ]
 export const glas: QuestionBase<string>[] = [
   new RadioQuestion({
-    key: 'glassectie',
-    label: 'Glassectie',
-    image: 'assets/forms/odo/b2ba7637-14df-4f41-9a56-f6580bfa9f33.png',
+    key: 'glassectie_in_vleugel',
+    label: 'Glassectie in vleugel',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Horizontaal - HR++ helder glas', article: 'ODO200'},
-      {value: 'Horizontaal - HR++ melk glas', article: 'ODO201'},
-      {value: 'Verticaal - HR++ helder glas', article: 'ODO202'},
-      {value: 'Verticaal - HR++ melk glas', article: 'ODO203'},
+      {value: 'Beide'},
+      {value: 'Actieve deur'},
+      {value: 'Passieve deur'}
     ],
-    value: 'N.v.t.'
+    value: "N.v.t."
+  }),
+  new RadioQuestion({
+    key: 'glassectie',
+    label: 'Glassectie beide',
+    image: 'assets/forms/odo/b2ba7637-14df-4f41-9a56-f6580bfa9f33.png',
+    options: [
+      {value: '2 x horizontaal - HR++ helder glas', article: 'ODO200'},
+      {value: '2 x horizontaal - HR++ melk glas', article: 'ODO201'},
+      {value: '2 x verticaal - HR++ helder glas', article: 'ODO202'},
+      {value: '2 x verticaal - HR++ melk glas', article: 'ODO203'},
+    ],
+    dependent: [
+      {field: "glassectie_in_vleugel", values: ["Beide"]},
+    ]
+  }),
+  new RadioQuestion({
+    key: 'glassectie',
+    label: 'Glassectie elke',
+    image: 'assets/forms/odo/b2ba7637-14df-4f41-9a56-f6580bfa9f33.png',
+    options: [
+      {value: 'Horizontaal - HR++ helder glas', article: 'ODO205'},
+      {value: 'Horizontaal - HR++ melk glas', article: 'ODO206'},
+      {value: 'Verticaal - HR++ helder glas', article: 'ODO207'},
+      {value: 'Verticaal - HR++ melk glas', article: 'ODO208'},
+    ],
+    dependent: [
+      {field: "glassectie_in_vleugel", values: ["Actieve deur", "Passieve deur"]}
+    ]
   }),
   new TextQuestion({
     label: 'Horizontaal - Netto glasmaat hoogte (in mm)',
@@ -504,10 +530,13 @@ export const glas: QuestionBase<string>[] = [
       }
     ],
     validators: [Validators.min(200)],
-    dependent: [{
-      field: 'glassectie',
-      values: ['Horizontaal - HR++ helder glas', 'Horizontaal - HR++ melk glas']
-    }]
+    dependent: [
+      {
+        field: 'glassectie',
+        values: ['2 x horizontaal - HR++ helder glas', '2 x horizontaal - HR++ melk glas', 'Horizontaal - HR++ helder glas', 'Horizontaal - HR++ melk glas']
+      },
+      {field: "glassectie_in_vleugel", values: ["Beide", "Actieve deur", "Passieve deur"]}
+    ]
   }),
   new TextQuestion({
     label: 'Verticaal - Netto glasmaat breedte (in mm)',
@@ -525,23 +554,13 @@ export const glas: QuestionBase<string>[] = [
       }
     ],
     validators: [Validators.min(200)],
-    dependent: [{
-      field: 'glassectie',
-      values: ['Verticaal - HR++ helder glas', 'Verticaal - HR++ melk glas']
-    }]
-  }),
-  new RadioQuestion({
-    key: 'glassectie_in_vleugel',
-    label: 'Glassectie in vleugel',
-    options: [
-      {value: 'Beide'},
-      {value: 'Actieve deur'},
-      {value: 'Passieve deur'}
-    ],
-    dependent: [{
-      field: 'glassectie',
-      values: ['Horizontaal - HR++ helder glas', 'Horizontaal - HR++ melk glas', 'Verticaal - HR++ helder glas', 'Verticaal - HR++ melk glas']
-    }]
+    dependent: [
+      {
+        field: 'glassectie',
+        values: ['2 x verticaal - HR++ helder glas', '2 x verticaal - HR++ melk glas','Verticaal - HR++ helder glas', 'Verticaal - HR++ melk glas']
+      },
+      {field: "glassectie_in_vleugel", values: ["Beide", "Actieve deur", "Passieve deur"]}
+    ]
   }),
   new RadioQuestion({
     key: 'glasverdeling',
@@ -552,10 +571,7 @@ export const glas: QuestionBase<string>[] = [
     ],
     value: 'N.v.t.',
     dependent: [
-      {
-        field: 'glassectie',
-        values: ['Horizontaal - HR++ helder glas', 'Horizontaal - HR++ melk glas', 'Verticaal - HR++ helder glas', 'Verticaal - HR++ melk glas']
-      }
+      {field: "glassectie_in_vleugel", values: ["Beide", "Actieve deur", "Passieve deur"]}
     ],
   }),
   new TextQuestion({
@@ -568,10 +584,7 @@ export const glas: QuestionBase<string>[] = [
       },
     ],
     dependent: [
-      {
-        field: 'glassectie',
-        values: ['Horizontaal - HR++ helder glas', 'Horizontaal - HR++ melk glas', 'Verticaal - HR++ helder glas', 'Verticaal - HR++ melk glas']
-      },
+      {field: "glassectie_in_vleugel", values: ["Beide", "Actieve deur", "Passieve deur"]},
       {
         field: 'glasverdeling',
         values: ['Aantal roedes']
@@ -632,7 +645,11 @@ export const afwerking: QuestionBase<string>[] = [
     options: [
       {value: 'Klant kiest voor geen binnenaftimmering'},
       {value: 'Enkel tussen kozijn en muur afpurren'},
-      {value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)', article: 'ODO405', duration: 30},
+      {
+        value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)',
+        article: 'ODO405',
+        duration: 30
+      },
       {value: 'Multipaint volledig (exclusief schilderen)', article: 'ODO406', duration: 120},
     ]
   }),

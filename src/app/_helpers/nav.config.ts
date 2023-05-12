@@ -144,6 +144,18 @@ export const navConfig: Page[] = [
           EnumRoles.PLANNING,
           EnumRoles.ICT
         ]
+      },
+      {
+        url: '/magazijn/bestellingen',
+        title: 'Bestellingen',
+        icon: 'storage',
+        roles: [
+          EnumRoles.STOCKROOM,
+          EnumRoles.ENGINEERING,
+          EnumRoles.ADMINISTRATION,
+          EnumRoles.PLANNING,
+          EnumRoles.ICT
+        ]
       }
     ]
   },
