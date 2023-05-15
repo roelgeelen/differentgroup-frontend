@@ -215,8 +215,47 @@ export const buiten: QuestionBase<string>[] = [
     key: 'electrisch_motorslot',
     label: 'Electrisch motorslot',
     options: [
-      {value: 'Ja'},
+      {value: 'Ja', article: 'SDH210'},
       {value: 'Nee'},
+    ],
+    dependent: [
+      {field:'aantal_vleugels', values: ['1 vleugel']}
+    ]
+  }),
+  new RadioQuestion({
+    key: 'electrisch_motorslot',
+    label: 'Electrisch motorslot',
+    options: [
+      {value: 'Ja met sluitlijst', article: 'SDH211'},
+      {value: 'Nee'},
+    ],
+    dependent: [
+      {field:'aantal_vleugels', values: ['2 vleugels']}
+    ]
+  }),
+  new RadioQuestion({
+    key: 'inclusief_besturing',
+    label: 'Inclusief besturing',
+    options: [
+      {value: 'Ja', article: 'SDH214'},
+      {value: 'Nee'},
+    ],
+    value: 'Nee',
+    dependent: [
+      {field:'electrisch_motorslot', values: ['Ja', 'Ja met sluitlijst']}
+    ]
+  }),
+  new TextQuestion({
+    label: 'Hoogte kabel doorvoer',
+    fields: [
+      {
+        key: 'hoogte_kabel_doorvoer',
+        label: 'Hoogte',
+        type: 'number'
+      }
+    ],
+    dependent: [
+      {field:'electrisch_motorslot', values: ['Ja', 'Ja met sluitlijst']}
     ]
   }),
   new RadioQuestion({
@@ -396,15 +435,48 @@ export const deur: QuestionBase<string>[] = [
     label: 'Deurgreep voordeur',
     image: 'assets/forms/sdh/Deurset.png',
     options: [
-      {value: '1. Ronde RVS greep T-vorm met rond beslag', article: 'VDH404'},
-      {value: '2. Vierkante RVS greep U-vorm met vierkant beslag', article: 'VDH402'},
-      {value: '3. Vierkante RVS greep T-vorm met vierkant beslag', article: 'VDH400'},
-      {value: '4. Ronde zwarte greep T-vorm met rond beslag zwart', article: 'VDH405'},
-      {value: '5. Vierkante Zwarte greep U-vorm met vierkant beslag zwart', article: 'VDH403'},
-      {value: '6. Vierkante Zwarte  greep T-vorm met vierkant beslag zwart', article: 'VDH401'},
-      {value: '7. Houten greep Different Doors met RVS rond beslag', article: 'VDH406'},
+      {value: '1. Ronde RVS greep T-vorm', article: 'VDH404'},
+      {value: '2. Vierkante RVS greep U-vorm', article: 'VDH402'},
+      {value: '3. Vierkante RVS greep T-vorm', article: 'VDH400'},
+      {value: '4. Ronde zwarte greep T-vorm', article: 'VDH405'},
+      {value: '5. Vierkante Zwarte greep U-vorm', article: 'VDH403'},
+      {value: '6. Vierkante Zwarte  greep T-vorm', article: 'VDH401'},
+      {value: '7. Houten greep Different Doors', article: 'VDH406'},
       {value: 'Aangeleverd door klant'},
       {value: 'Niet opgenomen in offerte'},
+    ],
+    dependent: [
+      {
+        field: 'krukset_deurbeslag',
+        values: ['Ja']
+      }
+    ]
+  }),
+  new RadioQuestion({
+    key: 'deurbeslag',
+    label: 'Deurbeslag',
+    options: [
+      {value: 'RVS rond beslag'},
+      {value: 'RVS vierkant beslag'},
+      {value: 'Zwart rond beslag'},
+      {value: 'Zwart vierkant beslag'},
+      {value: 'Aangeleverd door klant'},
+    ],
+    dependent: [
+      {
+        field: 'krukset_deurbeslag',
+        values: ['Ja']
+      }
+    ]
+  }),
+  new TextQuestion({
+    label: 'Deurbeslag lengte greep (standaard 1200mm)',
+    fields: [
+      {
+        key: 'deurbeslag_lengte_greep',
+        label: 'Lengte in mm',
+        type: 'number'
+      }
     ],
     dependent: [
       {
@@ -421,6 +493,20 @@ export const deur: QuestionBase<string>[] = [
       {value: 'Niet zichtbaar'},
       {value: 'In het hout frezen'},
       {value: 'Doorsteken i.v.m. beslag'},
+    ]
+  }),
+  new RadioQuestion({
+    key: 'cilinder_type',
+    label: 'Type',
+    options: [
+      {value: 'Standaard'},
+      {value: 'Draaiknop'},
+    ],
+    dependent: [
+      {
+        field: 'cilinder',
+        values: ['Niet zichtbaar', 'In het hout frezen', 'Doorsteken i.v.m. beslag']
+      }
     ]
   }),
 ]
@@ -524,7 +610,12 @@ export const overige: QuestionBase<string>[] = [
     type: 'file'
   })
 ]
-
+export const inmeten: QuestionBase<string>[] = [
+  new TextareaQuestion({
+    key: 'vrije_ruimte_onder_pijl',
+    label: 'Vrije ruimte onder pijl'
+  }),
+]
 export const vdh: TabBase[] = [
   {
     label: "Algemeen",
@@ -557,5 +648,9 @@ export const vdh: TabBase[] = [
   {
     label: 'Overige',
     questions: overige
+  },
+  {
+    label: 'Inmeten',
+    questions: inmeten
   },
 ]

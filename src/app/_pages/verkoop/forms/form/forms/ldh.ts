@@ -179,8 +179,33 @@ export const buiten: QuestionBase<string>[] = [
     key: 'electrisch_motorslot',
     label: 'Electrisch motorslot',
     options: [
-      {value: 'Ja'},
+      {value: 'Ja', article: 'SDH210'},
       {value: 'Nee'},
+    ]
+  }),
+  new RadioQuestion({
+    key: 'inclusief_besturing',
+    label: 'Inclusief besturing',
+    options: [
+      {value: 'Ja', article: 'SDH214'},
+      {value: 'Nee'},
+    ],
+    value: 'Nee',
+    dependent: [
+      {field:'electrisch_motorslot', values: ['Ja']}
+    ]
+  }),
+  new TextQuestion({
+    label: 'Hoogte kabel doorvoer',
+    fields: [
+      {
+        key: 'hoogte_kabel_doorvoer',
+        label: 'Hoogte',
+        type: 'number'
+      }
+    ],
+    dependent: [
+      {field:'electrisch_motorslot', values: ['Ja']}
     ]
   }),
   new RadioQuestion({
@@ -368,6 +393,20 @@ export const deur: QuestionBase<string>[] = [
       {value: 'Doorsteken i.v.m. beslag'},
     ]
   }),
+  new RadioQuestion({
+    key: 'cilinder_type',
+    label: 'Type',
+    options: [
+      {value: 'Standaard'},
+      {value: 'Draaiknop'},
+    ],
+    dependent: [
+      {
+        field: 'cilinder',
+        values: ['Niet zichtbaar', 'In het hout frezen', 'Doorsteken i.v.m. beslag']
+      }
+    ]
+  }),
 ]
 export const glas: QuestionBase<string>[] = [
   new CheckboxQuestion({
@@ -468,7 +507,12 @@ export const overige: QuestionBase<string>[] = [
     type: 'file'
   })
 ]
-
+export const inmeten: QuestionBase<string>[] = [
+  new TextareaQuestion({
+    key: 'vrije_ruimte_onder_pijl',
+    label: 'Vrije ruimte onder pijl'
+  }),
+]
 export const ldh: TabBase[] = [
   {
     label: "Algemeen",
@@ -501,5 +545,9 @@ export const ldh: TabBase[] = [
   {
     label: 'Overige',
     questions: overige
+  },
+  {
+    label: 'Inmeten',
+    questions: inmeten
   },
 ]

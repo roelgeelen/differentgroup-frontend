@@ -1,4 +1,6 @@
 <div class="buttons {{fullscreen ? 'buttons-fullscreen' : ''}}">
+  <button mat-raised-button color="accent" (click)="submit()" [disabled]="!form.valid">Offerte maken
+  </button>
   <button mat-raised-button color="accent"
           (click)="publish()">
     <mat-icon *ngIf="!publishing">publish</mat-icon>

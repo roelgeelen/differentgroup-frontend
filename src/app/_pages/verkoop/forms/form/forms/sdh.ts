@@ -428,7 +428,7 @@ export const binnenzijde: QuestionBase<string>[] = [
     ]
   }),
   new CheckboxQuestion({
-    key: 'motor',// radio to check
+    key: 'motor',
     label: 'Motor',
     options: [
       {value: 'N.v.t.'},
@@ -788,6 +788,77 @@ export const media: QuestionBase<string>[] = [
     type: 'file'
   })
 ];
+
+export const inmeten: QuestionBase<string>[] = [
+  new TextareaQuestion({
+    key: 'patroon_in_bekleding',
+    label: 'Patroon in bekleding'
+  }),
+  new TextQuestion({
+    label: 'Maatvoering bekleding',
+    fields: [
+      {
+        key: 'voorkeur_lat_breedte',
+        label: 'Voorkeur lat breedte (standaard 56mm)',
+        type: 'number'
+      },
+      {
+        key: 'tussenruimte_latten',
+        label: 'Tussenruimte latten (standaard 10mm)',
+        type: 'number'
+      }
+    ]
+  }),
+  new TextareaQuestion({
+    key: 'lengte_zetkap_naar_binnen',
+    label: 'Lengte zetkap naar binnen'
+  }),
+  new TextQuestion({
+    label: 'Waterkering onder pijl',
+    fields: [
+      {
+        key: 'waterkering_maat',
+        label: 'Maat',
+        type: 'text'
+      }
+    ]
+  }),
+  new RadioQuestion({
+    key: 'proefstaal_opgestuurd',
+    label: 'Proefstaal opgestuurd',
+    options: [
+      {value:'Ja'},
+      {value:'Nee'},
+    ]
+  }),
+  new TextQuestion({
+    label: 'Proefstaal code',
+    fields: [
+      {
+        key: 'proefstaal_code',
+        label: 'code',
+        type: 'text'
+      }
+    ],
+    dependent: [
+      {
+        field: 'proefstaal_opgestuurd',
+        values: ['Ja']
+      }
+    ]
+  }),
+  new UploadQuestion({
+    key: 'fps1',
+    label: 'Foto proefstaal',
+    type: 'image',
+    dependent: [
+      {
+        field: 'proefstaal_opgestuurd',
+        values: ['Ja']
+      }
+    ]
+  }),
+]
 export const sdh: TabBase[] = [
   {
     label: "Sales vragen",
@@ -828,5 +899,9 @@ export const sdh: TabBase[] = [
   {
     label: 'Foto\'s',
     questions: media
+  },
+  {
+    label: 'Inmeten',
+    questions: inmeten
   }
 ]
