@@ -426,7 +426,6 @@ export const binnenzijde: QuestionBase<string>[] = [
     ],
     other: true,
     custom: '',
-    value: 'Zelfde als buitenzijde (standaard)',
     dependent: [
       {
         field: 'model',
