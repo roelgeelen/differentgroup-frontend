@@ -124,7 +124,7 @@ export const algemeen: QuestionBase<string>[] = [
     key: 'sluitkommen',
     label: 'Bestaande sluitkommen en scharnieren dicht zetten',
     options: [
-      {value: 'Ja', article: 'VDH102'},
+      {value: 'Ja', article: {sku: 'VDH102', order:100}},
       {value: 'Nee'},
     ],
     dependent: [
@@ -178,10 +178,10 @@ export const buiten: QuestionBase<string>[] = [
     key: 'loopdeur_voordeur',
     label: 'Type voordeur',
     options: [
-      {value: 'Verticale delen', article: 'VDH001'},
-      {value: 'Horizontale delen', article: 'VDH002'},
-      {value: 'Verticale latten', article: 'VDH003'},
-      {value: 'Overige', article: 'VDH004'},
+      {value: 'Verticale delen', article: {sku:'VDH001', order:100}},
+      {value: 'Horizontale delen', article: {sku:'VDH002', order:100}},
+      {value: 'Verticale latten', article: {sku:'VDH003', order:100}},
+      {value: 'Overige', article: {sku:'VDH004', order:100}},
     ],
     validators: [Validators.required],
     dependent: [
@@ -192,10 +192,10 @@ export const buiten: QuestionBase<string>[] = [
     key: 'loopdeur_voordeur',
     label: 'Type voordeur',
     options: [
-      {value: 'Verticale delen dubbel', article: 'VDH011'},
-      {value: 'Horizontale delen dubbel', article: 'VDH012'},
-      {value: 'Verticale latten dubbel', article: 'VDH013'},
-      {value: 'Overige dubbel', article: 'VDH014'},
+      {value: 'Verticale delen dubbel', article: {sku:'VDH011', order:100}},
+      {value: 'Horizontale delen dubbel', article: {sku:'VDH012', order:100}},
+      {value: 'Verticale latten dubbel', article: {sku:'VDH013', order:100}},
+      {value: 'Overige dubbel', article: {sku:'VDH014', order:100}},
     ],
     validators: [Validators.required],
     dependent: [
@@ -215,7 +215,7 @@ export const buiten: QuestionBase<string>[] = [
     key: 'electrisch_motorslot',
     label: 'Electrisch motorslot',
     options: [
-      {value: 'Ja', article: 'SDH210'},
+      {value: 'Ja', article: {sku:'SDH210', order:100}},
       {value: 'Nee'},
     ],
     dependent: [
@@ -226,7 +226,7 @@ export const buiten: QuestionBase<string>[] = [
     key: 'electrisch_motorslot',
     label: 'Electrisch motorslot',
     options: [
-      {value: 'Ja met sluitlijst', article: 'SDH211'},
+      {value: 'Ja met sluitlijst', article: {sku:'SDH211', order:100}},
       {value: 'Nee'},
     ],
     dependent: [
@@ -237,7 +237,7 @@ export const buiten: QuestionBase<string>[] = [
     key: 'inclusief_besturing',
     label: 'Inclusief besturing',
     options: [
-      {value: 'Ja', article: 'SDH214'},
+      {value: 'Ja', article: {sku:'SDH214', order:100}},
       {value: 'Nee'},
     ],
     value: 'Nee',
@@ -435,13 +435,13 @@ export const deur: QuestionBase<string>[] = [
     label: 'Deurgreep voordeur',
     image: 'assets/forms/sdh/Deurset.png',
     options: [
-      {value: '1. Ronde RVS greep T-vorm', article: 'VDH404'},
-      {value: '2. Vierkante RVS greep U-vorm', article: 'VDH402'},
-      {value: '3. Vierkante RVS greep T-vorm', article: 'VDH400'},
-      {value: '4. Ronde zwarte greep T-vorm', article: 'VDH405'},
-      {value: '5. Vierkante Zwarte greep U-vorm', article: 'VDH403'},
-      {value: '6. Vierkante Zwarte  greep T-vorm', article: 'VDH401'},
-      {value: '7. Houten greep Different Doors', article: 'VDH406'},
+      {value: '1. Ronde RVS greep T-vorm', article: {sku:'VDH404', order:100}},
+      {value: '2. Vierkante RVS greep U-vorm', article: {sku:'VDH402', order:100}},
+      {value: '3. Vierkante RVS greep T-vorm', article: {sku:'VDH400', order:100}},
+      {value: '4. Ronde zwarte greep T-vorm', article: {sku:'VDH405', order:100}},
+      {value: '5. Vierkante Zwarte greep U-vorm', article: {sku:'VDH403', order:100}},
+      {value: '6. Vierkante Zwarte  greep T-vorm', article: {sku:'VDH401', order:100}},
+      {value: '7. Houten greep Different Doors', article: {sku:'VDH406', order:100}},
       {value: 'Aangeleverd door klant'},
       {value: 'Niet opgenomen in offerte'},
     ],

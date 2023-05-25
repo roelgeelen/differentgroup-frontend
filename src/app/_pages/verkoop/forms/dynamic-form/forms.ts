@@ -12,21 +12,21 @@ export const forms: {[key in FormsEnum]: FormPage} = {
   odo: {
     title: 'Onderhoudsarme openslaande garagedeur',
     type: FormsEnum.odo,
-    articles: ['ODO400'],
+    articles: [{sku:'ODO400', order:110}],
     duration: 120,
     form: odo
   },
   odhd: {
     title: 'Houten openslaande deur',
     type: FormsEnum.odhd,
-    articles: ['ODH100'],
+    articles: [{sku:'ODH100', order:100}],
     duration: 120,
     form: odhd
   },
   sdh: {
     title: 'Houten sectionaaldeur',
     type: FormsEnum.sdh,
-    articles: ['SDH600'],
+    articles: [{sku:'SDH600', order:100}],
     duration: 0,
     form: sdh
   },

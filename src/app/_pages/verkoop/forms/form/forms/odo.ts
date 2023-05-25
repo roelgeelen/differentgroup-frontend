@@ -169,16 +169,6 @@ export const algemeen: QuestionBase<string>[] = [
     ],
     validators: [Validators.required]
   }),
-  new RadioQuestion({
-    key: 'deur_bestellen',
-    label: 'Deur bestellen',
-    options: [
-      {value: 'Ja'},
-      {value: 'Nee'}
-    ],
-    toDeal: true,
-    validators: [Validators.required]
-  }),
   new TextQuestion({
     label: 'Analoog afmetingen (in mm)',
     fields: [
@@ -268,7 +258,7 @@ export const buitenzijde: QuestionBase<string>[] = [
     options: [
       {value: 'Horizontaal'},
       {value: 'Verticaal'},
-      {value: 'Volledig vlakke plaat', article: 'ODO300'}
+      {value: 'Volledig vlakke plaat', article: {sku:'ODO300', order:100}}
     ]
   }),
   new RadioQuestion({
@@ -374,7 +364,7 @@ export const binnenzijde: QuestionBase<string>[] = [
     image: 'assets/forms/odo/56020ab6-c695-4125-b0ba-bd97f79e4204.png',
     options: [
       {value: 'Standaard stucco RAL9016'},
-      {value: 'Volledig vlakke plaat', article: 'ODO301'},
+      {value: 'Volledig vlakke plaat', article: {sku:'ODO301', order:100}},
     ],
     value: 'Standaard stucco',
     dependent: [
@@ -402,7 +392,7 @@ export const binnenzijde: QuestionBase<string>[] = [
     key: 'kleuropties',
     label: 'Kleuropties (RAL)',
     options: [
-      {value: 'Gelijk aan kleur buitenzijde', article: 'ODO309'},
+      {value: 'Gelijk aan kleur buitenzijde', article: {sku:'ODO309', order:100}},
     ],
     other: true,
     custom: '',
@@ -451,10 +441,10 @@ export const deur: QuestionBase<string>[] = [
     options: [
       {value: 'Klink aluminium (standaard)'},
       {value: 'Knop aluminium (standaard)'},
-      {value: 'Klink zwart', article: 'ODO304'},
-      {value: 'Knop zwart', article: 'ODO306'},
-      {value: 'Klink RVS', article: 'ODO303'},
-      {value: 'Knop RVS', article: 'ODO305'}
+      {value: 'Klink zwart', article: {sku:'ODO304', order:100}},
+      {value: 'Knop zwart', article: {sku:'ODO306', order:100}},
+      {value: 'Klink RVS', article: {sku:'ODO303', order:100}},
+      {value: 'Knop RVS', article: {sku:'ODO305', order:100}}
     ],
     value: 'Klink aluminium (standaard)'
   }),
@@ -463,8 +453,8 @@ export const deur: QuestionBase<string>[] = [
     label: 'Cilinder (cilindermaat 40/45 binnen/buitenzijde)',
     options: [
       {value: 'Cilinder leveren door DD (incl. drie sleutels)'},
-      {value: 'Extra sleutel', article: 'ODO308'},
-      {value: 'Gelijksluitend (bij meedere deuren)', article: 'ODO307'},
+      {value: 'Extra sleutel', article: {sku:'ODO308', order:100}},
+      {value: 'Gelijksluitend (bij meedere deuren)', article: {sku:'ODO307', order:100}},
       {value: 'Draaiknopcilinder'},
       {value: 'Aangeleverd door klant (40/45 binnen/buitenzijde)'}
     ],
@@ -490,10 +480,10 @@ export const glas: QuestionBase<string>[] = [
     label: 'Glassectie beide',
     image: 'assets/forms/odo/b2ba7637-14df-4f41-9a56-f6580bfa9f33.png',
     options: [
-      {value: '2 x horizontaal - HR++ helder glas', article: 'ODO200'},
-      {value: '2 x horizontaal - HR++ melk glas', article: 'ODO201'},
-      {value: '2 x verticaal - HR++ helder glas', article: 'ODO202'},
-      {value: '2 x verticaal - HR++ melk glas', article: 'ODO203'},
+      {value: '2 x horizontaal - HR++ helder glas', article: {sku:'ODO200', order:100}},
+      {value: '2 x horizontaal - HR++ melk glas', article: {sku:'ODO201', order:100}},
+      {value: '2 x verticaal - HR++ helder glas', article: {sku:'ODO202', order:100}},
+      {value: '2 x verticaal - HR++ melk glas', article: {sku:'ODO203', order:100}},
     ],
     dependent: [
       {field: "glassectie_in_vleugel", values: ["Beide"]},
@@ -504,10 +494,10 @@ export const glas: QuestionBase<string>[] = [
     label: 'Glassectie elke',
     image: 'assets/forms/odo/b2ba7637-14df-4f41-9a56-f6580bfa9f33.png',
     options: [
-      {value: 'Horizontaal - HR++ helder glas', article: 'ODO205'},
-      {value: 'Horizontaal - HR++ melk glas', article: 'ODO206'},
-      {value: 'Verticaal - HR++ helder glas', article: 'ODO207'},
-      {value: 'Verticaal - HR++ melk glas', article: 'ODO208'},
+      {value: 'Horizontaal - HR++ helder glas', article: {sku:'ODO205', order:100}},
+      {value: 'Horizontaal - HR++ melk glas', article: {sku:'ODO206', order:100}},
+      {value: 'Verticaal - HR++ helder glas', article: {sku:'ODO207', order:100}},
+      {value: 'Verticaal - HR++ melk glas', article: {sku:'ODO208', order:100}},
     ],
     dependent: [
       {field: "glassectie_in_vleugel", values: ["Actieve deur", "Passieve deur"]}
@@ -566,7 +556,7 @@ export const glas: QuestionBase<string>[] = [
     label: 'Glasverdeling',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Aantal roedes', article: 'ODO204'},
+      {value: 'Aantal roedes', article: {sku:'ODO204', order:100}},
     ],
     value: 'N.v.t.',
     dependent: [
@@ -606,8 +596,8 @@ export const montage: QuestionBase<string>[] = [
     key: 'bestaande_deur',
     label: 'Bestaande deur',
     options: [
-      {value: 'Demontage DD', article: 'ODO401', duration: 30},
-      {value: 'Afvoer DD', article: 'ODO402'},
+      {value: 'Demontage DD', article: {sku:'ODO401', order:10}, duration: 30},
+      {value: 'Afvoer DD', article: {sku:'ODO402', order:10}},
       {value: 'Demontage door klant'},
       {value: 'Afvoer door klant'}
     ],
@@ -631,9 +621,9 @@ export const afwerking: QuestionBase<string>[] = [
     label: 'Vloeraanpassing',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Uithakken vloer', article: 'ODO403', duration: 60},
-      {value: 'Aansmeren vloer', article: 'ODO404', duration: 30},
-      {value: 'Natuursteen/DTS dorpel plaatsen', article: 'ODO407', duration: 60}
+      {value: 'Uithakken vloer', article: {sku:'ODO403', order:10}, duration: 60},
+      {value: 'Aansmeren vloer', article: {sku:'ODO404', order:100}, duration: 30},
+      {value: 'Natuursteen/DTS dorpel plaatsen', article: {sku:'ODO407', order:10}, duration: 60}
     ],
     value: ['N.v.t.']
   }),
@@ -646,10 +636,10 @@ export const afwerking: QuestionBase<string>[] = [
       {value: 'Enkel tussen kozijn en muur afpurren'},
       {
         value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)',
-        article: 'ODO405',
+        article: {sku:'ODO405', order:30},
         duration: 30
       },
-      {value: 'Multipaint volledig (exclusief schilderen)', article: 'ODO406', duration: 120},
+      {value: 'Multipaint volledig (exclusief schilderen)', article: {sku:'ODO406', order:30}, duration: 120},
     ]
   }),
   new RadioQuestion({
@@ -658,7 +648,7 @@ export const afwerking: QuestionBase<string>[] = [
     options: [
       {value: 'N.v.t.'},
       {value: 'Klant kiest voor geen buitenaftimmering'},
-      {value: 'Aftimmeren buitenzijde (zie foto)', article: 'ODO408', duration: 60},
+      {value: 'Aftimmeren buitenzijde (zie foto)', article: {sku:'ODO408', order:100}, duration: 60},
     ]
   }),
   new RadioQuestion({
@@ -702,7 +692,7 @@ export const overige: QuestionBase<string>[] = [
   //     {value: 'Aftimmeren binnenzijde lijstje rondom - 0.5 uur'},
   //     {value: 'Aftimmeren binnenzijde compleet - 2 uur'},
   //     {value: 'Aftimmeren buitenzijde - 1 uur'},
-  //     {value: 'Natuursteen/DTS dorpel plaatsen - 1 uur', article: 'ODO407'},
+  //     {value: 'Natuursteen/DTS dorpel plaatsen - 1 uur', article: {sku:'ODO407'},
   //   ],
   //   value: ['Plaatsen nieuwe deur - 2 uur']
   // }),
@@ -723,6 +713,16 @@ export const overige: QuestionBase<string>[] = [
     key: 'materiaal_te_bestellen_door_werkvoorbereiding',
     label: 'Materiaal te bestellen door werkvoorbereiding',
     toDeal: true
+  }),
+  new RadioQuestion({
+    key: 'deur_bestellen',
+    label: 'Deur bestellen',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee'}
+    ],
+    toDeal: true,
+    validators: [Validators.required]
   })
 ];
 export const media: QuestionBase<string>[] = [

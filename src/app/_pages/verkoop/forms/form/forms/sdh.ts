@@ -206,7 +206,7 @@ export const algemeen: QuestionBase<string>[] = [
     label: 'Type sectionaaldeur',
     options: [
       {value: 'Sectionaaldeur'},
-      {value: 'Zijwaartse sectionaaldeur', article: 'SDH300'}
+      {value: 'Zijwaartse sectionaaldeur', article: {sku:'SDH300', order:100}}
     ]
   }),
   new RadioQuestion({
@@ -215,7 +215,7 @@ export const algemeen: QuestionBase<string>[] = [
     options: [
       {value: 'Links'},
       {value: 'Rechts'},
-      {value: 'Beide', article: 'SDH300'},
+      {value: 'Beide', article: {sku:'SDH300', order:100}},
     ],
     dependent: [
       {
@@ -242,13 +242,13 @@ export const buitenzijde: QuestionBase<string>[] = [
     key: 'houtsoort',
     label: 'Houtsoort',
     options: [
-      {value: 'Red cedar', article: 'SDH400'},
-      {value: 'Eiken', article: 'SDH400'},
-      {value: 'Afrormosia', article: 'SDH400'},
-      {value: 'Mahonie', article: 'SDH400'},
-      {value: 'Accoya', article: 'SDH400'},
-      {value: 'Meranti', article: 'SDH400'},
-      {value: 'Fraké', article: 'SDH400'},
+      {value: 'Red cedar', article: {sku:'SDH400', order:100}},
+      {value: 'Eiken', article: {sku:'SDH400', order:100}},
+      {value: 'Afrormosia', article: {sku:'SDH400', order:100}},
+      {value: 'Mahonie', article: {sku:'SDH400', order:100}},
+      {value: 'Accoya', article: {sku:'SDH400', order:100}},
+      {value: 'Meranti', article: {sku:'SDH400', order:100}},
+      {value: 'Fraké', article: {sku:'SDH400', order:100}},
       {value: 'Aangeleverde delen'}
     ],
     other: true,
@@ -284,9 +284,9 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: 'Trespa'},
       {value: 'Bossing'},
       {value: 'Sierlijsten'},
-      {value: 'Slaglat', article: 'SDH403'},
-      {value: 'Weldorpel', article: 'SDH404'},
-      {value: 'Neutje', article: 'SDH405'},
+      {value: 'Slaglat', article: {sku:'SDH403', order:100}},
+      {value: 'Weldorpel', article: {sku:'SDH404', order:100}},
+      {value: 'Neutje', article: {sku:'SDH405', order:100}},
     ],
     other: true,
     custom: ''
@@ -400,8 +400,8 @@ export const binnenzijde: QuestionBase<string>[] = [
     label: 'Rails',
     options: [
       {value: 'Standaard gegalvaniseerd'},
-      {value: 'Op kleur', article: 'SDH100'},
-      {value: 'Rails + beslag op kleur', article: 'SDH120'},
+      {value: 'Op kleur', article: {sku:'SDH100', order:100}},
+      {value: 'Rails + beslag op kleur', article: {sku:'SDH120', order:100}},
     ],
     value: 'Standaard gegalvaniseerd',
     dependent: [
@@ -432,18 +432,18 @@ export const binnenzijde: QuestionBase<string>[] = [
     label: 'Motor',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Plafond motor 230 V', article: 'SDH200'},
-      {value: 'Freq. gestuurde plafond motor 230 V (Blauwe CE stekker)', article: 'SDH212'},
-      {value: 'As motor 380 V', article: 'SDH201'},
-      {value: 'Freq. gestuurde as motor 230 V (Blauwe CE stekker)', article: 'SDH201'},
+      {value: 'Plafond motor 230 V', article: {sku:'SDH200', order:100}},
+      {value: 'Freq. gestuurde plafond motor 230 V (Blauwe CE stekker)', article: {sku:'SDH212', order:100}},
+      {value: 'As motor 380 V', article: {sku:'SDH201', order:100}},
+      {value: 'Freq. gestuurde as motor 230 V (Blauwe CE stekker)', article: {sku:'SDH201', order:100}},
     ]
   }),
   new RadioQuestion({
     key: 'stroom_plafond',
     label: 'Stroom plafond motor',
     options: [
-      {value: 'Door klant te voorzien', article: 'SDH207'},
-      {value: 'Aanwezig op de juiste plaats', article: 'SDH207'},
+      {value: 'Door klant te voorzien', article: {sku:'SDH207', order:100}},
+      {value: 'Aanwezig op de juiste plaats', article: {sku:'SDH207', order:100}},
     ],
     value: 'Door klant te voorzien',
     dependent: [
@@ -476,7 +476,7 @@ export const deur: QuestionBase<string>[] = [
     label: 'Positie',
     options: [
       {value: 'Achter de dag'},
-      {value: 'Gelijk met de wand', article: 'SDH301'},
+      {value: 'Gelijk met de wand', article: {sku:'SDH301', order:100}},
     ]
   }),
   new CheckboxQuestion({
@@ -518,9 +518,9 @@ export const deur: QuestionBase<string>[] = [
     label: 'Buiten bediening',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Handzender', article: 'SDH202'},
-      {value: 'Draadloos codeklavier', article: 'SDH205'},
-      {value: 'Losse ontvanger', article: 'SDH204'},
+      {value: 'Handzender', article: {sku:'SDH202', order:100}},
+      {value: 'Draadloos codeklavier', article: {sku:'SDH205', order:100}},
+      {value: 'Losse ontvanger', article: {sku:'SDH204', order:100}},
     ]
   }),
   new TextQuestion({
@@ -575,9 +575,9 @@ export const deur: QuestionBase<string>[] = [
     key: 'binnen_bediening',
     label: 'Binnen bediening',
     options: [
-      {value: 'Draadloze drukknop', article: 'SDH203'},
+      {value: 'Draadloze drukknop', article: {sku:'SDH203', order:100}},
       {value: 'Op / Stop / Neer'},
-      {value: 'Domotica', article: 'SDH208'},
+      {value: 'Domotica', article: {sku:'SDH208', order:100}},
       {value: 'Puls voorziening door de klant'},
     ]
   }),
@@ -647,9 +647,9 @@ export const gevelbekleding: QuestionBase<string>[] = [
     label: 'Aanbrengen gevelbekleding',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Gevelbekleding los geleverd (montage door klant), enkel de stalen zethoeken worden door Different Doors bekleed', article: 'SDH401'},
-      {value: 'Gevelbekleding geproduceerd en gemonteerd door Different Doors (zie gele arcering)', article: 'SDH402'},
-      {value: 'Gevelbekleding los geleverd (montage door klant)', article: 'SDH407'},
+      {value: 'Gevelbekleding los geleverd (montage door klant), enkel de stalen zethoeken worden door Different Doors bekleed', article: {sku:'SDH401', order:100}},
+      {value: 'Gevelbekleding geproduceerd en gemonteerd door Different Doors (zie gele arcering)', article: {sku:'SDH402', order:100}},
+      {value: 'Gevelbekleding los geleverd (montage door klant)', article: {sku:'SDH407', order:100}},
       {value: 'Door de klant'},
     ],
     other: true,
@@ -690,8 +690,8 @@ export const montage: QuestionBase<string>[] = [
     label: 'Hulpmiddelen',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Hoogwerker door DD', article: 'SDH603'},
-      {value: 'Verticaal transport door DD', article: 'SDH604'},
+      {value: 'Hoogwerker door DD', article: {sku:'SDH603', order:100}},
+      {value: 'Verticaal transport door DD', article: {sku:'SDH604', order:100}},
       {value: 'Verticaal transport door klant'},
     ],
     value: ['N.v.t.']
@@ -701,8 +701,8 @@ export const montage: QuestionBase<string>[] = [
     label: 'Bestaande deur',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Demontage DD', article: 'SDH601'},
-      {value: 'Afvoer DD', article: 'SDH602'},
+      {value: 'Demontage DD', article: {sku:'SDH601', order:100}},
+      {value: 'Afvoer DD', article: {sku:'SDH602', order:100}},
       {value: 'Demontage door klant'},
       {value: 'Afvoer door klant'}
     ],
@@ -756,8 +756,8 @@ export const overige: QuestionBase<string>[] = [
     key: 'type_engineering',
     label: 'Type',
     options: [
-      {value: 'Standaard', article: 'SDH500'},
-      {value: 'Special', article: 'SDH501'}
+      {value: 'Standaard', article: {sku:'SDH500', order:100}},
+      {value: 'Special', article: {sku:'SDH501', order:100}}
     ]
   })
 ];

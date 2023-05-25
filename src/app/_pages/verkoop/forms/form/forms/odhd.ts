@@ -206,16 +206,16 @@ export const algemeen: QuestionBase<string>[] = [
     label: 'Model',
     image: 'assets/forms/odhd/odhd-models.jpg',
     options: [
-      {value: 'A', article: 'ODH001'},
-      {value: 'B', article: 'ODH002'},
-      {value: 'C', article: 'ODH003'},
-      {value: 'D', article: 'ODH004'},
-      {value: 'E', article: 'ODH005'},
-      {value: 'F', article: 'ODH006'},
-      {value: 'G', article: 'ODH007'},
-      {value: 'H', article: 'ODH008'},
-      {value: 'I', article: 'ODH009'},
-      {value: 'J', article: 'ODH010'},
+      {value: 'A', article: {sku: 'ODH001', order:100}},
+      {value: 'B', article: {sku: 'ODH002', order:100}},
+      {value: 'C', article: {sku: 'ODH003', order:100}},
+      {value: 'D', article: {sku: 'ODH004', order:100}},
+      {value: 'E', article: {sku: 'ODH005', order:100}},
+      {value: 'F', article: {sku: 'ODH006', order:100}},
+      {value: 'G', article: {sku: 'ODH007', order:100}},
+      {value: 'H', article: {sku: 'ODH008', order:100}},
+      {value: 'I', article: {sku: 'ODH009', order:100}},
+      {value: 'J', article: {sku: 'ODH010', order:100}},
       {value: 'Overig'},
     ],
     validators: [Validators.required]
@@ -304,9 +304,9 @@ export const buitenzijde: QuestionBase<string>[] = [
     key: 'deur_ral',
     options: [
       {value: '9010'},
-      {value: '7016', article: 'ODH203'},
-      {value: '9005', article: 'ODH203'},
-      {value: '6009', article: 'ODH203'}
+      {value: '7016', article: {sku: 'ODH203', order:100}},
+      {value: '9005', article: {sku: 'ODH203', order:100}},
+      {value: '6009', article: {sku: 'ODH203', order:100}}
     ],
     dependent: [
       {
@@ -330,7 +330,7 @@ export const buitenzijde: QuestionBase<string>[] = [
     label: 'Deur afgelakt leveren in gekozen kleur',
     options: [
       {value: 'Klant lakt de deur zelf af binnen drie maanden na montage'},
-      {value: 'Ja', article: 'ODH200'},
+      {value: 'Ja', article: {sku: 'ODH200', order:100}},
       {value: 'Nee'},
     ],
     dependent: [
@@ -345,7 +345,7 @@ export const buitenzijde: QuestionBase<string>[] = [
     label: 'Deur afgelakt leveren in gekozen kleur',
     options: [
       {value: 'Klant lakt de deur zelf af binnen drie maanden na montage'},
-      {value: 'Ja ', article: 'ODH204'},
+      {value: 'Ja ', article: {sku: 'ODH204', order:100}},
       {value: 'Nee'},
     ],
     dependent: [
@@ -392,8 +392,8 @@ export const deur: QuestionBase<string>[] = [
     options: [
       {value: 'Klink aluminium'},
       {value: 'Knop aluminium'},
-      {value: 'Klink zwart', article: 'ODH201'},
-      {value: 'Knop zwart', article: 'ODH201'},
+      {value: 'Klink zwart', article: {sku: 'ODH201', order:100}},
+      {value: 'Knop zwart', article: {sku: 'ODH201', order:100}},
       {value: 'Door klant (Minimaal 8 weken voor gewenste montageweek)'},
     ]
   }),
@@ -413,7 +413,7 @@ export const deur: QuestionBase<string>[] = [
       {value: 'Gelijksluitend (bij meedere deuren)'},
       {value: 'Draaiknopcilinder'},
       {value: 'Aangeleverd door klant (Cilindermaat: 30/45 (buitenzijde/binnenzijde)'},
-      {value: 'Extra cilinder', article: 'ODH300'}
+      {value: 'Extra cilinder', article: {sku: 'ODH300', order:100}}
     ],
     value: ['Door DD (incl. drie sleutels)']
   })
@@ -439,7 +439,7 @@ export const glas: QuestionBase<string>[] = [
     options: [
       {value: 'N.v.t.'},
       {value: 'HR++ helder glas'},
-      {value: 'HR++ melk glas', article: 'ODH202'},
+      {value: 'HR++ melk glas', article: {sku: 'ODH202', order:100}},
     ],
     value: 'N.v.t.',
     dependent: [
@@ -576,8 +576,8 @@ export const montage: QuestionBase<string>[] = [
     key: 'bestaande_deur',
     label: 'Bestaande deur',
     options: [
-      {value: 'Demontage DD', article: 'ODH101', duration: 30},
-      {value: 'Afvoer DD', article: 'ODH102'},
+      {value: 'Demontage DD', article: {sku: 'ODH101', order:100}, duration: 30},
+      {value: 'Afvoer DD', article: {sku: 'ODH102', order:100}},
       {value: 'Demontage door klant'},
       {value: 'Afvoer door klant'}
     ],
@@ -601,8 +601,8 @@ export const afwerking: QuestionBase<string>[] = [
     label: 'Vloeraanpassing',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Uithakken vloer', article: 'ODH103', duration: 60},
-      {value: 'Aansmeren vloer', article: 'ODH104', duration: 30}
+      {value: 'Uithakken vloer', article: {sku: 'ODH103', order:100}, duration: 60},
+      {value: 'Aansmeren vloer', article: {sku: 'ODH104', order:100}, duration: 30}
     ],
     value: ['N.v.t.']
   }),
@@ -612,8 +612,8 @@ export const afwerking: QuestionBase<string>[] = [
     options: [
       {value: 'Klant kiest voor geen binnenaftimmering'},
       {value: 'Enkel tussen kozijn en muur afpurren'},
-      {value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)', article: 'ODH105', duration: 30},
-      {value: 'Multipaint volledig (exclusief schilderen)', article: 'ODH106', duration: 120},
+      {value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)', article: {sku: 'ODH105', order:100}, duration: 30},
+      {value: 'Multipaint volledig (exclusief schilderen)', article: {sku: 'ODH106', order:100}, duration: 120},
     ],
     value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)'
   }),
@@ -623,7 +623,7 @@ export const afwerking: QuestionBase<string>[] = [
     options: [
       {value: 'N.v.t.'},
       {value: 'Klant kiest voor geen buitenaftimmering'},
-      {value: 'Aftimmeren buitenzijde (zie foto)', article: 'ODO408', duration: 60},
+      {value: 'Aftimmeren buitenzijde (zie foto)', article: {sku: 'ODO408', order:100}, duration: 60},
     ]
   }),
   new RadioQuestion({

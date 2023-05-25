@@ -105,7 +105,7 @@ export const algemeen: QuestionBase<string>[] = [
     key: 'sluitkommen',
     label: 'Bestaande sluitkommen en scharnieren dicht zetten',
     options: [
-      {value: 'Ja', article: 'VDH102'},
+      {value: 'Ja', article: {sku:'VDH102', order:100}},
       {value: 'Nee'},
     ],
     dependent: [
@@ -159,9 +159,9 @@ export const buiten: QuestionBase<string>[] = [
     key: 'loopdeur_voordeur',
     label: 'Type loopdeur',
     options: [
-      {value: 'Verticale delen', article: 'ODHT001'},
-      {value: 'Horizontale delen', article: 'ODHT002'},
-      {value: 'Verticale latten', article: 'ODHT003'},
+      {value: 'Verticale delen', article: {sku:'ODHT001', order:100}},
+      {value: 'Horizontale delen', article: {sku:'ODHT002', order:100}},
+      {value: 'Verticale latten', article: {sku:'ODHT003', order:100}},
     ],
     validators: [Validators.required]
   }),
@@ -334,11 +334,11 @@ export const deur: QuestionBase<string>[] = [
     label: 'Deurgreep loopdeur',
     image: 'assets/forms/sdh/deurbeslag.png',
     options: [
-      {value: '1. SKG*** veiligheid set Rond RVS', article: 'VDH300'},
-      {value: '2. SKG*** veiligheid set Vierkant RVS', article: 'VDH302'},
-      {value: '3. SKG*** veiligheid set Rond Zwart', article: 'VDH301'},
-      {value: '4. SKG*** veiligheid set Vierkant Zwart', article: 'VDH303'},
-      {value: 'Veiligheid-shuifrozet met kerntrek Ovaal RVS', article: 'VDH304'},
+      {value: '1. SKG*** veiligheid set Rond RVS', article: {sku:'VDH300', order:100}},
+      {value: '2. SKG*** veiligheid set Vierkant RVS', article: {sku:'VDH302', order:100}},
+      {value: '3. SKG*** veiligheid set Rond Zwart', article: {sku:'VDH301', order:100}},
+      {value: '4. SKG*** veiligheid set Vierkant Zwart', article: {sku:'VDH303', order:100}},
+      {value: 'Veiligheid-shuifrozet met kerntrek Ovaal RVS', article: {sku:'VDH304', order:100}},
       {value: 'Aangeleverd door klant'},
       {value: 'Niet opgenomen in offerte'},
     ],

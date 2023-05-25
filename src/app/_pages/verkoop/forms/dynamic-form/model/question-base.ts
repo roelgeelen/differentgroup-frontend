@@ -1,4 +1,5 @@
 import {ValidatorFn} from "@angular/forms";
+import {Article} from "./article";
 
 export class QuestionBase<T> {
   value: any;
@@ -8,7 +9,7 @@ export class QuestionBase<T> {
   validators: ValidatorFn[];
   controlType: string;
   type: string;
-  options: { value: string, article?: string, duration?: number }[];
+  options: { value: string, article?: Article, duration?: number }[];
   dependent: { field: string; values: string[]; }[];
   fields: { value?: T | undefined; key: string; label: string; validators?: ValidatorFn[]; required?: boolean; type: string }[];
   other: boolean;
@@ -24,7 +25,7 @@ export class QuestionBase<T> {
     order?: number;
     controlType?: string;
     type?: string;
-    options?: { value: string, article?: string, duration?: number }[];
+    options?: { value: string, article?: Article, duration?: number }[];
     dependent?: { field: string; values: string[] }[];
     fields?: { key: string; label: string; value?: any | undefined; validators?: ValidatorFn[]; required?: boolean; type: string }[];
     other?: boolean;

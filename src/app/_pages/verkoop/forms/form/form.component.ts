@@ -12,6 +12,7 @@ import {forms} from "../dynamic-form/forms";
 import {FormPage} from "../dynamic-form/model/formPage";
 import {FormsEnum} from "../dynamic-form/model/formsEnum";
 import {BehaviorSubject, Observable} from "rxjs";
+import {Article} from "../dynamic-form/model/article";
 
 
 @Component({
@@ -169,17 +170,18 @@ export class FormComponent implements OnInit {
             }
           }
         })
-        if (articles.includes('SDH301') && articles.includes('SDH100')) {
+        if (articles.some(article => article.sku == 'SDH301') && articles.some(article => article.sku == 'SDH100')) {
           articles.forEach((v, i) => {
-            if (v == 'SDH301') {
-              articles.splice(i, 1, 'SDH302')
+            if (v.sku == 'SDH301') {
+              v.sku = 'SDH302'
             }
           })
         }
-        articles.sort();
-console.log(articles)
+        articles.sort((a,b) => a.order - b.order || a.sku.localeCompare(b.sku));
+console.log(articles.map(a => a.sku))
+        this.loading = false;
         // Create invoice
-        this.hubService.createInvoice(this.dealConfig.values.deal_id, this.dealConfig.id, !result.isConfirmed, articles).subscribe(t => {
+        this.hubService.createInvoice(this.dealConfig.values.deal_id, this.dealConfig.id, !result.isConfirmed, articles.map(a => a.sku)).subscribe(t => {
           Swal.fire({
             title: 'Gelukt!',
             html: `<a href="https://info.differentdoors.nl/configuratie-overview/deal/P${this.dealConfig.values.deal_id}/${this.dealConfig.path}" target="_blank">Bekijk hier de configuratie</a>`,
@@ -202,12 +204,12 @@ console.log(articles)
     });
   }
 
-  getArticles(): string[] {
+  getArticles(): Article[] {
     let articles = [...this.page.articles];
     // ODO
     if (this.page.type == FormsEnum.odo) {
       const maat = Math.ceil((((this.dealConfig.values.breedte < 2000 ? 2000 : this.dealConfig.values.breedte) - 2000) / 100) + 1) + (Math.ceil(((this.dealConfig.values.hoogte < 2000 ? 2000 : this.dealConfig.values.hoogte) - 2000) / 100) * 11)
-      return [...articles, 'ODO0' + ('0' + maat).slice(-2), 'ODO' + (maat + 99)];
+      return [...articles, {sku:'ODO0' + ('0' + maat).slice(-2), order:20}, {sku:'ODO' + (maat + 99), order:20}];
     }
 
     //SDH
@@ -219,10 +221,10 @@ console.log(articles)
           maat++;
         }
         if (this.form.controls['type_sectionaaldeur'].value != 'Zijwaartse sectionaaldeur') {
-          articles.push('SDH' + (maat + 100))
-          articles.push('SDH0' + ('0' + maat).slice(-2));
+          articles.push({sku:'SDH' + (maat + 100), order:100})
+          articles.push({sku:'SDH0' + ('0' + maat).slice(-2), order:100});
         } else {
-          articles.push('ZDH0' + ('0' + maat).slice(-2));
+          articles.push({sku:'ZDH0' + ('0' + maat).slice(-2), order:100});
         }
       }
     }

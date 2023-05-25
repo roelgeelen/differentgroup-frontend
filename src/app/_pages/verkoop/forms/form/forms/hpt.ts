@@ -154,7 +154,7 @@ export const algemeen: QuestionBase<string>[] = [
     key: 'sluitkommen',
     label: 'Bestaande sluitkommen en scharnieren dicht zetten',
     options: [
-      {value: 'Ja', article: 'VDH102'},
+      {value: 'Ja', article: {sku: 'VDH102', order:100}},
       {value: 'Nee'},
     ],
     dependent: [
@@ -208,10 +208,10 @@ export const buiten: QuestionBase<string>[] = [
     key: 'loopdeur_voordeur',
     label: 'Type pivoterende deur',
     options: [
-      {value: 'Verticale delen', article: 'HPT001'},
-      {value: 'Horizontale delen', article: 'HPT002'},
-      {value: 'Verticale latten', article: 'HPT003'},
-      {value: 'Overige', article: 'HPT004'},
+      {value: 'Verticale delen', article: {sku: 'HPT001', order:100}},
+      {value: 'Horizontale delen', article: {sku: 'HPT002', order:100}},
+      {value: 'Verticale latten', article: {sku: 'HPT003', order:100}},
+      {value: 'Overige', article: {sku: 'HPT004', order:100}},
     ],
     validators: [Validators.required]
   }),
@@ -228,7 +228,7 @@ export const buiten: QuestionBase<string>[] = [
     key: 'electrisch_motorslot',
     label: 'Electrisch motorslot',
     options: [
-      {value: 'Ja', article: 'SDH210'},
+      {value: 'Ja', article: {sku: 'SDH210', order:100}},
       {value: 'Nee'},
     ]
   }),
@@ -236,7 +236,7 @@ export const buiten: QuestionBase<string>[] = [
     key: '',//
     label: 'Inclusief besturing',
     options: [
-      {value: 'Ja', article: 'SDH214'},
+      {value: 'Ja', article: {sku: 'SDH214', order:100}},
       {value: 'Nee'},
     ],
     value: 'Nee',
@@ -416,13 +416,13 @@ export const deur: QuestionBase<string>[] = [
     label: 'Deurgreep voordeur',
     image: 'assets/forms/sdh/Deurset.png',
     options: [
-      {value: '1. Ronde RVS greep T-vorm', article: 'VDH404'},
-      {value: '2. Vierkante RVS greep U-vorm', article: 'VDH402'},
-      {value: '3. Vierkante RVS greep T-vorm', article: 'VDH400'},
-      {value: '4. Ronde zwarte greep T-vorm', article: 'VDH405'},
-      {value: '5. Vierkante Zwarte greep U-vorm', article: 'VDH403'},
-      {value: '6. Vierkante Zwarte  greep T-vorm', article: 'VDH401'},
-      {value: '7. Houten greep Different Doors', article: 'VDH406'},
+      {value: '1. Ronde RVS greep T-vorm', article: {sku: 'VDH404', order:100}},
+      {value: '2. Vierkante RVS greep U-vorm', article: {sku: 'VDH402', order:100}},
+      {value: '3. Vierkante RVS greep T-vorm', article: {sku: 'VDH400', order:100}},
+      {value: '4. Ronde zwarte greep T-vorm', article: {sku: 'VDH405', order:100}},
+      {value: '5. Vierkante Zwarte greep U-vorm', article: {sku: 'VDH403', order:100}},
+      {value: '6. Vierkante Zwarte  greep T-vorm', article: {sku: 'VDH401', order:100}},
+      {value: '7. Houten greep Different Doors', article: {sku: 'VDH406', order:100}},
       {value: 'Aangeleverd door klant'},
       {value: 'Niet opgenomen in offerte'},
     ],
