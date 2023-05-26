@@ -800,18 +800,24 @@ export const inmeten: QuestionBase<string>[] = [
       {
         key: 'voorkeur_lat_breedte',
         label: 'Voorkeur lat breedte (standaard 56mm)',
-        type: 'number'
+        type: 'text'
       },
       {
         key: 'tussenruimte_latten',
         label: 'Tussenruimte latten (standaard 10mm)',
-        type: 'number'
+        type: 'text'
       }
     ]
   }),
   new TextareaQuestion({
     key: 'lengte_zetkap_naar_binnen',
-    label: 'Lengte zetkap naar binnen'
+    label: 'Lengte zetkap naar binnen',
+    dependent: [
+      {
+        field: 'positie',
+        values: ['Gelijk met de wand']
+      }
+    ]
   }),
   new TextQuestion({
     label: 'Waterkering onder pijl',
