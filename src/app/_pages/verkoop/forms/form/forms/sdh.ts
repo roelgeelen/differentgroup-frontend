@@ -692,7 +692,9 @@ export const montage: QuestionBase<string>[] = [
       {value: 'N.v.t.'},
       {value: 'Hoogwerker door DD', article: {sku:'SDH603', order:100}},
       {value: 'Verticaal transport door DD', article: {sku:'SDH604', order:100}},
+      {value: 'Steiger door DD', article: {sku:'SDH605', order:100}},
       {value: 'Verticaal transport door klant'},
+      {value: 'Steiger door klant'},
     ],
     value: ['N.v.t.']
   }),
