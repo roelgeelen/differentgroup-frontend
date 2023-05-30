@@ -273,13 +273,11 @@ console.log(articles.map(a => a.sku))
   public next() {
     window.scroll(0, 0);
     this.tabIndex = (this.tabIndex + 1) % this.tabCount;
-    this.publish();
   }
 
   public prev() {
     window.scroll(0, 0);
     this.tabIndex = (this.tabIndex - 1) % this.tabCount;
-    this.publish();
   }
 
   private setCustomValues() {
