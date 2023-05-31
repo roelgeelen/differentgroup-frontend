@@ -349,6 +349,7 @@ export const deur: QuestionBase<string>[] = [
       {value: 'DTS'},
       {value: 'Natuursteen'},
       {value: 'Valdorpel (let op: dicht niet volledig af)'},
+      {value: 'Bestaande dorpel aanpassen'},
       {value: 'Door klant'}
     ]
   }),
