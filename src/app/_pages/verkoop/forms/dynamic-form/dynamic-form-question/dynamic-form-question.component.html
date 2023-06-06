@@ -79,6 +79,10 @@
                   (click)="editImage()">
             <mat-icon>edit</mat-icon>
           </button>
+          <button *ngIf="getProperty(question.key)?.url" mat-mini-fab color="primary" class="edit-image"
+                  (click)="editImage()">
+            <mat-icon>delete</mat-icon>
+          </button>
           <img #img
                [src]="getProperty(question.key)?.url ? getProperty(question.key).url+'?timeStamp='+timestamp : 'assets/images/placeholder.jpg'">
         </div>

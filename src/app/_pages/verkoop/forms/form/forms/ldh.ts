@@ -500,7 +500,7 @@ export const overige: QuestionBase<string>[] = [
   }),
   new TextareaQuestion({
     key: 'overige_opmerkingen_intern',
-    label: 'Overige opmerkingen (intern)'
+    label: 'Interne opmerkingen'
   }),
   new UploadQuestion({
     key: 'inmeet',

@@ -3,7 +3,18 @@ h1 {
   border-bottom: 1px solid darkgray;
   padding-bottom: 15px;
 }
-
+.countdown {
+  text-align: center;
+  h1 {
+    line-height: 1;
+    border: none;
+    margin: 0 0 5px 0;
+    font-size: 1.7rem;
+  }
+  .timer {
+    margin: 0 auto;
+  }
+}
 .card-links {
   display: flex;
   justify-content: space-between;

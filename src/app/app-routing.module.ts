@@ -4,6 +4,7 @@ import {HomeComponent} from "./_pages/home/home.component";
 import {AuthGuard} from "./_helpers/auth.guard";
 import {EnumRoles} from "./_models/enum/enumRoles";
 import {WallofshameComponent} from "./_pages/wallofshame/wallofshame.component";
+import {CountdownComponent} from "./_pages/countdown/countdown.component";
 
 const routes: Routes = [
   {
@@ -13,6 +14,16 @@ const routes: Routes = [
   {
     path: 'wallofshame',
     component: WallofshameComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: [
+        EnumRoles.OFFICE
+      ]
+    },
+  },
+  {
+    path: 'opening',
+    component: CountdownComponent,
     canActivate: [AuthGuard],
     data: {
       roles: [

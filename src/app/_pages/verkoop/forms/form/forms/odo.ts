@@ -706,7 +706,7 @@ export const overige: QuestionBase<string>[] = [
   }),
   new TextareaQuestion({
     key: 'overige_opmerkingen_intern',
-    label: 'Overige opmerkingen (monteurs)',
+    label: 'Interne opmerkingen',
     toDeal: true
   }),
   new TextareaQuestion({
