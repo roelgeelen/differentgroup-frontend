@@ -13,7 +13,7 @@ import {FormPage} from "../dynamic-form/model/formPage";
 import {FormsEnum} from "../dynamic-form/model/formsEnum";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Article} from "../dynamic-form/model/article";
-
+import {QuestionBase} from "../dynamic-form/model/question-base";
 
 @Component({
   selector: 'app-form',
@@ -128,7 +128,7 @@ export class FormComponent implements OnInit {
   }
 
   submit() {
-    this.publish();
+    this.emptyNonVisibleFields();
     Swal.fire({
       title: 'Wil je de artikelen toevoegen aan de huidige offerte?',
       showDenyButton: true,
@@ -178,7 +178,7 @@ export class FormComponent implements OnInit {
           })
         }
         articles.sort((a,b) => a.order - b.order || a.sku.localeCompare(b.sku));
-console.log(articles.map(a => a.sku))
+        console.log(articles.map(a => a.sku))
         this.loading = false;
         // Create invoice
         this.hubService.createInvoice(this.dealConfig.values.deal_id, this.dealConfig.id, !result.isConfirmed, articles.map(a => a.sku)).subscribe(t => {
@@ -279,6 +279,42 @@ console.log(articles.map(a => a.sku))
     window.scroll(0, 0);
     this.tabIndex = (this.tabIndex - 1) % this.tabCount;
   }
+
+  public emptyNonVisibleFields() {
+    const visible: string[] = [];
+    const nonVisible: string[] = [];
+
+    this.page.form.flatMap(t => t.questions).forEach(q => {
+      const isDependent = this.isDependent(q);
+      (q.controlType === 'text' || q.controlType === 'table' ? q.fields : [q]).forEach(f => (isDependent ? visible : nonVisible).push(f.key));
+    });
+
+    const removeFields = nonVisible.filter(el => !visible.includes(el));
+    this.dealConfig.values = new Values(this.form.getRawValue());
+    for (const [k, v] of Object.entries(this.dealConfig.values)) if (Array.isArray(v)) { // @ts-ignore
+      this.dealConfig.values[k] = JSON.stringify(v);
+    }
+    removeFields.forEach(field => {
+      if (this.dealConfig.values[field as keyof Values]) { // @ts-ignore
+        this.dealConfig.values[field] = '';
+      }
+    });
+    this.setEmptyImages();
+    console.log(this.dealConfig);
+    this.hubService.updateDealConfig(this.dealConfig.values.deal_id, this.dealConfig.id, this.dealConfig).subscribe(() => {
+      this.publish()
+    });
+  }
+
+  private isDependent(q: FlatArray<QuestionBase<string>[][], 1>): boolean {
+    for (const dep of q.dependent) {
+      const fieldValue = this.form.controls[dep.field].value;
+      if (Array.isArray(fieldValue) ? !fieldValue.some(element => dep.values.includes(element)) : !dep.values.includes(fieldValue))
+        return false;
+    }
+    return true;
+  }
+
 
   private setCustomValues() {
     let customQuestions: any[] = [];
