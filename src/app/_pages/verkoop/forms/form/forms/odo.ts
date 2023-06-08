@@ -392,7 +392,7 @@ export const binnenzijde: QuestionBase<string>[] = [
     key: 'kleuropties',
     label: 'Kleuropties (RAL)',
     options: [
-      {value: 'Gelijk aan kleur buitenzijde', article: {sku:'ODO309', order:100}},
+      {value: 'Gelijk aan kleur buitenzijde'},
     ],
     other: true,
     custom: '',
