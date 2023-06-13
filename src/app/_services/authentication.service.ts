@@ -33,7 +33,7 @@ export class AuthenticationService {
     const user: User = new User();
     if (this.oauthService.getAccessToken()) {
       const token: Token = this.getDecodedAccessToken(this.oauthService.getAccessToken());
-      user.name = token.name;
+      user.name = token.name.split(' | ')[0];
       user.email = token.preferred_username;
       user.roles = token.roles;
       return user;
