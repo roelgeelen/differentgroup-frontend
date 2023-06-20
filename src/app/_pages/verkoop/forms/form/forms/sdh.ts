@@ -647,9 +647,10 @@ export const gevelbekleding: QuestionBase<string>[] = [
     label: 'Aanbrengen gevelbekleding',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Gevelbekleding los geleverd (montage door klant), enkel de stalen zethoeken worden door Different Doors bekleed', article: {sku:'SDH401', order:100}},
-      {value: 'Gevelbekleding geproduceerd en gemonteerd door Different Doors (zie gele arcering)', article: {sku:'SDH402', order:100}},
-      {value: 'Gevelbekleding los geleverd (montage door klant)', article: {sku:'SDH407', order:100}},
+      {value: 'Overige gevelbekleding los geleverd (montage door klant), enkel de stalen zetkappen worden door Different Doors bekleed', article: {sku:'SDH401', order:100}},
+      {value: 'Overige gevelbekleding los geleverd en stalen zetkappen bekleed door klant', article: {sku:'SDH407', order:100}},
+      {value: 'Overige gevelbekleding gemonteerd door Different Doors (zie gele arcering)', article: {sku:'SDH402', order:100}},
+      {value: 'Overige gevelbekleding los geleverd (montage door klant)', article: {sku:'SDH407', order:100}},
       {value: 'Door de klant'},
     ],
     other: true,

@@ -586,7 +586,7 @@ export const montage: QuestionBase<string>[] = [
     key: 'montage',
     label: 'Montage',
     options: [
-      {value: 'Binnenzijde gelijk met binnenmuur'}
+      {value: 'Kozijn zo ver mogelijk in de dag monteren'}
     ],
     other: true,
     custom: '',
