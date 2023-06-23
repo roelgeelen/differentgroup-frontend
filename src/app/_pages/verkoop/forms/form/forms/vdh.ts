@@ -387,8 +387,8 @@ export const deur: QuestionBase<string>[] = [
     key: 'scharnierzijde',
     label: 'Scharnierzijde  (van buiten gezien)',
     options: [
-      {value: 'Rechterzijde'},
-      {value: 'Linkerzijde '}
+      {value: 'Linkerzijde '},
+      {value: 'Rechterzijde'}
     ]
   }),
   new RadioQuestion({
