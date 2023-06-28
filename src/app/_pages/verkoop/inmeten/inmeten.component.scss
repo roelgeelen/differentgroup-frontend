@@ -1,6 +1,9 @@
 .chart-scroll {
   overflow: scroll;
   overflow-y: hidden;
+  table {
+    width: 100%;
+  }
 }
 .mat-row {
   height: auto;
