@@ -30,9 +30,6 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {SharedModule} from "./shared.module";
 import { WallofshameComponent } from './_pages/wallofshame/wallofshame.component';
 import {MatTabsModule} from "@angular/material/tabs";
-import {CountdownComponent} from "./_pages/countdown/countdown.component";
-import {CountdownTimerCardComponent} from "./_pages/countdown/countdown-timer-card/countdown-timer-card.component";
-import {CountdownTimerComponent} from "./_pages/countdown/countdown-timer/countdown-timer.component";
 
 registerLocaleData(localeNl);
 
@@ -45,9 +42,6 @@ registerLocaleData(localeNl);
     BirthdayWidgetComponent,
     BlogPostComponent,
     WallofshameComponent,
-    CountdownComponent,
-    CountdownTimerCardComponent,
-    CountdownTimerComponent
   ],
   imports: [
     SharedModule,

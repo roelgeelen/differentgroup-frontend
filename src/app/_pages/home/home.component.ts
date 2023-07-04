@@ -34,11 +34,7 @@ export class HomeComponent implements OnInit {
   }
 
   get isKANTOOR() {
-    return this.currentUser && this.currentUser.roles.indexOf(EnumRoles.OFFICE) !== -1;
-  }
-
-  get isICT() {
-    return this.currentUser && this.currentUser.roles.indexOf(EnumRoles.ICT) !== -1;
+    return this.currentUser && this.currentUser.roles.indexOf(EnumRoles.WIDGETS) !== -1;
   }
 
   betrayUser() {

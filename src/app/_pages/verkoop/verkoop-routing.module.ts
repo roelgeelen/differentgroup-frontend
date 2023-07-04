@@ -19,10 +19,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.OFFICE,
-            EnumRoles.ICT,
-            EnumRoles.ENGINEERING,
-            EnumRoles.ADMINISTRATION,
+            EnumRoles.AFSPRAKEN,
           ]
         },
       },
@@ -32,10 +29,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.OFFICE,
-            EnumRoles.ICT,
-            EnumRoles.ENGINEERING,
-            EnumRoles.ADMINISTRATION,
+            EnumRoles.INMETEN,
           ]
         },
       },
@@ -45,10 +39,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.OFFICE,
-            EnumRoles.ICT,
-            EnumRoles.ENGINEERING,
-            EnumRoles.ADMINISTRATION,
+            EnumRoles.FORMULIEREN,
           ]
         },
       },
@@ -58,10 +49,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.OFFICE,
-            EnumRoles.ICT,
-            EnumRoles.ENGINEERING,
-            EnumRoles.ADMINISTRATION,
+            EnumRoles.FORMULIEREN,
           ]
         },
       },
@@ -71,10 +59,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.OFFICE,
-            EnumRoles.ICT,
-            EnumRoles.ENGINEERING,
-            EnumRoles.ADMINISTRATION,
+            EnumRoles.FORMULIEREN,
           ]
         },
       }

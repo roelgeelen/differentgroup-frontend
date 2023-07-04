@@ -6,6 +6,8 @@ import {EnumRoles} from "../../_models/enum/enumRoles";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {PostsComponent} from "./posts/posts.component";
 import {PostComponent} from "./posts/post/post.component";
+import {RolesComponent} from "./roles/roles.component";
+import {EditRoleComponent} from "./roles/edit/edit-role.component";
 
 const routes: Routes = [
   {
@@ -23,8 +25,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.ADMIN,
-            EnumRoles.ICT
+            EnumRoles.BERICHTEN_BEHEREN,
           ]
         },
       },
@@ -34,8 +35,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.ADMIN,
-            EnumRoles.ICT
+            EnumRoles.BERICHTEN_BEHEREN,
           ]
         },
       },
@@ -45,11 +45,30 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.ADMIN,
-            EnumRoles.ICT
+            EnumRoles.BERICHTEN_BEHEREN,
           ]
         },
-      }
+      },
+      {
+        path: 'roles',
+        component: RolesComponent,
+        canActivate: [AuthGuard],
+        data: {
+          roles: [
+            EnumRoles.ROLLEN_BEHEREN,
+          ],
+        },
+      },
+      {
+        path: 'roles/:id',
+        component: EditRoleComponent,
+        canActivate: [AuthGuard],
+        data: {
+          roles: [
+            EnumRoles.ROLLEN_BEHEREN,
+          ]
+        },
+      },
     ]
   }
 ];

@@ -11,12 +11,13 @@
   <mat-sidenav-container fxFlexFill class="container">
     <mat-sidenav #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
       <mat-tree [dataSource]="pages" [treeControl]="treeControl" class="example-tree">
-
-        <mat-tree-node *matTreeNodeDef="let node"  matTreeNodeToggle>
-          <a *ngIf="hasPermission(node.roles)" mat-menu-item [routerLink]="node.url" (click)="sidenav.toggle()">
-            <mat-icon>{{node.icon}}</mat-icon>
-            {{node.title}}</a>
-        </mat-tree-node>
+        <ng-container *matTreeNodeDef="let node">
+          <mat-tree-node [class.d-none]="!hasPermission(node.roles)" matTreeNodeToggle>
+            <a *ngIf="hasPermission(node.roles)" mat-menu-item [routerLink]="node.url" (click)="sidenav.toggle()">
+              <mat-icon>{{node.icon}}</mat-icon>
+              {{node.title}}</a>
+          </mat-tree-node>
+        </ng-container>
         <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
           <div class="mat-tree-node" *ngIf="hasPermission(node.roles)">
             <button mat-menu-item matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.title">
@@ -26,10 +27,12 @@
               {{node.title}}
             </button>
           </div>
-          <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" *ngIf="hasPermission(node.roles)" role="group">
+          <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" *ngIf="hasPermission(node.roles)"
+               role="group">
             <ng-container matTreeNodeOutlet></ng-container>
           </div>
         </mat-nested-tree-node>
+
       </mat-tree>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill>

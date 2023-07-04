@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-between">
+  <h1>Rollen bewerken</h1>
+  <button mat-flat-button color="accent" routerLink="/admin/roles">
+    Terug <mat-icon>clear</mat-icon>
+  </button>
+</div>
+<hr>
+<h2>{{user.name}}</h2>
+
+<div class="list-container">
+  <div class="user-roles-container column-container">
+    <div class="list active"
+         cdkDropList
+         #todoList="cdkDropList"
+         id="user-roles-list"
+         [cdkDropListData]="user.roles"
+         [cdkDropListConnectedTo]="[doneList]"
+         (cdkDropListDropped)="onDrop($event)">
+      <h2>Gebruikers rollen</h2>
+      <mat-card *ngFor="let todo of user.roles" cdkDrag>
+        <mat-card-header>
+          <mat-card-title>{{todo.displayName}}</mat-card-title>
+          <mat-card-subtitle>{{todo.description}}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="roles-container column-container">
+    <div class="list"
+         cdkDropList
+         #doneList="cdkDropList"
+         id="permissions-list"
+         [cdkDropListData]="roles"
+         [cdkDropListConnectedTo]="todoList"
+         (cdkDropListDropped)="onDrop($event)">
+      <h2>Beschikbare rollen</h2>
+      <mat-card *ngFor="let complete of roles" cdkDrag>
+        <mat-card-header>
+          <mat-card-title>{{complete.displayName}}</mat-card-title>
+          <mat-card-subtitle>{{complete.description}}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<div class="loading-overlay fixed" *ngIf="loading">
+  <div class="loading"></div>
+</div>

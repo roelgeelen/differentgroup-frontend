@@ -59,29 +59,32 @@ export class TrackingComponent implements OnInit {
     this.markers = [];
     this.loading = true
     //Get busses
-    this.apiService.getTracking("6f15c4e6071b574e8604dca070c98843").subscribe(vehicles => {
-      this.loading = false;
-      vehicles.forEach(v => {
-        if (v.location) {
-          this.markers.push({
-            position: {
-              lat: +v.location.latitude,
-              lng: +v.location.longitude,
-            },
-            vehicle: v,
-            options: {
-              icon: {
-                url: this.encodeSVG(this.generateBusMarker(v.alias, v.location.course, v.location.in_movement)),
-                anchor: new google.maps.Point(25, 15),
+    if (this.canViewBusses) {
+      this.apiService.getTracking("6f15c4e6071b574e8604dca070c98843").subscribe(vehicles => {
+        this.loading = false;
+        vehicles.forEach(v => {
+          if (v.location) {
+            this.markers.push({
+              position: {
+                lat: +v.location.latitude,
+                lng: +v.location.longitude,
               },
-              anchorPoint: new google.maps.Point(0, -15)
-            }
-          })
-        }
-      })
-    });
+              vehicle: v,
+              options: {
+                icon: {
+                  url: this.encodeSVG(this.generateBusMarker(v.alias, v.location.course, v.location.in_movement)),
+                  anchor: new google.maps.Point(25, 15),
+                },
+                anchorPoint: new google.maps.Point(0, -15)
+              }
+            })
+          }
+        })
+      });
+    }
     if (this.canViewCars) {
       this.apiService.getTracking("2096391f65c25addbe6c2a5a8170353c").subscribe(vehicles => {
+        this.loading = false;
         vehicles.forEach(v => {
           if (v.location) {
             this.markers.push({
@@ -105,7 +108,11 @@ export class TrackingComponent implements OnInit {
   }
 
   get canViewCars() {
-    return this.currentUser && (this.currentUser.roles.indexOf(EnumRoles.ADMINISTRATION) !== -1 || this.currentUser.roles.indexOf(EnumRoles.ICT) !== -1);
+    return this.currentUser && (this.currentUser.roles.indexOf(EnumRoles.AFSPRAKEN) !== -1);
+  }
+
+  get canViewBusses() {
+    return this.currentUser && (this.currentUser.roles.indexOf(EnumRoles.TRACKING) !== -1);
   }
 
   encodeSVG(rawSvgString: string): string {

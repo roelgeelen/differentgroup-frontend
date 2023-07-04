@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-between">
+  <h1>Gebruikers</h1>
+</div>
+<hr>
+<div class="text-center w-100" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+<mat-list *ngIf="!loading">
+  <mat-list-item *ngFor="let user of users">
+    <mat-card class="w-100 h-100">
+      <mat-icon >account_circle</mat-icon> <span>{{user.name}} / <small class="text-muted">Aantal rechten: {{user.roles.length}}</small></span>
+    </mat-card>
+    <button mat-flat-button color="accent" class="end-btn" routerLink="/admin/roles/{{user.id}}">
+      <mat-icon>edit</mat-icon>
+    </button>
+
+  </mat-list-item>
+  <span *ngIf="users.length === 0">
+    Nog geen gebruikers!
+  </span>
+</mat-list>

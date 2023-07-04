@@ -12,10 +12,7 @@ export const navConfig: Page[] = [
         title: 'Afspraken',
         icon: 'map',
         roles: [
-          EnumRoles.OFFICE,
-          EnumRoles.ICT,
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
+          EnumRoles.AFSPRAKEN,
         ]
       },
       {
@@ -23,10 +20,7 @@ export const navConfig: Page[] = [
         title: 'Inmeten',
         icon: 'table_chart',
         roles: [
-          EnumRoles.OFFICE,
-          EnumRoles.ICT,
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
+          EnumRoles.INMETEN,
         ]
       },
       {
@@ -34,18 +28,14 @@ export const navConfig: Page[] = [
         title: 'Formulieren',
         icon: 'dashboard',
         roles: [
-          EnumRoles.OFFICE,
-          EnumRoles.ICT,
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
+          EnumRoles.FORMULIEREN,
         ]
       }
     ],
     roles: [
-      EnumRoles.OFFICE,
-      EnumRoles.ICT,
-      EnumRoles.ENGINEERING,
-      EnumRoles.ADMINISTRATION,
+      EnumRoles.AFSPRAKEN,
+      EnumRoles.INMETEN,
+      EnumRoles.FORMULIEREN
     ]
   },
   {
@@ -58,11 +48,8 @@ export const navConfig: Page[] = [
         title: 'Tracking',
         icon: 'maps',
         roles: [
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
-          EnumRoles.PRODUCTION,
-          EnumRoles.PLANNING,
-          EnumRoles.ICT
+          EnumRoles.TRACKING,
+          EnumRoles.AFSPRAKEN,
         ]
       },
       {
@@ -70,11 +57,7 @@ export const navConfig: Page[] = [
         title: 'Productie',
         icon: 'bar_chart',
         roles: [
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
-          EnumRoles.PRODUCTION,
-          EnumRoles.PLANNING,
-          EnumRoles.ICT
+          EnumRoles.PRODUCTIE,
         ]
       },
       {
@@ -82,43 +65,28 @@ export const navConfig: Page[] = [
         title: 'Geproduceerd',
         icon: 'bar_chart',
         roles: [
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
-          EnumRoles.PLANNING,
-          EnumRoles.ICT
+          EnumRoles.GEPRODUCEERD,
         ]
       },
     ],
     roles: [
-      EnumRoles.ENGINEERING,
-      EnumRoles.ADMINISTRATION,
-      EnumRoles.PRODUCTION,
-      EnumRoles.PLANNING,
-      EnumRoles.ICT
+      EnumRoles.TRACKING,
+      EnumRoles.AFSPRAKEN,
+      EnumRoles.PRODUCTIE,
+      EnumRoles.GEPRODUCEERD,
     ]
   },
   {
     url: '/magazijn',
     title: 'Magazijn',
     icon: 'supervised_user_circle',
-    roles: [
-      EnumRoles.STOCKROOM,
-      EnumRoles.ENGINEERING,
-      EnumRoles.ADMINISTRATION,
-      EnumRoles.PLANNING,
-      EnumRoles.ICT
-    ],
     pages: [
       {
         url: '/magazijn/logistiek',
         title: 'Logistiek',
         icon: 'calendar_today',
         roles: [
-          EnumRoles.STOCKROOM,
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
-          EnumRoles.PLANNING,
-          EnumRoles.ICT
+          EnumRoles.LOGISTIEK,
         ]
       },
       {
@@ -126,11 +94,7 @@ export const navConfig: Page[] = [
         title: 'Controle',
         icon: 'playlist_add_check',
         roles: [
-          EnumRoles.STOCKROOM,
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
-          EnumRoles.PLANNING,
-          EnumRoles.ICT
+          EnumRoles.CONTROLE,
         ]
       },
       {
@@ -138,11 +102,7 @@ export const navConfig: Page[] = [
         title: 'Voorraad',
         icon: 'bar_chart',
         roles: [
-          EnumRoles.STOCKROOM,
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
-          EnumRoles.PLANNING,
-          EnumRoles.ICT
+          EnumRoles.VOORRAAD,
         ]
       },
       {
@@ -150,31 +110,28 @@ export const navConfig: Page[] = [
         title: 'Bestellingen',
         icon: 'storage',
         roles: [
-          EnumRoles.STOCKROOM,
-          EnumRoles.ENGINEERING,
-          EnumRoles.ADMINISTRATION,
-          EnumRoles.PLANNING,
-          EnumRoles.ICT
+          EnumRoles.BESTELLINGEN,
         ]
       }
-    ]
+    ],
+    roles: [
+      EnumRoles.LOGISTIEK,
+      EnumRoles.CONTROLE,
+      EnumRoles.VOORRAAD,
+      EnumRoles.BESTELLINGEN
+    ],
   },
   {
     url: '/rapportage',
     title: 'Rapportage',
     icon: 'attach_money',
-    roles: [
-      EnumRoles.ADMINISTRATION,
-      EnumRoles.ICT
-    ],
     pages: [
       {
         url: '/rapportage/dashboard',
         title: 'Dashboard',
         icon: 'dashboard',
         roles: [
-          EnumRoles.ADMINISTRATION,
-          EnumRoles.ICT
+          EnumRoles.RAPPORTAGE
         ]
       },
       {
@@ -182,39 +139,48 @@ export const navConfig: Page[] = [
         title: 'Financieel',
         icon: 'attach_money',
         roles: [
-          EnumRoles.ADMINISTRATION,
-          EnumRoles.ICT
+          EnumRoles.FINANCIEEL
         ]
       }
-    ]
+    ],
+    roles: [
+      EnumRoles.RAPPORTAGE,
+      EnumRoles.FINANCIEEL
+    ],
   },
   {
     url: '/admin',
     title: 'Beheer',
     icon: 'supervised_user_circle',
-    roles: [
-      EnumRoles.ADMIN,
-      EnumRoles.ICT
-    ],
     pages: [
       {
         url: '/admin/nieuws',
         title: 'Berichten',
         icon: 'message',
         roles: [
-          EnumRoles.ADMIN,
-          EnumRoles.ICT
+          EnumRoles.BERICHTEN_BEHEREN
         ]
       },
+      // {
+      //   url: '/admin/nieuws/create',
+      //   title: 'Nieuw bericht',
+      //   icon: 'add',
+      //   roles: [
+      //     EnumRoles.BERICHTEN_BEHEREN
+      //   ]
+      // },
       {
-        url: '/admin/nieuws/create',
-        title: 'Nieuw bericht',
-        icon: 'add',
+        url: '/admin/roles',
+        title: 'Rollen',
+        icon: 'supervisor_account',
         roles: [
-          EnumRoles.ADMIN,
-          EnumRoles.ICT
+          EnumRoles.ROLLEN_BEHEREN,
         ]
       }
-    ]
+    ],
+    roles: [
+      EnumRoles.BERICHTEN_BEHEREN,
+      EnumRoles.ROLLEN_BEHEREN
+    ],
   }
 ]

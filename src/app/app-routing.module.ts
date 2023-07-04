@@ -4,7 +4,6 @@ import {HomeComponent} from "./_pages/home/home.component";
 import {AuthGuard} from "./_helpers/auth.guard";
 import {EnumRoles} from "./_models/enum/enumRoles";
 import {WallofshameComponent} from "./_pages/wallofshame/wallofshame.component";
-import {CountdownComponent} from "./_pages/countdown/countdown.component";
 
 const routes: Routes = [
   {
@@ -17,17 +16,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       roles: [
-        EnumRoles.OFFICE
-      ]
-    },
-  },
-  {
-    path: 'opening',
-    component: CountdownComponent,
-    canActivate: [AuthGuard],
-    data: {
-      roles: [
-        EnumRoles.OFFICE
+        EnumRoles.WIDGETS
       ]
     },
   },
@@ -37,10 +26,9 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       roles: [
-        EnumRoles.OFFICE,
-        EnumRoles.ICT,
-        EnumRoles.ENGINEERING,
-        EnumRoles.ADMINISTRATION,
+        EnumRoles.AFSPRAKEN,
+        EnumRoles.INMETEN,
+        EnumRoles.FORMULIEREN,
       ]
     },
   },
@@ -50,11 +38,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       roles: [
-        EnumRoles.ENGINEERING,
-        EnumRoles.ADMINISTRATION,
-        EnumRoles.PRODUCTION,
-        EnumRoles.PLANNING,
-        EnumRoles.ICT
+        EnumRoles.TRACKING,
+        EnumRoles.AFSPRAKEN,
+        EnumRoles.PRODUCTIE,
+        EnumRoles.GEPRODUCEERD,
       ]
     },
   },
@@ -64,11 +51,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       roles: [
-        EnumRoles.ENGINEERING,
-        EnumRoles.ADMINISTRATION,
-        EnumRoles.PRODUCTION,
-        EnumRoles.PLANNING,
-        EnumRoles.ICT
+        EnumRoles.LOGISTIEK,
+        EnumRoles.CONTROLE,
+        EnumRoles.VOORRAAD,
+        EnumRoles.BESTELLINGEN
       ]
     },
   },
@@ -78,8 +64,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       roles: [
-        EnumRoles.ADMINISTRATION,
-        EnumRoles.ICT
+        EnumRoles.RAPPORTAGE,
+        EnumRoles.FINANCIEEL
       ]
     },
   },
@@ -89,7 +75,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       roles: [
-        EnumRoles.ADMIN
+        EnumRoles.BERICHTEN_BEHEREN,
+        EnumRoles.ROLLEN_BEHEREN
       ]
     },
   },

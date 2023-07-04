@@ -24,11 +24,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.STOCKROOM,
-            EnumRoles.ENGINEERING,
-            EnumRoles.ADMINISTRATION,
-            EnumRoles.PLANNING,
-            EnumRoles.ICT
+            EnumRoles.LOGISTIEK
           ]
         },
       },
@@ -38,11 +34,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.STOCKROOM,
-            EnumRoles.ENGINEERING,
-            EnumRoles.ADMINISTRATION,
-            EnumRoles.PLANNING,
-            EnumRoles.ICT
+            EnumRoles.CONTROLE,
           ]
         }
       },
@@ -52,11 +44,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.STOCKROOM,
-            EnumRoles.ENGINEERING,
-            EnumRoles.ADMINISTRATION,
-            EnumRoles.PLANNING,
-            EnumRoles.ICT
+            EnumRoles.VOORRAAD
           ]
         }
       },
@@ -66,11 +54,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.STOCKROOM,
-            EnumRoles.ENGINEERING,
-            EnumRoles.ADMINISTRATION,
-            EnumRoles.PLANNING,
-            EnumRoles.ICT
+            EnumRoles.BESTELLINGEN,
           ]
         }
       }

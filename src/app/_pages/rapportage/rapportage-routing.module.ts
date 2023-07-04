@@ -17,8 +17,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.ICT,
-            EnumRoles.ADMINISTRATION,
+            EnumRoles.RAPPORTAGE,
           ]
         }
       },
@@ -28,8 +27,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.ICT,
-            EnumRoles.ADMINISTRATION,
+            EnumRoles.FINANCIEEL,
           ]
         }
       }

@@ -4,7 +4,6 @@ import {PlanningComponent} from "./planning.component";
 import {AuthGuard} from "../../_helpers/auth.guard";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {ProductionComponent} from "./production/production.component";
-import {VoorraadComponent} from "../magazijn/voorraad/voorraad.component";
 import {EnumRoles} from "../../_models/enum/enumRoles";
 import {GeproduceerdComponent} from "./geproduceert/geproduceerd.component";
 import {TrackingComponent} from "./tracking/tracking.component";
@@ -25,11 +24,8 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.ENGINEERING,
-            EnumRoles.ADMINISTRATION,
-            EnumRoles.PRODUCTION,
-            EnumRoles.PLANNING,
-            EnumRoles.ICT
+            EnumRoles.TRACKING,
+            EnumRoles.AFSPRAKEN,
           ]
         },
       },
@@ -39,24 +35,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.ENGINEERING,
-            EnumRoles.ADMINISTRATION,
-            EnumRoles.PRODUCTION,
-            EnumRoles.PLANNING,
-            EnumRoles.ICT
-          ]
-        },
-      },
-      {
-        path: 'voorraad',
-        component: VoorraadComponent,
-        canActivate: [AuthGuard],
-        data: {
-          roles: [
-            EnumRoles.ENGINEERING,
-            EnumRoles.ADMINISTRATION,
-            EnumRoles.PLANNING,
-            EnumRoles.ICT
+            EnumRoles.PRODUCTIE,
           ]
         },
       },
@@ -66,10 +45,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.ENGINEERING,
-            EnumRoles.ADMINISTRATION,
-            EnumRoles.PLANNING,
-            EnumRoles.ICT
+            EnumRoles.GEPRODUCEERD,
           ]
         },
       }
