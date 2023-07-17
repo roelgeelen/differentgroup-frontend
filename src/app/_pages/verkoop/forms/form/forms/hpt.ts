@@ -454,9 +454,14 @@ export const deur: QuestionBase<string>[] = [
     label: 'Deurbeslag lengte greep (standaard 1200mm)',
     fields: [
       {
-        key: '',//
+        key: 'deurbeslag_lengte_greep',
         label: 'Lengte in mm',
         type: 'number'
+      },
+      {
+        key: 'deurbeslag_lengte_greep_desc',
+        label: 'Opmerking',
+        type: 'text'
       }
     ],
     dependent: [
