@@ -7,6 +7,7 @@ import {TextareaQuestion} from "../../dynamic-form/controls/question-textarea";
 import {UploadQuestion} from "../../dynamic-form/controls/question-upload";
 import {Validators} from "@angular/forms";
 import {CalculationQuestion} from "../../dynamic-form/controls/question-calc";
+import {DropdownQuestion} from "../../dynamic-form/controls/question-dropdown";
 
 export const sales: QuestionBase<string>[] = [
   new RadioQuestion({
@@ -310,16 +311,35 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: 'Nee'}
     ]
   }),
-  new TextQuestion({
-    label: 'Kleur',
-    fields: [
-      {
-        key: 'deur_ral',
-        label: 'Deur RAL in structuurlak',
-        type: 'text',
-        validators: [Validators.required]
-      },
+  new DropdownQuestion({
+    key: 'deur_ral',
+    label: 'Deur RAL in structuurlak',
+    options: [
+      {value: '3005', image: 'assets/forms/odo/colors/ral3005.jpg'},
+      {value: '5009', image: 'assets/forms/odo/colors/ral5009.jpg'},
+      {value: '5011', image: 'assets/forms/odo/colors/ral5011.jpg'},
+      {value: '6005', image: 'assets/forms/odo/colors/ral6005.jpg'},
+      {value: '6009', image: 'assets/forms/odo/colors/ral6009.jpg'},
+      {value: '7011', image: 'assets/forms/odo/colors/ral7011.jpg'},
+      {value: '7012', image: 'assets/forms/odo/colors/ral7012.jpg'},
+      {value: '7015', image: 'assets/forms/odo/colors/ral7015.jpg'},
+      {value: '7016', image: 'assets/forms/odo/colors/ral7016.jpg'},
+      {value: '7021', image: 'assets/forms/odo/colors/ral7021.jpg'},
+      {value: '7022', image: 'assets/forms/odo/colors/ral7022.jpg'},
+      {value: '7030', image: 'assets/forms/odo/colors/ral7030.jpg'},
+      {value: '7037', image: 'assets/forms/odo/colors/ral7037.jpg'},
+      {value: '7039', image: 'assets/forms/odo/colors/ral7039.jpg'},
+      {value: '8014', image: 'assets/forms/odo/colors/ral8014.jpg'},
+      {value: '8016', image: 'assets/forms/odo/colors/ral8016.jpg'},
+      {value: '8017', image: 'assets/forms/odo/colors/ral8017.jpg'},
+      {value: '8019', image: 'assets/forms/odo/colors/ral8019.jpg'},
+      {value: '9001', image: 'assets/forms/odo/colors/ral9001.jpg'},
+      {value: '9004', image: 'assets/forms/odo/colors/ral9004.jpg'},
+      {value: '9005', image: 'assets/forms/odo/colors/ral9005.jpg'},
+      {value: '9010', image: 'assets/forms/odo/colors/ral9010.jpg'},
+      {value: '9016', image: 'assets/forms/odo/colors/ral9016.jpg'},
     ],
+    validators: [Validators.required],
     dependent: [
       {
         field: 'deur_in_een_kleur',

@@ -7,6 +7,7 @@ import {Values} from "../../../../../_models/hubspot/Values";
 import {Editor, Toolbar} from "ngx-editor";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
 import {FormComponent} from "../../form/form.component";
+import {Article} from "../model/article";
 
 @Component({
   selector: 'app-question',
@@ -21,6 +22,7 @@ export class DynamicFormQuestionComponent {
   progress: { percentage: number } = {percentage: 0};
   uploading = false;
   timestamp = Date.now();
+  //selected: { value: string, image?: string, article?: Article, duration?: number }|null;
   selectedFiles: FileList | null;
   isImageInvalid = false;
   editor: Editor;
@@ -171,6 +173,7 @@ export class DynamicFormQuestionComponent {
       breedte: "",
       hoogte: ""
     }
+
     // @ts-ignore
     this.form.controls[this.question.key].value = [...this.form.controls[this.question.key].value, newRow];
 

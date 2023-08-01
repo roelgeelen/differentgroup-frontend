@@ -39,6 +39,19 @@
       </button>
     </div>
 
+    <div *ngSwitchCase="'dropdown'" class="row">
+      <mat-form-field >
+        <mat-label>{{question.label}}</mat-label>
+        <mat-select [id]="question.key" [formControlName]="question.key"
+                    (focusout)="save(question.toDeal)">
+          <mat-option *ngFor="let option of question.options" [value]="option.value">
+            <img *ngIf="option.image!=null" width="30" height="30" style="margin-right: 5px" [src]="option.image" [alt]="option.value">
+            {{option.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <mat-radio-group *ngSwitchCase="'radio'" [id]="question.key" [formControlName]="question.key"
                      (focusout)="save(question.toDeal)">
       <mat-radio-button *ngFor="let opt of question.options" [value]="opt.value">{{opt.value}}</mat-radio-button>

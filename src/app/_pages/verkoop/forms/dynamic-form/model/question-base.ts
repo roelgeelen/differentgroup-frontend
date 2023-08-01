@@ -9,9 +9,16 @@ export class QuestionBase<T> {
   validators: ValidatorFn[];
   controlType: string;
   type: string;
-  options: { value: string, article?: Article, duration?: number }[];
+  options: { value: string, image?: string, article?: Article, duration?: number }[];
   dependent: { field: string; values: string[]; }[];
-  fields: { value?: T | undefined; key: string; label: string; validators?: ValidatorFn[]; required?: boolean; type: string }[];
+  fields: {
+    value?: T | undefined;
+    key: string;
+    label: string;
+    validators?: ValidatorFn[];
+    required?: boolean;
+    type: string
+  }[];
   other: boolean;
   custom: string;
   toDeal: boolean;
@@ -25,11 +32,18 @@ export class QuestionBase<T> {
     order?: number;
     controlType?: string;
     type?: string;
-    options?: { value: string, article?: Article, duration?: number }[];
+    options?: { value: string, image?: string, article?: Article, duration?: number }[];
     dependent?: { field: string; values: string[] }[];
-    fields?: { key: string; label: string; value?: any | undefined; validators?: ValidatorFn[]; required?: boolean; type: string }[];
+    fields?: {
+      key: string;
+      label: string;
+      value?: any | undefined;
+      validators?: ValidatorFn[];
+      required?: boolean;
+      type: string
+    }[];
     other?: boolean;
-    custom? : string;
+    custom?: string;
     toDeal?: boolean;
   } = {}) {
     this.value = options.value;
