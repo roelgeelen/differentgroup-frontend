@@ -338,6 +338,7 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: '9005', image: 'assets/forms/odo/colors/ral9005.jpg'},
       {value: '9010', image: 'assets/forms/odo/colors/ral9010.jpg'},
       {value: '9016', image: 'assets/forms/odo/colors/ral9016.jpg'},
+      {value: 'Q0.05.10', image: 'assets/forms/odo/colors/Q0.05.10.jpg'},
     ],
     validators: [Validators.required],
     dependent: [
