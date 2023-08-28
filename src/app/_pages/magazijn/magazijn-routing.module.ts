@@ -54,7 +54,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.BESTELLINGEN,
+            EnumRoles.BESTELLINGEN_BEHEREN,
           ]
         }
       }

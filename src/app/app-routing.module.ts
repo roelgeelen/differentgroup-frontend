@@ -54,7 +54,7 @@ const routes: Routes = [
         EnumRoles.LOGISTIEK,
         EnumRoles.CONTROLE,
         EnumRoles.VOORRAAD,
-        EnumRoles.BESTELLINGEN
+        EnumRoles.BESTELLINGEN_BEHEREN
       ]
     },
   },

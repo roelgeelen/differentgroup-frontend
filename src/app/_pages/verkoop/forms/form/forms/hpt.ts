@@ -433,23 +433,23 @@ export const deur: QuestionBase<string>[] = [
       }
     ]
   }),
-  new RadioQuestion({
-    key: '',
-    label: 'Deurbeslag',
-    options: [
-      {value: 'RVS rond beslag'},
-      {value: 'RVS vierkant beslag'},
-      {value: 'Zwart rond beslag'},
-      {value: 'Zwart vierkant beslag'},
-      {value: 'Aangeleverd door klant'},
-    ],
-    dependent: [
-      {
-        field: 'krukset_deurbeslag',
-        values: ['Ja']
-      }
-    ]
-  }),
+  // new RadioQuestion({
+  //   key: '',
+  //   label: 'Deurbeslag',
+  //   options: [
+  //     {value: 'RVS rond beslag'},
+  //     {value: 'RVS vierkant beslag'},
+  //     {value: 'Zwart rond beslag'},
+  //     {value: 'Zwart vierkant beslag'},
+  //     {value: 'Aangeleverd door klant'},
+  //   ],
+  //   dependent: [
+  //     {
+  //       field: 'krukset_deurbeslag',
+  //       values: ['Ja']
+  //     }
+  //   ]
+  // }),
   new TextQuestion({
     label: 'Deurbeslag lengte greep (standaard 1200mm)',
     fields: [

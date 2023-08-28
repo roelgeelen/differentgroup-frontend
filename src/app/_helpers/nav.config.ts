@@ -110,7 +110,7 @@ export const navConfig: Page[] = [
         title: 'Bestellingen',
         icon: 'storage',
         roles: [
-          EnumRoles.BESTELLINGEN,
+          EnumRoles.BESTELLINGEN_BEHEREN,
         ]
       }
     ],
@@ -118,7 +118,7 @@ export const navConfig: Page[] = [
       EnumRoles.LOGISTIEK,
       EnumRoles.CONTROLE,
       EnumRoles.VOORRAAD,
-      EnumRoles.BESTELLINGEN
+      EnumRoles.BESTELLINGEN_BEHEREN
     ],
   },
   {
