@@ -572,6 +572,10 @@ export const montage: QuestionBase<string>[] = [
       {value: 'Achter de dag'}
     ]
   }),
+  new TextareaQuestion({
+    key: 'opmerkingen_montage',
+    label: 'Opmerking montage'
+  }),
   new CheckboxQuestion({
     key: 'bestaande_deur',
     label: 'Bestaande deur',

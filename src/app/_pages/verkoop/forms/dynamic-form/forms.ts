@@ -33,7 +33,7 @@ export const forms: {[key in FormsEnum]: FormPage} = {
   hpt: {
     title: 'Houten pivoterende deur',
     type: FormsEnum.hpt,
-    articles: [],
+    articles: [{sku:'SDH600', order:100}],
     duration: 0,
     form: hpt
   },

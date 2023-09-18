@@ -502,10 +502,10 @@ export const glas: QuestionBase<string>[] = [
     label: 'Glassectie (van binnenuit gezien)',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Glas links naast de deur'},
-      {value: 'Glas rechts naast de deur'},
-      {value: 'Glas in de deur'},
-      {value: 'Glas boven de deur'},
+      {value: 'Glas links naast de deur', article: {sku: 'VDH501', order: 100}},
+      {value: 'Glas rechts naast de deur', article: {sku: 'VDH502', order: 100}},
+      {value: 'Glas in de deur', article: {sku: 'VDH503', order: 100}},
+      {value: 'Glas boven de deur', article: {sku: 'VDH500', order: 100}},
     ],
     value: ['N.v.t.']
   }),
@@ -513,8 +513,8 @@ export const glas: QuestionBase<string>[] = [
     key: 'type_glas',
     label: 'Type glas',
     options: [
-      {value: 'HR++ helder glas'},
-      {value: 'HR++ melk glas'},
+      {value: 'HR++ helder glas', article: {sku: 'VDH504', order: 100}},
+      {value: 'HR++ melk glas', article: {sku: 'VDH505', order: 100}},
       {value: 'Glas door klant'},
     ],
     other: true,
@@ -594,6 +594,14 @@ export const overige: QuestionBase<string>[] = [
     key: 'inmeet',
     label: 'Inmeet bon',
     type: 'file'
+  }),
+  new RadioQuestion({
+    key: 'type_engineering',
+    label: 'Type',
+    options: [
+      {value: 'Standaard', article: {sku:'SDH500', order:100}},
+      {value: 'Special', article: {sku:'SDH501', order:100}}
+    ]
   })
 ]
 export const inmeten: QuestionBase<string>[] = [
