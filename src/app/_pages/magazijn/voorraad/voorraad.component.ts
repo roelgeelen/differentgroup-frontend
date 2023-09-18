@@ -14,7 +14,7 @@ export class VoorraadComponent implements OnInit {
   chartColumns = [];
   type = ChartType.ColumnChart;
   myOptions = {
-    colors: ['#4658a0', '#06af85', '#ff0000'],
+    colors: ['#4658a0','#6a7dc7', '#06af85', '#ff0000'],
     height: 500,
     backgroundColor: 'transparent',
     legend: {position: 'top', maxLines: 0},
@@ -24,12 +24,13 @@ export class VoorraadComponent implements OnInit {
       width: '100%'
     },
     isStacked: true,
-    series: {2: {type: 'line'}}
+    series: {3: {type: 'line'}}
   };
   dynamicResize = true;
 
   valueExpected: number = 0;
   value!: number;
+  valueH!: number;
   constructor(private apiStockroomService: ApiStockroomService) {
   }
 
@@ -38,12 +39,14 @@ export class VoorraadComponent implements OnInit {
     this.apiStockroomService.getStockroom().subscribe(data => {
       this.chartColumns = data[0];
       this.value = data[1][1];
+      this.valueH = data[1][2];
       data.splice(0, 1);
       data.forEach((item: any, index: number) => {
         item[1] = +item[1]
         item[2] = +item[2]
         item[3] = +item[3]
-        this.valueExpected += item[2] << 0;
+        item[4] = +item[4]
+        this.valueExpected += item[3] << 0;
       });
       this.loading = false;
       this.myData = data;
