@@ -78,4 +78,8 @@ export class ApiService {
   postToWallOfShame(user: string, email: string) {
     return this.http.post(`https://prod-179.westeurope.logic.azure.com:443/workflows/a2639d37c50c44ab8f44958a676ee4ec/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=cPoNFZZAMPZ5jB_3oF1jd7t4YcekIQ2Nlai76UL8aJU`, {user, email});
   }
+
+  postFirebaseNotification(title: string, message: string, topicId: string, screen: string|null = null, users: string[] = []) {
+    return this.http.post(`${environment.apiUrl}/firebase/notification`, {title, message, topicId, screen, users});
+  }
 }

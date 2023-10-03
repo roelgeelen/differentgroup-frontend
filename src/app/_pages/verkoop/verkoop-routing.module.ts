@@ -40,6 +40,7 @@ const routes: Routes = [
         data: {
           roles: [
             EnumRoles.FORMULIEREN,
+            EnumRoles.FORMULIEREN_KLANT,
           ]
         },
       },
@@ -50,6 +51,7 @@ const routes: Routes = [
         data: {
           roles: [
             EnumRoles.FORMULIEREN,
+            EnumRoles.FORMULIEREN_KLANT,
           ]
         },
       },
@@ -60,6 +62,7 @@ const routes: Routes = [
         data: {
           roles: [
             EnumRoles.FORMULIEREN,
+            EnumRoles.FORMULIEREN_KLANT,
           ]
         },
       }

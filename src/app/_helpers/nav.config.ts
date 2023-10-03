@@ -29,6 +29,7 @@ export const navConfig: Page[] = [
         icon: 'dashboard',
         roles: [
           EnumRoles.FORMULIEREN,
+          EnumRoles.FORMULIEREN_KLANT,
         ]
       }
     ],

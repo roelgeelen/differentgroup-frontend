@@ -12,6 +12,7 @@ import {FormPage} from "../dynamic-form/model/formPage";
 import {FormsEnum} from "../dynamic-form/model/formsEnum";
 import {forms} from "../dynamic-form/forms";
 import {Location} from '@angular/common';
+import {EnumRoles} from "../../../../_models/enum/enumRoles";
 
 @Component({
   selector: 'app-form',
@@ -40,6 +41,10 @@ export class OverviewComponent implements OnInit {
     {
       name: 'Hout',
       items: ['sdh', 'odhd', 'odht', 'vdh', 'ldh', 'hpt']
+    },
+    {
+      name: 'Overige',
+      items: ['files']
     }
   ]
 
@@ -73,6 +78,10 @@ export class OverviewComponent implements OnInit {
     });
   }
 
+  get isADMIN() {
+    return this.currentUser && this.currentUser.roles.indexOf(EnumRoles.FORMULIEREN_KLANT) !== -1;
+  }
+
   findRecent() {
     this.recentConfigs = [];
     this.loadingC = true;
@@ -101,6 +110,7 @@ export class OverviewComponent implements OnInit {
         this.hubService.getConfigs(this.dealConfig.values.deal_id).subscribe(c => {
           this.loadingC = false;
           this.configurations = c;
+          console.log(this.configurations)
         }, error1 => {
           this.loadingC = false;
         })

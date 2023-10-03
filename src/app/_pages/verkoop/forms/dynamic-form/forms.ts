@@ -7,6 +7,7 @@ import {vdh} from "../form/forms/vdh";
 import {ldh} from "../form/forms/ldh";
 import {hpt} from "../form/forms/hpt";
 import {odht} from "../form/forms/odht";
+import {files} from "../form/forms/files";
 
 export const forms: {[key in FormsEnum]: FormPage} = {
   odo: {
@@ -14,6 +15,7 @@ export const forms: {[key in FormsEnum]: FormPage} = {
     type: FormsEnum.odo,
     articles: [{sku:'ODO400', order:110}],
     duration: 120,
+    customer: true,
     form: odo
   },
   odhd: {
@@ -21,6 +23,7 @@ export const forms: {[key in FormsEnum]: FormPage} = {
     type: FormsEnum.odhd,
     articles: [{sku:'ODH100', order:100}],
     duration: 120,
+    customer: true,
     form: odhd
   },
   sdh: {
@@ -28,6 +31,7 @@ export const forms: {[key in FormsEnum]: FormPage} = {
     type: FormsEnum.sdh,
     articles: [{sku:'SDH600', order:100}],
     duration: 0,
+    customer: true,
     form: sdh
   },
   hpt: {
@@ -35,6 +39,7 @@ export const forms: {[key in FormsEnum]: FormPage} = {
     type: FormsEnum.hpt,
     articles: [{sku:'SDH600', order:100}],
     duration: 0,
+    customer: true,
     form: hpt
   },
   vdh: {
@@ -42,6 +47,7 @@ export const forms: {[key in FormsEnum]: FormPage} = {
     type: FormsEnum.vdh,
     articles: [],
     duration: 0,
+    customer: true,
     form: vdh
   },
   ldh: {
@@ -49,6 +55,7 @@ export const forms: {[key in FormsEnum]: FormPage} = {
     type: FormsEnum.ldh,
     articles: [],
     duration: 0,
+    customer: true,
     form: ldh
   },
   odht: {
@@ -56,6 +63,15 @@ export const forms: {[key in FormsEnum]: FormPage} = {
     type: FormsEnum.odht,
     articles: [],
     duration: 0,
+    customer: true,
     form: odht
+  },
+  files: {
+    title: 'Bestanden',
+    type: FormsEnum.files,
+    articles: [],
+    duration: 0,
+    customer: false,
+    form: files
   }
 }

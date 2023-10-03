@@ -116,6 +116,7 @@ export class PostComponent implements OnInit {
           this.post = new Post();
           this.imageSrc = '';
           this.uploading = false
+          this.apiService.postFirebaseNotification('Nieuw nieuws', 'Er is een nieuw bericht beschikbaar. Bekijk het nu!', 'news_created').subscribe();
         }
       })
     }

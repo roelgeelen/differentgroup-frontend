@@ -91,7 +91,7 @@
           <h2>Ingevulde formulieren</h2>
           <div class="pb-3">
             <div class="mb-3" *ngFor="let config of configurations">
-              <mat-card class="border-top border-primary"><mat-icon class="menu" [matMenuTriggerFor]="optionsMenu">more_vert</mat-icon>
+              <mat-card class="border-top border-primary"><mat-icon class="menu" *ngIf="!getForm(config.values.type) || isADMIN" [matMenuTriggerFor]="optionsMenu">more_vert</mat-icon>
                 <mat-menu class="profile-menu" #optionsMenu="matMenu">
                   <a mat-menu-item (click)="duplicateForm(config)">
                     <mat-icon>control_point_duplicate</mat-icon>
@@ -110,7 +110,7 @@
                      target="_blank">
                     <mat-icon>remove_red_eye</mat-icon>
                   </a>
-                  <button mat-raised-button color="primary"
+                  <button mat-raised-button color="primary" *ngIf="!getForm(config.values.type).customer || isADMIN"
                           routerLink="/verkoop/formulier/{{config.values.deal_id}}/{{config.id}}" [queryParams]="{fullscreen}">
                     <mat-icon>edit</mat-icon>
                   </button>

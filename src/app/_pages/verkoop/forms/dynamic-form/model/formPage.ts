@@ -7,5 +7,6 @@ export class FormPage {
   type: FormsEnum;
   articles: Article[];
   duration: number;
+  customer: boolean;
   form: TabBase[];
 }

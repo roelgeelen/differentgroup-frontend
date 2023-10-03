@@ -14,6 +14,7 @@ import {FormsEnum} from "../dynamic-form/model/formsEnum";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Article} from "../dynamic-form/model/article";
 import {QuestionBase} from "../dynamic-form/model/question-base";
+import {EnumRoles} from "../../../../_models/enum/enumRoles";
 
 @Component({
   selector: 'app-form',
@@ -65,6 +66,10 @@ export class FormComponent implements OnInit {
         this.findDeal(+queryParams.get('configId'));
       }
     });
+  }
+
+  get isADMIN() {
+    return this.currentUser && this.currentUser.roles.indexOf(EnumRoles.FORMULIEREN_KLANT) !== -1;
   }
 
   findDeal(configId: number) {

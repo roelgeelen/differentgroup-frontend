@@ -6,4 +6,5 @@ export enum FormsEnum {
   ldh = 'ldh',
   hpt = 'hpt',
   odht = 'odht',
+  files = 'files',
 }

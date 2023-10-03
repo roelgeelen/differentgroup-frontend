@@ -22,7 +22,8 @@ export class AuthenticationService {
     this.currentUserSubject.next(this.convertTokenToUser());
     let returnUrl = localStorage.getItem('returnUrl');
     localStorage.clear();
-    this.router.navigate([returnUrl]);
+    if (returnUrl != null)
+      this.router.navigate([returnUrl]);
   }
 
   public get currentUserValue(): User {
@@ -68,7 +69,7 @@ export class AuthenticationService {
 
   isTokenExpired(token?: string): boolean {
     if (!token) {
-      token =this.oauthService.getAccessToken();
+      token = this.oauthService.getAccessToken();
     }
     if (!token) {
       return true;

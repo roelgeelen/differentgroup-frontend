@@ -304,7 +304,7 @@ export const binnen: QuestionBase<string>[] = [
     options: [
       {value: 'Vlakke plaat transparant behandeld'},
       {value: 'Vlakke plaat op RAL'},
-      {value: 'Bekleed zoals de buitenkant'},
+      {value: 'Bekleed zoals de buitenkant', article: {sku: 'VDH600', order:100}},
     ]
   }),
   new TextQuestion({

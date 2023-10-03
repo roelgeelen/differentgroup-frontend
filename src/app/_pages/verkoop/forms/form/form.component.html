@@ -1,5 +1,5 @@
 <div class="buttons {{fullscreen ? 'buttons-fullscreen' : ''}}">
-  <button *ngIf="form" mat-raised-button color="accent" (click)="submit()" [disabled]="!form.valid">Offerte maken
+  <button *ngIf="form && page.type !== 'files'" mat-raised-button color="accent" (click)="submit()" [disabled]="!form.valid">Offerte maken
   </button>
   <button mat-raised-button color="accent"
           (click)="emptyNonVisibleFields()" [disabled]="publishing">
@@ -38,7 +38,7 @@
     </div>
 
     <form [formGroup]="form" *ngIf="dealConfig.values.dealname !== undefined && form">
-      <mat-tab-group [(selectedIndex)]="tabIndex">
+      <mat-tab-group [(selectedIndex)]="tabIndex" *ngIf="!page.customer || isADMIN">
         <mat-tab *ngFor="let tab of page.form" [label]="tab.label">
           <div class="form-content">
             <app-question *ngFor="let question of tab.questions" [question]="question" [form]="form"
@@ -52,7 +52,7 @@
               <button mat-raised-button color="accent" (click)="next()" *ngIf="tabIndex!= (tabCount -1)">Volgende
               </button>
               <button mat-raised-button color="accent" (click)="submit()" [disabled]="!form.valid"
-                      *ngIf="tabIndex == (tabCount -1)">Offerte maken
+                      *ngIf="tabIndex == (tabCount -1) && page.type !== 'files'">Offerte maken
               </button>
             </div>
           </div>
