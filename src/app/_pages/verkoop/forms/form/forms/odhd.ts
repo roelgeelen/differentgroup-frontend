@@ -295,7 +295,7 @@ export const buitenzijde: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'model',
-        values: ['D', 'E', 'F', 'G']
+        values: ['C', 'E', 'F', 'G', 'Overig']
       }
     ]
   }),
