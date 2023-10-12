@@ -61,17 +61,13 @@ export class UserComponent implements OnInit {
     }
     addShareWithUser(email: string) {
       if (email == '') {
-        this.sharedError = 'Vul eerst een geldig email adres in!';
-        return;
-      }
-      if (!email.endsWith('@differentdoors.nl')) {
-        this.sharedError = 'Dit is geen geldige Different Doors email!';
+        this.sharedError = 'Vul eerst een geldige gebruiker in!';
         return;
       }
       if (this.user.additional_managers==null) {
         this.user.additional_managers =[];
       }
-      this.user.additional_managers.push(email);
+      this.user.additional_managers.push(email+'@differentdoors.nl');
       this.closeAddShared();
       this.apiService.updateSharedUsers(this.userId, this.user.additional_managers).subscribe();
     }

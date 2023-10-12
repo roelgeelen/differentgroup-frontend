@@ -7,6 +7,16 @@ import {AuthenticationService} from "../../../../../_services/authentication.ser
 import {User} from "../../../../../_models/User";
 import {Location} from "@angular/common";
 
+const toolbarSettings: Toolbar = [
+  ['bold', 'italic'],
+  ['underline', 'strike'],
+  ['code', 'blockquote'],
+  ['ordered_list', 'bullet_list'],
+  [{heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']}],
+  ['link', 'image'],
+  ['text_color', 'background_color'],
+  ['align_left', 'align_center', 'align_right', 'align_justify'],
+];
 @Component({
   selector: 'app-post',
   templateUrl: './conversation.component.html',
@@ -20,16 +30,9 @@ export class ConversationComponent implements OnInit {
   loading = false;
   isEditing = false;
   editor: Editor;
-  toolbar: Toolbar = [
-    ['bold', 'italic'],
-    ['underline', 'strike'],
-    ['code', 'blockquote'],
-    ['ordered_list', 'bullet_list'],
-    [{heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']}],
-    ['link', 'image'],
-    ['text_color', 'background_color'],
-    ['align_left', 'align_center', 'align_right', 'align_justify'],
-  ];
+  editor2: Editor;
+  toolbar: Toolbar = toolbarSettings;
+  toolbar2: Toolbar = toolbarSettings;
 
   constructor(private apiService: ApiService, private route: ActivatedRoute,private authService: AuthenticationService, private location: Location,) {
     this.authService.currentUser.subscribe(x => this.currentUser = x);
@@ -37,6 +40,7 @@ export class ConversationComponent implements OnInit {
 
   ngOnInit(): void {
     this.editor = new Editor();
+    this.editor2 = new Editor();
     this.loading = true;
     this.route.paramMap.subscribe(queryParams => {
       this.queryParamUserId = queryParams.get('userId')!;
@@ -64,6 +68,7 @@ export class ConversationComponent implements OnInit {
   }
 
   save() {
+    console.log(this.conversation.managerComment);
     this.loading = true;
     if (this.queryParam) {
       this.apiService.updateUserConversation(this.queryParamUserId!, this.queryParam!, this.conversation).subscribe(s => {

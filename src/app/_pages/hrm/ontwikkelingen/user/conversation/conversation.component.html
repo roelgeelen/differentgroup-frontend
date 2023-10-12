@@ -50,15 +50,33 @@
         <div [innerHTML]="conversation.comment | safeHtml" class="message"></div>
       </div>
     </ng-container>
+    <ng-container *ngIf="conversation.managerComment && !isEditing">
+      <hr>
+      <h2>Manager opmerking</h2>
+      <div class="d-flex justify-content-between">
+        <div [innerHTML]="conversation.managerComment | safeHtml" class="message"></div>
+      </div>
+    </ng-container>
     <ng-container *ngIf="isEditing">
       <hr>
+      <h2>Manager opmerking</h2>
+      <div class="NgxEditor__Wrapper">
+        <ngx-editor-menu [editor]="editor2" [toolbar]="toolbar2"> </ngx-editor-menu>
+        <ngx-editor
+          [editor]="editor2"
+          [(ngModel)]="conversation.managerComment"
+          [disabled]="false"
+          [placeholder]="'Type hier je tekst...'"
+        ></ngx-editor>
+      </div>
+      <hr>
       <div class="d-flex justify-content-between">
-      <button mat-flat-button color="accent" (click)="save()">
-        Opslaan
-      </button>
-      <button mat-flat-button  (click)="isEditing=false;getConversation();">
-        Annuleren
-      </button>
+        <button mat-flat-button color="accent" (click)="save()">
+          Opslaan
+        </button>
+        <button mat-flat-button  (click)="isEditing=false;getConversation();">
+          Annuleren
+        </button>
       </div>
     </ng-container>
 
