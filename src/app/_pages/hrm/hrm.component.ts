@@ -5,10 +5,10 @@ import {AuthenticationService} from "../../_services/authentication.service";
 
 @Component({
   selector: 'app-main',
-  templateUrl: './magazijn.component.html',
-  styleUrls: ['./magazijn.component.scss']
+  templateUrl: './hrm.component.html',
+  styleUrls: ['./hrm.component.scss']
 })
-export class MagazijnComponent implements OnInit {
+export class HrmComponent implements OnInit {
   pages: any;
   private currentUser: User;
 
@@ -18,7 +18,7 @@ export class MagazijnComponent implements OnInit {
 
   ngOnInit(): void {
     this.pages = navConfig.filter((p) => {
-      return p.title === 'Magazijn';
+      return p.title === 'HRM';
     })[0].pages
   }
 

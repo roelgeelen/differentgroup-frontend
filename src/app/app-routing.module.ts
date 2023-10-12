@@ -70,6 +70,17 @@ const routes: Routes = [
     },
   },
   {
+    path: 'hrm',
+    loadChildren: () => import('./_pages/hrm/hrm.module').then(m => m.HrmModule),
+    canActivate: [AuthGuard],
+    data: {
+      roles: [
+        EnumRoles.RAPPORTAGE,
+        EnumRoles.FINANCIEEL
+      ]
+    },
+  },
+  {
     path: 'admin',
     loadChildren: () => import('./_pages/admin/admin.module').then(m => m.AdminModule),
     canActivate: [AuthGuard],

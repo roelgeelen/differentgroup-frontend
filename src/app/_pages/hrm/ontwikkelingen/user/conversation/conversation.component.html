@@ -1,0 +1,70 @@
+<mat-card *ngIf="!loading">
+  <div class="d-flex justify-content-between">
+    <mat-card-title>
+      {{queryParam ? conversation.title : 'Nieuwe ontwikkeling'}}
+    </mat-card-title>
+    <button mat-flat-button color="accent" routerLink="/hrm/werknemers/{{queryParamUserId}}">
+      Terug
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+  <hr>
+
+  <mat-card-content>
+    <ng-container *ngIf="!isEditing">
+      <mat-chip-list>
+        <mat-chip color="primary" selected *ngIf="conversation.isRead">Gelezen</mat-chip>
+        <mat-chip color="primary" selected *ngIf="conversation.isApproved">Akkoord</mat-chip>
+      </mat-chip-list>
+      <br>
+      <div class="d-flex justify-content-between">
+        <h2>
+          Bericht
+        </h2>
+        <button mat-mini-fab color="primary" (click)="isEditing=true">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+      <div [innerHTML]="conversation.body | safeHtml" class="message"></div>
+    </ng-container>
+    <ng-container *ngIf="isEditing">
+      <mat-form-field appearance="fill">
+        <mat-label>Titel</mat-label>
+        <input matInput [(ngModel)]="conversation.title">
+      </mat-form-field>
+      <br>
+      <div class="NgxEditor__Wrapper">
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+        <ngx-editor
+          [editor]="editor"
+          [(ngModel)]="conversation.body"
+          [disabled]="false"
+          [placeholder]="'Type hier je tekst...'"
+        ></ngx-editor>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="conversation.comment">
+      <hr>
+      <h2>Opmerking</h2>
+      <div class="d-flex justify-content-between">
+        <div [innerHTML]="conversation.comment | safeHtml" class="message"></div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="isEditing">
+      <hr>
+      <div class="d-flex justify-content-between">
+      <button mat-flat-button color="accent" (click)="save()">
+        Opslaan
+      </button>
+      <button mat-flat-button  (click)="isEditing=false;getConversation();">
+        Annuleren
+      </button>
+      </div>
+    </ng-container>
+
+  </mat-card-content>
+</mat-card>
+<div class="text-center w-100" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+

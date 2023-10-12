@@ -6,6 +6,10 @@ import {Event} from "../_models/calendar/Event";
 import {Observable} from "rxjs";
 import {Post} from "../_models/pages/Post";
 import {Vehicle} from "../_models/vehicle/Vehicle";
+import {User} from "../_models/User";
+import {GraphUser} from "../_models/hrm/GraphUser";
+import {FirestoreUser} from "../_models/hrm/FirestoreUser";
+import {FirestoreConversation} from "../_models/hrm/FirestoreConversation";
 
 @Injectable({
   providedIn: 'root'
@@ -63,7 +67,7 @@ export class ApiService {
     return this.http.get(`${environment.apiUrl}/posts/${uuid}`);
   }
 
-  updatePost(post: Post, file: File){
+  updatePost(post: Post, file: File) {
     const formdata: FormData = new FormData();
     formdata.append('file', file);
     formdata.append('title', post.title);
@@ -76,10 +80,48 @@ export class ApiService {
   }
 
   postToWallOfShame(user: string, email: string) {
-    return this.http.post(`https://prod-179.westeurope.logic.azure.com:443/workflows/a2639d37c50c44ab8f44958a676ee4ec/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=cPoNFZZAMPZ5jB_3oF1jd7t4YcekIQ2Nlai76UL8aJU`, {user, email});
+    return this.http.post(`https://prod-179.westeurope.logic.azure.com:443/workflows/a2639d37c50c44ab8f44958a676ee4ec/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=cPoNFZZAMPZ5jB_3oF1jd7t4YcekIQ2Nlai76UL8aJU`, {
+      user,
+      email
+    });
   }
 
-  postFirebaseNotification(title: string, message: string, topicId: string, screen: string|null = null, users: string[] = []) {
+  postFirebaseNotification(title: string, message: string, topicId: string, screen: string | null = null, users: string[] = []) {
     return this.http.post(`${environment.apiUrl}/firebase/notification`, {title, message, topicId, screen, users});
+  }
+
+  getDirectReports() {
+    return this.http.get<GraphUser[]>(`${environment.apiUrl}/hrm/direct`);
+  }
+
+  getSharedUsers() {
+    return this.http.get<FirestoreUser[]>(`${environment.apiUrl}/hrm/shared`);
+  }
+
+  updateSharedUsers(id: string, emails: string[]) {
+    return this.http.put(`${environment.apiUrl}/hrm/users/${id}/share`, emails);
+  }
+
+  getUser(id: string) {
+    return this.http.get<FirestoreUser>(`${environment.apiUrl}/hrm/users/${id}`);
+  }
+
+  getUserConversations(userId: string) {
+    return this.http.get<FirestoreConversation[]>(`${environment.apiUrl}/hrm/users/${userId}/conversations`);
+  }
+
+  getUserConversation(userId: string, id: string) {
+    return this.http.get<FirestoreConversation>(`${environment.apiUrl}/hrm/users/${userId}/conversations/${id}`);
+  }
+
+  updateUserConversation(userId: string, id: string, conversation: FirestoreConversation) {
+    return this.http.put(`${environment.apiUrl}/hrm/users/${userId}/conversations/${id}`, conversation);
+  }
+  createUserConversation(userId: string, conversation: FirestoreConversation) {
+    return this.http.post<FirestoreConversation>(`${environment.apiUrl}/hrm/users/${userId}/conversations`, conversation);
+  }
+
+  deleteUserConversation(userId: string, id: string) {
+    return this.http.delete(`${environment.apiUrl}/hrm/users/${userId}/conversations/${id}`);
   }
 }

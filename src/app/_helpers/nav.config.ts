@@ -150,6 +150,25 @@ export const navConfig: Page[] = [
     ],
   },
   {
+    url: '/hrm',
+    title: 'HRM',
+    icon: 'supervised_user_circle',
+    pages: [
+      {
+        url: '/hrm/werknemers',
+        title: 'Werknemers',
+        icon: 'group',
+        roles: [
+          EnumRoles.BERICHTEN_BEHEREN
+        ]
+      },
+    ],
+    roles: [
+      EnumRoles.BERICHTEN_BEHEREN,
+      EnumRoles.ROLLEN_BEHEREN
+    ],
+  },
+  {
     url: '/admin',
     title: 'Beheer',
     icon: 'supervised_user_circle',

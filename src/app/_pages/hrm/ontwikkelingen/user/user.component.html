@@ -1,0 +1,64 @@
+<div class="text-center w-100" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+</div>
+<ng-container *ngIf="!loading">
+    <div class="d-flex justify-content-between">
+        <h1>Ontwikkelingen van {{user.name}}</h1>
+        <button mat-flat-button color="accent" routerLink="/hrm/werknemers">
+            Terug
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
+    <hr>
+    <h3>Gedeeld met:</h3>
+    <mat-chip-list>
+        <mat-chip color="primary" selected *ngFor="let manager of user.additional_managers" [selectable]="false"
+                  [removable]="true"
+                  (removed)="removeSharedUser(manager)">{{manager}} <mat-icon matChipRemove>cancel</mat-icon></mat-chip>
+        <div class="shared">
+            <button mat-mini-fab color="primary" *ngIf="!addShared" (click)="addShared=true">
+                <mat-icon>add</mat-icon>
+            </button>
+            <div class="add-shared" *ngIf="addShared">
+                <mat-form-field class="m-2">
+                    <input matInput type="text" [(ngModel)]="value">
+                    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="closeAddShared()">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                  <mat-hint align="start" *ngIf="sharedError!=''">{{sharedError}}</mat-hint>
+                </mat-form-field>
+                <button mat-mini-fab color="primary" class="add-shared" (click)="addShareWithUser(value)">
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
+            </div>
+        </div>
+
+    </mat-chip-list>
+    <hr>
+  <div class="d-flex justify-content-between">
+    <h2>Ontwikkelingen</h2>
+    <button mat-flat-button color="accent" routerLink="ontwikkelingen/create">
+      Nieuw <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div class="text-center w-100" *ngIf="loadingConversations">
+    <mat-spinner></mat-spinner>
+  </div>
+    <mat-list *ngIf="!loadingConversations">
+        <mat-list-item *ngFor="let conversation of conversations">
+            <mat-card class="w-100 h-100">
+              <mat-icon *ngIf="conversation.isApproved">check_circle_outline</mat-icon><mat-icon *ngIf="!conversation.isApproved"></mat-icon> <span>{{conversation.createdAt}} / <small class="text-muted">{{conversation.title}}</small></span>
+<!--                <h3>{{conversation.title}} / <small>{{conversation.createdAt}}</small></h3>-->
+            </mat-card>
+            <button mat-flat-button color="accent" class="middle-btn" [routerLink]="'ontwikkelingen/'+conversation.id+'/update'">
+                <mat-icon>edit</mat-icon>
+            </button>
+          <button mat-flat-button color="accent" class="end-btn" (click)="delete(conversation)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+        <span *ngIf="conversations.length === 0">
+    Nog geen ontwikkelingen!
+  </span>
+    </mat-list>
+</ng-container>
