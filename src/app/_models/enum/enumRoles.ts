@@ -21,4 +21,5 @@
   DECLARATIE = 'Declaratie',
   ROLLEN_BEHEREN = 'Rollen_beheren',
   WIDGETS = 'Widgets',
+  ONTWIKKELINGEN_BEHEREN = 'Ontwikkelingen_beheren',
 }

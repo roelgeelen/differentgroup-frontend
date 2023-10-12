@@ -23,7 +23,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.LOGISTIEK
+            EnumRoles.ONTWIKKELINGEN_BEHEREN
           ]
         },
       },
@@ -33,7 +33,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.LOGISTIEK
+            EnumRoles.ONTWIKKELINGEN_BEHEREN
           ]
         },
       },
@@ -43,7 +43,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.LOGISTIEK
+            EnumRoles.ONTWIKKELINGEN_BEHEREN
           ]
         },
       },
@@ -53,7 +53,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           roles: [
-            EnumRoles.LOGISTIEK
+            EnumRoles.ONTWIKKELINGEN_BEHEREN
           ]
         },
       },

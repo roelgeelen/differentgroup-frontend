@@ -159,13 +159,12 @@ export const navConfig: Page[] = [
         title: 'Werknemers',
         icon: 'group',
         roles: [
-          EnumRoles.BERICHTEN_BEHEREN
+          EnumRoles.ONTWIKKELINGEN_BEHEREN
         ]
       },
     ],
     roles: [
-      EnumRoles.BERICHTEN_BEHEREN,
-      EnumRoles.ROLLEN_BEHEREN
+      EnumRoles.ONTWIKKELINGEN_BEHEREN
     ],
   },
   {

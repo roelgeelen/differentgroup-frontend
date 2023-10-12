@@ -75,8 +75,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       roles: [
-        EnumRoles.RAPPORTAGE,
-        EnumRoles.FINANCIEEL
+        EnumRoles.ONTWIKKELINGEN_BEHEREN,
       ]
     },
   },
