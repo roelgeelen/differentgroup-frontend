@@ -6,17 +6,8 @@ import {ApiService} from "../../../../../_services/api.service";
 import {AuthenticationService} from "../../../../../_services/authentication.service";
 import {User} from "../../../../../_models/User";
 import {Location} from "@angular/common";
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 
-const toolbarSettings: Toolbar = [
-  ['bold', 'italic'],
-  ['underline', 'strike'],
-  ['code', 'blockquote'],
-  ['ordered_list', 'bullet_list'],
-  [{heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']}],
-  ['link', 'image'],
-  ['text_color', 'background_color'],
-  ['align_left', 'align_center', 'align_right', 'align_justify'],
-];
 @Component({
   selector: 'app-post',
   templateUrl: './conversation.component.html',
@@ -31,10 +22,19 @@ export class ConversationComponent implements OnInit {
   isEditing = false;
   editor: Editor;
   editor2: Editor;
-  toolbar: Toolbar = toolbarSettings;
-  toolbar2: Toolbar = toolbarSettings;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']}],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
+  error: string = '';
 
-  constructor(private apiService: ApiService, private route: ActivatedRoute,private authService: AuthenticationService, private location: Location,) {
+  constructor(private apiService: ApiService, private route: ActivatedRoute, private authService: AuthenticationService, private location: Location,) {
     this.authService.currentUser.subscribe(x => this.currentUser = x);
   }
 
@@ -68,23 +68,32 @@ export class ConversationComponent implements OnInit {
   }
 
   save() {
-    console.log(this.conversation.managerComment);
+    if (this.conversation.title == '') {
+      this.error = 'Titel is verplicht';
+      return;
+    }
+
+    if (this.conversation.body == '') {
+      this.error = 'Bericht is verplicht!'
+      return;
+    }
     this.loading = true;
     if (this.queryParam) {
       this.apiService.updateUserConversation(this.queryParamUserId!, this.queryParam!, this.conversation).subscribe(s => {
         this.getConversation()
-        this.loading = false
+        this.loading = false;
+        this.error = '';
         this.isEditing = false;
       }, error => {
         this.loading = false
       });
     } else {
-      this.conversation.createdBy="users/"+this.currentUser.email;
+      this.conversation.createdBy = "users/" + this.currentUser.email;
       this.apiService.createUserConversation(this.queryParamUserId, this.conversation).subscribe(c => {
         this.conversation = c;
         this.location.replaceState(`/hrm/werknemers/${this.queryParamUserId}/ontwikkelingen/${this.conversation.id}/update`);
         this.queryParam = c.id
-        this.isEditing=false;
+        this.isEditing = false;
         this.loading = false;
       }, error => {
         console.log(error);
@@ -92,5 +101,10 @@ export class ConversationComponent implements OnInit {
       });
     }
 
+  }
+
+  publish($event: MatSlideToggleChange) {
+    this.conversation.isPublished = $event.checked;
+    this.save()
   }
 }

@@ -1,6 +1,6 @@
 export class FirestoreConversation {
   id: string;
-  title: string;
+  title: string = '';
   body: string = '';
   managerComment: string = '';
   comment: string;
@@ -8,6 +8,7 @@ export class FirestoreConversation {
   createdBy: string;
   isApproved: boolean = false;
   isRead: boolean = false;
+  isPublished: boolean = false;
 
   constructor() {
   }

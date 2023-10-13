@@ -38,3 +38,16 @@ mat-card {
     top: -6px;
   }
 }
+.published-label {
+  color: forestgreen;
+  border: solid 1px forestgreen;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 12px;
+  mat-icon {
+    position: relative;
+    top: 4px;
+    width: 18px;
+    font-size: 18px;
+  }
+}

@@ -3,27 +3,33 @@
     <mat-card-title>
       {{queryParam ? conversation.title : 'Nieuwe ontwikkeling'}}
     </mat-card-title>
+    <div>
+    <button mat-flat-button color="accent" class="m-1" (click)="isEditing=true" *ngIf="!isEditing">
+      Bewerken
+      <mat-icon>edit</mat-icon>
+    </button>
     <button mat-flat-button color="accent" routerLink="/hrm/werknemers/{{queryParamUserId}}">
       Terug
       <mat-icon>clear</mat-icon>
     </button>
+    </div>
   </div>
   <hr>
 
   <mat-card-content>
     <ng-container *ngIf="!isEditing">
+      <div class="d-flex justify-content-between">
       <mat-chip-list>
         <mat-chip color="primary" selected *ngIf="conversation.isRead">Gelezen</mat-chip>
         <mat-chip color="primary" selected *ngIf="conversation.isApproved">Akkoord</mat-chip>
       </mat-chip-list>
+        <mat-slide-toggle [(ngModel)]="conversation.isPublished" (change)="publish($event)">Gepubliceerd</mat-slide-toggle>
+      </div>
       <br>
       <div class="d-flex justify-content-between">
         <h2>
           Bericht
         </h2>
-        <button mat-mini-fab color="primary" (click)="isEditing=true">
-          <mat-icon>edit</mat-icon>
-        </button>
       </div>
       <div [innerHTML]="conversation.body | safeHtml" class="message"></div>
     </ng-container>
@@ -61,7 +67,7 @@
       <hr>
       <h2>Manager opmerking</h2>
       <div class="NgxEditor__Wrapper">
-        <ngx-editor-menu [editor]="editor2" [toolbar]="toolbar2"> </ngx-editor-menu>
+        <ngx-editor-menu [editor]="editor2" [toolbar]="toolbar"> </ngx-editor-menu>
         <ngx-editor
           [editor]="editor2"
           [(ngModel)]="conversation.managerComment"
@@ -71,9 +77,12 @@
       </div>
       <hr>
       <div class="d-flex justify-content-between">
+        <div>
         <button mat-flat-button color="accent" (click)="save()">
           Opslaan
         </button>
+          <mat-error *ngIf="error != ''">{{error}}</mat-error>
+        </div>
         <button mat-flat-button  (click)="isEditing=false;getConversation();">
           Annuleren
         </button>

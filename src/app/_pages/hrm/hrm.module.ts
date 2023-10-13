@@ -17,6 +17,7 @@ import {SharedModule} from "../../shared.module";
 import {ConversationComponent} from "./ontwikkelingen/user/conversation/conversation.component";
 import {NgxEditorModule} from "ngx-editor";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     SharedModule,
     NgxEditorModule,
     MatProgressBarModule,
+    MatSlideToggleModule
   ],
   declarations: [
     HrmComponent,

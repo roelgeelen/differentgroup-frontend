@@ -53,9 +53,12 @@
   <mat-list *ngIf="!loadingConversations">
     <mat-list-item *ngFor="let conversation of conversations">
       <mat-card class="w-100 h-100">
-        <mat-icon *ngIf="conversation.isApproved">check_circle_outline</mat-icon>
+        <mat-icon *ngIf="conversation.isRead">remove_red_eye</mat-icon>
         <mat-icon *ngIf="!conversation.isApproved"></mat-icon>
+        <mat-icon *ngIf="conversation.isApproved">check_circle_outline</mat-icon>
+
         <span>{{conversation.createdAt}} / <small class="text-muted">{{conversation.title}}</small></span>
+        <span *ngIf="conversation.isPublished" class="published-label"><mat-icon>check</mat-icon> gepubliceerd</span>
         <!--                <h3>{{conversation.title}} / <small>{{conversation.createdAt}}</small></h3>-->
       </mat-card>
       <button mat-flat-button color="accent" class="middle-btn"
