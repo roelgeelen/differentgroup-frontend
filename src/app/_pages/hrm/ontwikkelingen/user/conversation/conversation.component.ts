@@ -105,6 +105,9 @@ export class ConversationComponent implements OnInit {
 
   publish($event: MatSlideToggleChange) {
     this.conversation.isPublished = $event.checked;
-    this.save()
+    this.save();
+    if (this.conversation.isPublished){
+      this.apiService.postFirebaseNotification('Nieuwe ontwikkeling', `${this.currentUser.name} heeft een nieuwe ontwikkeling voor je klaargezet.`, 'conversation_updates', '/profile/conversations', [this.queryParamUserId]).subscribe();
+    }
   }
 }
