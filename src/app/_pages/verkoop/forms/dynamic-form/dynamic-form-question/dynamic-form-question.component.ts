@@ -111,9 +111,9 @@ export class DynamicFormQuestionComponent {
     this.editing = true;
   }
 
-  selectFile(event: any) {
+  prepareFilesList(files: FileList) {
     this.uploading = true;
-    this.selectedFiles = event.target.files;
+    this.selectedFiles = files;
     this.isImageInvalid = false;
     // @ts-ignore
     if (this.selectedFiles.item(0).size > 5000000) {
@@ -121,12 +121,19 @@ export class DynamicFormQuestionComponent {
       this.selectedFiles = null;
     } else {
       const reader = new FileReader();
-      if (event.target.files && event.target.files.length) {
-        const [file] = event.target.files;
-        reader.readAsDataURL(file);
-        this.sendFile(file);
+      if (files && files.length) {
+        reader.readAsDataURL(files[0]);
+        this.sendFile(files[0]);
       }
     }
+  }
+
+  onFileDropped(event:any) {
+    this.prepareFilesList(event);
+  }
+
+  fileBrowseHandler(event: any) {
+    this.prepareFilesList(event.target.files);
   }
 
   sendFile(file: any) {
@@ -152,6 +159,12 @@ export class DynamicFormQuestionComponent {
       this.error = 'Kon afbeelding niet opslaan.'
       this.uploading = false;
     });
+  }
+
+  removeFile() {
+    this.getProperty(this.question.key).url = '';
+    this.timestamp = Date.now();
+    this.save(false);
   }
 
   getProperty(name: string) {

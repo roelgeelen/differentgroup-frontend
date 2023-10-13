@@ -37,6 +37,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDialogModule} from "@angular/material/dialog";
 import {EventInfoDialogComponent} from "./afspraken/event-info-dialog/event-info-dialog.component";
 import {SharedModule} from "../../shared.module";
+import { DndDirective } from '../../_helpers/dnd.directive';
 
 @NgModule({
   imports: [
@@ -82,7 +83,8 @@ import {SharedModule} from "../../shared.module";
     FormComponent,
     OverviewComponent,
     DynamicFormQuestionComponent,
-    EventInfoDialogComponent
+    EventInfoDialogComponent,
+    DndDirective
   ],
   exports: [
     VerkoopComponent,

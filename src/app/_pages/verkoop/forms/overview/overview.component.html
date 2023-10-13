@@ -106,7 +106,7 @@
                 <mat-card-subtitle>{{config.values.adviseur}} - {{config.values.updated_at}}</mat-card-subtitle>
                 <mat-card-actions>
                   <a mat-raised-button color="primary"
-                     href="https://info.differentdoors.nl/configuratie-overview/deal/P{{config.values.deal_id}}/{{config.path}}"
+                     href="{{config.values.type=='files'? 'https://info.differentdoors.nl/configuratie-bestanden/p': 'https://info.differentdoors.nl/configuratie-overview/deal/P'}}{{config.values.deal_id}}/{{config.path}}"
                      target="_blank">
                     <mat-icon>remove_red_eye</mat-icon>
                   </a>
