@@ -62,18 +62,18 @@ const calendars: Calendar[] = [
     events: [],
     appointments: []
   },
-  // {
-  //   name: 'Danny Rutjes',
-  //   id: '364617441',
-  //   icon: 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png',
-  //   color: {
-  //     primary: '#691eff',
-  //     secondary: '#e2d1ff'
-  //   },
-  //   type: 'openslaande',
-  //   events: [],
-  //   appointments: []
-  // },
+  {
+    name: 'Wessel van den houdt',
+    id: '1405005535',
+    icon: 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png',
+    color: {
+      primary: '#691eff',
+      secondary: '#e2d1ff'
+    },
+    type: 'openslaande',
+    events: [],
+    appointments: []
+  },
   {
     name: 'Mark Bogers',
     id: '522705647',
