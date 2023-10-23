@@ -144,7 +144,7 @@ export class DynamicFormQuestionComponent {
       this.dealConfig.values.deal_id,
       this.dealConfig.id,
       file,
-      this.question.key + '-' + this.dealConfig.id + (file.name !== undefined ?'.' + file.name.split('.')[1] : '')
+      this.question.key + '-' + this.dealConfig.id + (file.name !== undefined ?'.' + file.name.slice(file.name.lastIndexOf('.') + 1) : '')
     ).subscribe(r => {
       if (r.type === HttpEventType.UploadProgress) {
         // @ts-ignore
