@@ -65,16 +65,19 @@ export const algemeen: QuestionBase<string>[] = [
       {
         key: 'montage_straat',
         label: 'Straat + huisnummer',
+        validators: [Validators.required],
         type: 'text'
       },
       {
         key: 'montage_postcode',
         label: 'Postcode',
+        validators: [Validators.required],
         type: 'text',
       },
       {
         key: 'montage_plaats',
         label: 'Plaats',
+        validators: [Validators.required],
         type: 'text'
       }
     ]
@@ -495,6 +498,21 @@ export const deur: QuestionBase<string>[] = [
     ]
   }),
   new RadioQuestion({
+    key: 'bekleding_rondom',
+    label: 'Bekleding rondom',
+    options: [
+      {value: 'Zetkappen bekleed door aannemer'},
+      {value: 'Zetkap bovenzijde door Different Doors, zijkanten door de aannemer.'},
+      {value: 'Zetkappen rondom bekleed door Different Doors (zetkap breedte).'},
+    ],
+    dependent: [
+      {
+        field: 'positie',
+        values: ['Gelijk met de wand']
+      }
+    ]
+  }),
+  new RadioQuestion({
     key: 'isolatie_in_de_deur',
     label: 'Isolatie in de deur',
     options: [
@@ -644,14 +662,12 @@ export const glas: QuestionBase<string>[] = [
 export const gevelbekleding: QuestionBase<string>[] = [
   new RadioQuestion({
     key: 'aanbrengen_gevelbekleding',
-    label: 'Aanbrengen gevelbekleding',
+    label: 'Aanbrengen overige gevelbekleding',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Overige gevelbekleding los geleverd (montage door klant), enkel de stalen zetkappen worden door Different Doors bekleed', article: {sku:'SDH401', order:100}},
-      {value: 'Overige gevelbekleding los geleverd en stalen zetkappen bekleed door klant', article: {sku:'SDH407', order:100}},
-      {value: 'Overige gevelbekleding gemonteerd door Different Doors (zie gele arcering)', article: {sku:'SDH402', order:100}},
-      {value: 'Overige gevelbekleding los geleverd (montage door klant)', article: {sku:'SDH407', order:100}},
-      {value: 'Door de klant'},
+      {value: 'Gevelbekleding los geleverd (montage door klant)', article: {sku:'SDH407', order:100}},
+      {value: 'Gevelbekleding gemonteerd door Different Doors (zie gele arcering)', article: {sku:'SDH402', order:100}},
+      {value: 'Gevelbekleding door klant (geen levering Different Doors)'},
     ],
     other: true,
     custom: ''
