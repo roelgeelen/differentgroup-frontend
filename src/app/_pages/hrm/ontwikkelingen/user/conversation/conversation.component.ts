@@ -7,6 +7,7 @@ import {AuthenticationService} from "../../../../../_services/authentication.ser
 import {User} from "../../../../../_models/User";
 import {Location} from "@angular/common";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-post',
@@ -105,9 +106,24 @@ export class ConversationComponent implements OnInit {
 
   publish($event: MatSlideToggleChange) {
     this.conversation.isPublished = $event.checked;
-    this.save();
     if (this.conversation.isPublished){
-      this.apiService.postFirebaseNotification('Nieuwe ontwikkeling', `${this.currentUser.name} heeft een nieuwe ontwikkeling voor je klaargezet.`, 'conversation_updates', '/profile/conversations', [this.queryParamUserId]).subscribe();
+      Swal.fire({
+        title: 'Weet je het zeker?',
+        text: 'Wil je deze ontwikkeling publiceren?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#2e3785',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ja, publiceren!',
+        cancelButtonText: 'Annuleren',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.save();
+          this.apiService.postFirebaseNotification('Nieuwe ontwikkeling', `${this.currentUser.name} heeft een nieuwe ontwikkeling voor je klaargezet.`, 'conversation_updates', '/profile/conversations', [this.queryParamUserId]).subscribe();
+        }
+      });
+    } else {
+      this.save();
     }
   }
 }

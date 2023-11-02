@@ -59,26 +59,38 @@ export const sales: QuestionBase<string>[] = [
   }),
 ]
 export const algemeen: QuestionBase<string>[] = [
+  new RadioQuestion({
+    key:'afwijkend_adres',
+    label:'Afwijkend montage adres',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee'}
+    ],
+    validators: [Validators.required]
+  }),
   new TextQuestion({
     label: 'Afwijkend montage adres',
     fields: [
       {
         key: 'montage_straat',
         label: 'Straat + huisnummer',
-        validators: [Validators.required],
         type: 'text'
       },
       {
         key: 'montage_postcode',
         label: 'Postcode',
-        validators: [Validators.required],
         type: 'text',
       },
       {
         key: 'montage_plaats',
         label: 'Plaats',
-        validators: [Validators.required],
         type: 'text'
+      }
+    ],
+    dependent: [
+      {
+        field: 'afwijkend_adres',
+        values: ['Ja']
       }
     ]
   }),
