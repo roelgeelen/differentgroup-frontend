@@ -171,50 +171,16 @@ export const algemeen: QuestionBase<string>[] = [
     validators: [Validators.required]
   }),
   new TextQuestion({
-    label: 'Analoog afmetingen (in mm)',
+    label: 'Offerte afmetingen (in mm)',
     fields: [
       {
-        key: 'analoog_breedte',
+        key: 'offerte_breedte',
         label: 'Breedte',
         type: 'number',
-        validators: [Validators.required, Validators.max(3000)]
+        validators: [Validators.required, Validators.max(3005)]
       },
       {
-        key: 'analoog_hoogte',
-        label: 'Hoogte',
-        type: 'number',
-        validators: [Validators.required, Validators.max(2500)]
-      }
-    ]
-  }),
-  new TextQuestion({
-    label: 'Digitaal afmetingen (in mm)',
-    fields: [
-      {
-        key: 'digitaal_breedte',
-        label: 'Breedte',
-        type: 'number',
-        validators: [Validators.required, Validators.max(3000)]
-      },
-      {
-        key: 'digitaal_hoogte',
-        label: 'Hoogte',
-        type: 'number',
-        validators: [Validators.required, Validators.max(2500)]
-      }
-    ]
-  }),
-  new TextQuestion({
-    label: 'Bestel afmetingen (in mm)',
-    fields: [
-      {
-        key: 'breedte',
-        label: 'Breedte',
-        type: 'number',
-        validators: [Validators.required, Validators.max(3000)]
-      },
-      {
-        key: 'hoogte',
+        key: 'offerte_hoogte',
         label: 'Hoogte',
         type: 'number',
         validators: [Validators.required, Validators.max(2500)]
@@ -482,13 +448,13 @@ export const deur: QuestionBase<string>[] = [
   }),
   new CheckboxQuestion({
     key: 'cilinder',
-    label: 'Cilinder (cilindermaat 40/45 binnen/buitenzijde)',
+    label: 'Cilinder (cilindermaat 40/40 binnen/buitenzijde)',
     options: [
       {value: 'Cilinder leveren door DD (incl. drie sleutels)'},
       {value: 'Extra sleutel', article: {sku:'ODO308', order:100}},
       {value: 'Gelijksluitend (bij meedere deuren)', article: {sku:'ODO307', order:100}},
       {value: 'Draaiknopcilinder'},
-      {value: 'Aangeleverd door klant (40/45 binnen/buitenzijde)'}
+      {value: 'Aangeleverd door klant (40/40 binnen/buitenzijde)'}
     ],
     other: true,
     custom: ' ',
@@ -746,6 +712,60 @@ export const overige: QuestionBase<string>[] = [
     label: 'Materiaal te bestellen door werkvoorbereiding',
     toDeal: true
   }),
+];
+
+export const inmeten: QuestionBase<string>[] = [
+  new TextQuestion({
+    label: 'Analoog afmetingen (in mm)',
+    fields: [
+      {
+        key: 'analoog_breedte',
+        label: 'Breedte',
+        type: 'number',
+        validators: [Validators.max(3005)]
+      },
+      {
+        key: 'analoog_hoogte',
+        label: 'Hoogte',
+        type: 'number',
+        validators: [Validators.max(2500)]
+      }
+    ]
+  }),
+  new TextQuestion({
+    label: 'Digitaal afmetingen (in mm)',
+    fields: [
+      {
+        key: 'digitaal_breedte',
+        label: 'Breedte',
+        type: 'number',
+        validators: [Validators.max(3005)]
+      },
+      {
+        key: 'digitaal_hoogte',
+        label: 'Hoogte',
+        type: 'number',
+        validators: [Validators.max(2500)]
+      }
+    ]
+  }),
+  new TextQuestion({
+    label: 'Bestel afmetingen (in mm)',
+    fields: [
+      {
+        key: 'breedte',
+        label: 'Breedte',
+        type: 'number',
+        validators: [Validators.max(3005)]
+      },
+      {
+        key: 'hoogte',
+        label: 'Hoogte',
+        type: 'number',
+        validators: [Validators.max(2500)]
+      }
+    ]
+  }),
   new RadioQuestion({
     key: 'deur_bestellen',
     label: 'Deur bestellen',
@@ -820,6 +840,10 @@ export const odo: TabBase[] = [
   {
     label: 'Overige',
     questions: overige
+  },
+  {
+    label: 'Inmeten',
+    questions: inmeten
   },
   {
     label: 'Foto\'s',

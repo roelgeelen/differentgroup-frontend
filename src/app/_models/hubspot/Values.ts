@@ -7,6 +7,8 @@ export class Values {
   updated_at: string;
   breedte: number;
   hoogte: number;
+  offerte_breedte: number;
+  offerte_hoogte: number;
   links: number;
   rechts: number;
   deur_afmetingen: any;
