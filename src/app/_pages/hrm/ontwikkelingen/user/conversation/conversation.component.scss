@@ -41,3 +41,18 @@ mat-progress-bar {
   height: 260px;
   overflow: auto;
 }
+
+.confidential-label {
+  color: #334d9c;
+  border: solid 1px #334d9c;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 12px;
+  margin-bottom: 20px;
+  mat-icon {
+    position: relative;
+    top: 4px;
+    width: 18px;
+    font-size: 18px;
+  }
+}

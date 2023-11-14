@@ -7,14 +7,14 @@
 </div>
 <mat-list *ngIf="!loading">
   <h2>Mijn team</h2>
-  <mat-list-item *ngFor="let user of graphUsers">
+  <mat-list-item *ngFor="let user of graphUsers" routerLink="/hrm/werknemers/{{user.userPrincipalName}}">
     <mat-card class="w-100 h-100">
       <mat-icon >account_circle</mat-icon> <span>{{user.displayName}}</span>
       <mat-card-subtitle>
         {{user.userPrincipalName}}
       </mat-card-subtitle>
     </mat-card>
-    <button mat-flat-button color="accent" class="end-btn" routerLink="/hrm/werknemers/{{user.userPrincipalName}}">
+    <button mat-flat-button color="accent" class="end-btn">
       <mat-icon>edit</mat-icon>
     </button>
 

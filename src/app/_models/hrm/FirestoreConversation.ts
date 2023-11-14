@@ -9,6 +9,7 @@ export class FirestoreConversation {
   isApproved: boolean = false;
   isRead: boolean = false;
   isPublished: boolean = false;
+  isConfidential: boolean = false;
 
   constructor() {
   }

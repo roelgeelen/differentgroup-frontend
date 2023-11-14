@@ -5,6 +5,8 @@ import {ActivatedRoute} from "@angular/router";
 import {FirestoreConversation} from "../../../../_models/hrm/FirestoreConversation";
 import {map} from "rxjs";
 import Swal from "sweetalert2";
+import {AuthenticationService} from "../../../../_services/authentication.service";
+import {User} from "../../../../_models/User";
 
 @Component({
     selector: 'app-user',
@@ -12,6 +14,7 @@ import Swal from "sweetalert2";
     styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+  currentUser: User;
     loading = false;
     loadingConversations = false;
     user: FirestoreUser;
@@ -21,7 +24,8 @@ export class UserComponent implements OnInit {
     userId: string;
     sharedError = '';
 
-    constructor(private apiService: ApiService, private route: ActivatedRoute) {
+    constructor(private apiService: ApiService, private route: ActivatedRoute, private authService: AuthenticationService,) {
+      this.authService.currentUser.subscribe(x => this.currentUser = x);
     }
 
     ngOnInit(): void {
@@ -71,23 +75,4 @@ export class UserComponent implements OnInit {
       this.closeAddShared();
       this.apiService.updateSharedUsers(this.userId, this.user.additional_managers).subscribe();
     }
-
-  delete(conversation: FirestoreConversation) {
-    Swal.fire({
-      title: 'Weet je het zeker?',
-      text: 'Wil je deze ontwikkeling permanent verwijderen?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#2e3785',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ja, verwijderen!',
-      cancelButtonText: 'Annuleren',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.apiService.deleteUserConversation(this.userId, conversation.id).subscribe(r => {
-          this.getConversations();
-        })
-      }
-    });
-  }
 }

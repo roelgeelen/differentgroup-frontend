@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Editor, Toolbar} from "ngx-editor";
 import {FirestoreConversation} from "../../../../../_models/hrm/FirestoreConversation";
 import {ApiService} from "../../../../../_services/api.service";
@@ -8,6 +8,7 @@ import {User} from "../../../../../_models/User";
 import {Location} from "@angular/common";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 import Swal from "sweetalert2";
+import {HttpParams} from "@angular/common/http";
 
 @Component({
   selector: 'app-post',
@@ -15,7 +16,7 @@ import Swal from "sweetalert2";
   styleUrls: ['./conversation.component.scss']
 })
 export class ConversationComponent implements OnInit {
-  private currentUser: User;
+  currentUser: User;
   conversation: FirestoreConversation = new FirestoreConversation();
   queryParam: string;
   queryParamUserId: string;
@@ -35,7 +36,7 @@ export class ConversationComponent implements OnInit {
   ];
   error: string = '';
 
-  constructor(private apiService: ApiService, private route: ActivatedRoute, private authService: AuthenticationService, private location: Location,) {
+  constructor(private apiService: ApiService, private router: Router, private route: ActivatedRoute, private authService: AuthenticationService, private location: Location,) {
     this.authService.currentUser.subscribe(x => this.currentUser = x);
   }
 
@@ -106,7 +107,7 @@ export class ConversationComponent implements OnInit {
 
   publish($event: MatSlideToggleChange) {
     this.conversation.isPublished = $event.checked;
-    if (this.conversation.isPublished){
+    if (this.conversation.isPublished) {
       Swal.fire({
         title: 'Weet je het zeker?',
         text: 'Wil je deze ontwikkeling publiceren?',
@@ -125,5 +126,56 @@ export class ConversationComponent implements OnInit {
     } else {
       this.save();
     }
+  }
+
+  delete(conversation: FirestoreConversation) {
+    Swal.fire({
+      title: 'Weet je het zeker?',
+      text: 'Wil je deze ontwikkeling permanent verwijderen?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2e3785',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ja, verwijderen!',
+      cancelButtonText: 'Annuleren',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.apiService.deleteUserConversation(this.queryParamUserId, conversation.id).subscribe(r => {
+          this.router.navigateByUrl('/hrm/werknemers/'+ this.queryParamUserId)
+        })
+      }
+    });
+  }
+
+  mailTo() {
+    Swal.fire({
+      title: "Met wie wil je dit delen?",
+      input: "email",
+      inputPlaceholder: "Email",
+      inputAttributes: {
+        autocapitalize: "off",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Email versturen",
+      confirmButtonColor: '#2e3785',
+      showLoaderOnConfirm: true,
+      preConfirm: async (email) => {
+        if (!email.endsWith('differentdoors.nl'))
+          Swal.showValidationMessage(`Email moet een Different Doors email zijn.`);
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // @ts-ignore
+        this.apiService.postShareConversation(result.value.toString(), this.queryParamUserId, this.conversation).subscribe(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Email is verstuurd",
+            confirmButtonColor: '#2e3785',
+          });
+        });
+
+      }
+    });
   }
 }

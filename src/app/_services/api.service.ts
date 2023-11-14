@@ -86,6 +86,14 @@ export class ApiService {
     });
   }
 
+  postShareConversation(email: string, user: string, conversation: FirestoreConversation) {
+    return this.http.post(`https://prod-36.westeurope.logic.azure.com:443/workflows/1c6a24c2d0c04918b5ad360450dd6a97/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=mDm50_Jtkaw_8pOiPwqqh7E5qlpQ0OAbEaXmNC4-gOM`, {
+      conversation,
+      email,
+      user
+    });
+  }
+
   postFirebaseNotification(title: string, message: string, topicId: string, screen: string | null = null, users: string[] = []) {
     return this.http.post(`${environment.apiUrl}/firebase/notification`, {title, message, topicId, screen, users});
   }
