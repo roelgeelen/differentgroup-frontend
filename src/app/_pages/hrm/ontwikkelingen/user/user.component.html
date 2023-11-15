@@ -4,11 +4,16 @@
 <ng-container *ngIf="!loading">
   <div class="d-flex justify-content-between">
     <div><h1>Ontwikkelingen van {{user.name}}</h1>Manager: <b>{{user.manager.split(' | ')[0]}}</b></div>
-
-    <button mat-flat-button color="accent" routerLink="/hrm/werknemers">
-      Terug
-      <mat-icon>clear</mat-icon>
-    </button>
+    <div class="buttons">
+      <button mat-flat-button color="accent" class="m-2" routerLink="ontwikkelingen/create">
+        Nieuw
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-flat-button color="accent" routerLink="/hrm/werknemers">
+        Terug
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
   </div>
   <hr>
   <h3>Gedeeld met:</h3>
@@ -42,18 +47,33 @@
   <hr>
   <div class="d-flex justify-content-between">
     <h2>Ontwikkelingen</h2>
-    <button mat-flat-button color="accent" routerLink="ontwikkelingen/create">
-      Nieuw
-      <mat-icon>add</mat-icon>
-    </button>
+    <div>
+    <mat-form-field appearance="fill" class="m-2">
+      <mat-label>Zoeken</mat-label>
+      <mat-icon matPrefix>search</mat-icon>
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchText!=''" (click)="searchText=''">
+        <mat-icon>close</mat-icon>
+      </button>
+      <input matInput type="text" [(ngModel)]="searchText">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="h-100">
+      <mat-label>Selecteer een jaar</mat-label>
+      <input matInput type="text" [matDatepicker]="picker" [(ngModel)]="date" disabled>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event, picker)" disabled="false"></mat-datepicker>
+    </mat-form-field>
+    </div>
   </div>
   <div class="text-center w-100" *ngIf="loadingConversations">
     <mat-spinner></mat-spinner>
   </div>
   <mat-list *ngIf="!loadingConversations">
-    <mat-list-item *ngFor="let conversation of conversations" [routerLink]="'ontwikkelingen/'+conversation.id+'/update'"  [class.disabled]="conversation.isConfidential && conversation.createdBy.replace('users/', '')!==currentUser.email ? true : null">
+    <mat-list-item *ngFor="let conversation of conversations | searchFilter: searchText: 'title'"
+                   [routerLink]="'ontwikkelingen/'+conversation.id+'/update'"
+                   [class.disabled]="conversation.isConfidential && conversation.createdBy.replace('users/', '')!==currentUser.email ? true : null">
       <mat-card class="w-100 h-100">
-        <mat-icon class="confidential" *ngIf="conversation.isConfidential">lock</mat-icon><span>{{conversation.createdAt}} / <small class="text-muted">{{conversation.title}}</small></span>
+        <mat-icon class="confidential" *ngIf="conversation.isConfidential">lock</mat-icon>
+        <span>{{conversation.createdAt.seconds*1000 | date: 'dd-MM-yyyy HH:mm'}} / <small class="text-muted">{{conversation.title}}</small></span>
         <span *ngIf="conversation.isPublished" class="published-label"><mat-icon>check</mat-icon> gepubliceerd</span>
         <mat-card-subtitle class="m-1">
           {{conversation.createdBy.replace('users/', '')}}
@@ -63,12 +83,13 @@
       <mat-icon *ngIf="conversation.isRead" class="published">remove_red_eye</mat-icon>
       <mat-icon *ngIf="conversation.isApproved" class="published">check_circle_outline</mat-icon>
 
-      <button mat-flat-button color="accent" class="end-btn" *ngIf="!conversation.isConfidential || conversation.createdBy.replace('users/', '')===currentUser.email">
+      <button mat-flat-button color="accent" class="end-btn"
+              *ngIf="!conversation.isConfidential || conversation.createdBy.replace('users/', '')===currentUser.email">
         <mat-icon>edit</mat-icon>
       </button>
     </mat-list-item>
-    <span *ngIf="conversations.length === 0">
-    Nog geen ontwikkelingen!
-  </span>
+    <span *ngIf="(conversations | searchFilter: searchText: 'title').length === 0">
+      Geen ontwikkelingen gevonden!
+    </span>
   </mat-list>
 </ng-container>

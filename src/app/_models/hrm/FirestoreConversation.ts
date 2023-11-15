@@ -4,7 +4,7 @@ export class FirestoreConversation {
   body: string = '';
   managerComment: string = '';
   comment: string;
-  createdAt: string;
+  createdAt: {nanos: number, seconds: number};
   createdBy: string;
   isApproved: boolean = false;
   isRead: boolean = false;

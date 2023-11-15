@@ -1,5 +1,10 @@
 <div class="d-flex justify-content-between">
   <h1>Werknemers</h1>
+  <mat-form-field appearance="fill">
+    <mat-label>Zoeken</mat-label>
+    <mat-icon matSuffix>search</mat-icon>
+    <input matInput type="text" [(ngModel)]="searchText">
+  </mat-form-field>
 </div>
 <hr>
 <div class="text-center w-100" *ngIf="loading">
@@ -7,7 +12,7 @@
 </div>
 <mat-list *ngIf="!loading">
   <h2>Mijn team</h2>
-  <mat-list-item *ngFor="let user of graphUsers" routerLink="/hrm/werknemers/{{user.userPrincipalName}}">
+  <mat-list-item *ngFor="let user of graphUsers | searchFilter: searchText: 'displayName'" routerLink="/hrm/werknemers/{{user.userPrincipalName}}">
     <mat-card class="w-100 h-100">
       <mat-icon >account_circle</mat-icon> <span>{{user.displayName}}</span>
       <mat-card-subtitle>
@@ -19,23 +24,25 @@
     </button>
 
   </mat-list-item>
-  <span *ngIf="graphUsers.length === 0">
-    Nog geen gebruikers!
+  <span *ngIf="(graphUsers | searchFilter: searchText: 'displayName').length === 0">
+    Geen gebruikers gevonden!
   </span>
 </mat-list>
 
 <mat-list *ngIf="!loading && sharedUsers.length !== 0">
   <h2>Gedeelde werknemers</h2>
-  <mat-list-item *ngFor="let user of sharedUsers">
+  <mat-list-item *ngFor="let user of sharedUsers | searchFilter: searchText : 'name'"  routerLink="/hrm/werknemers/{{user.email}}">
     <mat-card class="w-100 h-100">
       <mat-icon >account_circle</mat-icon> <span>{{user.name}}</span>
       <mat-card-subtitle>
         {{user.email}}
       </mat-card-subtitle>
     </mat-card>
-    <button mat-flat-button color="accent" class="end-btn" routerLink="/hrm/werknemers/{{user.email}}">
+    <button mat-flat-button color="accent" class="end-btn">
       <mat-icon>edit</mat-icon>
     </button>
-
   </mat-list-item>
+  <span *ngIf="(sharedUsers | searchFilter: searchText: 'name').length === 0">
+    Geen gebruikers gevonden!
+  </span>
 </mat-list>

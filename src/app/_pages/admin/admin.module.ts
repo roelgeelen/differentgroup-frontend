@@ -21,6 +21,8 @@ import {RolesComponent} from './roles/roles.component';
 import {MatTableModule} from "@angular/material/table";
 import {EditRoleComponent} from './roles/edit/edit-role.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import {FilterPipe} from "../../_helpers/filter.pipe";
+import {SharedModule} from "../../shared.module";
 
 @NgModule({
   imports: [
@@ -39,7 +41,8 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     MatProgressSpinnerModule,
     NgxEditorModule,
     MatTableModule,
-    DragDropModule
+    DragDropModule,
+    SharedModule
   ],
   declarations: [
     AdminComponent,

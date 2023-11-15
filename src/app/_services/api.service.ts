@@ -114,8 +114,8 @@ export class ApiService {
     return this.http.get<FirestoreUser>(`${environment.apiUrl}/hrm/users/${id}`);
   }
 
-  getUserConversations(userId: string) {
-    return this.http.get<FirestoreConversation[]>(`${environment.apiUrl}/hrm/users/${userId}/conversations`);
+  getUserConversations(userId: string, year: number) {
+    return this.http.get<FirestoreConversation[]>(`${environment.apiUrl}/hrm/users/${userId}/conversations?year=${year}`);
   }
 
   getUserConversation(userId: string, id: string) {

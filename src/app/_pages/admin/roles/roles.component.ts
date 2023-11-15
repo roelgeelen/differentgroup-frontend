@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ApiAdminService} from "../../../_services/api-admin.service";
 import {UserRoles} from "../../../_models/admin/UserRoles";
 
@@ -8,6 +8,7 @@ import {UserRoles} from "../../../_models/admin/UserRoles";
   styleUrls: ['./roles.component.scss']
 })
 export class RolesComponent implements OnInit {
+  searchText = '';
   loading = false;
   users: UserRoles[] = [];
   constructor(private apiService: ApiAdminService) { }
@@ -20,5 +21,7 @@ export class RolesComponent implements OnInit {
       this.loading = false;
     })
   }
+
+
 
 }

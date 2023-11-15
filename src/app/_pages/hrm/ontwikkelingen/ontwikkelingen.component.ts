@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from "../../../_services/api.service";
 import {GraphUser} from "../../../_models/hrm/GraphUser";
 import {FirestoreUser} from "../../../_models/hrm/FirestoreUser";
@@ -9,7 +9,7 @@ import {FirestoreUser} from "../../../_models/hrm/FirestoreUser";
   styleUrls: ['./ontwikkelingen.component.scss']
 })
 export class OntwikkelingenComponent implements OnInit {
-
+  searchText = '';
   loading = false;
   graphUsers: GraphUser[] = [];
   sharedUsers: FirestoreUser[] = [];
@@ -30,5 +30,4 @@ export class OntwikkelingenComponent implements OnInit {
       this.loading = false;
     })
   }
-
 }

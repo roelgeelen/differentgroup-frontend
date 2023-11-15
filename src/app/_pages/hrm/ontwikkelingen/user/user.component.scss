@@ -14,9 +14,7 @@
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
-button {
-  height: 100%;
-}
+
 .published{
   height: 100%;
   width: 50px;
@@ -33,6 +31,9 @@ mat-list-item {
   &.disabled {
     pointer-events: none;
     cursor: default;
+  }
+  button {
+    height: 100%;
   }
 }
 ::ng-deep .mat-list-item-content {

@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ApiService} from "../../../_services/api.service";
-import {MAT_DATE_RANGE_SELECTION_STRATEGY} from "@angular/material/datepicker";
-import {CustomDateAdapter} from "../../verkoop/afspraken/custom-date-formatter.provider";
 import {addDays, subDays} from "date-fns";
-import {DateAdapter} from "@angular/material/core";
-import {AddDaysRangeSelectionStrategy} from "../../../_helpers/addDaysRangeSelection.strategy";
 import {DatePipe} from "@angular/common";
 import {ControlTable} from "../../../_models/pages/ControlTable";
 import {ApiStockroomService} from "../../../_services/api-stockroom.service";
