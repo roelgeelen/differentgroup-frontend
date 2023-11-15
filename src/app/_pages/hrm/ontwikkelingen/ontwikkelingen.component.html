@@ -19,6 +19,7 @@
         {{user.userPrincipalName}}
       </mat-card-subtitle>
     </mat-card>
+    <div *ngIf="user.totalOpen!=0" [matBadge]="user.totalOpen" matBadgePosition="before" class="total-open" matBadgeSize="medium" matBadgeColor="warn"></div>
     <button mat-flat-button color="accent" class="end-btn">
       <mat-icon>edit</mat-icon>
     </button>
@@ -38,6 +39,7 @@
         {{user.email}}
       </mat-card-subtitle>
     </mat-card>
+    <div *ngIf="user.totalOpen!=0" [matBadge]="user.totalOpen" matBadgePosition="before" class="total-open" matBadgeSize="medium" matBadgeColor="warn"></div>
     <button mat-flat-button color="accent" class="end-btn">
       <mat-icon>edit</mat-icon>
     </button>

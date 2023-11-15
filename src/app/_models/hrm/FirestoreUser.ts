@@ -6,6 +6,7 @@ export class FirestoreUser {
   additional_managers: string[];
   last_login: string;
   tokens: string[];
+  totalOpen: number;
 
   constructor() {
   }

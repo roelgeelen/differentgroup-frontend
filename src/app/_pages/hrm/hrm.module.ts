@@ -20,6 +20,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import {MatBadgeModule} from "@angular/material/badge";
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatSlideToggleModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatBadgeModule,
   ],
   declarations: [
     HrmComponent,

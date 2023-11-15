@@ -17,6 +17,7 @@ mat-list-item {
   border-radius: 4px;
   margin-bottom: 10px;
   cursor: pointer;
+  background-color: white;
 }
 ::ng-deep .mat-list-item-content {
   padding: 0 !important;
@@ -25,9 +26,14 @@ mat-card {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   padding: 14px;
+  box-shadow: none !important;
   span {
     padding: 5px;
     position: relative;
     top: -6px;
   }
+}
+
+.total-open {
+  width: 30px;
 }

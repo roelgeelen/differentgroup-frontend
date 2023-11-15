@@ -19,15 +19,24 @@ export class OntwikkelingenComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.apiService.getDirectReports().subscribe(u => {
-      console.log(u);
       this.graphUsers = u;
+      this.graphUsers.forEach(u => {
+        this.apiService.getUserOpenConversations(u.userPrincipalName).subscribe((r) => {
+          u.totalOpen = r.length;
+        })
+      })
       this.graphUsers.sort((a,b) => a.displayName.localeCompare(b.displayName));
       this.loading = false;
     })
     this.apiService.getSharedUsers().subscribe(u => {
-      console.log(u);
-      this.sharedUsers = u;
+      this.sharedUsers = u
+      this.sharedUsers.forEach(fb => {
+        this.apiService.getUserOpenConversations(fb.email).subscribe((r) => {
+          fb.totalOpen = r.length;
+        })
+      })
       this.loading = false;
     })
   }
+
 }
