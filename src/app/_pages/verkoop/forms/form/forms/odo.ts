@@ -161,15 +161,6 @@ export const algemeen: QuestionBase<string>[] = [
       }
     ]
   }),
-  new RadioQuestion({
-    key: 'definitieve_bestelmaat',
-    label: 'Definitieve bestelmaat',
-    options: [
-      {value: 'Ja'},
-      {value: 'Nee'}
-    ],
-    validators: [Validators.required]
-  }),
   new TextQuestion({
     label: 'Offerte afmetingen (in mm)',
     fields: [
@@ -765,6 +756,15 @@ export const inmeten: QuestionBase<string>[] = [
         validators: [Validators.max(2500)]
       }
     ]
+  }),
+  new RadioQuestion({
+    key: 'definitieve_bestelmaat',
+    label: 'Definitieve bestelmaat',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee'}
+    ],
+    validators: [Validators.required]
   }),
   new RadioQuestion({
     key: 'deur_bestellen',
