@@ -22,6 +22,12 @@
   }
 }
 
+::ng-deep {
+  .mat-tab-label {
+    flex: 1;
+  }
+}
+
 div.fullscreen {
   position: fixed;
   top: 0;
@@ -65,12 +71,12 @@ div.fullscreen {
       width: 100%;
       text-align: center;
 
-        .mat-form-field {
-          width: 100%;
-          padding: 0 20px;
-          margin: 10px 0 -10px 0;
-          font-weight: bold;
-        }
+      .mat-form-field {
+        width: 100%;
+        padding: 0 20px;
+        margin: 10px 0 -10px 0;
+        font-weight: bold;
+      }
 
       h1 {
         font-weight: 500;

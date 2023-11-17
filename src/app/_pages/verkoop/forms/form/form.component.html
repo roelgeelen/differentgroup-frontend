@@ -38,7 +38,7 @@
     </div>
 
     <form [formGroup]="form" *ngIf="dealConfig.values.dealname !== undefined && form">
-      <mat-tab-group [(selectedIndex)]="tabIndex" *ngIf="!page.customer || isADMIN">
+      <mat-tab-group [(selectedIndex)]="tabIndex" *ngIf="!page.customer || isADMIN" [disableRipple]="false">
         <mat-tab *ngFor="let tab of page.form" [label]="tab.label">
           <div class="form-content">
             <app-question *ngFor="let question of tab.questions" [question]="question" [form]="form"

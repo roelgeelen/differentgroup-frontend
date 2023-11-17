@@ -8,6 +8,7 @@ import {ldh} from "../form/forms/ldh";
 import {hpt} from "../form/forms/hpt";
 import {odht} from "../form/forms/odht";
 import {files} from "../form/forms/files";
+import {gevel} from "../form/forms/gevel";
 
 export const forms: {[key in FormsEnum]: FormPage} = {
   odo: {
@@ -73,5 +74,13 @@ export const forms: {[key in FormsEnum]: FormPage} = {
     duration: 0,
     customer: false,
     form: files
+  },
+  gevel: {
+    title: 'Gevelbekleding',
+    type: FormsEnum.gevel,
+    articles: [],
+    duration: 0,
+    customer: true,
+    form: gevel
   }
 }

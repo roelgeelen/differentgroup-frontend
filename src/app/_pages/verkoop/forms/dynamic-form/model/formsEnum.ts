@@ -7,4 +7,5 @@ export enum FormsEnum {
   hpt = 'hpt',
   odht = 'odht',
   files = 'files',
+  gevel = 'gevel',
 }

@@ -233,18 +233,18 @@ export const buiten: QuestionBase<string>[] = [
       {field:'aantal_vleugels', values: ['2 vleugels']}
     ]
   }),
-  new RadioQuestion({
-    key: 'inclusief_besturing',
-    label: 'Inclusief besturing',
-    options: [
-      {value: 'Ja', article: {sku:'SDH214', order:100}},
-      {value: 'Nee'},
-    ],
-    value: 'Nee',
-    dependent: [
-      {field:'electrisch_motorslot', values: ['Ja', 'Ja met sluitlijst']}
-    ]
-  }),
+  // new RadioQuestion({
+  //   key: 'inclusief_besturing',
+  //   label: 'Inclusief besturing',
+  //   options: [
+  //     {value: 'Ja', article: {sku:'SDH214', order:100}},
+  //     {value: 'Nee'},
+  //   ],
+  //   value: 'Nee',
+  //   dependent: [
+  //     {field:'electrisch_motorslot', values: ['Ja', 'Ja met sluitlijst']}
+  //   ]
+  // }),
   new TextQuestion({
     label: 'Hoogte kabel doorvoer',
     fields: [

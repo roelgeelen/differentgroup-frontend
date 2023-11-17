@@ -57,6 +57,15 @@ export const sales: QuestionBase<string>[] = [
   }),
 ];
 export const algemeen: QuestionBase<string>[] = [
+  new RadioQuestion({
+    key:'afwijkend_adres',
+    label:'Afwijkend montage adres',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee'}
+    ],
+    validators: [Validators.required]
+  }),
   new TextQuestion({
     label: 'Afwijkend montage adres',
     fields: [
@@ -74,6 +83,12 @@ export const algemeen: QuestionBase<string>[] = [
         key: 'montage_plaats',
         label: 'Plaats',
         type: 'text'
+      }
+    ],
+    dependent: [
+      {
+        field: 'afwijkend_adres',
+        values: ['Ja']
       }
     ]
   }),
@@ -232,18 +247,6 @@ export const buiten: QuestionBase<string>[] = [
       {value: 'Nee'},
     ]
   }),
-  new RadioQuestion({
-    key: '',//
-    label: 'Inclusief besturing',
-    options: [
-      {value: 'Ja', article: {sku: 'SDH214', order:100}},
-      {value: 'Nee'},
-    ],
-    value: 'Nee',
-    dependent: [
-      {field:'electrisch_motorslot', values: ['Ja']}
-    ]
-  }),
   new TextQuestion({
     label: 'Hoogte kabel doorvoer',
     fields: [
@@ -353,7 +356,8 @@ export const binnen: QuestionBase<string>[] = [
     options: [
       {value: 'Vlakke plaat transparant behandeld'},
       {value: 'Vlakke plaat op RAL'},
-      {value: 'Bekleed zoals de buitenkant', article: {sku: 'VDH600', order:100}},
+      {value: 'Bekleed zoals de buitenkant ( >2.5 m2 )', article: {sku: 'VDH600', order:100}},
+      {value: 'Bekleed zoals de buitenkant ( <2.5 m2 )', article: {sku: 'VDH601', order:100}},
     ]
   }),
   new TextQuestion({

@@ -44,7 +44,7 @@ export class OverviewComponent implements OnInit {
     },
     {
       name: 'Overige',
-      items: ['files']
+      items: ['gevel', 'files']
     }
   ]
 
