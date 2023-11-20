@@ -35,8 +35,8 @@ export class ApiService {
     return this.http.get(`${environment.apiUrl}/profile/avatar`, {observe: 'response', responseType: 'blob'});
   }
 
-  getPosts(page: number, size: number) {
-    return this.http.get<any>(`${environment.apiUrl}/posts?page=${page}&size=${size}`)
+  getPosts(page: number, size: number, unPublished: boolean = false) {
+    return this.http.get<any>(`${environment.apiUrl}/posts?page=${page}&size=${size}&unPublished=${unPublished}`)
   }
 
   savePost(post: Post, file: File): Observable<HttpEvent<{}>> {
@@ -44,6 +44,8 @@ export class ApiService {
     formdata.append('file', file);
     formdata.append('title', post.title);
     formdata.append('content', post.message);
+    // @ts-ignore
+    formdata.append('published', post.published);
     const req = new HttpRequest('POST', `${environment.apiUrl}/posts`, formdata, {
       reportProgress: true,
       responseType: 'text'
@@ -72,6 +74,8 @@ export class ApiService {
     formdata.append('file', file);
     formdata.append('title', post.title);
     formdata.append('content', post.message);
+    // @ts-ignore
+    formdata.append('published', post.published);
     const req = new HttpRequest('PUT', `${environment.apiUrl}/posts/${post.id}`, formdata, {
       reportProgress: true,
       responseType: 'text'

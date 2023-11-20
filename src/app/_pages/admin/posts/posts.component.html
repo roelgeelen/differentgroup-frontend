@@ -9,15 +9,12 @@
   <mat-spinner></mat-spinner>
 </div>
 <mat-list *ngIf="!loading">
-  <mat-list-item *ngFor="let post of posts">
+  <mat-list-item *ngFor="let post of posts" routerLink="/admin/nieuws/{{post.id}}/update">
     <mat-card class="w-100 h-100">
-      <mat-icon *ngIf="post.image">image</mat-icon> <span>{{post.title}} / <small class="text-muted">{{post.date | date: 'dd-MM-yyyy'}}</small></span>
+      <mat-icon *ngIf="post.image">image</mat-icon> <span>{{post.title}} / <small class="text-muted">{{post.date | date: 'dd-MM-yyyy'}}</small></span><span *ngIf="post.published" class="published-label"><mat-icon>check</mat-icon> gepubliceerd</span>
     </mat-card>
-    <button mat-flat-button color="accent" class="middle-btn" routerLink="/admin/nieuws/{{post.id}}/update">
+    <button mat-flat-button color="accent" class="end-btn">
       <mat-icon>edit</mat-icon>
-    </button>
-    <button mat-flat-button color="accent" class="end-btn" (click)="delete(post)">
-      <mat-icon>delete</mat-icon>
     </button>
   </mat-list-item>
   <span *ngIf="posts.length === 0">

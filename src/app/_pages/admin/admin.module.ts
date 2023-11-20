@@ -23,27 +23,29 @@ import {EditRoleComponent} from './roles/edit/edit-role.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {FilterPipe} from "../../_helpers/filter.pipe";
 import {SharedModule} from "../../shared.module";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatIconModule,
-    MatCardModule,
-    MatListModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    NgxEditorModule,
-    MatTableModule,
-    DragDropModule,
-    SharedModule
-  ],
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatIconModule,
+        MatCardModule,
+        MatListModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
+        NgxEditorModule,
+        MatTableModule,
+        DragDropModule,
+        SharedModule,
+        MatSlideToggleModule
+    ],
   declarations: [
     AdminComponent,
     DashboardComponent,

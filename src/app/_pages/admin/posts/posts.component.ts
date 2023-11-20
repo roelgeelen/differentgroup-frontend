@@ -16,29 +16,9 @@ export class PostsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.apiService.getPosts(0, 10).subscribe(p => {
+    this.apiService.getPosts(0, 10, true).subscribe(p => {
       this.posts = p.content;
       this.loading = false;
     })
   }
-
-  delete(post: Post) {
-    this.apiService.deletePost(post.id).subscribe(r => {
-      if (r.type === HttpEventType.UploadProgress) {
-        // @ts-ignore
-        this.loading = true;
-      } else if (r instanceof HttpResponse) {
-        this.removeFromList(post)
-        this.loading = false;
-      }
-    })
-  }
-
-  removeFromList(post: Post) {
-    const index: number = this.posts.indexOf(post);
-    if (index !== -1) {
-      this.posts.splice(index, 1);
-    }
-  }
-
 }
