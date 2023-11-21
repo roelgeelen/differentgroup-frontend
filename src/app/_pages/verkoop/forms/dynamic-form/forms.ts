@@ -46,7 +46,7 @@ export const forms: {[key in FormsEnum]: FormPage} = {
   vdh: {
     title: 'Houten voordeur',
     type: FormsEnum.vdh,
-    articles: [],
+    articles: [{sku:'SDH600', order:100}],
     duration: 0,
     customer: true,
     form: vdh

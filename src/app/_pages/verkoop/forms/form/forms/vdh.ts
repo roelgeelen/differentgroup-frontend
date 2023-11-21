@@ -389,6 +389,9 @@ export const deur: QuestionBase<string>[] = [
     options: [
       {value: 'Linkerzijde '},
       {value: 'Rechterzijde'}
+    ],
+    dependent: [
+      {field:'aantal_vleugels', values: ['1 vleugel']}
     ]
   }),
   new RadioQuestion({
@@ -565,8 +568,8 @@ export const montage: QuestionBase<string>[] = [
     label: 'Bestaande deur',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Demontage DD'},
-      {value: 'Afvoer DD'},
+      {value: 'Demontage DD', article: {sku:'SDH601', order:100}},
+      {value: 'Afvoer DD', article: {sku:'SDH602', order:100}},
       {value: 'Demontage door klant'},
       {value: 'Afvoer door klant'}
     ]
@@ -609,6 +612,14 @@ export const overige: QuestionBase<string>[] = [
   new TextareaQuestion({
     key: 'overige_opmerkingen_intern',
     label: 'Interne opmerkingen'
+  }),
+  new RadioQuestion({
+    key: 'type_engineering',
+    label: 'Type',
+    options: [
+      {value: 'Standaard', article: {sku:'SDH500', order:100}},
+      {value: 'Special', article: {sku:'SDH501', order:100}}
+    ]
   }),
   new UploadQuestion({
     key: 'inmeet',
