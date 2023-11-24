@@ -94,7 +94,7 @@ export class ConversationComponent implements OnInit {
       this.conversation.createdBy = "users/" + this.currentUser.email;
       this.apiService.createUserConversation(this.queryParamUserId, this.conversation).subscribe(c => {
         this.conversation = c;
-        this.location.replaceState(`/hrm/werknemers/${this.queryParamUserId}/ontwikkelingen/${this.conversation.id}/update`);
+        this.location.replaceState(`/hrm/medewerkers/${this.queryParamUserId}/ontwikkelingen/${this.conversation.id}/update`);
         this.queryParam = c.id
         this.isEditing = false;
         this.loading = false;
@@ -142,7 +142,7 @@ export class ConversationComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.apiService.deleteUserConversation(this.queryParamUserId, conversation.id).subscribe(r => {
-          this.router.navigateByUrl('/hrm/werknemers/'+ this.queryParamUserId)
+          this.router.navigateByUrl('/hrm/medewerkers/'+ this.queryParamUserId)
         })
       }
     });

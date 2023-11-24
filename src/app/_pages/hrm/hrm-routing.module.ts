@@ -18,7 +18,7 @@ const routes: Routes = [
       //   canActivate: [AuthGuard],
       // },
       {
-        path: 'werknemers',
+        path: 'medewerkers',
         component: OntwikkelingenComponent,
         canActivate: [AuthGuard],
         data: {
@@ -28,7 +28,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'werknemers/:userId',
+        path: 'medewerkers/:userId',
         component: UserComponent,
         canActivate: [AuthGuard],
         data: {
@@ -38,7 +38,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'werknemers/:userId/ontwikkelingen/create',
+        path: 'medewerkers/:userId/ontwikkelingen/create',
         component: ConversationComponent,
         canActivate: [AuthGuard],
         data: {
@@ -48,7 +48,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'werknemers/:userId/ontwikkelingen/:id/update',
+        path: 'medewerkers/:userId/ontwikkelingen/:id/update',
         component: ConversationComponent,
         canActivate: [AuthGuard],
         data: {

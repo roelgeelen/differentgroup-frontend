@@ -155,8 +155,8 @@ export const navConfig: Page[] = [
     icon: 'supervised_user_circle',
     pages: [
       {
-        url: '/hrm/werknemers',
-        title: 'Werknemers',
+        url: '/hrm/medewerkers',
+        title: 'Medewerkers',
         icon: 'group',
         roles: [
           EnumRoles.ONTWIKKELINGEN_BEHEREN
