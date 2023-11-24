@@ -81,6 +81,7 @@ export class ConversationComponent implements OnInit {
     }
     this.loading = true;
     if (this.queryParam) {
+      this.conversation.createdAt = null;
       this.apiService.updateUserConversation(this.queryParamUserId!, this.queryParam!, this.conversation).subscribe(s => {
         this.getConversation()
         this.loading = false;
