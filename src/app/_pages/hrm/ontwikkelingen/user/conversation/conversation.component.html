@@ -1,11 +1,11 @@
 <mat-card *ngIf="!loading">
   <div class="d-flex justify-content-between">
     <mat-card-title>
-      {{queryParam ? conversation.title : 'Nieuwe ontwikkeling'}}
+      {{ queryParam ? conversation.title : 'Nieuwe ontwikkeling' }}
     </mat-card-title>
     <div>
       <button mat-flat-button color="accent" (click)="isEditing=true"
-              *ngIf="!isEditing && !conversation.isApproved && conversation.createdBy.replace('users/', '')===currentUser.email">
+              *ngIf="!isEditing && conversation.createdBy.replace('users/', '')===currentUser.email">
         Bewerken
         <mat-icon>edit</mat-icon>
       </button>
@@ -22,16 +22,21 @@
   <hr>
 
   <mat-card-content>
+    <ng-container *ngIf="isEditing">
+      <mat-slide-toggle class="mb-3" [(ngModel)]="conversation.isConfidential">Vertrouwelijk</mat-slide-toggle>
+    </ng-container>
     <ng-container *ngIf="!isEditing">
       <div class="pb-3">
         <span *ngIf="conversation.isConfidential" class="confidential-label"><mat-icon>lock</mat-icon> Vertrouwelijk</span>
       </div>
+    </ng-container>
+    <ng-container *ngIf="!isEditing || conversation.isApproved">
       <div class="d-flex justify-content-between">
         <mat-chip-list>
-          <mat-chip color="primary" selected *ngIf="conversation.isRead">Gelezen</mat-chip>
-          <mat-chip color="primary" selected *ngIf="conversation.isApproved">Akkoord</mat-chip>
+          <mat-chip color="primary" [selected]="true" *ngIf="conversation.isRead">Gelezen</mat-chip>
+          <mat-chip color="primary" [selected]="true" *ngIf="conversation.isApproved">Akkoord</mat-chip>
         </mat-chip-list>
-        <mat-slide-toggle [(ngModel)]="conversation.isPublished" (change)="publish($event)">Gepubliceerd
+        <mat-slide-toggle  *ngIf="!isEditing" [(ngModel)]="conversation.isPublished" (change)="publish($event)">Gepubliceerd
         </mat-slide-toggle>
       </div>
       <br>
@@ -42,8 +47,7 @@
       </div>
       <div [innerHTML]="conversation.body | safeHtml" class="message"></div>
     </ng-container>
-    <ng-container *ngIf="isEditing">
-      <mat-slide-toggle class="mb-3" [(ngModel)]="conversation.isConfidential">Vertrouwelijk</mat-slide-toggle>
+    <ng-container *ngIf="isEditing && !conversation.isApproved">
       <mat-form-field appearance="fill">
         <mat-label>Titel</mat-label>
         <input matInput [(ngModel)]="conversation.title">
@@ -91,10 +95,10 @@
           <button mat-flat-button color="accent" (click)="save()">
             Opslaan
           </button>
-          <mat-error *ngIf="error != ''">{{error}}</mat-error>
+          <mat-error *ngIf="error != ''">{{ error }}</mat-error>
         </div>
         <div *ngIf="queryParam">
-          <button mat-flat-button color="warn" (click)="delete(conversation)">
+          <button *ngIf="!conversation.isApproved" mat-flat-button color="warn" (click)="delete(conversation)">
             Verwijderen
           </button>
           <button mat-flat-button (click)="isEditing=false;getConversation();">

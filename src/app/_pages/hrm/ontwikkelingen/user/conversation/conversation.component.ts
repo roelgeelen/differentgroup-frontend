@@ -107,26 +107,25 @@ export class ConversationComponent implements OnInit {
   }
 
   publish($event: MatSlideToggleChange) {
-    this.conversation.isPublished = $event.checked;
-    if (this.conversation.isPublished) {
-      Swal.fire({
-        title: 'Weet je het zeker?',
-        text: 'Wil je deze ontwikkeling publiceren?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#2e3785',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ja, publiceren!',
-        cancelButtonText: 'Annuleren',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.save();
+    Swal.fire({
+      title: 'Weet je het zeker?',
+      text: $event.checked ? 'Wil je deze ontwikkeling publiceren?' : 'Wil je deze ontwikkeling terughalen?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2e3785',
+      cancelButtonColor: '#d33',
+      confirmButtonText: $event.checked? 'Ja, publiceren!' : 'Ja, terughalen!',
+      cancelButtonText: 'Annuleren',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.conversation.isPublished = $event.checked;
+        this.conversation.isApproved=false;
+        this.conversation.isRead=false;
+        this.save();
+        if ($event.checked)
           this.apiService.postFirebaseNotification('Nieuwe ontwikkeling', `${this.currentUser.name} heeft een nieuwe ontwikkeling voor je klaargezet.`, 'conversation_updates', '/profile/conversations', [this.queryParamUserId]).subscribe();
-        }
-      });
-    } else {
-      this.save();
-    }
+      }
+    });
   }
 
   delete(conversation: FirestoreConversation) {
@@ -142,7 +141,7 @@ export class ConversationComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.apiService.deleteUserConversation(this.queryParamUserId, conversation.id).subscribe(r => {
-          this.router.navigateByUrl('/hrm/medewerkers/'+ this.queryParamUserId)
+          this.router.navigateByUrl('/hrm/medewerkers/' + this.queryParamUserId)
         })
       }
     });
