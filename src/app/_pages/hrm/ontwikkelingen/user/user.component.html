@@ -18,7 +18,7 @@
   <hr>
   <h3>Gedeeld met:</h3>
   <mat-chip-list>
-    <mat-chip color="primary" selected *ngFor="let manager of user.additional_managers" [selectable]="false"
+    <mat-chip color="primary" [selected]="true" *ngFor="let manager of user.additional_managers" [selectable]="false"
               [removable]="true"
               (removed)="removeSharedUser(manager)">{{manager}}
       <mat-icon matChipRemove>cancel</mat-icon>
@@ -59,8 +59,11 @@
     <mat-form-field appearance="fill" class="h-100">
       <mat-label>Selecteer een jaar</mat-label>
       <input matInput type="text" [matDatepicker]="picker" [(ngModel)]="date" disabled>
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="date!=null" (click)="date=null; getConversations()">
+        <mat-icon>close</mat-icon>
+      </button>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event, picker)" disabled="false"></mat-datepicker>
+      <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event, picker)" [disabled]="false"></mat-datepicker>
     </mat-form-field>
     </div>
   </div>

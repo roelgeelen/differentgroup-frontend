@@ -27,7 +27,7 @@ export const GRI_DATE_FORMATS: MatDateFormats = {
   ]
 })
 export class UserComponent implements OnInit {
-  date: Date = addDays(new Date(), 1);
+  date: Date | null = addDays(new Date(), 1);
   searchText = '';
   currentUser: User;
   loading = false;
@@ -62,9 +62,8 @@ export class UserComponent implements OnInit {
 
   getConversations() {
     this.loadingConversations = true;
-    this.apiService.getUserConversations(this.userId, this.date.getFullYear()).subscribe((conversations) => {
+    this.apiService.getUserConversations(this.userId, this.date?.getFullYear() ?? 0).subscribe((conversations) => {
         this.conversations = conversations;
-        console.log(conversations)
         this.loadingConversations = false
       }
     )

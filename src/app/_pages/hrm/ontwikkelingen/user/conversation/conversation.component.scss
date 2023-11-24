@@ -33,12 +33,12 @@ mat-progress-bar {
 }
 
 .NgxEditor__Wrapper {
-  height: 300px;
+  min-height: 100px;
   margin-bottom: 20px;
 }
 
 ::ng-deep .NgxEditor__Content {
-  height: 260px;
+  min-height: 60px;
   overflow: auto;
 }
 

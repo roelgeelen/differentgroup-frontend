@@ -118,7 +118,7 @@ export class ApiService {
     return this.http.get<FirestoreUser>(`${environment.apiUrl}/hrm/users/${id}`);
   }
 
-  getUserConversations(userId: string, year: number) {
+  getUserConversations(userId: string, year: number = 0) {
     return this.http.get<FirestoreConversation[]>(`${environment.apiUrl}/hrm/users/${userId}/conversations?year=${year}`);
   }
 
@@ -133,6 +133,7 @@ export class ApiService {
   updateUserConversation(userId: string, id: string, conversation: FirestoreConversation) {
     return this.http.put(`${environment.apiUrl}/hrm/users/${userId}/conversations/${id}`, conversation);
   }
+
   createUserConversation(userId: string, conversation: FirestoreConversation) {
     return this.http.post<FirestoreConversation>(`${environment.apiUrl}/hrm/users/${userId}/conversations`, conversation);
   }
