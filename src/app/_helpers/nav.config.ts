@@ -142,6 +142,14 @@ export const navConfig: Page[] = [
         roles: [
           EnumRoles.FINANCIEEL
         ]
+      },
+      {
+        url: '/rapportage/financieelold',
+        title: 'Financieel (oud)',
+        icon: 'attach_money',
+        roles: [
+          EnumRoles.FINANCIEEL
+        ]
       }
     ],
     roles: [

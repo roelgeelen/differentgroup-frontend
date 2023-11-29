@@ -5,6 +5,7 @@ import {AuthGuard} from "../../_helpers/auth.guard";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {EnumRoles} from "../../_models/enum/enumRoles";
 import {FinancieelComponent} from "./Financieel/financieel.component";
+import {FinancieelOldComponent} from "./Financieel-old/financieel-old.component";
 
 const routes: Routes = [
   {
@@ -24,6 +25,16 @@ const routes: Routes = [
       {
         path: 'financieel',
         component: FinancieelComponent,
+        canActivate: [AuthGuard],
+        data: {
+          roles: [
+            EnumRoles.FINANCIEEL,
+          ]
+        }
+      },
+      {
+        path: 'financieelold',
+        component: FinancieelOldComponent,
         canActivate: [AuthGuard],
         data: {
           roles: [
