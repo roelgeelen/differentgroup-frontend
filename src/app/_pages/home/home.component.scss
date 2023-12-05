@@ -55,6 +55,10 @@ app-weather-widget {
 }
 strong {
   color: #334d9c;
+  a{
+    color: #334d9c !important;
+    text-decoration: none;
+  }
 }
 @media only screen and (max-width: 678px) {
   h1{
