@@ -194,13 +194,13 @@ export const algemeen: QuestionBase<string>[] = [
         key: 'links',
         label: 'Links',
         type: 'number',
-        validators: [Validators.required, Validators.max(1500)]
+        validators: [Validators.max(1500)]
       },
       {
         key: 'rechts',
         label: 'Rechts',
         type: 'number',
-        validators: [Validators.required, Validators.max(1500)]
+        validators: [Validators.max(1500)]
       }
     ],
     dependent: [{
