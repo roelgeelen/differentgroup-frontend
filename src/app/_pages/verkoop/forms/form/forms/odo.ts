@@ -452,7 +452,23 @@ export const deur: QuestionBase<string>[] = [
     other: true,
     custom: ' ',
     value: ['Cilinder leveren door DD (incl. drie sleutels)']
-  })
+  }),
+  new TextQuestion({
+    label: 'Extra sleutel',
+    fields: [
+      {
+        key: 'extra_sleutel',
+        label: 'Aantal',
+        type: 'number'
+      }
+    ],
+    dependent: [
+      {
+        field: 'cilinder',
+        values: ['Extra sleutel']
+      }
+    ]
+  }),
 ]
 export const glas: QuestionBase<string>[] = [
   new RadioQuestion({
