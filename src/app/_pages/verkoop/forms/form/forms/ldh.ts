@@ -197,8 +197,8 @@ export const buiten: QuestionBase<string>[] = [
   // }),
   new RadioQuestion(
     {
-      key:'',
-      label:'Deurbeslag',
+      key:'toegang',
+      label:'Toegang',
       options: [
         {value:'Kruk/kruk'},
         {value:'Kruk/greep'},
@@ -210,7 +210,7 @@ export const buiten: QuestionBase<string>[] = [
   ),
   new RadioQuestion(
     {
-      key:'',
+      key:'antipaniek',
       label:'Antipaniek',
       options: [
         {value:'Ja'},

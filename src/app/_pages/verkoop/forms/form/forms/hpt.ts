@@ -247,11 +247,37 @@ export const buiten: QuestionBase<string>[] = [
       {value: 'Nee'},
     ]
   }),
+  new RadioQuestion(
+    {
+      key:'toegang',
+      label:'Toegang',
+      options: [
+        {value:'Kruk/kruk'},
+        {value:'Kruk/greep'},
+      ],
+      dependent: [
+        {field:'electrisch_motorslot', values: ['Ja']}
+      ]
+    }
+  ),
+  new RadioQuestion(
+    {
+      key:'antipaniek',
+      label:'Antipaniek',
+      options: [
+        {value:'Ja'},
+        {value:'Nee'},
+      ],
+      dependent: [
+        {field:'electrisch_motorslot', values: ['Ja']}
+      ]
+    }
+  ),
   new TextQuestion({
     label: 'Hoogte kabel doorvoer',
     fields: [
       {
-        key: '',//
+        key: 'hoogte_kabel_doorvoer',
         label: 'Hoogte',
         type: 'number'
       }
