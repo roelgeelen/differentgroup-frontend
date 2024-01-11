@@ -512,7 +512,7 @@ export const deur: QuestionBase<string>[] = [
     ]
   }),
   new RadioQuestion({
-    key: '',//
+    key: 'cilinder_type',
     label: 'Type',
     options: [
       {value: 'Standaard'},
@@ -636,7 +636,7 @@ export const overige: QuestionBase<string>[] = [
 ]
 export const inmeten: QuestionBase<string>[] = [
   new TextareaQuestion({
-    key: '',//
+    key: 'vrije_ruimte_onder_pijl',
     label: 'Vrije ruimte onder pijl'
   }),
 ]
