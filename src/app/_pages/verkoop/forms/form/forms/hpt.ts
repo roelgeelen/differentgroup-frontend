@@ -279,7 +279,7 @@ export const buiten: QuestionBase<string>[] = [
       {
         key: 'hoogte_kabel_doorvoer',
         label: 'Hoogte',
-        type: 'number'
+        type: 'text'
       }
     ],
     dependent: [
