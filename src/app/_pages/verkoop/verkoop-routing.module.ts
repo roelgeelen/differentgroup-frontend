@@ -7,12 +7,23 @@ import {InmetenComponent} from "./inmeten/inmeten.component";
 import {EnumRoles} from "../../_models/enum/enumRoles";
 import {FormComponent} from "./forms/form/form.component";
 import {OverviewComponent} from "./forms/overview/overview.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 const routes: Routes = [
   {
     path: '',
     component: VerkoopComponent,
     children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [AuthGuard],
+        data: {
+          roles: [
+            EnumRoles.INMETEN,
+          ]
+        },
+      },
       {
         path: 'afspraken',
         component: AfsprakenComponent,

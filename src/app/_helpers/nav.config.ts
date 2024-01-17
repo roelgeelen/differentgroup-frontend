@@ -26,10 +26,18 @@ export const navConfig: Page[] = [
       {
         url: '/verkoop/formulier',
         title: 'Formulieren',
-        icon: 'dashboard',
+        icon: 'description',
         roles: [
           EnumRoles.FORMULIEREN,
           EnumRoles.FORMULIEREN_KLANT,
+        ]
+      },
+      {
+        url: '/verkoop/dashboard',
+        title: 'Dashboard',
+        icon: 'dashboard',
+        roles: [
+          EnumRoles.INMETEN,
         ]
       }
     ],

@@ -38,6 +38,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {EventInfoDialogComponent} from "./afspraken/event-info-dialog/event-info-dialog.component";
 import {SharedModule} from "../../shared.module";
 import { DndDirective } from '../../_helpers/dnd.directive';
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 @NgModule({
   imports: [
@@ -77,6 +78,7 @@ import { DndDirective } from '../../_helpers/dnd.directive';
     MatAutocompleteModule,
   ],
   declarations: [
+    DashboardComponent,
     VerkoopComponent,
     InmetenComponent,
     AfsprakenComponent,

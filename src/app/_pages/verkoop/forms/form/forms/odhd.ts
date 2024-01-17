@@ -78,6 +78,16 @@ export const sales: QuestionBase<string>[] = [
   }),
 ]
 export const algemeen: QuestionBase<string>[] = [
+  new RadioQuestion({
+    key:'afwijkend_adres',
+    label:'Afwijkend montage adres',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee'},
+      {value: 'Zie andere bon'},
+    ],
+    validators: [Validators.required]
+  }),
   new TextQuestion({
     label: 'Afwijkend montage adres',
     fields: [
@@ -95,6 +105,12 @@ export const algemeen: QuestionBase<string>[] = [
         key: 'montage_plaats',
         label: 'Plaats',
         type: 'text'
+      }
+    ],
+    dependent: [
+      {
+        field: 'afwijkend_adres',
+        values: ['Ja']
       }
     ]
   }),
@@ -117,7 +133,7 @@ export const algemeen: QuestionBase<string>[] = [
       {
         key: 'uitvoerder_telefoon',
         label: 'Telefoon',
-        type: 'number',
+        type: 'tel',
       },
       {
         key: 'uitvoerder_email',
@@ -144,7 +160,7 @@ export const algemeen: QuestionBase<string>[] = [
       {
         key: 'projectleider_telefoon',
         label: 'Telefoon',
-        type: 'number'
+        type: 'tel'
       },
       {
         key: 'projectleider_email',
@@ -469,7 +485,7 @@ export const glas: QuestionBase<string>[] = [
     ]
   }),
   new TextQuestion({
-    label: 'Horizontaal - Netto glasmaat breedte (in mm)',
+    label: 'Netto glasmaat breedte (in mm)',
     fields: [
       {
         key: 'netto_glasmaat',
@@ -494,7 +510,7 @@ export const glas: QuestionBase<string>[] = [
     ]
   }),
   new TextQuestion({
-    label: 'Verticaal - Netto glasmaat hoogte (in mm)',
+    label: 'Netto glasmaat hoogte (in mm)',
     fields: [
       {
         key: 'netto_glasmaat',

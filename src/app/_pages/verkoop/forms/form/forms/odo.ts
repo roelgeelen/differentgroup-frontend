@@ -118,7 +118,7 @@ export const algemeen: QuestionBase<string>[] = [
       {
         key: 'uitvoerder_telefoon',
         label: 'Telefoon',
-        type: 'number',
+        type: 'tel',
       },
       {
         key: 'uitvoerder_email',
@@ -145,7 +145,7 @@ export const algemeen: QuestionBase<string>[] = [
       {
         key: 'projectleider_telefoon',
         label: 'Telefoon',
-        type: 'number'
+        type: 'tel'
       },
       {
         key: 'projectleider_email',

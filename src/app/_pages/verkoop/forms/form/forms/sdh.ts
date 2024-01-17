@@ -64,7 +64,8 @@ export const algemeen: QuestionBase<string>[] = [
     label:'Afwijkend montage adres',
     options: [
       {value: 'Ja'},
-      {value: 'Nee'}
+      {value: 'Nee'},
+      {value: 'Zie andere bon'},
     ],
     validators: [Validators.required]
   }),
@@ -113,7 +114,7 @@ export const algemeen: QuestionBase<string>[] = [
       {
         key: 'uitvoerder_telefoon',
         label: 'Telefoon',
-        type: 'number',
+        type: 'tel',
       },
       {
         key: 'uitvoerder_email',
@@ -140,7 +141,7 @@ export const algemeen: QuestionBase<string>[] = [
       {
         key: 'projectleider_telefoon',
         label: 'Telefoon',
-        type: 'number'
+        type: 'tel'
       },
       {
         key: 'projectleider_email',
@@ -166,7 +167,7 @@ export const algemeen: QuestionBase<string>[] = [
       {
         key: 'eindklant_telefoon',
         label: 'Telefoon',
-        type: 'number'
+        type: 'tel'
       },
       {
         key: 'eindklant_email',
@@ -264,6 +265,7 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: 'Accoya', article: {sku:'SDH400', order:100}},
       {value: 'Meranti', article: {sku:'SDH400', order:100}},
       {value: 'Fraké', article: {sku:'SDH400', order:100}},
+      {value: 'Vergrijst essen', article: {sku:'SDH400', order:100}},
       {value: 'Aangeleverde delen'}
     ],
     other: true,
@@ -314,6 +316,17 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: 'Transparant (Tweemaal gegrond)'},
       {value: 'Aangeleverde delen behandeld door klant'},
       {value: 'Dekkend (Tweemaal gegrond)'},
+      {value: 'Proefstaal (ter goedkeuring aan klant voorleggen'},
+    ]
+  }),
+  new TextareaQuestion({
+    key: 'opmerkingen_proefstaal',
+    label: 'Opmerkingen proefstaal',
+    dependent: [
+      {
+        field:'behandeling',
+        values:['Proefstaal (ter goedkeuring aan klant voorleggen']
+      }
     ]
   }),
   new RadioQuestion({
@@ -447,7 +460,7 @@ export const binnenzijde: QuestionBase<string>[] = [
     label: 'Motor',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Plafond motor 230 V', article: {sku:'SDH200', order:100}},
+      {value: 'Plafond motor 230 V (tot 5000mm deurbreedte)', article: {sku:'SDH200', order:100}},
       {value: 'Freq. gestuurde plafond motor 230 V (Blauwe CE stekker)', article: {sku:'SDH212', order:100}},
       {value: 'As motor 380 V', article: {sku:'SDH201', order:100}},
       {value: 'Freq. gestuurde as motor 230 V (Blauwe CE stekker)', article: {sku:'SDH201', order:100}},
@@ -464,7 +477,7 @@ export const binnenzijde: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'motor',
-        values: ['Plafond motor 230 V']
+        values: ['Plafond motor 230 V (tot 5000mm deurbreedte)']
       }
     ]
   }),
@@ -511,38 +524,55 @@ export const deur: QuestionBase<string>[] = [
   }),
   new RadioQuestion({
     key: 'bekleding_rondom',
-    label: 'Bekleding rondom',
+    label: 'Bekleding rondom (Links)',
     options: [
-      {value: 'Zetkappen bekleed door aannemer'},
-      {value: 'Zetkap bovenzijde door Different Doors, zijkanten door de aannemer.'},
-      {value: 'Zetkappen rondom bekleed door Different Doors (zetkap breedte).'},
+      {value: 'Door Different Doors'},
+      {value: 'Door klant'}
     ],
     dependent: [
       {
-        field: 'positie',
-        values: ['Gelijk met de wand']
+        field: 'gelijk_met_de_wand',
+        values: ['Links']
       }
     ]
   }),
   new RadioQuestion({
-    key: 'isolatie_in_de_deur',
-    label: 'Isolatie in de deur',
+    key: 'bekleding_rondom_boven',
+    label: 'Bekleding rondom (Boven)',
     options: [
-      {value: 'N.v.t.'},
-      {value: 'Ja'},
-      {value: 'Nee'}
+      {value: 'Door Different Doors'},
+      {value: 'Door klant'}
+    ],
+    dependent: [
+      {
+        field: 'gelijk_met_de_wand',
+        values: ['Boven']
+      }
     ]
   }),
   new RadioQuestion({
-    key: 'isoleren_van_gevel',
-    label: 'Isoleren van gevel',
+    key: 'bekleding_rondom_rechts',
+    label: 'Bekleding rondom (Rechts)',
     options: [
-      {value: 'N.v.t.'},
-      {value: 'Door Different Doors aanleveren + aanbrengen + uitstroken'},
-      {value: 'Door klant aan te brengen'},
-      {value: 'Door klant aan te leveren, door Different Doors aanbrengen'},
+      {value: 'Door Different Doors'},
+      {value: 'Door klant'}
+    ],
+    dependent: [
+      {
+        field: 'gelijk_met_de_wand',
+        values: ['Rechts']
+      }
     ]
   }),
+  // new RadioQuestion({
+  //   key: 'isolatie_in_de_deur',
+  //   label: 'Isolatie in de deur',
+  //   options: [
+  //     {value: 'N.v.t.'},
+  //     {value: 'Ja'},
+  //     {value: 'Nee'}
+  //   ]
+  // }),
   new CheckboxQuestion({
     key: 'buiten_bediening',
     label: 'Buiten bediening',
@@ -684,6 +714,22 @@ export const gevelbekleding: QuestionBase<string>[] = [
     other: true,
     custom: ''
   }),
+  new RadioQuestion({
+    key: 'isoleren_van_gevel',
+    label: 'Isoleren van gevel (laatste 55mm wordt door DD aangebracht)',
+    options: [
+      {value: 'N.v.t.'},
+      {value: 'Door Different Doors aanleveren + aanbrengen + uitstroken'},
+      {value: 'Door klant aan te brengen'},
+      {value: 'Door klant aan te leveren, door Different Doors aanbrengen'},
+    ],
+    dependent: [
+      {
+        field: 'aanbrengen_gevelbekleding',
+        values: ['Gevelbekleding gemonteerd door Different Doors (zie gele arcering)']
+      }
+    ]
+  }),
   new TableQuestion({
     key: 'gevel_afmetingen',
     label: 'Afmetingen (in mm)',
@@ -697,20 +743,47 @@ export const gevelbekleding: QuestionBase<string>[] = [
     dependent: [
       {
         field: 'aanbrengen_gevelbekleding',
-        values: ['Gevelbekleding geproduceerd en gemonteerd door Different Doors (zie gele arcering)', 'Gevelbekleding los geleverd (montage door klant), enkel de stalen zethoeken worden door Different Doors bekleed', 'Gevelbekleding los geleverd (montage door klant)']
+        values: ['Gevelbekleding gemonteerd door Different Doors (zie gele arcering)', 'Gevelbekleding los geleverd (montage door klant)']
       }
     ]
   }),
   new CalculationQuestion({
-    label: 'Aantal m2:',
-    value: '(this.form.controls[\'gevel_afmetingen\'].value.reduce((sum, current) => sum + parseInt(current.breedte), 0) / 1000) * (this.form.controls[\'gevel_afmetingen\'].value.reduce((sum, current) => sum + parseInt(current.hoogte), 0) / 1000)',
+    label: 'Totaal gevelbekleding m2:',
+    value: '(this.form.controls[\'gevel_afmetingen\'].value.reduce( (sum, current) => sum + (parseInt(current.breedte) / 1000) * (parseInt(current.hoogte) / 1000), 0))',
     dependent: [
       {
         field: 'aanbrengen_gevelbekleding',
-        values: ['Gevelbekleding geproduceerd en gemonteerd door Different Doors (zie gele arcering)', 'Gevelbekleding los geleverd (montage door klant), enkel de stalen zethoeken worden door Different Doors bekleed', 'Gevelbekleding los geleverd (montage door klant)']
+        values: ['Gevelbekleding gemonteerd door Different Doors (zie gele arcering)', 'Gevelbekleding los geleverd (montage door klant)']
       }
     ]
-  })
+  }),
+  new CalculationQuestion({
+    label: 'Totaal deuren m2:',
+    value: '(this.form.controls[\'deur_afmetingen\'].value.reduce( (sum, current) => sum + (parseInt(current.breedte) / 1000) * (parseInt(current.hoogte) / 1000), 0))+\' minus zetkappen \'+(this.form.controls[\'deur_afmetingen\'].value.reduce((sum, current) => sum + ((parseInt(current.breedte) - 280) / 1000) * ((parseInt(current.hoogte) - 250) / 1000), 0)).toFixed(2)',
+    dependent: [
+      {
+        field: 'aanbrengen_gevelbekleding',
+        values: ['Gevelbekleding gemonteerd door Different Doors (zie gele arcering)', 'Gevelbekleding los geleverd (montage door klant)']
+      }
+    ]
+  }),
+  new CalculationQuestion({
+    label: 'Totaal m2:',
+    value: '(\n' +
+      '  this.form.controls[\'gevel_afmetingen\'].value.reduce(\n' +
+      '    (sum, current) => sum + (parseInt(current.breedte) / 1000) * (parseInt(current.hoogte) / 1000), 0\n' +
+      '  ) -\n' +
+      '  this.form.controls[\'deur_afmetingen\'].value.reduce(\n' +
+      '    (sum, current) => sum + ((parseInt(current.breedte) - 280) / 1000) * ((parseInt(current.hoogte) - 250) / 1000), 0\n' +
+      '  )\n' +
+      ').toFixed(2)',
+    dependent: [
+      {
+        field: 'aanbrengen_gevelbekleding',
+        values: ['Gevelbekleding gemonteerd door Different Doors (zie gele arcering)', 'Gevelbekleding los geleverd (montage door klant)']
+      }
+    ]
+  }),
 ];
 
 export const montage: QuestionBase<string>[] = [
@@ -722,6 +795,7 @@ export const montage: QuestionBase<string>[] = [
       {value: 'Hoogwerker door DD', article: {sku:'SDH603', order:100}},
       {value: 'Verticaal transport door DD', article: {sku:'SDH604', order:100}},
       {value: 'Steiger door DD', article: {sku:'SDH605', order:100}},
+      {value: 'Hoogwerker door klant'},
       {value: 'Verticaal transport door klant'},
       {value: 'Steiger door klant'},
     ],

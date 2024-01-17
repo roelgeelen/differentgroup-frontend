@@ -62,7 +62,8 @@ export const algemeen: QuestionBase<string>[] = [
     label:'Afwijkend montage adres',
     options: [
       {value: 'Ja'},
-      {value: 'Nee'}
+      {value: 'Nee'},
+      {value: 'Zie andere bon'},
     ],
     validators: [Validators.required]
   }),
@@ -111,7 +112,7 @@ export const algemeen: QuestionBase<string>[] = [
       {
         key: 'uitvoerder_telefoon',
         label: 'Telefoon',
-        type: 'number',
+        type: 'tel',
       },
       {
         key: 'uitvoerder_email',
@@ -138,7 +139,7 @@ export const algemeen: QuestionBase<string>[] = [
       {
         key: 'projectleider_telefoon',
         label: 'Telefoon',
-        type: 'number'
+        type: 'tel'
       },
       {
         key: 'projectleider_email',
@@ -214,6 +215,7 @@ export const buiten: QuestionBase<string>[] = [
       {value: 'Accoya'},
       {value: 'Meranti'},
       {value: 'Fraké'},
+      {value: 'Vergrijst essen'},
       {value: 'Aangeleverde delen'}
     ],
     other: true,
@@ -254,6 +256,7 @@ export const buiten: QuestionBase<string>[] = [
       options: [
         {value:'Kruk/kruk'},
         {value:'Kruk/greep'},
+        {value:'Binnenzijde kruk/buitenzijde blind'},
       ],
       dependent: [
         {field:'electrisch_motorslot', values: ['Ja']}
@@ -319,6 +322,17 @@ export const buiten: QuestionBase<string>[] = [
       {value: 'Transparant (Tweemaal gegrond)'},
       {value: 'Aangeleverde delen behandeld door klant'},
       {value: 'Dekkend (Tweemaal gegrond)'},
+      {value: 'Proefstaal (ter goedkeuring aan klant voorleggen'},
+    ]
+  }),
+  new TextareaQuestion({
+    key: 'opmerkingen_proefstaal',
+    label: 'Opmerkingen proefstaal',
+    dependent: [
+      {
+        field:'behandeling',
+        values:['Proefstaal (ter goedkeuring aan klant voorleggen']
+      }
     ]
   }),
   new RadioQuestion({

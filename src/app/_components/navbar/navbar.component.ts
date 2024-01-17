@@ -6,7 +6,6 @@ import {ApiService} from "../../_services/api.service";
 import {OAuthService} from "angular-oauth2-oidc";
 import {DomSanitizer} from "@angular/platform-browser";
 import {navConfig} from "../../_helpers/nav.config";
-import {EnumRoles} from "../../_models/enum/enumRoles";
 import {NestedTreeControl} from "@angular/cdk/tree";
 import {MatTreeNestedDataSource} from "@angular/material/tree";
 import {MatMenuTrigger} from "@angular/material/menu";
