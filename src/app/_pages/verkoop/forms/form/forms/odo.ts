@@ -282,7 +282,7 @@ export const buitenzijde: QuestionBase<string>[] = [
       {value: '3005', image: 'assets/forms/odo/colors/ral3005.jpg'},
       {value: '3020', image: 'assets/forms/odo/colors/ral3020.jpg'},
       {value: '5009', image: 'assets/forms/odo/colors/ral5009.jpg'},
-      {value: '5011', image: 'assets/forms/odo/colors/ral5011.jpg'},
+      // {value: '5011', image: 'assets/forms/odo/colors/ral5011.jpg'},
       {value: '5015', image: 'assets/forms/odo/colors/ral5015.jpg'},
       {value: '6005', image: 'assets/forms/odo/colors/ral6005.jpg'},
       {value: '6009', image: 'assets/forms/odo/colors/ral6009.jpg'},
