@@ -324,7 +324,7 @@ export const buitenzijde: QuestionBase<string>[] = [
     fields: [
       {
         key: 'deur_ral',
-        label: 'Deur RAL in structuurlak',
+        label: 'Deur RAL',
         type: 'text',
         validators: [Validators.required]
       },
