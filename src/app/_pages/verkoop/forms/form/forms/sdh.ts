@@ -258,19 +258,38 @@ export const buitenzijde: QuestionBase<string>[] = [
     key: 'houtsoort',
     label: 'Houtsoort',
     options: [
-      {value: 'Red cedar', article: {sku:'SDH400', order:100}},
-      {value: 'Eiken', article: {sku:'SDH400', order:100}},
-      {value: 'Afrormosia', article: {sku:'SDH400', order:100}},
-      {value: 'Mahonie', article: {sku:'SDH400', order:100}},
-      {value: 'Accoya', article: {sku:'SDH400', order:100}},
-      {value: 'Meranti', article: {sku:'SDH400', order:100}},
-      {value: 'Fraké', article: {sku:'SDH400', order:100}},
-      {value: 'Vergrijst essen', article: {sku:'SDH400', order:100}},
-      {value: 'Aangeleverde delen'}
+      {value: 'Red cedar', article: {sku:'SDH414', order:100}},
+      {value: 'Barnwood', article: {sku:'SDH415', order:100}},
+      {value: 'Eiken', article: {sku:'SDH416', order:100}},
+      {value: 'Afrormosia', article: {sku:'SDH411', order:100}},
+      {value: 'Mahonie', article: {sku:'SDH418', order:100}},
+      {value: 'Accoya', article: {sku:'SDH410', order:100}},
+      {value: 'Meranti', article: {sku:'SDH412', order:100}},
+      {value: 'Thermo Radiata Pine', article: {sku:'SDH413', order:100}},
+      {value: 'Fraké', article: {sku:'SDH419', order:100}},
+      {value: 'Vergrijst essen', article: {sku:'SDH417', order:100}},
+      {value: 'Anders', article: {sku:'SDH400', order:100}},
+      {value: 'Aangeleverde delen'},
     ],
     other: true,
     toDeal: true,
     custom: ''
+  }),
+  new TextQuestion({
+    label: 'Houtsoort anders',
+    fields: [
+      {
+        key: 'houtsoort_anders',
+        label: 'Houtsoort',
+        type: 'text'
+      }
+    ],
+    dependent: [
+      {
+        field:'houtsoort',
+        values:['Anders']
+      }
+    ]
   }),
   new RadioQuestion({
     key: 'model',
@@ -863,6 +882,30 @@ export const overige: QuestionBase<string>[] = [
     options: [
       {value: 'Standaard', article: {sku:'SDH500', order:100}},
       {value: 'Special', article: {sku:'SDH501', order:100}}
+    ]
+  }),
+  new RadioQuestion({
+    key: 'onderhoudscontract',
+    label: 'Onderhoudscontract',
+    options: [
+      {value: 'Ja'},
+      {value: 'Nee'}
+    ]
+  }),
+  new RadioQuestion({
+    key: 'onderhoudscontract_aantal',
+    label: 'Aantal deuren',
+    options: [
+      {value: '1', article: {sku:'SER001', order:100}},
+      {value: '2', article: {sku:'SER002', order:100}},
+      {value: '3', article: {sku:'SER003', order:100}},
+      {value: '4', article: {sku:'SER004', order:100}},
+    ],
+    dependent: [
+      {
+        field:'onderhoudscontract',
+        values:['Ja']
+      }
     ]
   })
 ];
