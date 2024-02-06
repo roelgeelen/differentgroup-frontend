@@ -767,7 +767,7 @@ export const gevelbekleding: QuestionBase<string>[] = [
     ]
   }),
   new CalculationQuestion({
-    label: 'Totaal gevelbekleding m2:',
+    label: 'Totaal wand m2:',
     value: '(this.form.controls[\'gevel_afmetingen\'].value.reduce( (sum, current) => sum + (parseInt(current.breedte) / 1000) * (parseInt(current.hoogte) / 1000), 0))',
     dependent: [
       {
@@ -777,8 +777,8 @@ export const gevelbekleding: QuestionBase<string>[] = [
     ]
   }),
   new CalculationQuestion({
-    label: 'Totaal deuren m2:',
-    value: '(this.form.controls[\'deur_afmetingen\'].value.reduce( (sum, current) => sum + (parseInt(current.breedte) / 1000) * (parseInt(current.hoogte) / 1000), 0))+\' minus zetkappen \'+(this.form.controls[\'deur_afmetingen\'].value.reduce((sum, current) => sum + ((parseInt(current.breedte) - 280) / 1000) * ((parseInt(current.hoogte) - 250) / 1000), 0)).toFixed(2)',
+    label: 'Totaal deur m2:',
+    value: '(this.form.controls[\'deur_afmetingen\'].value.reduce((sum, current) => sum + ((parseInt(current.breedte) - 280) / 1000) * ((parseInt(current.hoogte) - 250) / 1000), 0)).toFixed(2)',
     dependent: [
       {
         field: 'aanbrengen_gevelbekleding',
@@ -787,7 +787,7 @@ export const gevelbekleding: QuestionBase<string>[] = [
     ]
   }),
   new CalculationQuestion({
-    label: 'Totaal m2:',
+    label: 'Totaal gevelwerk m2:',
     value: '(\n' +
       '  this.form.controls[\'gevel_afmetingen\'].value.reduce(\n' +
       '    (sum, current) => sum + (parseInt(current.breedte) / 1000) * (parseInt(current.hoogte) / 1000), 0\n' +
