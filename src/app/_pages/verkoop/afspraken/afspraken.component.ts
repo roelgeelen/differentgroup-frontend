@@ -85,6 +85,18 @@ const calendars: Calendar[] = [
     type: 'openslaande',
     events: [],
     appointments: []
+  },
+  {
+    name: 'Boy van der Velde',
+    id: '1654221499',
+    icon: 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png',
+    color: {
+      primary: '#fd9801',
+      secondary: '#ffeed1'
+    },
+    type: 'openslaande',
+    events: [],
+    appointments: []
   }
 ];
 
