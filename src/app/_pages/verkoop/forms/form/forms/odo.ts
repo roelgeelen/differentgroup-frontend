@@ -174,7 +174,7 @@ export const algemeen: QuestionBase<string>[] = [
         key: 'offerte_hoogte',
         label: 'Hoogte',
         type: 'number',
-        validators: [Validators.required, Validators.max(2500)]
+        validators: [Validators.required, Validators.max(2550)]
       }
     ]
   }),
@@ -737,7 +737,7 @@ export const inmeten: QuestionBase<string>[] = [
         key: 'analoog_hoogte',
         label: 'Hoogte',
         type: 'number',
-        validators: [Validators.max(2500)]
+        validators: [Validators.max(2550)]
       }
     ]
   }),
@@ -754,7 +754,7 @@ export const inmeten: QuestionBase<string>[] = [
         key: 'digitaal_hoogte',
         label: 'Hoogte',
         type: 'number',
-        validators: [Validators.max(2500)]
+        validators: [Validators.max(2550)]
       }
     ]
   }),
@@ -771,7 +771,7 @@ export const inmeten: QuestionBase<string>[] = [
         key: 'hoogte',
         label: 'Hoogte',
         type: 'number',
-        validators: [Validators.max(2500)]
+        validators: [Validators.max(2550)]
       }
     ]
   }),
