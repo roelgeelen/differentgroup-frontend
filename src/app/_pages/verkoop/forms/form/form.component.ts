@@ -213,7 +213,7 @@ export class FormComponent implements OnInit {
     let articles = [...this.page.articles];
     // ODO
     if (this.page.type == FormsEnum.odo) {
-      const maat = Math.ceil((((this.dealConfig.values.offerte_breedte < 2000 ? 2000 : this.dealConfig.values.offerte_breedte) - 2000) / 100) + 1) + (Math.ceil(((this.dealConfig.values.offerte_hoogte < 2000 ? 2000 : this.dealConfig.values.offerte_hoogte) - 2000) / 100) * 11)
+      const maat = Math.ceil((((this.dealConfig.values.offerte_breedte < 2000 ? 2000 : this.dealConfig.values.offerte_breedte) - 2000) / 100) + 1) + (Math.ceil(((this.dealConfig.values.offerte_hoogte < 2000 ? 2000 : this.dealConfig.values.offerte_hoogte) - 2000) / 100) * 12)
       return [...articles, {sku:'ODO0' + ('0' + maat).slice(-2), order:20}, {sku:'ODO' + (maat + 99), order:20}];
     }
 
