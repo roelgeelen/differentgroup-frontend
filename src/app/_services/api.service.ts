@@ -27,7 +27,7 @@ export class ApiService {
     return this.http.get<Vehicle[]>(`${environment.apiUrl}/tracking/vehicles?organisation=${organisation}`);
   }
 
-  getBirthdays() {
+  getEvents() {
     return this.http.get<Event[]>(`${environment.apiUrl}/profile/events?size=6`);
   }
 

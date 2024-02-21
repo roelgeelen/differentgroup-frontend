@@ -17,7 +17,7 @@ export class CalendarWidgetComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true
-    this.apiService.getBirthdays().subscribe(e => {
+    this.apiService.getEvents().subscribe(e => {
       this.events = e
       console.log(e)
       this.loading = false;
