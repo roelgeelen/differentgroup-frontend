@@ -28,7 +28,7 @@ export class ApiService {
   }
 
   getBirthdays() {
-    return this.http.get<Event[]>(`${environment.apiUrl}/profile/birthdays`);
+    return this.http.get<Event[]>(`${environment.apiUrl}/profile/events?size=6`);
   }
 
   getProfilePicture(): Observable<HttpResponse<Blob>> {

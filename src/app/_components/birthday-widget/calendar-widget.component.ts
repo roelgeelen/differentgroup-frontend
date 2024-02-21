@@ -5,23 +5,21 @@ import {Event} from "../../_models/calendar/Event";
 
 @Component({
   selector: 'app-birthday-widget',
-  templateUrl: './birthday-widget.component.html',
-  styleUrls: ['./birthday-widget.component.scss']
+  templateUrl: './calendar-widget.component.html',
+  styleUrls: ['./calendar-widget.component.scss']
 })
-export class BirthdayWidgetComponent implements OnInit {
-  @ViewChild('bdayElem') el:ElementRef;
-  timer: any;
+export class CalendarWidgetComponent implements OnInit {
   loading = false;
-  bdays: Event[] = [];
+  events: Event[] = [];
   error: string;
-  year = (new Date()).getFullYear();
 
   constructor(@Inject(ApiService)private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.loading = true
     this.apiService.getBirthdays().subscribe(e => {
-      this.bdays = e
+      this.events = e
+      console.log(e)
       this.loading = false;
     }, error => {
       this.error = "Je hebt nog geen toegang tot deze kalender";
@@ -35,5 +33,9 @@ export class BirthdayWidgetComponent implements OnInit {
 
   toInt(year: any) {
     return year
+  }
+
+  isBirthday(event: Event) {
+    return event.categories.includes('Verjaardag')
   }
 }

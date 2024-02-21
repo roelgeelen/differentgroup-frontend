@@ -1,0 +1,33 @@
+<mat-card class="mt-2">
+  <mat-card-title><mat-icon>cake</mat-icon> Verjaardagen</mat-card-title>
+  <mat-card-content>
+    <div class="text-center w-100" *ngIf="loading">
+      <mat-spinner></mat-spinner>
+    </div>
+    <mat-error *ngIf="error">{{error}}</mat-error>
+    <div class="cal-list">
+      <div *ngFor="let event of events" class="cal-item d-flex" [class.today]="isToday(event.start.dateTime)" [class.bday]="isBirthday(event)">
+        <div class="text-center date">
+          <div class="month mat-accent strong">
+            {{event.start.dateTime | date: 'MMM'}}
+          </div>
+          <div class="day">
+            {{event.start.dateTime | date: 'd'}}
+          </div>
+        </div>
+        <div class="cal-user">
+          <h2>
+            {{event.subject}}
+          </h2>
+          <ng-container *ngIf="isBirthday(event)">
+            {{toInt(event.start.dateTime | date: 'yyyy') - event.bodyPreview}} jaar
+          </ng-container>
+          <ng-container *ngIf="!isBirthday(event)">
+            {{event.bodyPreview}}
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

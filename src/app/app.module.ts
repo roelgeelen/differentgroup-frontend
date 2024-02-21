@@ -19,7 +19,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {CommonModule, registerLocaleData} from "@angular/common";
 import localeNl from '@angular/common/locales/nl';
 import {NavbarComponent} from './_components/navbar/navbar.component';
-import {BirthdayWidgetComponent} from './_components/birthday-widget/birthday-widget.component';
+import {CalendarWidgetComponent} from './_components/birthday-widget/calendar-widget.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatTreeModule} from "@angular/material/tree";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
@@ -39,7 +39,7 @@ registerLocaleData(localeNl);
     HomeComponent,
     WeatherWidgetComponent,
     NavbarComponent,
-    BirthdayWidgetComponent,
+    CalendarWidgetComponent,
     BlogPostComponent,
     WallofshameComponent,
   ],
