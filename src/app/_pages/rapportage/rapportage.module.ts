@@ -17,7 +17,6 @@ import {FinancieelComponent} from "./Financieel/financieel.component";
   declarations: [
     RapportageComponent,
     DashboardComponent,
-    FinancieelComponent,
     FinancieelComponent
   ],
   exports: [
