@@ -272,7 +272,8 @@ export const buitenzijde: QuestionBase<string>[] = [
     options: [
       {value: 'N.v.t.'},
       {value: 'Horizontale belijning'},
-      {value: 'Verticale belijning'}
+      {value: 'Verticale belijning'},
+      {value: 'Bossing paneel'}
     ]
   }),
   new RadioQuestion({
