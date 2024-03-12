@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl:"https://f76f-81-173-49-231.ngrok-free.app",
+  apiUrl:"https://api.differentgroup.nl/differentgroup",
 };
 
 /*
