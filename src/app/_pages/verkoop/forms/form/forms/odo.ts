@@ -77,6 +77,25 @@ export const sales: QuestionBase<string>[] = [
     toDeal: true,
     validators: [Validators.required]
   }),
+  new DropdownQuestion({
+    key: 'hoe_heeft_u_voor_het_eerst_over_ons_gehoord_',
+    label: 'Hoe heeft u voor het eerst over ons gehoord?',
+    options: [
+      {value: 'Aanbevolen door een vriend, familielid, buurman, collega ect.'},
+      {value: 'Door het lezen van een online artikel of blogpost'},
+      {value: 'Online advertentie'},
+      {value: 'Via architect, aannemer, bouwbegeleider'},
+      {value: 'Via een evenement of beurs'},
+      {value: 'Via lokale bekendheid'},
+      {value: 'Via radio of tv'},
+      {value: 'Via sociale media'},
+      {value: 'Via de bedrijfsbus'},
+      {value: 'Via een zoekmachine'},
+      {value: 'Via een publicatie in een magazine/krant'},
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
 ]
 export const algemeen: QuestionBase<string>[] = [
   new TextQuestion({
@@ -642,7 +661,7 @@ export const afwerking: QuestionBase<string>[] = [
       {value: 'Klant kiest voor geen binnenaftimmering'},
       {value: 'Enkel tussen kozijn en muur afpurren'},
       {
-        value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 80mm breed)',
+        value: 'Multipaint d.m.v. lijstje rondom (exclusief schilderen, lijstje van max 70mm breed)',
         article: {sku:'ODO405', order:30},
         duration: 30
       },

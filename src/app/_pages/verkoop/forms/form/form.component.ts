@@ -226,10 +226,10 @@ export class FormComponent implements OnInit {
           maat++;
         }
         if (this.form.controls['type_sectionaaldeur'].value != 'Zijwaartse sectionaaldeur') {
-          articles.push({sku:'SDH' + (maat + 100), order:100})
-          articles.push({sku:'SDH0' + ('0' + maat).slice(-2), order:100});
+          articles.push({sku:'SDH' + (maat + 100), order:1})
+          articles.push({sku:'SDH0' + ('0' + maat).slice(-2), order:1});
         } else {
-          articles.push({sku:'ZDH0' + ('0' + maat).slice(-2), order:100});
+          articles.push({sku:'ZDH0' + ('0' + maat).slice(-2), order:1});
         }
       }
     }

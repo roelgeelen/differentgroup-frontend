@@ -6,6 +6,7 @@ import {CheckboxQuestion} from "../../dynamic-form/controls/question-checkbox";
 import {UploadQuestion} from "../../dynamic-form/controls/question-upload";
 import {TextareaQuestion} from "../../dynamic-form/controls/question-textarea";
 import {Validators} from "@angular/forms";
+import {DropdownQuestion} from "../../dynamic-form/controls/question-dropdown";
 
 export const sales: QuestionBase<string>[] = [
   new CheckboxQuestion({
@@ -51,6 +52,25 @@ export const sales: QuestionBase<string>[] = [
       {value: '60-70'},
       {value: '70 >'},
       {value: 'Niet bekend'},
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new DropdownQuestion({
+    key: 'hoe_heeft_u_voor_het_eerst_over_ons_gehoord_',
+    label: 'Hoe heeft u voor het eerst over ons gehoord?',
+    options: [
+      {value: 'Aanbevolen door een vriend, familielid, buurman, collega ect.'},
+      {value: 'Door het lezen van een online artikel of blogpost'},
+      {value: 'Online advertentie'},
+      {value: 'Via architect, aannemer, bouwbegeleider'},
+      {value: 'Via een evenement of beurs'},
+      {value: 'Via lokale bekendheid'},
+      {value: 'Via radio of tv'},
+      {value: 'Via sociale media'},
+      {value: 'Via de bedrijfsbus'},
+      {value: 'Via een zoekmachine'},
+      {value: 'Via een publicatie in een magazine/krant'},
     ],
     toDeal: true,
     validators: [Validators.required]

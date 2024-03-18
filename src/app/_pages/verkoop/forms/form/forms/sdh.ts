@@ -8,6 +8,7 @@ import {UploadQuestion} from "../../dynamic-form/controls/question-upload";
 import {Validators} from "@angular/forms";
 import {CalculationQuestion} from "../../dynamic-form/controls/question-calc";
 import {TableQuestion} from "../../dynamic-form/controls/question-table";
+import {DropdownQuestion} from "../../dynamic-form/controls/question-dropdown";
 
 export const sales: QuestionBase<string>[] = [
   new CheckboxQuestion({
@@ -53,6 +54,25 @@ export const sales: QuestionBase<string>[] = [
       {value: '60-70'},
       {value: '70 >'},
       {value: 'Niet bekend'},
+    ],
+    toDeal: true,
+    validators: [Validators.required]
+  }),
+  new DropdownQuestion({
+    key: 'hoe_heeft_u_voor_het_eerst_over_ons_gehoord_',
+    label: 'Hoe heeft u voor het eerst over ons gehoord?',
+    options: [
+      {value: 'Aanbevolen door een vriend, familielid, buurman, collega ect.'},
+      {value: 'Door het lezen van een online artikel of blogpost'},
+      {value: 'Online advertentie'},
+      {value: 'Via architect, aannemer, bouwbegeleider'},
+      {value: 'Via een evenement of beurs'},
+      {value: 'Via lokale bekendheid'},
+      {value: 'Via radio of tv'},
+      {value: 'Via sociale media'},
+      {value: 'Via de bedrijfsbus'},
+      {value: 'Via een zoekmachine'},
+      {value: 'Via een publicatie in een magazine/krant'},
     ],
     toDeal: true,
     validators: [Validators.required]
@@ -222,7 +242,7 @@ export const algemeen: QuestionBase<string>[] = [
     label: 'Type sectionaaldeur',
     options: [
       {value: 'Sectionaaldeur'},
-      {value: 'Zijwaartse sectionaaldeur', article: {sku:'SDH300', order:100}}
+      {value: 'Zijwaartse sectionaaldeur', article: {sku:'SDH300', order:1}}
     ]
   }),
   new RadioQuestion({
@@ -231,7 +251,7 @@ export const algemeen: QuestionBase<string>[] = [
     options: [
       {value: 'Links'},
       {value: 'Rechts'},
-      {value: 'Beide', article: {sku:'SDH300', order:100}},
+      {value: 'Beide', article: {sku:'SDH300', order:1}},
     ],
     dependent: [
       {
@@ -479,18 +499,18 @@ export const binnenzijde: QuestionBase<string>[] = [
     label: 'Motor',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Plafond motor 230 V (tot 5000mm deurbreedte)', article: {sku:'SDH200', order:100}},
-      {value: 'Freq. gestuurde plafond motor 230 V (Blauwe CE stekker)', article: {sku:'SDH212', order:100}},
-      {value: 'As motor 380 V', article: {sku:'SDH201', order:100}},
-      {value: 'Freq. gestuurde as motor 230 V (Blauwe CE stekker)', article: {sku:'SDH201', order:100}},
+      {value: 'Plafond motor 230 V (tot 5000mm deurbreedte)', article: {sku:'SDH200', order:20}},
+      {value: 'Freq. gestuurde plafond motor 230 V (Blauwe CE stekker)', article: {sku:'SDH212', order:20}},
+      {value: 'As motor 380 V', article: {sku:'SDH201', order:20}},
+      {value: 'Freq. gestuurde as motor 230 V (Blauwe CE stekker)', article: {sku:'SDH201', order:20}},
     ]
   }),
   new RadioQuestion({
     key: 'stroom_plafond',
     label: 'Stroom plafond motor',
     options: [
-      {value: 'Door klant te voorzien', article: {sku:'SDH207', order:100}},
-      {value: 'Aanwezig op de juiste plaats', article: {sku:'SDH207', order:100}},
+      {value: 'Door klant te voorzien', article: {sku:'SDH207', order:20}},
+      {value: 'Aanwezig op de juiste plaats', article: {sku:'SDH207', order:20}},
     ],
     value: 'Door klant te voorzien',
     dependent: [
@@ -523,7 +543,7 @@ export const deur: QuestionBase<string>[] = [
     label: 'Positie',
     options: [
       {value: 'Achter de dag'},
-      {value: 'Gelijk met de wand', article: {sku:'SDH301', order:100}},
+      {value: 'Gelijk met de wand', article: {sku:'SDH301', order:10}},
     ]
   }),
   new CheckboxQuestion({
@@ -597,9 +617,9 @@ export const deur: QuestionBase<string>[] = [
     label: 'Buiten bediening',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Handzender', article: {sku:'SDH202', order:100}},
-      {value: 'Draadloos codeklavier', article: {sku:'SDH205', order:100}},
-      {value: 'Losse ontvanger', article: {sku:'SDH204', order:100}},
+      {value: 'Handzender', article: {sku:'SDH202', order:20}},
+      {value: 'Draadloos codeklavier', article: {sku:'SDH205', order:20}},
+      {value: 'Losse ontvanger', article: {sku:'SDH204', order:20}},
     ]
   }),
   new TextQuestion({
@@ -654,9 +674,9 @@ export const deur: QuestionBase<string>[] = [
     key: 'binnen_bediening',
     label: 'Binnen bediening',
     options: [
-      {value: 'Draadloze drukknop', article: {sku:'SDH203', order:100}},
+      {value: 'Draadloze drukknop', article: {sku:'SDH203', order:20}},
       {value: 'Op / Stop / Neer'},
-      {value: 'Domotica', article: {sku:'SDH208', order:100}},
+      {value: 'Domotica', article: {sku:'SDH208', order:20}},
       {value: 'Puls voorziening door de klant'},
     ]
   }),
@@ -674,6 +694,13 @@ export const deur: QuestionBase<string>[] = [
         field: 'binnen_bediening',
         values: ['Draadloze drukknop']
       }
+    ]
+  }),
+  new CheckboxQuestion({
+    key: 'besporken_doorrijhoogte',
+    label: 'Besproken doorrijhoogte (normaal inbouwhoogte - 330mm)',
+    options: [
+      {value: 'Ja'},
     ]
   }),
   new RadioQuestion({
@@ -896,10 +923,10 @@ export const overige: QuestionBase<string>[] = [
     key: 'onderhoudscontract_aantal',
     label: 'Aantal deuren',
     options: [
-      {value: '1', article: {sku:'SER001', order:100}},
-      {value: '2', article: {sku:'SER002', order:100}},
-      {value: '3', article: {sku:'SER003', order:100}},
-      {value: '4', article: {sku:'SER004', order:100}},
+      {value: '1', article: {sku:'SER001', order:110}},
+      {value: '2', article: {sku:'SER002', order:110}},
+      {value: '3', article: {sku:'SER003', order:110}},
+      {value: '4', article: {sku:'SER004', order:110}},
     ],
     dependent: [
       {
