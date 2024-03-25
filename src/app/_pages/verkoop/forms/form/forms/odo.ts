@@ -649,7 +649,8 @@ export const afwerking: QuestionBase<string>[] = [
       {value: 'N.v.t.'},
       {value: 'Uithakken vloer', article: {sku:'ODO403', order:10}, duration: 60},
       {value: 'Aansmeren vloer', article: {sku:'ODO404', order:100}, duration: 30},
-      {value: 'Natuursteen/DTS dorpel plaatsen', article: {sku:'ODO407', order:10}, duration: 60}
+      {value: 'Natuursteen/DTS dorpel plaatsen', article: {sku:'ODO407', order:10}, duration: 60},
+      {value: 'Betondorpel plaatsen', article: {sku:'ODO409', order:10}, duration: 30}
     ],
     value: ['N.v.t.']
   }),
@@ -682,7 +683,8 @@ export const afwerking: QuestionBase<string>[] = [
     label: 'Bouwkundig aanpassingen',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Door klant volgens details DD'}
+      {value: 'Door klant volgens details DD'},
+      {value: 'Keperframe plaatsen', article: {sku:'ODO410', order:100}, duration: 30}
     ],
     value: 'N.v.t.'
   })
