@@ -672,7 +672,8 @@ export const afwerking: QuestionBase<string>[] = [
     label: 'Bouwkundig aanpassingen',
     options: [
       {value: 'N.v.t.'},
-      {value: 'Door klant volgens details DD'}
+      {value: 'Door klant volgens details DD'},
+      {value: 'Keperframe plaatsen', article: {sku:'ODO410', order:100}, duration: 30}
     ],
     value: 'N.v.t.'
   })
