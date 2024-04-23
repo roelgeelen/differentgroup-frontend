@@ -6,7 +6,10 @@
       <mat-tree [dataSource]="page.pages" [treeControl]="treeControl" class="example-tree">
         <ng-container *matTreeNodeDef="let node">
           <mat-tree-node *ngIf="hasPermission(node.roles)" matTreeNodeToggle>
-            <a  mat-menu-item [routerLink]="node.url" (click)="closeMe(menuPages)">
+            <a *ngIf="!node.extern" mat-menu-item [routerLink]="node.url" (click)="closeMe(menuPages)">
+              <mat-icon>{{node.icon}}</mat-icon>
+              {{node.title}}</a>
+            <a *ngIf="node.extern" mat-menu-item [href]="node.url" target="_blank">
               <mat-icon>{{node.icon}}</mat-icon>
               {{node.title}}</a>
           </mat-tree-node>

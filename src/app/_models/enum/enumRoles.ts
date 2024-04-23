@@ -6,6 +6,7 @@
   PRODUCTIE = 'Productie',
   INMETEN = 'Inmeten',
   FORMULIEREN = 'Formulieren',
+  FORMULIEREN_BEHEREN = 'Formulieren_beheren',
   FORMULIEREN_KLANT = 'Formulieren_klant',
   TRACKING = 'Tracking',
   GEPRODUCEERD = 'Geproduceerd',

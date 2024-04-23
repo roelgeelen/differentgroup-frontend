@@ -33,6 +33,15 @@ export const navConfig: Page[] = [
         ]
       },
       {
+        extern: true,
+        url: 'https://wonderful-ground-054d07e03.4.azurestaticapps.net/customers',
+        title: 'Formulieren (V2)',
+        icon: 'description',
+        roles: [
+          EnumRoles.FORMULIEREN_BEHEREN,
+        ]
+      },
+      {
         url: '/verkoop/dashboard',
         title: 'Dashboard',
         icon: 'dashboard',
