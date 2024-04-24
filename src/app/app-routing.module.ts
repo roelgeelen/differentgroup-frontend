@@ -4,6 +4,8 @@ import {HomeComponent} from "./_pages/home/home.component";
 import {AuthGuard} from "./_helpers/auth.guard";
 import {EnumRoles} from "./_models/enum/enumRoles";
 import {WallofshameComponent} from "./_pages/wallofshame/wallofshame.component";
+import {RedirectGuard} from "./_helpers/redirect.guard";
+import {AdminComponent} from "./_pages/admin/admin.component";
 
 const routes: Routes = [
   {
@@ -19,6 +21,11 @@ const routes: Routes = [
         EnumRoles.WIDGETS
       ]
     },
+  },
+  {
+    path: "customers/:id",
+    component: HomeComponent,
+    canActivate: [RedirectGuard],
   },
   {
     path: 'verkoop',
