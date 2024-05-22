@@ -23,11 +23,6 @@ const routes: Routes = [
     },
   },
   {
-    path: "customers/:id",
-    component: HomeComponent,
-    canActivate: [RedirectGuard],
-  },
-  {
     path: 'verkoop',
     loadChildren: () => import('./_pages/verkoop/verkoop.module').then(m => m.VerkoopModule),
     canActivate: [AuthGuard],

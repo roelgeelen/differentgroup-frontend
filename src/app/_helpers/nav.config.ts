@@ -34,7 +34,7 @@ export const navConfig: Page[] = [
       },
       {
         extern: true,
-        url: 'https://wonderful-ground-054d07e03.4.azurestaticapps.net/customers',
+        url: 'https://differentgroup.nl/customers',
         title: 'Formulieren (V2)',
         icon: 'description',
         roles: [

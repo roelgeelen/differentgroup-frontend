@@ -33,18 +33,24 @@ export class OverviewComponent implements OnInit {
   loading = false;
   loadingC = false;
   new_form: string;
+  // selectForms: { name: string, items: string[] }[] = [
+  //   {
+  //     name: 'Onderhoudsarm',
+  //     items: ['odo']
+  //   },
+  //   {
+  //     name: 'Hout',
+  //     items: ['sdh', 'odhd', 'odht', 'vdh', 'ldh', 'hpt']
+  //   },
+  //   {
+  //     name: 'Overige',
+  //     items: ['gevel', 'files']
+  //   }
+  // ]
   selectForms: { name: string, items: string[] }[] = [
     {
-      name: 'Onderhoudsarm',
-      items: ['odo']
-    },
-    {
-      name: 'Hout',
-      items: ['sdh', 'odhd', 'odht', 'vdh', 'ldh', 'hpt']
-    },
-    {
       name: 'Overige',
-      items: ['gevel', 'files']
+      items: ['files']
     }
   ]
 

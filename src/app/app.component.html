@@ -1,12 +1,12 @@
 <div *ngIf="isUser">
-  <mat-toolbar color="primary">
-    <div fxShow="true" fxHide.gt-sm="true">
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
-    <app-navbar></app-navbar>
-  </mat-toolbar>
+<!--  <mat-toolbar color="primary">-->
+<!--    <div fxShow="true" fxHide.gt-sm="true">-->
+<!--      <button mat-icon-button (click)="sidenav.toggle()">-->
+<!--        <mat-icon>menu</mat-icon>-->
+<!--      </button>-->
+<!--    </div>-->
+<!--    <app-navbar></app-navbar>-->
+<!--  </mat-toolbar>-->
 
   <mat-sidenav-container fxFlexFill class="container">
     <mat-sidenav #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
@@ -40,13 +40,13 @@
         <router-outlet></router-outlet>
       </div>
       <!-- credits -->
-      <div class="footer">
-        <div id="development">
-          <a href="https://get.teamviewer.com/differentdoorsqs">
-            <span>Different group - v2.0</span> | <span>Support</span><br>
-          </a>
-        </div>
-      </div>
+<!--      <div class="footer">-->
+<!--        <div id="development">-->
+<!--          <a href="https://get.teamviewer.com/differentdoorsqs">-->
+<!--            <span>Different group - v2.0</span> | <span>Support</span><br>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </div>-->
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
